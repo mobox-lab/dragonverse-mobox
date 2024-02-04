@@ -1,0 +1,47 @@
+function removeStorage(type: 'localStorage' | 'sessionStorage', key: string) {
+  window[type].removeItem(key);
+}
+
+/**
+ * Operation Storage
+ */
+function setStorage(type: 'localStorage' | 'sessionStorage', key: string, value: any) {
+  window[type].setItem(key, JSON.stringify(value));
+}
+
+/**
+ * getStorage
+ */
+function getStorage(type: 'localStorage' | 'sessionStorage', key: string) {
+  const value = window[type].getItem(key);
+  try {
+    if (value) {
+      return JSON.parse(value);
+    } else {
+      return value;
+    }
+  } catch (e) {
+    return value;
+  }
+}
+
+/**
+ * setLocalStorage
+ */
+export const setLocalStorage = (key: string, value: any) => setStorage('localStorage', key, value);
+
+/**
+ * getLocalStorage
+ */
+export const getLocalStorage = <T = any>(key: string): T | undefined => getStorage('localStorage', key);
+export const removeLocalStorage = (key: string) => removeStorage('localStorage', key);
+
+/**
+ * setSessionStorage
+ */
+export const setSessionStorage = (key: string, value: any) => setStorage('sessionStorage', key, value);
+
+/**
+ * getSessionStorage
+ */
+export const getSessionStorage = (key: string): any => getStorage('sessionStorage', key);

@@ -1,10 +1,11 @@
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
-import '@/styles/index.css';
 import Providers from '@/providers/root';
 import { poppins } from '@/constants/font';
 import Web3Status from '@/components/web3/Web3Status';
 import MainWalletConnectDialog from '@/components/ui/dialog/MainWalletConnectDialog';
+
+import '@/styles/index.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Dragonverse Neo', description: 'Dragonverse Neo' };
