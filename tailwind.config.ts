@@ -76,7 +76,7 @@ const config: Config = {
       backgroundImage: {
         'gradient-green': 'linear-gradient(180deg, #1E6744 5%, #388657 50%, #499467 99%)',
         'gradient-red': 'linear-gradient(180deg, #8C2329 5%, #B03B42 50%, #C03840 99%)',
-        'content-border': 'url("/border.webp")',
+        'content-border': 'url("/img/border.webp")',
       },
       lineHeight: {
         3.5: '.875rem',

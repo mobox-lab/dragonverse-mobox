@@ -10,3 +10,58 @@ body {
   color: #fff;
   background: #000000;
 }
+
+:root {
+  --gradient-from: #a072ff;
+  --gradient-to: #3592ff;
+}
+
+@layer base {
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+}
+
+.rotate-container {
+  position: relative;
+}
+
+.rotate-container input {
+  display: none;
+}
+
+.rotate-container div {
+  transition: transform 0.5s;
+}
+
+.rotate-container input:checked + div {
+  transform: rotate(180deg);
+}
+
+@layer components {
+  .border-dragon {
+    border: 26px solid;
+    border-image: url('/svg/dragon-border.svg');
+    border-image-slice: 26;
+  }
+
+  .border-dragon-button {
+    border: 26px solid;
+    border-image: url('/svg/button-border.svg');
+    border-image-slice: 26;
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

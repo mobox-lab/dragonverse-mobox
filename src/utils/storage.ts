@@ -13,15 +13,16 @@ function setStorage(type: 'localStorage' | 'sessionStorage', key: string, value:
  * getStorage
  */
 function getStorage(type: 'localStorage' | 'sessionStorage', key: string) {
-  const value = window[type].getItem(key);
   try {
+    const value = window[type].getItem(key);
     if (value) {
       return JSON.parse(value);
     } else {
-      return value;
+      return undefined;
     }
   } catch (e) {
-    return value;
+    console.error('JSON.parse getStorage Error: ' + key);
+    return undefined;
   }
 }
 
@@ -34,6 +35,10 @@ export const setLocalStorage = (key: string, value: any) => setStorage('localSto
  * getLocalStorage
  */
 export const getLocalStorage = <T = any>(key: string): T | undefined => getStorage('localStorage', key);
+
+/**
+ * removeLocalStorage
+ */
 export const removeLocalStorage = (key: string) => removeStorage('localStorage', key);
 
 /**
