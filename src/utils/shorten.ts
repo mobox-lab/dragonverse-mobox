@@ -1,3 +1,4 @@
+
 import { getAddress } from 'viem';
 import Decimal from 'decimal.js-light';
 
@@ -11,11 +12,7 @@ export function isAddress(value: any): string | false {
 
 export function shortenAddress(address?: string, chars = 4): string {
   if (!address) return '';
-  const parsed = isAddress(address);
-  if (!parsed) {
-    throw Error(`Invalid 'address' parameter '${address}'.`);
-  }
-  return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`;
+  return `${address.substring(0, chars + 2)}...${address.substring(address.length - chars)}`;
 }
 
 export function shortenStr(

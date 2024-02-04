@@ -1,3 +1,7 @@
+function removeStorage(type: 'localStorage' | 'sessionStorage', key: string) {
+  window[type].removeItem(key);
+}
+
 /**
  * Operation Storage
  */
@@ -31,6 +35,11 @@ export const setLocalStorage = (key: string, value: any) => setStorage('localSto
  * getLocalStorage
  */
 export const getLocalStorage = <T = any>(key: string): T | undefined => getStorage('localStorage', key);
+
+/**
+ * removeLocalStorage
+ */
+export const removeLocalStorage = (key: string) => removeStorage('localStorage', key);
 
 /**
  * setSessionStorage

@@ -1,7 +1,6 @@
 'use client';
 import { PropsWithChildren, useState } from 'react';
 import clsx from 'clsx';
-import '@/styles/index.css';
 import Providers from '@/providers/root';
 import { poppins } from '@/constants/font';
 import Web3Status from '@/components/web3/Web3Status';
@@ -11,6 +10,8 @@ import Sider from '@/components/layout/Sider';
 import Nav from '@/components/nav';
 import DragonBurnDialog from '@/components/ui/dialog/DragonBurnDialog';
 import '../constants/metadata';
+
+import '@/styles/index.css';
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const { isHome } = useIsHome();

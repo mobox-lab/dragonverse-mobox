@@ -1,4 +1,5 @@
 'use client';
+
 import { injected } from '@wagmi/core';
 import { walletConnect } from '@wagmi/connectors';
 

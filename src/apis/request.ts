@@ -1,8 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { disconnect } from '@wagmi/core';
-import { QueryClient } from '@tanstack/query-core';
-import { wagmiConfig } from '@/providers/wagmi-provider';
-import { getAccessToken, removeAccessToken } from '@/utils/authorization';
+import { getAccessToken } from '@/utils/authorization';
 
 export type Response<T> = {
   code: number;
@@ -36,14 +33,8 @@ instance.interceptors.response.use(
   (error) => {
     const { response } = error;
     const { data } = response ?? {};
-    if (data?.code === 401 && data?.data?.[0] === 'TokenExpiredError') {
-      removeAccessToken();
-      setTimeout(() => disconnect?.(wagmiConfig), 300);
-    }
     return Promise.reject(data);
   },
 );
-
-export const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } });
 
 export default instance;
