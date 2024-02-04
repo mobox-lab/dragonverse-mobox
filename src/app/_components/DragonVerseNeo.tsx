@@ -113,7 +113,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           >
             Start a Proposal
           </Button>
-          <div className="flex h-[4.8vw] items-center gap-[0.16vw] xl:h-15 xl:gap-2">
+          {/* <div className="flex h-[4.8vw] items-center gap-[0.16vw] xl:h-15 xl:gap-2">
             <div className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm">remaining:</div>
             <div className="flex h-full items-center border-none bg-white/[0.12] px-0 text-center text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
               <span className="flex-center h-full w-[4.8vw] xl:w-[60px]">{remainingNum ?? 0}</span>
@@ -125,7 +125,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
                 +
               </span>
             </div>
-          </div>
+          </div> */}
           <Segmented
             className="ml-auto h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-semibold xl:h-[38px] xl:text-sm/4"
             defaultValue={type}

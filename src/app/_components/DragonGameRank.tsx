@@ -26,7 +26,7 @@ export default function DragonGameRank() {
   return (
     <div className="flex flex-col items-center px-[3.2vw] pb-[4.16vw] pt-[3vw] text-center xl:px-10 xl:pb-13 xl:pt-6">
       <div className="flex w-full items-end justify-between">
-        <p className="text-[1.12vw]/[1.76vw] font-semibold xl:text-sm/5.5">Dash of Dawn</p>
+        <p className="text-[1.12vw]/[1.76vw] font-semibold xl:text-sm/5.5">Leaderboard of Dash of Dawn(Beta)</p>
         <div
           onClick={() => refetch()}
           className="flex-center h-[3.2vw] w-[3.2vw] cursor-pointer rounded bg-white/10 backdrop-blur-xl xl:h-10 xl:w-10"

@@ -25,6 +25,12 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
       icon: <DragonKey />,
     },
     {
+      key: '/dkey',
+      to: 'dkey',
+      content: 'DKEY Launch',
+      icon: <Backpack />,
+    },
+    {
       key: '/backpack',
       to: 'backpack',
       content: 'Backpack',
@@ -71,7 +77,7 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
               className={clsx(
                 `${
                   collapsed ? 'hidden' : 'inline-block'
-                } animate-collapsed w-full flex-1 text-[1.28vw] font-medium xl:text-base`,
+                } w-full flex-1 animate-collapsed text-[1.28vw] font-medium xl:text-base`,
                 { 'font-semibold': nav.key === activeRouter },
               )}
             >
