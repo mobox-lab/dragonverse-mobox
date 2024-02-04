@@ -1,5 +1,4 @@
-import { fetchCode, fetchDawnBringerStatus, generateCode } from '@/apis';
-import { getAccessToken } from '@/utils/authorization';
+import { fetchCode, generateCode } from '@/apis';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
@@ -27,16 +26,4 @@ export const useMutationGenerateCode = () => {
       }
     },
   });
-};
-
-export const useFetchDawnBringerStatus = () => {
-  const { address } = useAccount();
-  const token = getAccessToken({ address });
-  const { data, isLoading, refetch } = useQuery({
-    enabled: !!token,
-    queryKey: ['fetch_dawn_bringer_status'],
-    queryFn: () => fetchDawnBringerStatus(),
-    select: (res) => (res.code === 200 ? res.data : undefined),
-  });
-  return useMemo(() => ({ data, isLoading, refetch }), [data, isLoading, refetch]);
 };

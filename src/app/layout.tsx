@@ -12,6 +12,7 @@ import DragonBurnDialog from '@/components/ui/dialog/DragonBurnDialog';
 import '../constants/metadata';
 
 import '@/styles/index.css';
+import { ClientOnly } from '@/components/common/ClientOnly';
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const { isHome } = useIsHome();
@@ -39,11 +40,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 '!ml-[19.04vw] xl:!ml-[238px]': isHome,
               })}
             >
-              <Web3Status
-                className={clsx(
-                  'sticky z-10 flex w-full items-center justify-end px-[5vw] pt-[1.92vw] xl:container sm:px-[20px] xl:pt-6',
-                )}
-              />
+              <div className="sticky z-10 flex w-full items-center justify-end px-[5vw] pt-[1.92vw] xl:container sm:px-[20px] xl:pt-6">
+                <ClientOnly>
+                  <Web3Status />
+                </ClientOnly>
+              </div>
               <main className="xl:container">{children}</main>
             </div>
           </div>

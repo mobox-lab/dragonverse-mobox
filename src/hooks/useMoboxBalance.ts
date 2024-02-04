@@ -56,7 +56,7 @@ export function useMoboxBalance({ address, watch }: MoboxBalanceProps) {
 
   useEffect(() => {
     if (!blockNumber || !watch) return;
-    if (blockNumber % 3n === 0n) queryClient.invalidateQueries({ queryKey }).then();
+    if (Number(blockNumber) % 3 === 0) queryClient.invalidateQueries({ queryKey }).then();
   }, [blockNumber, queryClient, queryKey, watch]);
 
   return useMemo(() => {

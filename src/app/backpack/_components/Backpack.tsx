@@ -1,14 +1,8 @@
 'use client';
 import DragonBorder from '@/app/_components/DragonBorder';
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
-import SwitchSvg from '@/../public/svg/switch.svg?component';
-import SwitchActiveSvg from '@/../public/svg/switch-active.svg?component';
-import ClipSvg from '@/../public/svg/clip.svg?component';
-import SwitchAddressSvg from '@/../public/svg/switch-address.svg?component';
 import WarningSvg from '@/../public/svg/warning.svg?component';
 import React, { useEffect, useMemo, useState } from 'react';
-import clsx from 'clsx';
-import Segmented from '@/components/ui/segmented';
 import { useAccount, useSwitchChain } from 'wagmi';
 import { twMerge } from 'tailwind-merge';
 import { escapeRegExp } from 'lodash-es';

@@ -1,107 +1,31 @@
 'use client';
+
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
-import { DawnBringerABI } from '@/abis';
-import { dragonWalletConnectDialogAtom } from '@/atoms/dragonverse';
-import { accessTokenAtom } from '@/atoms/user/state';
 import Background from '@/components/background';
 import Button from '@/components/ui/button';
-import Tooltip from '@/components/ui/tooltip';
-import { ALLOW_CHAINS, CDN_URL, DAWN_BRINGERS_ADDRESS } from '@/constants';
-import { useRewardClaim } from '@/hooks/dawnBringer';
-import { useFetchDawnBringerStatus, useFetchDragonKeyDetail, useMutationGenerateCode } from '@/hooks/dragonverse';
-import { useCorrectNetwork } from '@/hooks/useIsCorrectNetwork';
+import { useFetchDragonKeyDetail } from '@/hooks/dragonverse';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useIsMounted } from '@/hooks/useIsMounted';
 import clsx from 'clsx';
-import { useAtom, useSetAtom } from 'jotai';
-import React, { useEffect, useState } from 'react';
+import { useSetAtom } from 'jotai';
+import React, { useState } from 'react';
 import ReactGA from 'react-ga4';
-import { toast } from 'react-toastify';
-import { useCopyToClipboard } from 'react-use';
-import { useAccount, useReadContract } from 'wagmi';
+import { useAccount } from 'wagmi';
 import DragonBorder from './DragonBorder';
-import { Address } from 'viem';
 import { mainWalletConnectDialogAtom } from '@/atoms';
+import { CDN_URL } from '@/constants';
 
 interface DragonKeyProps {}
 
 const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
   const { address } = useAccount();
-  const [splitCode, setSplitCode] = useState<string[]>([]);
-  const { data, refetch } = useFetchDragonKeyDetail();
+  const { data } = useFetchDragonKeyDetail();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
-  const [, copyToClipboard] = useCopyToClipboard();
-  const [downloadDisabled, setDownloadDisabled] = useState<boolean>(true);
+  const [downloadDisabled] = useState<boolean>(true);
   const [detailVisible, setDetailVisible] = useState<boolean>(true);
-  const accessToken = useAtom(accessTokenAtom);
   const isMounted = useIsMounted();
-  const { data: isClaimed } = useReadContract({
-    address: DAWN_BRINGERS_ADDRESS,
-    abi: DawnBringerABI,
-    functionName: 'getUserReceive',
-    query: { enabled: !!address, refetchInterval: 6_000 },
-    args: [address as Address],
-    chainId: ALLOW_CHAINS[0].id,
-  });
-
-  const { data: dawnBringerStatus, refetch: dawnBringerStatusRefetch } = useFetchDawnBringerStatus();
-  const { mutateAsync } = useMutationGenerateCode();
-  const [generateLoading, setGenerateLoading] = useState<boolean>(false);
   const { mobile } = useIsMobile();
-  useEffect(() => {
-    if (data && data?.code) {
-      const codes = data.code.split('');
-      setSplitCode(codes);
-      if (data.status === 1) {
-        setDetailVisible(false);
-      }
-    } else {
-      setSplitCode([]);
-    }
-  }, [data]);
 
-  useEffect(() => {
-    if (accessToken && address) {
-      refetch();
-    }
-  }, [accessToken, address]);
-
-  const generate = async () => {
-    ReactGA.event({ category: 'dvneo', action: 'key_button', label: 'request key' });
-    setGenerateLoading(true);
-    try {
-      await mutateAsync();
-      refetch();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setGenerateLoading(false);
-    }
-  };
-
-  const { write, isLoading, isWaitLoading } = useRewardClaim({
-    onSuccess: () => {
-      toast.success('Claim "The Dawnbringer" NFT successfully.');
-    },
-    onError: () => {
-      toast.error('Claim "The Dawnbringer" NFT failed. Please try again.');
-    },
-  });
-  const { isCorrectNetwork, switchNetwork } = useCorrectNetwork();
-  const claimDawnBringer = async () => {
-    try {
-      if (!isCorrectNetwork) {
-        switchNetwork?.();
-      }
-      await dawnBringerStatusRefetch();
-      if (dawnBringerStatus?.eligible && dawnBringerStatus?.deadline && dawnBringerStatus?.r && dawnBringerStatus.vs) {
-        write({ args: [BigInt(dawnBringerStatus.deadline), dawnBringerStatus.r, dawnBringerStatus.vs] });
-      }
-    } catch (error) {
-      dawnBringerStatusRefetch();
-      console.log(error);
-    }
-  };
   return (
     <div className={clsx('px-[5vw] pb-12 sm:px-[20px]', { 'pt-[57px]': mobile })}>
       <Background />

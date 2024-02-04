@@ -3,62 +3,23 @@ import BurnSvg from '@/../public/svg/burn.svg?component';
 import GreenArrowSvg from '@/../public/svg/green-arrow.svg?component';
 import { dragonBurnDialogOpenAtom } from '@/atoms/dragonverse';
 import Dialog from '@/components/ui/dialog';
-import { MOBOX_GOVERN_FORGE_ADDRESS, MOBOX_TOKEN_ADDRESS } from '@/constants';
-import { useBurnMobox } from '@/hooks/burn';
-import { useApproveToken, useTokenAllowance } from '@/hooks/useAllowance';
-import { useCorrectNetwork } from '@/hooks/useIsCorrectNetwork';
+import { MOBOX_TOKEN_ADDRESS } from '@/constants';
 import { clsxm, shortenBalance } from '@/utils';
 import { useAtom } from 'jotai';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useCallback, useMemo, useState } from 'react';
 import { formatEther } from 'viem';
-import { useAccount, useBalance, useBlockNumber } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
 import Button from '../button';
-import { useFetchP12DragonProposalNum } from '@/hooks/useFetchP12DragonProposalNum';
-import { useQueryClient } from '@tanstack/react-query';
 
 const unitPrice = 2000; // 多少 mobox 换一个提案机会
 export default function DragonBurnDialog() {
-  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useAtom(dragonBurnDialogOpenAtom);
   const [proposalNum, setProposalNum] = useState(0);
   const burnCost = useMemo(() => unitPrice * proposalNum, [proposalNum]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { refetch } = useFetchP12DragonProposalNum();
-  const { data: blockNumber } = useBlockNumber({ watch: true });
+  const [isLoading] = useState<boolean>(false);
 
   const { address } = useAccount();
-  const { isCorrectNetwork, switchNetwork } = useCorrectNetwork();
-  const { data: balance, queryKey } = useBalance({ address, token: MOBOX_TOKEN_ADDRESS });
-  const [tokenAllowance, allowanceRefetch] = useTokenAllowance(MOBOX_TOKEN_ADDRESS, address, MOBOX_GOVERN_FORGE_ADDRESS);
-  const { write: burnMobox } = useBurnMobox({
-    proposalNum,
-    onSuccess: () => {
-      setIsLoading(false);
-      refetch();
-      toast.success('Burn Mobox Success.');
-      setTimeout(() => setIsOpen(false), 800);
-    },
-    onError: (error) => {
-      if (error.name === 'ContractFunctionExecutionError') {
-        toast.warning(`Insufficient balance, estimated ${burnCost} $MBOX`);
-      } else toast.error('Burn Mobox Error.');
-      setIsLoading(false);
-    },
-  });
-
-  const { write: approveToken } = useApproveToken({
-    token: MOBOX_TOKEN_ADDRESS,
-    spender: MOBOX_GOVERN_FORGE_ADDRESS,
-    onSuccess: () => {
-      allowanceRefetch?.();
-      burnMobox();
-    },
-    onError: () => {
-      toast.error('Approve Token Error.');
-      setIsLoading(false);
-    },
-  });
+  const { data: balance } = useBalance({ address, token: MOBOX_TOKEN_ADDRESS });
 
   const minusProposal = useCallback(() => {
     if (proposalNum <= 0) return;
@@ -68,24 +29,6 @@ export default function DragonBurnDialog() {
     if (proposalNum + 1 > 5) return;
     setProposalNum(proposalNum + 1);
   }, [proposalNum]);
-
-  const submit = useCallback(() => {
-    setIsLoading(true);
-    if (!isCorrectNetwork) {
-      switchNetwork?.();
-      setIsLoading(false);
-      return;
-    }
-    if (tokenAllowance && tokenAllowance > (burnCost ?? 0)) {
-      burnMobox();
-    } else {
-      approveToken();
-    }
-  }, [approveToken, burnCost, burnMobox, isCorrectNetwork, switchNetwork, tokenAllowance]);
-
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey });
-  }, [blockNumber, queryKey]);
 
   return (
     <Dialog
@@ -156,7 +99,6 @@ export default function DragonBurnDialog() {
             disabled={!proposalNum}
             type="red"
             loading={isLoading}
-            onClick={submit}
             className="mt-[1.6vw] h-[3.52vw] self-stretch text-[1.28vw]/[1.6vw] font-semibold xl:mt-5 xl:h-11 xl:text-base/5"
           >
             Submit
