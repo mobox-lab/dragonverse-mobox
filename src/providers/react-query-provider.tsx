@@ -1,13 +1,7 @@
 import { PropsWithChildren, useMemo } from 'react';
-import { useSetAtom } from 'jotai';
-import { accessTokenAtom } from '@/atoms';
-import { useMainDisconnect } from '@/hooks/wallet';
-import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
-  const setAccessToken = useSetAtom(accessTokenAtom);
-  // const { mainDisconnect } = useMainDisconnect();
-
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -19,7 +13,6 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
             retry: (failureCount, error: any) => error.code !== 401 && failureCount < 3,
           },
         },
-        queryCache: new QueryCache(),
       }),
     [],
   );
