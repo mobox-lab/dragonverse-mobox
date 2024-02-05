@@ -1,6 +1,8 @@
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
 import TwitterSvg from '@/../public/svg/twitter.svg?component';
 import { clsxm } from '@/utils';
+import InfoSvg from '@/../public/svg/info.svg?component';
+import Tooltip from '@/components/ui/tooltip';
 
 export default function MintedReferralBonus({ className }: { className?: string }) {
   const referralLink = 'https://xxx.xx/?code=2casadadfqewe';
@@ -15,8 +17,29 @@ export default function MintedReferralBonus({ className }: { className?: string 
         (1901*8%)
       </div>
       <div className="mt-5 grid h-10 grid-cols-2 items-center gap-7.5 border-b border-gray bg-[#43454980] pl-4 text-xs font-semibold">
-        <p>Current bonus rate</p>
-        <p>Valid referrals</p>
+        <p className="flex items-center gap-2">
+          Current bonus rate
+          <Tooltip title={<BonusRateTooltipContent />}>
+            <div>
+              <InfoSvg className="h-3.5 w-3.5 cursor-pointer" />
+            </div>
+          </Tooltip>
+        </p>
+
+        <p className="flex items-center gap-2">
+          Valid referrals
+          <Tooltip
+            title={
+              <div className="flex max-w-[278px] flex-col text-xs font-semibold">
+                The number of “Mints counts referrals” refers to the times the invited address mints DKEY Points.
+              </div>
+            }
+          >
+            <div>
+              <InfoSvg className="h-3.5 w-3.5 cursor-pointer" />
+            </div>
+          </Tooltip>
+        </p>
       </div>
       <div className="grid h-11 grid-cols-2 items-center gap-7.5 border-b border-gray pl-4 text-xl font-semibold text-green">
         <p>+8%</p>
@@ -70,3 +93,33 @@ export default function MintedReferralBonus({ className }: { className?: string 
     </div>
   );
 }
+
+const bonusRates = [
+  { referrers: '<10', rate: '+1%' },
+  { referrers: '10-20', rate: '+3%' },
+  { referrers: '21-30', rate: '+5%' },
+  { referrers: '31-50', rate: '+7%' },
+  { referrers: '51-100', rate: '+10%' },
+  { referrers: '101-300', rate: '+15%' },
+  { referrers: '301 and above', rate: '+20%' },
+];
+
+const BonusRateTooltipContent = () => (
+  <div className="flex max-w-[278px] flex-col text-xs font-semibold">
+    <h2>Referral bonus rate increase based on the number of referrals:</h2>
+    <div className="mt-4 grid grid-cols-2 gap-5 gap-y-3 whitespace-nowrap">
+      <p>Number of referrers</p>
+      <p>Bonus Rate</p>
+      <div className="flex flex-col gap-1.5">
+        {bonusRates.map((item) => (
+          <p key={item.referrers}>{item.referrers}</p>
+        ))}
+      </div>
+      <div className="flex flex-col gap-1.5">
+        {bonusRates.map((item) => (
+          <p key={item.rate}>{item.rate}</p>
+        ))}
+      </div>
+    </div>
+  </div>
+);
