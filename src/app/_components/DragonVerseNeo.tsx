@@ -49,7 +49,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
   return (
     <div
       className={clsxm(
-        'relative mt-12 border border-gray-600 bg-black/60 px-[3vw] py-[3.52vw] backdrop-blur-sm xl:px-7.5 xl:py-11',
+        'relative border border-gray-600 bg-black/60 px-[3vw] py-[3.52vw] backdrop-blur-sm xl:px-7.5 xl:py-11',
         className,
       )}
     >
@@ -92,7 +92,10 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
         </div>
       </div> */}
       <div className="mx-[0.8vw] xl:mx-2.5 ">
-        <div className="mt-[2.88vw] flex items-end gap-[1.28vw] xl:mt-9 xl:gap-4">
+        <div
+          className="flex items-end
+         justify-center gap-4"
+        >
           {/* <Button
             type="red"
             className="flex h-[4.8vw] w-[21.44vw] flex-col items-center gap-[0.16vw] py-[0.96vw] text-[1.6vw]/[1.6vw] font-bold xl:h-15 xl:w-[268px] xl:gap-0.5 xl:py-3 xl:text-xl/5"
@@ -127,7 +130,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             </div>
           </div> */}
           <Segmented
-            className="ml-auto h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-semibold xl:h-[38px] xl:text-sm/4"
+            className="h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-semibold xl:h-[38px] xl:text-sm/4"
             defaultValue={type}
             onChange={(value) => {
               setType(value as DragonProposalSortField);
