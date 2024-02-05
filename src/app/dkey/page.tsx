@@ -1,7 +1,6 @@
 'use client';
 
 import { CDN_URL } from '@/constants';
-import DragonGameRank from '../_components/DragonGameRank';
 import DragonFairLaunch from './_components/DragonFairLaunch';
 
 export default function DKey() {
