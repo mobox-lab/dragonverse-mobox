@@ -13,6 +13,7 @@ import '../constants/metadata';
 
 import '@/styles/index.css';
 import { ClientOnly } from '@/components/common/ClientOnly';
+import SocialMedia from '@/components/layout/SocialMedia';
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const { isHome } = useIsHome();
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
               <div>
                 <Nav collapsed={collapsed} />
               </div>
+              <SocialMedia collapsed={collapsed}/>
             </Sider>
             <div
               className={clsx(`relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]`, {
