@@ -1,20 +1,21 @@
 'use client';
+
 import { useCallback, useMemo } from 'react';
-import { useSetAtom } from 'jotai';
-import { SiweMessage } from 'siwe';
-import { useChainId, useDisconnect, useSignMessage } from 'wagmi';
-import { isSSOLoginLoadingAtom } from '@/atoms/user/state';
 import { Address } from 'viem';
+import { SiweMessage } from 'siwe';
+import { Platform } from '@/constants/enum';
+import { useMutationLogin } from '@/hooks/user';
+import { useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
 type useSignInWithEthereumProps = {
   onSuccess?: ({ message, signature, address }: { message: Partial<SiweMessage>; signature: string; address: Address }) => void;
 };
 
-export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps) {
+export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps = {}) {
   const chainId = useChainId();
   const { disconnect } = useDisconnect();
+  const { mutate } = useMutationLogin();
   const { signMessageAsync } = useSignMessage();
-  const setSSOLoading = useSetAtom(isSSOLoginLoadingAtom);
 
   const signInWithEthereum = useCallback(
     async (address: Address) => {
@@ -28,18 +29,15 @@ export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps)
           chainId,
           expirationTime: new Date(Date.now() + 864e5 * 7).toISOString(),
         });
-        const signature = await signMessageAsync({
-          message: message.prepareMessage(),
-        });
-        setSSOLoading(true);
+        const signature = await signMessageAsync({ message: message.prepareMessage() });
+        mutate({ message, signature, address, platform: Platform.USER });
         onSuccess?.({ message, signature, address });
       } catch (e) {
         disconnect?.();
-        console.error(e);
-        setSSOLoading(false);
       }
     },
-    [chainId, disconnect, onSuccess, setSSOLoading, signMessageAsync],
+    [chainId, disconnect, mutate, onSuccess, signMessageAsync],
   );
+
   return useMemo(() => ({ signInWithEthereum }), [signInWithEthereum]);
 }

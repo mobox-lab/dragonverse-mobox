@@ -1,33 +1,34 @@
 'use client';
+
+import { useSetAtom } from 'jotai';
 import { fetchLogin } from '@/apis';
 import instance from '@/apis/request';
-import { LoginParams } from '@/apis/types';
-import { accessTokenAtom } from '@/atoms/user/state';
-import { setAccessToken } from '@/utils/authorization';
-import { useMutation } from '@tanstack/react-query';
-import { useSetAtom } from 'jotai';
-import { useCallback } from 'react';
 import { useDisconnect } from 'wagmi';
+import { LoginParams } from '@/apis/types';
+import { useMutation } from '@tanstack/react-query';
+import { accessTokenAtom, mainWalletConnectDialogAtom } from '@/atoms';
 
 export const useMutationLogin = () => {
   const setAccessTokenAtom = useSetAtom(accessTokenAtom);
+  const setDialogOpen = useSetAtom(mainWalletConnectDialogAtom);
+  const { disconnect } = useDisconnect();
+
+  const handleError = () => {
+    setAccessTokenAtom('');
+    disconnect();
+  };
 
   return useMutation({
     mutationFn: (params: LoginParams) => fetchLogin(params),
     onSuccess: ({ code, data }) => {
       if (code === 200) {
-        setAccessToken(data.accessToken);
         setAccessTokenAtom(data.accessToken);
         instance.defaults.headers.common['Authorization'] = 'Bearer ' + data.accessToken;
+        setDialogOpen(false);
+        return;
       }
+      handleError();
     },
+    onError: () => handleError(),
   });
-};
-
-export const useLogoutCallback = () => {
-  const { disconnect } = useDisconnect();
-
-  return useCallback(() => {
-    disconnect?.();
-  }, [disconnect]);
 };

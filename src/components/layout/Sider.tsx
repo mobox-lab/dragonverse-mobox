@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { motion } from 'framer-motion';
-import { useDefaultChain } from '@/hooks/useDefaultChain';
 import { useIsHome } from '@/hooks/useIsHome';
 
 export interface SiderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -35,7 +34,6 @@ const Sider: React.FunctionComponent<SiderProps> = ({
 }) => {
   const [collapsed, setCollapsed] = useState('collapsed' in props ? props.collapsed : defaultCollapsed);
   const { isHome } = useIsHome();
-  useDefaultChain();
   const { mobile } = useIsMobile();
   useEffect(() => {
     if ('collapsed' in props) {
