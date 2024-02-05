@@ -5,7 +5,7 @@ import RightIntro from './RightIntro';
 import MintedReferralBonus from './MintedReferralBonus';
 import MintRecords from './MintRecords';
 
-const isMinted = false;
+const isMinted = true;
 export default function DragonFairLaunch({ className }: { className?: string }) {
   return (
     <div className={clsxm('flex flex-col', className)}>

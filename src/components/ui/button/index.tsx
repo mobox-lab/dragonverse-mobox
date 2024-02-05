@@ -5,7 +5,7 @@ import LoadingSvg from '@/../public/svg/loading.svg?component';
 
 type ButtonProps = {
   className?: string;
-  type?: 'red' | 'green' | 'bordered' | 'pattern';
+  type?: 'red' | 'green' | 'bordered' | 'pattern' | 'blue';
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   loading?: boolean;
@@ -18,6 +18,7 @@ const bg = {
   green: 'border-green-500 border-[2px] bg-gradient-green',
   bordered: 'border-white border-[1px] bg-transparent',
   pattern: 'bg-black/60 border-[1px] border-gray-600 backdrop-blur-sm',
+  blue: 'bg-blue/20 hover:bg-blue/30 text-blue',
 };
 
 function Loading() {
