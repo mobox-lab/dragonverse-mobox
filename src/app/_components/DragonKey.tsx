@@ -3,7 +3,6 @@
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
 import Background from '@/components/background';
 import Button from '@/components/ui/button';
-import { useFetchDragonKeyDetail } from '@/hooks/dragonverse';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useIsMounted } from '@/hooks/useIsMounted';
 import clsx from 'clsx';
@@ -19,7 +18,6 @@ interface DragonKeyProps {}
 
 const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
   const { address } = useAccount();
-  const { data } = useFetchDragonKeyDetail();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
   const [downloadDisabled] = useState<boolean>(true);
   const [detailVisible, setDetailVisible] = useState<boolean>(true);
@@ -169,19 +167,11 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
               <img src={`${CDN_URL}/dawn-bringer.webp`} alt="dawn" className="w-[25.76vw] xl:w-[322px] " />
             </div>
           </div>
-          {data?.code ? (
-            <img
-              src={`${CDN_URL}/dragon-key.webp`}
-              alt="dragon-key"
-              className="absolute -top-[13.65vw] right-0 w-[25.2vw] xl:-top-[170px] xl:w-[314px]"
-            />
-          ) : (
-            <img
-              src="/img/dragon-key-not-generate.webp"
-              alt="dragon-key"
-              className="absolute -top-[13.65vw] right-0 w-[25.2vw] xl:-top-[170px] xl:w-[314px]"
-            />
-          )}
+          <img
+            src="/img/dragon-key-not-generate.webp"
+            alt="dragon-key"
+            className="absolute -top-[13.65vw] right-0 w-[25.2vw] xl:-top-[170px] xl:w-[314px]"
+          />
         </div>
       </div>
     </div>

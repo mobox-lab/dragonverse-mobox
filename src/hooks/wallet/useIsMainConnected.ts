@@ -11,8 +11,8 @@ export function useIsMainConnected() {
   const accessToken = useAtomValue(accessTokenAtom);
   const jwtPayload = useJwtDecode<{ address: string }>(accessToken);
 
-  return useMemo(
-    () => jwtPayload.address === evmAccount || jwtPayload.address === address,
-    [address, evmAccount, jwtPayload.address],
-  );
+  return useMemo(() => {
+    if (!jwtPayload.address) return false;
+    return jwtPayload.address === evmAccount || jwtPayload.address === address;
+  }, [address, evmAccount, jwtPayload.address]);
 }

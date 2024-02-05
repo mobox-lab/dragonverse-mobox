@@ -14,10 +14,6 @@ import { DragonProposalSortField } from '@/constants/enum';
 
 export const fetchLogin = (data: LoginParams) => request.post<any, Response<UserInfo>>('/modragon/code/login', data);
 
-export const fetchCode = () => request.get<any, Response<CodeDetail>>('/modragon/code/detail');
-
-export const generateCode = () => request.post<any, Response<null>>('/modragon/code/generate');
-
 export const fetchDragonGovernInfo = (address?: Address) =>
   request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
 
