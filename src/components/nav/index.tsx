@@ -7,6 +7,7 @@ import DragonKey from '@/../public/svg/menu-dragon-key.svg?component';
 import Governance from '@/../public/svg/menu-governance.svg?component';
 import Backpack from '@/../public/svg/bagpack.svg?component';
 import Rank from '@/../public/svg/rank.svg?component';
+import DBAL from '@/../public/svg/dbal.svg?component';
 
 interface NavProps {
   collapsed: boolean;
@@ -27,8 +28,8 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
     {
       key: '/dkey',
       to: 'dkey',
-      content: 'DKEY Launch',
-      icon: <Backpack />,
+      content: 'DBAL Launch',
+      icon: <DBAL />,
     },
     {
       key: '/backpack',

@@ -16,3 +16,9 @@ export const MOBOX_GOVERN_FORGE_ADDRESS =
     : '0x2c543da657df10B92006Cc77E8F308608eF86f93';
 
 export const inputRegex = /^\d*(?:\\[.])?\d*$/;
+
+export const SocialLinks = {
+  twitter: 'https://twitter.com/MOBOX_Official',
+  telegram: 'https://t.me/mobox_io',
+  discord: 'https://discord.com/invite/gW2eAU4WZy',
+};

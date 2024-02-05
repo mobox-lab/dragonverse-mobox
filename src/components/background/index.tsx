@@ -13,7 +13,7 @@ const Background = () => {
       playsInline
       loop
       muted
-      className={clsx('absolute -top-[23vw] left-0 -z-10 h-auto w-full', { 'pt-[57px]': mobile })}
+      className={clsx('absolute -top-[18vw] left-0 -z-10 h-auto w-full', { 'pt-[57px]': mobile })}
     >
       <source src={`${CDN_URL}/bg.webm`} type="video/webm" />;
       <source src={`${CDN_URL}/bg.mp4`} type="video/mp4" />
