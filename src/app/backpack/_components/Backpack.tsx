@@ -26,6 +26,8 @@ import { arbitrum, bsc } from 'wagmi/chains';
 import { DragonStone } from '@/constants/mobox/dragon-stone';
 import { useFetchDragonBag } from '@/hooks/useFetchDragonBag';
 import { formatGems } from '../_utils/format-gems';
+import Backpack from '@/../public/svg/bagpack.svg?component';
+import DBAL from '@/../public/svg/dbal.svg?component';
 
 interface BackpackAssetsProps {}
 
@@ -132,13 +134,17 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
               </div>
             </div>
             <div className="mt-[0.96vw] flex gap-[0.96vw] overflow-auto xl:mt-3 xl:gap-3">
-              {data.length ? (
+              {/* {data.length ? (
                 data.map((item, index) => <DragonItem key={index} data={item} />)
               ) : (
                 <div className="flex-center box-content w-full border border-gray-500 bg-gray-550/10 py-[5.76vw] text-[1.12vw] text-gray-300 xl:py-18 xl:text-sm">
                   NO DRAGON
                 </div>
-              )}
+              )} */}
+              <div className="flex-center box-content w-full flex-col gap-[0.64vw] border border-gray-300 bg-gray-300/10 py-[5.76vw] text-[1.12vw] text-gray-300 xl:gap-2 xl:py-18 xl:text-sm">
+                <Backpack className="w-[3.84vw] fill-white/30 xl:w-12" />
+                Coming soon
+              </div>
             </div>
             <div className="mt-[2.4vw] text-[1.28vw] font-semibold xl:mt-7.5 xl:text-base">Stones</div>
             <div className="mt-[0.96vw] flex gap-[0.8vw] xl:mt-3 xl:gap-2.5">
@@ -406,9 +412,9 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
               LOGS
             </div>
           </div> */}
-          <div className="relative flex h-full flex-col items-center justify-center">
-            <div className="text-[1.92vw]/[2.56vw] font-bold text-white/50 xl:text-2xl">COMING</div>
-            <div className="text-[1.92vw]/[2.56vw] font-bold text-white/50 xl:text-2xl">SOON</div>
+          <div className="relative flex h-full flex-col items-center justify-center gap-[0.64vw] xl:gap-2">
+            <DBAL className="w-[3.84vw] fill-gray-300 xl:w-12" />
+            Coming soon
           </div>
         </div>
       </div>

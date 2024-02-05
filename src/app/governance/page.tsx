@@ -14,7 +14,7 @@ const Governance: React.FunctionComponent<GovernanceProps> = (props) => {
       <div className="relative mt-9 flex items-center justify-center">
         <img src="/img/governance.webp" alt="governance" className="w-[44.16vw] xl:w-[552px]" />
       </div>
-      <div className="relative mt-[20vw]">
+      <div className="relative mt-[24vw]">
         <DragonVerseNeo />
       </div>
       <DragonIntro />
