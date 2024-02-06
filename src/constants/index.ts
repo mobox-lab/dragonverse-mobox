@@ -1,5 +1,7 @@
 import { merlinTestnet } from '@/connectors/chains';
 
+export const PARTICLE_APP_ID = process.env.NEXT_PUBLIC_PARTICLE_APP_ID ?? '';
+
 // TODO: replace MerlinMainnet
 export const ALLOW_CHAIN = process.env.NEXT_PUBLIC_CHAIN_ENV === 'production' ? merlinTestnet.id : merlinTestnet.id;
 

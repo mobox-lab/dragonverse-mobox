@@ -35,7 +35,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
               <div>
                 <Nav collapsed={collapsed} />
               </div>
-              <SocialMedia collapsed={collapsed}/>
+              <SocialMedia collapsed={collapsed} />
             </Sider>
             <div
               className={clsx(`relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]`, {
