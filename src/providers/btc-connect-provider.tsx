@@ -1,5 +1,6 @@
-import type { PropsWithChildren } from 'react';
+import { PARTICLE_APP_ID } from '@/constants';
 import { ConnectProvider, UnisatConnector, OKXConnector, BitgetConnector } from '@particle-network/btc-connectkit';
+import type { PropsWithChildren } from 'react';
 
 Object.defineProperty(global, '_bitcore', {
   get() {},
@@ -10,9 +11,9 @@ export const BTCConnectProvider = ({ children }: PropsWithChildren) => {
   return (
     <ConnectProvider
       options={{
-        projectId: '559e0125-5a19-476d-8221-397a91d687b2',
-        clientKey: 'cCxbcw9aE0rYBwEtMO787Z80GRdN9RWXLBICprut',
-        appId: 'c737323e-bd6f-4e0b-8407-13babad868ac',
+        projectId: '48a2f135-a5c8-41ba-99f2-918d6c6b2dfb',
+        clientKey: 'cHdhsJobzJWpHrpuEVwT4WqzNxfjW0pEPSbzfknv',
+        appId: PARTICLE_APP_ID,
         aaOptions: { accountContracts: { BTC: [{ chainIds: [686868], version: '1.0.0' }] } },
       }}
       connectors={[new UnisatConnector(), new OKXConnector(), new BitgetConnector()]}

@@ -1,2 +1,4 @@
 @import './globals.css';
 @import './components/scrollbar.css';
+@import './components/toast.css';
+@import 'swiper/css';
