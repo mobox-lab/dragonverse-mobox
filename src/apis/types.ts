@@ -2,11 +2,17 @@ import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
 import { DragonProposalSortField, DragonProposalState, Platform } from '@/constants/enum';
 
-export type LoginParams = {
-  address: Address;
+export type EvmLoginParams = {
+  address: string;
   message: Partial<SiweMessage>;
   signature: string;
-  platform: Platform;
+};
+
+export type BtcLoginParams = {
+  address: string;
+  message: string;
+  signature: string;
+  publicKey: string;
 };
 
 export type UserInfo = {

@@ -1,11 +1,6 @@
-
 export enum MainWalletType {
   BTC = 'btc',
   EVM = 'evm',
-}
-export enum Platform {
-  USER,
-  DEVELOPER,
 }
 
 export enum EditorLoginType {
