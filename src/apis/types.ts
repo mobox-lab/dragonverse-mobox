@@ -1,6 +1,6 @@
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
-import { DragonProposalSortField, DragonProposalState, Platform } from '@/constants/enum';
+import { DragonProposalSortField, DragonProposalState } from '@/constants/enum';
 
 export type EvmLoginParams = {
   address: string;
