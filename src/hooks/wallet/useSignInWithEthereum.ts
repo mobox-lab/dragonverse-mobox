@@ -3,8 +3,7 @@
 import { useCallback, useMemo } from 'react';
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
-import { Platform } from '@/constants/enum';
-import { useMutationLogin } from '@/hooks/user';
+import { useMutationEvmLogin } from '@/hooks/user';
 import { useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
 type useSignInWithEthereumProps = {
@@ -14,7 +13,7 @@ type useSignInWithEthereumProps = {
 export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps = {}) {
   const chainId = useChainId();
   const { disconnect } = useDisconnect();
-  const { mutate } = useMutationLogin();
+  const { mutate } = useMutationEvmLogin();
   const { signMessageAsync } = useSignMessage();
 
   const signInWithEthereum = useCallback(
@@ -30,7 +29,7 @@ export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps 
           expirationTime: new Date(Date.now() + 864e5 * 7).toISOString(),
         });
         const signature = await signMessageAsync({ message: message.prepareMessage() });
-        mutate({ message, signature, address, platform: Platform.USER });
+        mutate({ message, signature, address });
         onSuccess?.({ message, signature, address });
       } catch (e) {
         disconnect?.();
