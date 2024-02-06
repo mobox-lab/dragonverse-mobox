@@ -1,8 +1,8 @@
-import { useMainAccount } from '@/hooks/wallet/useMainAccount';
 import { useCallback, useMemo } from 'react';
-import { MainWalletType } from '@/constants/enum';
-import { useBTCProvider } from '@particle-network/btc-connectkit';
 import { useSignMessage } from 'wagmi';
+import { MainWalletType } from '@/constants/enum';
+import { useMainAccount } from '@/hooks/wallet/useMainAccount';
+import { useBTCProvider } from '@particle-network/btc-connectkit';
 
 export function useMainSignMessage() {
   const { walletType } = useMainAccount();
@@ -13,7 +13,7 @@ export function useMainSignMessage() {
     async ({ message }: { message: string }) => {
       if (!walletType) return Promise.reject('NotConnectWallet');
       let signature = '';
-      if (walletType === MainWalletType.BTC) {
+      if (walletType === MainWalletType.EVM) {
         signature = await singMessageWithBtc(message);
       }
       if (walletType === MainWalletType.BTC) {
@@ -24,5 +24,5 @@ export function useMainSignMessage() {
     [signMessageWithEvm, singMessageWithBtc, walletType],
   );
 
-  return useMemo(() => ({ signMessage }), []);
+  return useMemo(() => ({ signMessage }), [signMessage]);
 }
