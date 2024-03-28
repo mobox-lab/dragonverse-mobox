@@ -1,4 +1,3 @@
-export * from './useConnectBtcWallet';
 export * from './useConnectEvmWallet';
 export * from './useIsMainConnected';
 export * from './useIsMainCorrectChain';
@@ -7,5 +6,4 @@ export * from './useMainChain';
 export * from './useMainDisconnect';
 export * from './useMainWriteContract';
 export * from './useMainSignMessage';
-export * from './useSignInWithBitcoin';
 export * from './useSignInWithEthereum';
