@@ -1,20 +1,17 @@
 'use client';
 
 import { useAtom } from 'jotai';
+import ReactGA from 'react-ga4';
 import { useConnect } from 'wagmi';
 import Dialog from '@/components/ui/dialog/index';
-import { mainWalletConnectDialogAtom, termOfUseAcceptedAtom } from '@/atoms';
+import { useConnectEvmWallet } from '@/hooks/wallet';
 import ConnectButton from '@/components/ui/button/ConnectButton';
-import { useConnector } from '@particle-network/btc-connectkit';
-import { useConnectEvmWallet, useConnectBtcWallet } from '@/hooks/wallet';
-import ReactGA from 'react-ga4';
+import { mainWalletConnectDialogAtom, termOfUseAcceptedAtom } from '@/atoms';
 
 export default function MainWalletConnectDialog() {
   const [isOpen, setIsOpen] = useAtom(mainWalletConnectDialogAtom);
   const { connectors: evmConnectors } = useConnect();
-  const { connectors: btcConnectors } = useConnector();
   const { onEvmConnect } = useConnectEvmWallet();
-  const { onBtcConnect } = useConnectBtcWallet();
   const [isAccepted, setIsAccepted] = useAtom(termOfUseAcceptedAtom);
 
   return (
@@ -25,10 +22,6 @@ export default function MainWalletConnectDialog() {
       render={() => (
         <div>
           <div className="text-center text-xl/6 font-medium">Connect Wallet</div>
-          <div className="mt-6 flex items-start gap-1.5 border border-legendary/60 px-2 py-3 text-xs/5 md:mt-3 md:px-1 md:py-1.5">
-            <img className="w-4" src="/svg/warning.svg" alt="warning" />
-            <p>It is recommended to use EVM Wallets (e.g. MetaMask) as BTC (AA) Wallet might cause unexpected errors.</p>
-          </div>
           <h2 className="mt-6 border-b border-white/25 py-2 text-center text-sm/6 md:mt-3">EVM wallet</h2>
           <div className="mt-4 grid gap-2 md:mt-2 md:grid-cols-2">
             <ConnectButton onClick={() => onEvmConnect(evmConnectors[0])}>
@@ -48,16 +41,21 @@ export default function MainWalletConnectDialog() {
               <span className="md:hidden">{evmConnectors[3].name}</span>
             </ConnectButton>
           </div>
-          <h2 className="mt-6 border-b border-white/25 py-2 text-center text-sm/6 md:mt-3">BTC wallet</h2>
-          <div className="mt-4 grid gap-2 md:mt-2 md:grid-cols-3">
-            {btcConnectors.map((connector) => (
-              <ConnectButton key={connector.metadata.id} onClick={() => onBtcConnect(connector.metadata.id)}>
-                <img className="h-7.5 w-7.5" src={connector.metadata.icon} alt="icon" />
-                <span className="md:hidden">{connector.metadata.name}</span>
-              </ConnectButton>
-            ))}
+          <div className="mt-6 flex items-start gap-1.5 border border-legendary/60 px-2 py-3 text-xs/5 md:mt-3 md:px-1 md:py-1.5">
+            <img className="w-4" src="/svg/warning.svg" alt="warning" />
+            <p>
+              Here is the tutorial on how to obtain gas (BTC) and M-BTC on Merlin Chain, as well as how to transfer from AA
+              (Particle) wallet to EVM wallet -&gt;&nbsp;
+              <a
+                className="text-link"
+                href="https://medium.com/@mbox/obtain-m-btc-on-merlin-chain-a-step-by-step-tutorial-8cc23ac4f546"
+                target="_blank"
+              >
+                Tutorial
+              </a>
+            </p>
           </div>
-          <div className="flex-center mt-3 text-xs/5">
+          <div className="flex-center mt-6 text-xs/5 md:mt-3">
             <input
               type="checkbox"
               id="terms-of-use"

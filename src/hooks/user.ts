@@ -6,7 +6,6 @@ import { useDisconnect } from 'wagmi';
 import { useMutation } from '@tanstack/react-query';
 import { fetchBtcLogin, fetchEvmLogin } from '@/apis';
 import { BtcLoginParams, EvmLoginParams } from '@/apis/types';
-import { useConnectModal } from '@particle-network/btc-connectkit';
 import { accessTokenAtom, mainWalletConnectDialogAtom } from '@/atoms';
 
 export const useMutationEvmLogin = () => {
@@ -37,11 +36,9 @@ export const useMutationEvmLogin = () => {
 export const useMutationBtcLogin = () => {
   const setAccessTokenAtom = useSetAtom(accessTokenAtom);
   const setDialogOpen = useSetAtom(mainWalletConnectDialogAtom);
-  const { disconnect } = useConnectModal();
 
   const handleError = () => {
     setAccessTokenAtom('');
-    disconnect();
   };
 
   return useMutation({
