@@ -1,4 +1,7 @@
 @import './globals.css';
 @import './components/scrollbar.css';
 @import './components/toast.css';
+@import './components/recharts.css';
+@import './components/unbox.css';
+@import './components/checkbox.css';
 @import 'swiper/css';

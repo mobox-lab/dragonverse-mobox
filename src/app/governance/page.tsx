@@ -11,10 +11,12 @@ const Governance: React.FunctionComponent<GovernanceProps> = (props) => {
   return (
     <div className={clsx('px-[5vw] pb-12 sm:px-[20px]')}>
       <img src={`${CDN_URL}/dragon-banner-01.jpg`} alt="dragon" className="absolute left-0 top-18 -z-10 h-auto w-full" />
-      <div className="relative mt-9 flex items-center justify-center">
-        <img src="/img/governance.webp" alt="governance" className="w-[44.16vw] xl:w-[552px]" />
-      </div>
-      <div className="relative mt-[24vw]">
+      <img
+        src="/img/governance.webp"
+        alt="governance"
+        className="absolute left-1/2 top-[4.8vw] w-[44.16vw] -translate-x-1/2 transform xl:top-15 xl:w-[552px]"
+      />
+      <div className="relative mt-[36vw]">
         <DragonVerseNeo />
       </div>
       <DragonIntro />

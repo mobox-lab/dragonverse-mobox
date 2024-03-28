@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export type OptionType = {
-  label?: string;
+  label?: string | React.ReactNode;
   value: string | number;
 } | null;
 
@@ -14,10 +14,11 @@ type SegmentedProps = {
   onChange?: (value: string | number) => void;
   className?: string;
   indicateClass?: string;
+  labelClass?: string;
   id?: string;
 };
 
-export const Segmented = ({ options, defaultValue, onChange, className, id, indicateClass }: SegmentedProps) => {
+export const Segmented = ({ options, defaultValue, onChange, className, id, indicateClass, labelClass }: SegmentedProps) => {
   const [value, setValue] = useState(() => defaultValue ?? options[0]?.value ?? '');
   const select = useCallback(
     (value: string | number) => {
@@ -30,7 +31,7 @@ export const Segmented = ({ options, defaultValue, onChange, className, id, indi
   return (
     <div
       className={twMerge(
-        'flex w-fit cursor-pointer select-none rounded-sm bg-white/[0.08] p-1 text-xs font-semibold backdrop-blur-lg',
+        'flex w-fit cursor-pointer select-none rounded-sm bg-white/10 p-[0.48vw] text-xs font-medium backdrop-blur-lg xl:p-1.5',
         className,
       )}
     >
@@ -40,7 +41,8 @@ export const Segmented = ({ options, defaultValue, onChange, className, id, indi
         return (
           <div
             className={clsxm(
-              'flex-center first:rounded-l-xs last:rounded-r-xs relative px-3 py-1',
+              'flex-center first:rounded-l-xs last:rounded-r-xs relative px-[0.96vw] py-[0.32vw] xl:px-3 xl:py-1',
+              labelClass,
               { 'text-white': isSelected(value) },
               { '!font-medium opacity-50': !isSelected(value) },
             )}
@@ -51,7 +53,7 @@ export const Segmented = ({ options, defaultValue, onChange, className, id, indi
             {isSelected(value) && (
               <motion.div
                 layoutId={`segmented_selected_${id ?? 'default'}`}
-                className={twMerge('absolute inset-0 rounded-sm bg-white/20', indicateClass)}
+                className={twMerge('absolute inset-0 rounded-sm bg-white/[0.12]', indicateClass)}
               />
             )}
           </div>

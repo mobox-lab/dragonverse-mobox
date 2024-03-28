@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useIsMobile } from '@/hooks/useIsMobile';
-import { motion } from 'framer-motion';
+import { siderCollapsedAtom } from '@/atoms';
 import { useIsHome } from '@/hooks/useIsHome';
+import { motion } from 'framer-motion';
+import { useAtom } from 'jotai';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { isMobile } from 'react-device-detect';
+import { useWindowSize } from 'react-use';
 
 export interface SiderProps extends React.HTMLAttributes<HTMLDivElement> {
   collapsible?: boolean;
@@ -18,93 +21,46 @@ export interface SiderContextProps {
 
 export const SiderContext: React.Context<SiderContextProps> = React.createContext({});
 
-// const variants = {
-//   open: { width: 238 },
-//   closed: { width: 86 },
-// };
-
-const Sider: React.FunctionComponent<SiderProps> = ({
-  defaultCollapsed = false,
-  collapsible = true,
-  width = 238,
-  collapsedWidth = 86,
-  onCollapse,
-  children,
-  ...props
-}) => {
-  const [collapsed, setCollapsed] = useState('collapsed' in props ? props.collapsed : defaultCollapsed);
+const Sider: React.FunctionComponent<SiderProps> = ({ children }) => {
+  const [collapsed, setCollapsed] = useAtom(siderCollapsedAtom);
   const { isHome } = useIsHome();
-  const { mobile } = useIsMobile();
-  useEffect(() => {
-    if ('collapsed' in props) {
-      setCollapsed(props.collapsed);
-    }
-    // eslint-disable-next-line
-  }, [props.collapsed]);
 
-  const contextValue = React.useMemo(
-    () => ({
-      siderCollapsed: collapsed,
-    }),
-    [collapsed],
-  );
+  const handleMouseEnter = useCallback(() => {
+    if (isMobile || isHome) return;
+    setCollapsed(false);
+  }, [isHome, setCollapsed]);
 
-  const handleSetCollapsed = (value: boolean) => {
-    if (!('collapsed' in props)) {
-      setCollapsed(value);
-    }
-    onCollapse?.(value);
-  };
-
-  const toggle = () => {
-    handleSetCollapsed(!collapsed);
-  };
-
-  const handleMouseEnter = () => {
-    if (mobile || isHome) return;
-    handleSetCollapsed(false);
-  };
-
-  const handleMouseLeave = () => {
-    if (mobile || isHome) return;
-    handleSetCollapsed(true);
-  };
+  const handleMouseLeave = useCallback(() => {
+    if (isMobile || isHome) return;
+    setCollapsed(true);
+  }, [isHome, setCollapsed]);
 
   const xlBreakpoint = 1280; //  
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const { width: windowWidth } = useWindowSize();
+  const variants = useMemo(
+    () => ({
+      open: { width: windowWidth >= xlBreakpoint ? '238px' : 'calc(19.04vw)' },
+      closed: { width: windowWidth >= xlBreakpoint ? '86px' : 'calc(6.88vw)' },
+    }),
+    [windowWidth, xlBreakpoint],
+  );
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+    if (isHome) setCollapsed(false);
+    else setCollapsed(true);
+  }, [isHome, setCollapsed]);
 
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const variants = {
-    open: { width: windowWidth >= xlBreakpoint ? '238px' : 'calc(19.04vw)' },
-    closed: { width: windowWidth >= xlBreakpoint ? '86px' : 'calc(6.88vw)' },
-  };
-
-  const renderSider = () => {
-    return (
-      <motion.aside
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        animate={collapsed ? 'closed' : 'open'}
-        variants={variants}
-        className={`fixed left-0 top-0 z-20 h-screen bg-[#0E0F15] px-[1.28vw] xl:px-4`}
-      >
-        <div>{children}</div>
-      </motion.aside>
-    );
-  };
-
-  return <SiderContext.Provider value={contextValue}>{renderSider()}</SiderContext.Provider>;
+  return (
+    <motion.aside
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      animate={collapsed ? 'closed' : 'open'}
+      variants={variants}
+      className={`fixed left-0 top-0 z-20 h-screen bg-[#0E0F15] px-[1.28vw] xl:px-4`}
+    >
+      <div>{children}</div>
+    </motion.aside>
+  );
 };
 
 export default Sider;

@@ -6,6 +6,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/hooks/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/constants/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -40,11 +41,14 @@ const config: Config = {
         21.5: '5.375rem',
         25: '6.25rem',
         25.5: '6.375rem',
+        26: '6.5rem',
+        27: '6.75rem',
         27.5: '6.875rem',
         30: '7.5rem',
         31: '7.75rem',
         31.5: '7.875rem',
         35: '8.75rem',
+        58.5: '14.625rem',
         70: '17.5rem',
         90: '22.5rem',
         93: '23.25rem',
@@ -52,11 +56,14 @@ const config: Config = {
       },
       colors: {
         legendary: '#FFAA2C',
+        epic: '#7638FF',
+        uncommon: '#14752D',
         green: {
           500: '#64AB85',
           DEFAULT: '#1EDB8C',
         },
         blue: {
+          300: '#4383FF',
           DEFAULT: '#43BBFF',
         },
         yellow: {
@@ -75,8 +82,15 @@ const config: Config = {
         },
       },
       backgroundImage: {
+        'gradient-text': 'linear-gradient(180deg, #FFFFDA 6.62%, #FFE7B6 44.37%, #CE9658 81.62%)',
         'gradient-green': 'linear-gradient(180deg, #1E6744 5%, #388657 50%, #499467 99%)',
         'gradient-red': 'linear-gradient(180deg, #8C2329 5%, #B03B42 50%, #C03840 99%)',
+        'gradient-yellow': 'linear-gradient(#aa7000 0%, #4a2800 57.58%, #1f0d00 100%)',
+        'gradient-yellow-dark': 'linear-gradient(#AA7000 -10%, #4A2800 59.09%, #1F0D00 110%)',
+        'gradient-yellow-light': 'linear-gradient(#E2A300 0%, #894200 57.58%, #4B1F00 100%)',
+        'gradient-chart-yellow': 'linear-gradient(180deg, #FF9F77 0%, #FFD600 100%)',
+        'gradient-process': 'linear-gradient(180deg, #4B1700 0%, #341600 57.58%, #1D0900 100%)',
+        'gradient-process-content': 'linear-gradient(180deg,#F2A000 2.78%, #7D4400 57.15%, #632900 97.22%)',
         'content-border': 'url("/img/border.webp")',
       },
       lineHeight: {
@@ -87,7 +101,11 @@ const config: Config = {
         7.5: '1.875rem',
         8.5: '2.125rem',
         10.5: '2.625rem',
+        11: '2.75rem',
         12: '3rem',
+      },
+      backdropBlur: {
+        unset: 'unset',
       },
       fontFamily: {
         poppins: 'var(--font-poppins)',

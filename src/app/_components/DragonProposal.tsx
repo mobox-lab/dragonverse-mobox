@@ -58,23 +58,23 @@ export default function DragonProposal({ data }: DragonProposalProps) {
       onClick={() => {
         window.open(`https://snapshot.org/#/dragonverseneo.eth/proposal/${data?.id}`, '_blank');
       }}
-      className="group flex h-[19.36vw] cursor-pointer flex-col border border-gray-400 p-[1.28vw] pb-[0.96vw] backdrop-blur-sm hover:bg-white/[0.08] xl:h-[242px] xl:p-4 xl:pb-3"
+      className="group flex h-[19.36vw] cursor-pointer flex-col border border-gray-600 p-[1.28vw] pb-[0.96vw] backdrop-blur-sm hover:bg-white/[0.08] xl:h-[242px] xl:p-4 xl:pb-3"
     >
       <div className="absolute left-0 top-0 origin-top-left border-[0.72vw] border-gray-400 border-b-transparent border-r-transparent transition group-hover:scale-125 xl:border-[9px]" />
-      <p className="line-clamp-2 h-[3.84vw] text-[1.28vw]/[1.92vw] font-semibold xl:h-12 xl:text-base/6">{data?.title}</p>
+      <p className="line-clamp-2 h-[3.84vw] text-[1.28vw]/[1.92vw] font-medium xl:h-12 xl:text-base/6">{data?.title}</p>
       <div className="mt-[1.28vw] border-t border-gray-400 xl:mt-4" />
-      <p className="mt-[0.96vw] text-[1.28vw]/[1.92vw] font-semibold xl:mt-3 xl:text-base/6">
+      <p className="mt-[0.96vw] text-[1.28vw]/[1.92vw] font-medium xl:mt-3 xl:text-base/6">
         <span className="text-yellow">{voteTotal}</span> Votes
       </p>
       <div className="mt-auto">
         <div className="mt-[0.64vw] flex items-center gap-[0.64vw] xl:mt-2 xl:gap-2">
           <DragonState data={data} />
-          <p className="text-[0.96vw]/[1.6vw] font-semibold xl:text-xs/5">by {shortenAddress(data?.author)}</p>
+          <p className="text-[0.96vw]/[1.6vw] font-medium xl:text-xs/5">by {shortenAddress(data?.author)}</p>
         </div>
-        <div className="mt-[0.64vw] text-[0.96vw]/[1.6vw] font-semibold uppercase xl:mt-2 xl:text-xs/5">{dateStr}</div>
+        <div className="mt-[0.64vw] text-[0.96vw]/[1.6vw] font-medium uppercase xl:mt-2 xl:text-xs/5">{dateStr}</div>
         <p
           className={clsxm(
-            'mt-[0.96vw] cursor-pointer text-center text-[0.96vw]/[1.92vw] font-semibold text-blue xl:mt-3 xl:text-xs/6',
+            'mt-[0.96vw] cursor-pointer text-center text-[0.96vw]/[1.92vw] font-medium text-blue xl:mt-3 xl:text-xs/6',
             {
               'text-gray-300': data?.state === DragonProposalState.CLOSED,
             },

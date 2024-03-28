@@ -37,7 +37,7 @@ const LogDialog: React.FunctionComponent<LogDialogProps> = (props) => {
       }}
       render={() => (
         <div className="w-full">
-          <div className="text-center text-[1.6vw]/[1.92vw] font-semibold xl:text-xl/6">Deposit/Withdraw Logs</div>
+          <div className="text-center text-[1.6vw]/[1.92vw] font-medium xl:text-xl/6">Deposit/Withdraw Logs</div>
           <RankTable
             loading={isLoading}
             className="mt-[0.8vw] max-h-[35.68vw] overflow-x-auto xl:mt-2.5 xl:max-h-[446px]"

@@ -93,7 +93,7 @@ function Dialog({
                     {showCloseButton && (
                       <CloseSvg
                         onClick={() => onChange(false)}
-                        className="absolute right-[2.4vw] top-[2.4vw] h-[1.12vw] w-[1.12vw] xl:right-7.5 xl:top-7 xl:h-3.5 xl:w-3.5"
+                        className="absolute right-[2.4vw] top-[2.4vw] size-3.5 xl:right-7.5 xl:top-7"
                       />
                     )}
                     {render({

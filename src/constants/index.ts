@@ -1,9 +1,8 @@
-import { merlinTestnet } from '@/connectors/chains';
+import { merlinMainnet, merlinTestnet } from '@/connectors/chains';
 
 export const PARTICLE_APP_ID = process.env.NEXT_PUBLIC_PARTICLE_APP_ID ?? '';
 
-// TODO: replace MerlinMainnet
-export const ALLOW_CHAIN = process.env.NEXT_PUBLIC_CHAIN_ENV === 'production' ? merlinTestnet.id : merlinTestnet.id;
+export const ALLOW_CHAIN = process.env.NEXT_PUBLIC_CHAIN_ENV === 'production' ? merlinMainnet.id : merlinTestnet.id;
 
 export const CDN_URL = 'https://cdn-dragonverseneo.mobox.app';
 
@@ -24,3 +23,5 @@ export const SocialLinks = {
   telegram: 'https://t.me/mobox_io',
   discord: 'https://discord.com/invite/gW2eAU4WZy',
 };
+
+export const ONE = 1000000000000000000n;

@@ -3,6 +3,7 @@
 import { useCallback, useMemo } from 'react';
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
+import { toast } from 'react-toastify';
 import { useMutationEvmLogin } from '@/hooks/user';
 import { useChainId, useDisconnect, useSignMessage } from 'wagmi';
 
@@ -22,7 +23,7 @@ export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps 
         const message = new SiweMessage({
           domain: window.location.host,
           address,
-          statement: 'Sign in with Ethereum to the app.',
+          statement: 'Welcome to Dragonverse Neo.',
           uri: window.location.origin,
           version: '1',
           chainId,
@@ -31,6 +32,7 @@ export function useSignInWithEthereum({ onSuccess }: useSignInWithEthereumProps 
         const signature = await signMessageAsync({ message: message.prepareMessage() });
         mutate({ message, signature, address });
         onSuccess?.({ message, signature, address });
+        toast.success('Wallet connected');
       } catch (e) {
         disconnect?.();
       }

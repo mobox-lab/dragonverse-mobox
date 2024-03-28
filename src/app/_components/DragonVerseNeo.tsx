@@ -20,7 +20,7 @@ import DragonProposal from './DragonProposal';
 const opts = [
   { label: 'ALL', value: DragonProposalSortField.ALL },
   { label: 'Active Proposals', value: DragonProposalSortField.ACTIVE_PROPOSALS },
-  { label: 'Executed Proposals', value: DragonProposalSortField.EXECUTED_PROPOSALS }, // TODO: NEO API
+  { label: 'Executed Proposals', value: DragonProposalSortField.EXECUTED_PROPOSALS },
 ];
 export default function DragonVerseNeo({ className }: { className?: string }) {
   const [type, setType] = useState<DragonProposalSortField>(DragonProposalSortField.ALL);
@@ -53,7 +53,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
         className,
       )}
     >
-      <DragonBorder className="inset-2 -z-10" />
+      <DragonBorder className="inset-[0.64vw] -z-10 xl:inset-2" />
       {/* <div className="flex-center">
         <img draggable={false} src="/img/dragon-neo-title.webp" alt="DragonVerse" className="h-13" />
       </div> */}
@@ -66,25 +66,25 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           },
         )}
       >
-        <div className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">
+        <div className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">
           <span className="text-yellow text-[1.6vw]/[1.92vw] xl:text-xl/6">
             {governInfo?.activeProposal?.toLocaleString() ?? 0}
           </span>{' '}
           active proposals
         </div>
-        <div className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">
+        <div className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">
           <span className="text-yellow text-[1.6vw]/[1.92vw] xl:text-xl/6">
             {governInfo?.closedProposal?.toLocaleString() ?? 0}
           </span>{' '}
           closed Proposals
         </div>
-        <div className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">
+        <div className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">
           <span className="text-yellow text-[1.6vw]/[1.92vw] xl:text-xl/6">
             {governInfo?.voterLength?.toLocaleString() ?? 0}
           </span>{' '}
           voters
         </div>
-        <div className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">
+        <div className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">
           <span className="text-yellow text-[1.6vw]/[1.92vw] xl:text-xl/6">
             {governInfo?.votesCount?.toLocaleString() ?? 0}
           </span>{' '}
@@ -98,14 +98,14 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
         >
           {/* <Button
             type="red"
-            className="flex h-[4.8vw] w-[21.44vw] flex-col items-center gap-[0.16vw] py-[0.96vw] text-[1.6vw]/[1.6vw] font-bold xl:h-15 xl:w-[268px] xl:gap-0.5 xl:py-3 xl:text-xl/5"
+            className="flex h-[4.8vw] w-[21.44vw] flex-col items-center gap-[0.16vw] py-[0.96vw] text-[1.6vw]/[1.6vw] font-semibold xl:h-15 xl:w-[268px] xl:gap-0.5 xl:py-3 xl:text-xl/5"
             onClick={() => window.open('https://snapshot.org/#/dragonverseneo.eth', '_blank')}
           >
-            Voting Hall <div className="text-[0.96vw]/[0.96vw] font-semibold xl:text-xs/3">Snapshot</div>
+            Voting Hall <div className="text-[0.96vw]/[0.96vw] font-medium xl:text-xs/3">Snapshot</div>
           </Button> */}
           <Button
             type="red"
-            className="h-[4.8vw] w-[18.8vw] whitespace-nowrap py-[0.96vw] text-[1.6vw]/[1.6vw] font-bold xl:h-15 xl:w-[235px] xl:py-3 xl:text-xl/5"
+            className="h-[4.8vw] w-[18.8vw] whitespace-nowrap py-[0.96vw] text-[1.6vw]/[1.6vw] font-semibold xl:h-15 xl:w-[235px] xl:py-3 xl:text-xl/5"
             onClick={() => {
               if (!remainingNum) {
                 openBurnDialog();
@@ -118,7 +118,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           </Button>
           {/* <div className="flex h-[4.8vw] items-center gap-[0.16vw] xl:h-15 xl:gap-2">
             <div className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm">remaining:</div>
-            <div className="flex h-full items-center border-none bg-white/[0.12] px-0 text-center text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
+            <div className="flex h-full items-center border-none bg-white/[0.12] px-0 text-center text-[1.6vw]/[1.6vw] font-medium xl:text-xl/5">
               <span className="flex-center h-full w-[4.8vw] xl:w-[60px]">{remainingNum ?? 0}</span>
               <div className="-mr-px h-[3.2vw] w-px bg-gray xl:h-10" />
               <span
@@ -130,7 +130,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             </div>
           </div> */}
           <Segmented
-            className="h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-semibold xl:h-[38px] xl:text-sm/4"
+            className="h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-medium xl:h-[38px] xl:text-sm/4"
             defaultValue={type}
             onChange={(value) => {
               setType(value as DragonProposalSortField);
@@ -189,7 +189,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             <img className="h-[4.16vw] xl:h-13" draggable={false} alt="Voting Power" src="/img/dragon-voting-power.png" />
             <p className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">The Voting power for Co-governance</p>
           </div>
-          <div className="flex items-center gap-[0.96vw] border border-gray-400 p-[0.96vw] pr-[1.6vw] xl:gap-3 xl:p-3 xl:pr-5">
+          <div className="flex items-center gap-[0.96vw] border border-gray-600 p-[0.96vw] pr-[1.6vw] xl:gap-3 xl:p-3 xl:pr-5">
             <img
               className="h-[8.16vw] w-[8.16vw] select-none xl:h-25.5 xl:w-25.5"
               draggable={false}
@@ -197,14 +197,14 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
               src="/img/ve-mobox.png"
             />
             <div className="flex w-[21.92vw] flex-col gap-[0.96vw] xl:w-[274px] xl:gap-3">
-              <h4 className="text-[1.6vw]/[1.92vw] font-semibold xl:text-xl/6">$veMBOX</h4>
+              <h4 className="text-[1.6vw]/[1.92vw] font-medium xl:text-xl/6">$veMBOX</h4>
               <p className="line-clamp-2 text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">
                 Your $veMBOX balance is equivalent to votes on a 1:1 ratio
               </p>
             </div>
             <Button
               type="green"
-              className="ml-[0.96vw] flex w-[8.8vw] flex-col items-center gap-[0.16vw] py-[0.96vw] text-[1.44vw]/[1.6vw] font-bold xl:ml-3 xl:w-[110px] xl:gap-0.5 xl:py-3 xl:text-lg/5"
+              className="ml-[0.96vw] flex w-[8.8vw] flex-col items-center gap-[0.16vw] py-[0.96vw] text-[1.44vw]/[1.6vw] font-semibold xl:ml-3 xl:w-[110px] xl:gap-0.5 xl:py-3 xl:text-lg/5"
               onClick={() => window.open('https://www.mobox.io/#/iframe/momo', '_blank')}
             >
               GET

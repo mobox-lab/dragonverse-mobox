@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useSignMessage } from 'wagmi';
+import { useMainAccount } from '@/hooks/wallet';
 import { MainWalletType } from '@/constants/enum';
-import { useMainAccount } from '@/hooks/wallet/useMainAccount';
 import { useBTCProvider } from '@particle-network/btc-connectkit';
 
 export function useMainSignMessage() {

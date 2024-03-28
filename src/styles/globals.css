@@ -9,6 +9,7 @@
 body {
   color: #fff;
   background: #000000;
+  overscroll-behavior: none;
 }
 
 :root {
@@ -20,6 +21,9 @@ body {
 }
 
 @layer utilities {
+  .text-link {
+    @apply cursor-pointer text-blue hover:underline;
+  }
   .flex-center {
     @apply flex items-center justify-center;
   }
@@ -41,17 +45,29 @@ body {
   transform: rotate(180deg);
 }
 
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 @layer components {
   .border-dragon {
-    border: 26px solid;
-    border-image: url('/svg/dragon-border.svg');
+    border: 2.08vw solid;
+    border-image: url('/svg/dragon/border/dragon-border.svg');
     border-image-slice: 26;
   }
-
+  @media (min-width: 1280px) {
+    .border-dragon {
+      border-width: 26px;
+    }
+  }
   .border-dragon-button {
-    border: 26px solid;
+    border: 12px solid;
     border-image: url('/svg/button-border.svg');
-    border-image-slice: 26;
+    border-image-slice: 14;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
@@ -63,5 +79,77 @@ body {
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+
+  .shadow-text-unbox {
+    text-shadow: 0px 1.714px 5.143px rgba(0, 0, 0, 0.5);
+  }
+
+  .-rotate-y-180 {
+    transform: rotateY(-180deg);
+  }
+
+  .button-yellow {
+    stroke-width: 1px;
+    stroke: #452a08;
+
+    box-shadow:
+      0px -1px 8px 0px #ffb800 inset,
+      2px 2px 3px 0px #fff inset;
+    /* filter: drop-shadow(0px 0px 8px rgba(255, 199, 0, 0.3)); */
+  }
+
+  .button-yellow-light {
+    stroke-width: 1px;
+    stroke: #452a08;
+
+    box-shadow:
+      0px -1px 20px 0px #ffb800 inset,
+      2px 2px 12px 0px #fff inset,
+      0px 0px 10px 0px rgba(255, 199, 0, 0.3);
+    filter: drop-shadow(0px 0px 8px rgba(255, 199, 0, 0.3));
+  }
+
+  .button-yellow-dark {
+    stroke-width: 1px;
+    stroke: #452a08;
+
+    box-shadow:
+      0.5px 0.5px 1.5px 0px #fff inset,
+      0px -0.5px 4px 0px #ffb800 inset;
+  }
+
+  .animated-opacity {
+    animation: opacity-animation 2s infinite alternate; /*   */
+  }
+
+  @keyframes opacity-animation {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .black-outline {
+    color: white;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+}
+
+/* fix border in mobile */
+.border {
+  border-width: 0.08vw;
+}
+
+@media (min-width: 1280px) {
+  .border {
+    border-width: 1px;
   }
 }

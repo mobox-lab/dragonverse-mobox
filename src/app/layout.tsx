@@ -1,58 +1,48 @@
 'use client';
-import { PropsWithChildren, useState } from 'react';
-import clsx from 'clsx';
-import Providers from '@/providers/root';
-import { poppins } from '@/constants/font';
+import LeftSider from '@/components/layout/LeftSider';
+import ToastIcon from '@/components/ui/toast/ToastIcon';
 import Web3Status from '@/components/web3/Web3Status';
-import MainWalletConnectDialog from '@/components/ui/dialog/MainWalletConnectDialog';
+import { poppins } from '@/constants/font';
 import { useIsHome } from '@/hooks/useIsHome';
-import Sider from '@/components/layout/Sider';
-import Nav from '@/components/nav';
-import DragonBurnDialog from '@/components/ui/dialog/DragonBurnDialog';
+import Providers from '@/providers/root';
+import clsx from 'clsx';
+import { PropsWithChildren } from 'react';
+import { ToastContainer } from 'react-toastify';
+import DialogComponents from '@/components/ui/dialog/DialogComponents';
 import '../constants/metadata';
 
 import '@/styles/index.css';
-import { ClientOnly } from '@/components/common/ClientOnly';
-import SocialMedia from '@/components/layout/SocialMedia';
+import 'react-toastify/dist/ReactToastify.css';
+import { usePathname } from 'next/navigation';
 
+const connectButtonExcludePath = ['/terms-of-use'];
 export default function RootLayout({ children }: PropsWithChildren) {
   const { isHome } = useIsHome();
-  const [collapsed, setCollapsed] = useState<boolean>(!isHome);
+  const pathname = usePathname();
   return (
     <html lang="en">
       <body className={clsx(poppins.className, poppins.variable)}>
         <Providers>
           <div className="scrollbar-hide flex overflow-auto">
-            <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-              <div className="flex h-[12.8vw] justify-center pt-[1.92vw] xl:h-[160px] xl:pt-6">
-                {collapsed ? (
-                  <img src="/img/logo.webp" alt="logo" className="h-[4.32vw] w-[4.32vw] xl:h-[54px] xl:w-[54px]" />
-                ) : (
-                  <img src="/img/dragonverse.png" alt="logo" className="h-[7.92vw] w-[13.92vw] xl:h-[94px] xl:w-[174px]" />
-                )}
-              </div>
-
-              <div>
-                <Nav collapsed={collapsed} />
-              </div>
-              <SocialMedia collapsed={collapsed} />
-            </Sider>
+            <LeftSider />
             <div
               className={clsx(`relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]`, {
                 '!ml-[19.04vw] xl:!ml-[238px]': isHome,
               })}
             >
-              <div className="sticky z-10 flex w-full items-center justify-end px-[5vw] pt-[1.92vw] xl:container sm:px-[20px] xl:pt-6">
-                <ClientOnly>
-                  <Web3Status />
-                </ClientOnly>
-              </div>
+              {connectButtonExcludePath.includes(pathname) ? null : (
+                <div className="sticky z-50 flex items-center justify-end pt-[2.4vw] xl:container xl:pt-7.5">
+                  <div className="px-[3.2vw] xl:px-0">
+                    <Web3Status />
+                  </div>
+                </div>
+              )}
               <main className="xl:container">{children}</main>
             </div>
           </div>
 
-          <DragonBurnDialog />
-          <MainWalletConnectDialog />
+          <ToastContainer theme="dark" toastClassName="toast-container" icon={<ToastIcon />} autoClose={3000} hideProgressBar />
+          <DialogComponents />
         </Providers>
       </body>
     </html>

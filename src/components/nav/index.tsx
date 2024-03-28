@@ -1,22 +1,29 @@
 'use client';
-import React, { cloneElement } from 'react';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { useLocation } from 'react-use';
+import Backpack from '@/../public/svg/bagpack.svg?component';
+import DBAL from '@/../public/svg/dbal.svg?component';
 import DragonKey from '@/../public/svg/menu-dragon-key.svg?component';
 import Governance from '@/../public/svg/menu-governance.svg?component';
-import Backpack from '@/../public/svg/bagpack.svg?component';
 import Rank from '@/../public/svg/rank.svg?component';
-import DBAL from '@/../public/svg/dbal.svg?component';
+import { siderCollapsedAtom } from '@/atoms';
+import { useIsMounted } from '@/hooks/useIsMounted';
+import clsx from 'clsx';
+import { useAtomValue } from 'jotai';
+import Link from 'next/link';
+import React, { cloneElement, useMemo } from 'react';
+import { useLocation } from 'react-use';
+import ReactGA from 'react-ga4';
 
-interface NavProps {
-  collapsed: boolean;
-}
+interface NavProps {}
 
 const Nav: React.FunctionComponent<NavProps> = (props) => {
-  const { collapsed } = props;
+  const siderCollapsed = useAtomValue(siderCollapsedAtom);
+  const isMounted = useIsMounted();
   const location = useLocation();
-  const activeRouter = location.pathname ?? '/';
+  const activeRouter = useMemo(() => {
+    if (!isMounted) return '/';
+    const { pathname = '/' } = location;
+    return pathname;
+  }, [location, isMounted]);
 
   const navList = [
     {
@@ -24,31 +31,34 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
       to: '/',
       content: 'Home',
       icon: <DragonKey />,
+      point: 'home',
     },
     {
-      key: '/dkey',
-      to: 'dkey',
-      content: 'DBAL Launch',
+      key: '/mdbl',
+      to: 'mdbl',
+      content: 'MDBL Launch',
       icon: <DBAL />,
+      point: 'mdbl',
     },
-    {
-      key: '/backpack',
-      to: 'backpack',
-      content: 'Backpack',
-      icon: <Backpack />,
-    },
+    // {
+    //   key: '/backpack',
+    //   to: 'backpack',
+    //   content: 'Backpack',
+    //   icon: <Backpack />,
+    // },
     {
       key: '/halloffame',
       to: 'halloffame',
       content: 'Hall of Fame',
       icon: <Rank />,
+      point: 'hof',
     },
-    {
-      key: '/governance',
-      to: 'governance',
-      content: 'Governance',
-      icon: <Governance />,
-    },
+    // {
+    //   key: '/governance',
+    //   to: 'governance',
+    //   content: 'Governance',
+    //   icon: <Governance />,
+    // },
   ];
   return (
     <div className="flex flex-col items-start justify-center gap-[2.4vw] xl:gap-7.5">
@@ -56,6 +66,9 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
         <Link
           key={nav.key}
           href={nav.to}
+          onClick={() => {
+            ReactGA.event({ category: 'merlin', action: 'main_menu', label: nav.point });
+          }}
           className={clsx(
             'group flex h-[4.32vw] w-full items-center rounded-[0.64vw] bg-white/6 pl-[1.12vw] hover:bg-white/16 xl:h-[54px] xl:rounded-lg xl:pl-3.5',
             {
@@ -77,9 +90,9 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
             <span
               className={clsx(
                 `${
-                  collapsed ? 'hidden' : 'inline-block'
+                  siderCollapsed ? 'hidden' : 'inline-block'
                 } w-full flex-1 animate-collapsed text-[1.28vw] font-medium xl:text-base`,
-                { 'font-semibold': nav.key === activeRouter },
+                { 'font-medium': nav.key === activeRouter },
               )}
             >
               {nav.content}

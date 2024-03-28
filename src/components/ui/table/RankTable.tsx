@@ -1,5 +1,4 @@
 import LoadingSvg from '@/../public/svg/loading.svg?component';
-import Empty from '@/components/ui/empty';
 import { clsxm } from '@/utils';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { motion } from 'framer-motion';
@@ -9,11 +8,12 @@ type RankTableProps = {
   dataSource: any[];
   columns: any[];
   className?: string;
+  bodyClass?: string;
   loading?: boolean;
   renderBottom?: () => ReactNode;
 };
 
-export default function RankTable({ dataSource, columns, className, loading, renderBottom }: RankTableProps) {
+export default function RankTable({ dataSource, columns, className, loading, renderBottom, bodyClass }: RankTableProps) {
   const data = useMemo(() => dataSource, [dataSource]);
   const { getRowModel, getHeaderGroups } = useReactTable({
     columns,
@@ -26,17 +26,25 @@ export default function RankTable({ dataSource, columns, className, loading, ren
     <div className={clsxm('flex w-full flex-col overflow-auto text-right', className)}>
       <div className="border-b border-gray bg-[#43454980]">
         {getHeaderGroups().map((headerGroup) => (
-          <div className="flex w-full gap-6 py-2.5 text-xs/4.5 font-semibold" key={headerGroup.id}>
+          <div
+            className="flex w-full gap-[1.92vw] py-[0.8vw] text-[0.96vw]/[1.44vw] font-medium xl:gap-6 xl:py-2.5 xl:text-xs/4.5"
+            key={headerGroup.id}
+          >
             {headerGroup.headers.map((header) => (
               <Fragment key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</Fragment>
             ))}
           </div>
         ))}
       </div>
-      <div className="flex flex-grow flex-col overflow-auto pb-10">
+      <div className={clsxm('scrollbar-hide flex flex-grow flex-col overflow-auto pb-[3.2vw] xl:pb-10', bodyClass)}>
         {rows.length ? (
           rows.map((row) => (
-            <motion.div className={clsxm('flex w-full gap-6 border-b border-gray py-4 text-xs/4.5 font-semibold')} key={row.id}>
+            <motion.div
+              className={clsxm(
+                'flex w-full items-center gap-[1.92vw] border-b border-gray py-[0.96vw] text-[0.96vw]/[1.44vw] font-medium xl:gap-6 xl:py-3 xl:text-xs/4.5',
+              )}
+              key={row.id}
+            >
               {row.getVisibleCells().map((cell) => {
                 return <Fragment key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Fragment>;
               })}
@@ -44,11 +52,11 @@ export default function RankTable({ dataSource, columns, className, loading, ren
           ))
         ) : loading ? (
           <div className="flex-center">
-            <LoadingSvg className="mt-8 h-10 w-10 animate-spin fill-gray-300" />
+            <LoadingSvg className="mt-[2.56vw] h-[3.2vw] w-[3.2vw] animate-spin fill-white/20 xl:mt-8 xl:h-10 xl:w-10" />
           </div>
         ) : (
-          <div className="flex-center">
-            <Empty />
+          <div className="flex-center border-b border-gray py-[1.28vw] text-[0.96vw]/[1.44vw] font-medium text-gray-300 xl:py-4 xl:text-xs/4.5">
+            No Data
           </div>
         )}
         {renderBottom?.()}

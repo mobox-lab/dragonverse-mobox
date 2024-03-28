@@ -125,9 +125,9 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
           <DragonBorder className="inset-[0.64vw] right-[0.32vw] -z-10 xl:inset-2 xl:right-1" />
           <div className="relative px-[3.2vw] py-[3.84vw] xl:px-10 xl:py-12">
             <div className="flex items-center justify-between">
-              <div className="text-[1.28vw] font-semibold xl:text-base">My MODragon ({data.length})</div>
+              <div className="text-[1.28vw] font-medium xl:text-base">My MODragon ({data.length})</div>
               <div
-                className="flex cursor-pointer items-center text-[1.12vw]/[1.6vw] font-semibold text-blue hover:underline xl:text-sm"
+                className="flex cursor-pointer items-center text-[1.12vw]/[1.6vw] font-medium text-blue hover:underline xl:text-sm"
                 onClick={() => openLink('https://www.mobox.io/#/iframe/dragonmo')}
               >
                 Go Market <ArrowSvg className="w-[0.96vw] rotate-90 fill-blue xl:w-3.5" />
@@ -146,7 +146,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
                 Coming soon
               </div>
             </div>
-            <div className="mt-[2.4vw] text-[1.28vw] font-semibold xl:mt-7.5 xl:text-base">Stones</div>
+            <div className="mt-[2.4vw] text-[1.28vw] font-medium xl:mt-7.5 xl:text-base">Stones</div>
             <div className="mt-[0.96vw] flex gap-[0.8vw] xl:mt-3 xl:gap-2.5">
               {Object.values(DragonStone).map((key) => (
                 <div key={key} className="border border-gray-400/50 p-[0.48vw] xl:p-1.5">
@@ -157,7 +157,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
                 </div>
               ))}
             </div>
-            <div className="mt-[2.4vw] text-[1.28vw] font-semibold xl:mt-7.5 xl:text-base">Gems</div>
+            <div className="mt-[2.4vw] text-[1.28vw] font-medium xl:mt-7.5 xl:text-base">Gems</div>
             <div className="mt-[0.96vw] flex flex-wrap gap-[0.8vw] xl:mt-3 xl:gap-2.5">
               {gems.map((gem, index) => (
                 <div key={index} className="border border-gray-400/50 p-[0.48vw] xl:p-1.5">
@@ -174,8 +174,8 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
           <DragonBorder className="inset-[0.64vw] left-[0.32vw] -z-10 xl:inset-2 xl:left-1" />
           {/* <div className="relative px-[3.2vw] pt-[3.84vw] xl:px-10 xl:pt-12">
             <div className="flex items-center justify-between">
-              <div className="text-[1.28vw] font-semibold xl:text-base">$MBOX Balance</div>
-              <div className="flex cursor-pointer items-center text-[1.12vw]/[1.6vw] font-semibold text-blue hover:underline xl:text-sm">
+              <div className="text-[1.28vw] font-medium xl:text-base">$MBOX Balance</div>
+              <div className="flex cursor-pointer items-center text-[1.12vw]/[1.6vw] font-medium text-blue hover:underline xl:text-sm">
                 Get $MBOX <ArrowSvg className="w-[0.96vw] rotate-90 fill-blue xl:w-3.5" />
               </div>
             </div>
@@ -185,8 +185,8 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
                 <div className="absolute left-0 top-0 origin-top-left border-[0.48vw] border-yellow border-b-transparent border-r-transparent transition xl:border-[6px]" />
                 <div className="flex h-full flex-col items-center justify-center gap-[0.32vw] xl:gap-1">
                   <img src="/img/mobox-wallet.png" alt="mobox" className="w-[2.4vw] xl:w-7.5" />
-                  <div className="text-[0.96vw]/[0.96vw] font-semibold xl:text-xs/3">Box Wallet</div>
-                  <div className="text-[0.96vw]/[0.96vw] font-semibold text-yellow xl:text-xs/3">
+                  <div className="text-[0.96vw]/[0.96vw] font-medium xl:text-xs/3">Box Wallet</div>
+                  <div className="text-[0.96vw]/[0.96vw] font-medium text-yellow xl:text-xs/3">
                     {toSignificant(boxWallet?.balance ?? 0)}
                   </div>
                 </div>
@@ -235,8 +235,8 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
                 )}
                 <div className="flex h-full flex-col items-center justify-center gap-[0.32vw] xl:gap-1">
                   <img src="/img/mobox.png" alt="mobox" className="w-[2.4vw] xl:w-7.5" />
-                  <div className="text-[0.96vw]/[0.96vw] font-semibold xl:text-xs">BSC</div>
-                  <div className="text-[0.96vw]/[0.96vw] font-semibold text-yellow xl:text-xs">
+                  <div className="text-[0.96vw]/[0.96vw] font-medium xl:text-xs">BSC</div>
+                  <div className="text-[0.96vw]/[0.96vw] font-medium text-yellow xl:text-xs">
                     {toSignificant(formatEther(mbox.bsc))}
                   </div>
                 </div>
@@ -258,8 +258,8 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
                 )}
                 <div className="flex h-full flex-col items-center justify-center gap-[0.32vw] xl:gap-1">
                   <img src="/img/mobox.png" alt="mobox" className="w-[2.4vw] xl:w-7.5" />
-                  <div className="text-[0.96vw]/[0.96vw] font-semibold xl:text-xs">ARB</div>
-                  <div className="text-[0.96vw]/[0.96vw] font-semibold text-yellow xl:text-xs">
+                  <div className="text-[0.96vw]/[0.96vw] font-medium xl:text-xs">ARB</div>
+                  <div className="text-[0.96vw]/[0.96vw] font-medium text-yellow xl:text-xs">
                     {toSignificant(formatEther(mbox.arb))}
                   </div>
                 </div>
@@ -270,7 +270,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
               <div className="flex">
                 <div
                   className={clsx(
-                    'h-[2.24vw] w-[8.24vw] cursor-pointer bg-white/10 text-center text-[1.12vw]/[2.24vw] font-semibold xl:h-7 xl:w-[103px] xl:text-sm/7',
+                    'h-[2.24vw] w-[8.24vw] cursor-pointer bg-white/10 text-center text-[1.12vw]/[2.24vw] font-medium xl:h-7 xl:w-[103px] xl:text-sm/7',
                     {
                       'bg-[#4D442E] text-yellow': action === ActionType.DEPOSIT,
                     },
@@ -281,7 +281,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
                 </div>
                 <div
                   className={clsx(
-                    'h-[2.24vw] w-[8.24vw] cursor-pointer bg-white/10 text-center text-[1.12vw]/[2.24vw] font-semibold xl:h-7 xl:w-[103px] xl:text-sm/7',
+                    'h-[2.24vw] w-[8.24vw] cursor-pointer bg-white/10 text-center text-[1.12vw]/[2.24vw] font-medium xl:h-7 xl:w-[103px] xl:text-sm/7',
                     {
                       'bg-[#4D442E] text-yellow': action === ActionType.WITHDRAW,
                     },
@@ -294,12 +294,12 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
             </div>
 
             <div className="mt-[1.6vw] flex items-center justify-between xl:mt-5">
-              <div className="text-[1.28vw] font-semibold xl:text-base">
+              <div className="text-[1.28vw] font-medium xl:text-base">
                 {action === ActionType.DEPOSIT ? 'Deposit' : 'Withdraw'} Amount
               </div>
 
               <Segmented
-                className="h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-semibold xl:h-[38px] xl:text-sm/4"
+                className="h-[3.04vw] whitespace-nowrap text-[1.12vw]/[1.28vw] font-medium xl:h-[38px] xl:text-sm/4"
                 defaultValue={TargetType.BSC}
                 onChange={(value) => {
                   setTarget(value as TargetType);
@@ -329,7 +329,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
               <input
                 type="text"
                 className={twMerge(
-                  'h-[3.52vw] w-full bg-white/10 px-[1.12vw] text-[1.28vw] font-semibold text-yellow placeholder:text-white/50 xl:h-11 xl:px-3.5 xl:text-base',
+                  'h-[3.52vw] w-full bg-white/10 px-[1.12vw] text-[1.28vw] font-medium text-yellow placeholder:text-white/50 xl:h-11 xl:px-3.5 xl:text-base',
                 )}
                 value={action === ActionType.DEPOSIT ? depositValue : withdrawValue}
                 onChange={inputChange}
@@ -373,13 +373,13 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
 
             {isConnected ? (
               action === ActionType.DEPOSIT ? (
-                <Button type="red" className="w-full font-bold" onClick={deposit}>
+                <Button type="red" className="w-full font-semibold" onClick={deposit}>
                   Deposit
                 </Button>
               ) : (
                 <Button
                   type="red"
-                  className="w-full font-bold"
+                  className="w-full font-semibold"
                   onClick={() => {
                     if (!withdrawValue) {
                       toast.error('Please Enter Amount First.');
@@ -426,7 +426,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
         }}
         render={() => (
           <div className="w-full">
-            <div className="text-center text-[1.6vw]/[1.92vw] font-semibold xl:text-xl/6">Please enter Address</div>
+            <div className="text-center text-[1.6vw]/[1.92vw] font-medium xl:text-xl/6">Please enter Address</div>
             <div className="mt-[2.56vw] text-[1.12vw]/[1.92vw] xl:mt-8 xl:text-sm/6">Please enter Address</div>
             <input
               type="text"
@@ -469,7 +469,7 @@ const BackpackAssets: React.FunctionComponent<BackpackAssetsProps> = (props) => 
           <div className="w-full">
             <div className="flex flex-col items-center">
               <WarningSvg className="w-[3.84vw] xl:w-12" />
-              <div className="mt-[1.28vw] text-[1.6vw]/[1.76vw] font-semibold text-legendary xl:mt-4 xl:text-xl/5.5">
+              <div className="mt-[1.28vw] text-[1.6vw]/[1.76vw] font-medium text-legendary xl:mt-4 xl:text-xl/5.5">
                 Confirm Withdraw
               </div>
             </div>

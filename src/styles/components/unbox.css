@@ -1,0 +1,48 @@
+/**
+* Codepen link: 
+* Important properties to make this animation work:
+
+* backface-visibility: hidden;
+  * Hide the back of the card until it should be visible
+  * https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility
+
+* transform-style: preserve-3d;
+  * Makes children elements positioned in 3D space. Default is flat.
+  * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style
+
+* transform: translateZ(100px);
+  * Moves elements closer to or further away from the the viewer
+  * https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ
+
+* perspective: 1200px;
+  * Setting the distance between the element and the user
+    to determine perspective of 3D elements
+  * Lowering this value will make the animation more "in your face"
+  * https://developer.mozilla.org/en-US/docs/Web/CSS/perspective
+
+*/
+.unbox__card-container {
+  perspective: 1200px;
+}
+.unbox__card {
+  transition: all 1s ease;
+  transform-style: preserve-3d;
+  @apply relative;
+}
+
+.unbox__card-contents {
+  backface-visibility: hidden;
+  @apply absolute inset-0 flex flex-col items-center justify-center;
+}
+.unbox__card-front {
+  transform-style: preserve-3d;
+}
+.unbox__card-back {
+  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+}
+/* depth item */
+.unbox__card-depth {
+  transform: translateZ(100px) scale(0.98);
+  perspective: inherit;
+}

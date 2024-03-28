@@ -4,8 +4,13 @@ import Tag from '@/components/ui/tag';
 
 export default function DragonIntro({ className }: { className?: string }) {
   return (
-    <div className={clsxm('relative mt-15 border border-gray-600 px-[3vw] py-[3.52vw] xl:px-7.5 xl:py-11 bg-black/60 backdrop-blur-sm', className)}>
-      <DragonBorder className="inset-2 -z-10" />
+    <div
+      className={clsxm(
+        'relative mt-15 border border-gray-600 bg-black/60 px-[3vw] py-[3.52vw] backdrop-blur-sm xl:px-7.5 xl:py-11',
+        className,
+      )}
+    >
+      <DragonBorder className="inset-[0.64vw] -z-10 xl:inset-2" />
       <div className="flex-center">
         <img src="/img/dragon-intro-title.webp" alt="dragonerse neo" className="w-[38.4vw] xl:w-[480px]" />
       </div>

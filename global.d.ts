@@ -16,5 +16,7 @@ declare global {
   declare interface Window {
     ethereum?: Ethereum;
     bitkeep?: Ethereum;
+    okxwallet?: Ethereum;
+    Delaunay?: any;
   }
 }

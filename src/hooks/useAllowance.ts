@@ -3,12 +3,16 @@ import { useEffect, useMemo } from 'react';
 import { Address, erc20Abi, TransactionReceipt } from 'viem';
 import { useReadContract, useTransactionReceipt, useWriteContract } from 'wagmi';
 
-export function useTokenAllowance(
-  token?: Address,
-  owner?: Address,
-  spender?: Address,
-  watch = false,
-): [bigint | undefined, (() => Promise<any>) | undefined] {
+type TokenAllowanceParams = {
+  token?: Address;
+  owner?: Address;
+  spender?: Address;
+  chainId?: number;
+  watch?: boolean;
+};
+
+export function useTokenAllowance(params: TokenAllowanceParams): [bigint | undefined, (() => Promise<any>) | undefined] {
+  const { token, owner, spender, chainId, watch = false } = params;
   const { data: allowance, refetch } = useReadContract({
     address: token,
     abi: erc20Abi,
@@ -18,8 +22,13 @@ export function useTokenAllowance(
       enabled: !!token && !!owner && !!spender,
       refetchInterval: watch ? 6_000 : undefined,
     },
+    chainId,
   });
-  return useMemo(() => (token && allowance ? [allowance, refetch] : [undefined, undefined]), [token, allowance, refetch]);
+
+  return useMemo(
+    () => (token && allowance !== undefined ? [allowance, refetch] : [undefined, undefined]),
+    [token, allowance, refetch],
+  );
 }
 
 type ApproveTokenProps = {

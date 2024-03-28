@@ -17,7 +17,7 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
         className="absolute left-1/2 top-[4.8vw] w-[40.48vw] -translate-x-1/2 transform xl:top-15 xl:w-[506px]"
       />
       <div className="relative mt-[24.56vw] w-full border border-gray-600 bg-black/60 backdrop-blur-sm xl:mt-[307px]">
-        <DragonBorder className="inset-2 -z-10" />
+        <DragonBorder className="inset-[0.64vw] -z-10 xl:inset-2" />
         <DragonGameRank />
       </div>
     </div>

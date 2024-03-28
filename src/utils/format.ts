@@ -23,3 +23,8 @@ export function toSignificant(num: number | string, digits: number = 6) {
 
   return formatter.format(n);
 }
+
+export function keepLastNumber(str: string) {
+  const match = str.match(/(\d+\.\d*?[1-9]?)0*$/);
+  return match ? match[1] : str;
+}

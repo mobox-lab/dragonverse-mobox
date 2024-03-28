@@ -1,4 +1,4 @@
-import { useMainAccount } from '@/hooks/wallet/useMainAccount';
+import { useMainAccount } from '@/hooks/wallet';
 
 export function useIsMainCorrectChain() {
   const { walletType } = useMainAccount();

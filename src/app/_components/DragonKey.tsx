@@ -52,7 +52,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
         </div>
 
         <div className="relative mt-[0.96vw] h-auto w-full border border-gray-600 bg-black/60 backdrop-blur-sm xl:mt-3">
-          <DragonBorder className="inset-2 -z-10" />
+          <DragonBorder className="inset-[0.64vw] -z-10 xl:inset-2" />
           <div className="relative h-auto w-full px-[4vw] pb-[1.28vw] pt-[2.24vw] xl:px-9 xl:pb-4 xl:pt-7">
             <img src="/img/key-title.webp" alt="your dragonkey" className="w-[23.85vw] xl:w-[297px] " />
             <div className="mt-[0.64vw] text-[1.12vw]/[1.6vw] font-medium xl:mt-2 xl:text-sm">
@@ -62,39 +62,39 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
             <div className="mx-auto mt-[3.84vw] flex w-[46vw] items-center justify-between xl:mt-12 xl:w-[572px]">
               <div className="relative h-[6.9vw] w-[6.6vw] xl:h-[86px] xl:w-[82px]">
                 <img src="/svg/code-bg.svg" alt="" className="absolute left-0 top-0" />
-                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-bold xl:text-4xl">{'?'}</div>
+                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-semibold xl:text-4xl">{'?'}</div>
               </div>
               <div className="relative h-[6.9vw] w-[6.6vw] xl:h-[86px] xl:w-[82px]">
                 <img src="/svg/code-bg.svg" alt="" className="absolute left-0 top-0" />
-                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-bold xl:text-4xl">{'?'}</div>
+                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-semibold xl:text-4xl">{'?'}</div>
               </div>
               <div className="relative h-[6.9vw] w-[6.6vw] xl:h-[86px] xl:w-[82px]">
                 <img src="/svg/code-bg.svg" alt="" className="absolute left-0 top-0" />
-                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-bold xl:text-4xl">{'?'}</div>
+                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-semibold xl:text-4xl">{'?'}</div>
               </div>
               <div className="relative h-[6.9vw] w-[6.6vw] xl:h-[86px] xl:w-[82px]">
                 <img src="/svg/code-bg.svg" alt="" className="absolute left-0 top-0" />
-                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-bold xl:text-4xl">{'?'}</div>
+                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-semibold xl:text-4xl">{'?'}</div>
               </div>
               <div className="relative h-[6.9vw] w-[6.6vw] xl:h-[86px] xl:w-[82px]">
                 <img src="/svg/code-bg.svg" alt="" className="absolute left-0 top-0" />
-                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-bold xl:text-4xl">{'?'}</div>
+                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-semibold xl:text-4xl">{'?'}</div>
               </div>
               <div className="relative h-[6.9vw] w-[6.6vw] xl:h-[86px] xl:w-[82px]">
                 <img src="/svg/code-bg.svg" alt="" className="absolute left-0 top-0" />
-                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-bold xl:text-4xl">{'?'}</div>
+                <div className="flex-center relative h-full text-[2.88vw]/[3.2vw] font-semibold xl:text-4xl">{'?'}</div>
               </div>
             </div>
             {isMounted && (
               <div className="flex-center">
                 {address ? (
                   <div className="flex-center flex-col gap-[1.6vw] xl:gap-5">
-                    <div className="flex-center mt-[0.96vw] h-[2.4vw] w-[46vw] gap-1.5 bg-gray-300/20 text-[0.96vw]/[1.28vw] font-semibold text-gray-300 backdrop-blur-xl xl:mt-3 xl:h-7.5 xl:w-[572px] xl:text-xs">
+                    <div className="flex-center mt-[0.96vw] h-[2.4vw] w-[46vw] gap-1.5 bg-gray-300/20 text-[0.96vw]/[1.28vw] font-medium text-gray-300 backdrop-blur-xl xl:mt-3 xl:h-7.5 xl:w-[572px] xl:text-xs">
                       Beta test has ended. Dragonkeys will be available before the official launch of the game.
                     </div>
                     <Button
                       type="green"
-                      className="mt-[0.96vw] w-[17.66vw] text-[1.28vw] font-bold xl:mt-3 xl:w-[220px] xl:text-base"
+                      className="mt-[0.96vw] w-[17.66vw] text-[1.28vw] font-semibold xl:mt-3 xl:w-[220px] xl:text-base"
                       disabled
                     >
                       Coming soon
@@ -102,12 +102,12 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                   </div>
                 ) : (
                   <div className="flex-center flex-col gap-[1.6vw] xl:gap-5">
-                    <div className="flex-center mt-[0.96vw] h-[2.4vw] w-[46vw] gap-1.5 bg-red/20 text-[0.96vw]/[1.28vw] font-semibold text-red backdrop-blur-xl xl:mt-3 xl:h-7.5 xl:w-[572px] xl:text-xs">
+                    <div className="flex-center mt-[0.96vw] h-[2.4vw] w-[46vw] gap-1.5 bg-red/20 text-[0.96vw]/[1.28vw] font-medium text-red backdrop-blur-xl xl:mt-3 xl:h-7.5 xl:w-[572px] xl:text-xs">
                       <img src="/img/error.webp" alt="" className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5" /> Lost Connection
                     </div>
                     <Button
                       type="red"
-                      className="w-[17.66vw] p-[0.96vw] text-[1.28vw] font-bold xl:w-[220px] xl:p-2 xl:text-base"
+                      className="w-[17.66vw] p-[0.96vw] text-[1.28vw] font-semibold xl:w-[220px] xl:p-2 xl:text-base"
                       onClick={() => {
                         setWalletConnect(true);
                       }}
@@ -119,13 +119,10 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
               </div>
             )}
             <div
-              className="mt-[3.84vw] flex cursor-pointer items-center justify-center gap-1 text-center text-[1.12vw]/[1.6vw] font-semibold text-blue xl:mt-12 xl:text-sm"
-              onClick={() => {
-                ReactGA.event({ category: 'dvneo', action: 'criteria_scroll', label: '' });
-                setDetailVisible(!detailVisible);
-              }}
+              className="mt-[3.84vw] flex cursor-pointer items-center justify-center gap-1 text-center text-[1.12vw]/[1.6vw] font-medium text-blue xl:mt-12 xl:text-sm"
+              onClick={() => setDetailVisible(!detailVisible)}
             >
-              Criteria{' '}
+              Criteria&nbsp;
               <ArrowSvg
                 className={clsx(
                   detailVisible ? '' : 'rotate-180',
@@ -136,7 +133,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
             {detailVisible && (
               <div className="pb-[3.84vw] xl:pb-12">
                 <div className="mt-[1.12vw] h-[1px] w-full bg-gray-500 xl:mt-3.5"></div>
-                <div className="mt-[3.84vw] text-center text-[1.92vw]/[1.92vw] font-semibold xl:mt-12 xl:text-2xl/6">
+                <div className="mt-[3.84vw] text-center text-[1.92vw]/[1.92vw] font-medium xl:mt-12 xl:text-2xl/6">
                   Criteria for Dragonverse Neo Merlin will be revealed soon...
                 </div>
                 <div className="mt-[0.64vw] text-center text-[1.12vw]/[1.92vw] font-medium xl:mt-2 xl:text-sm/6">
@@ -159,7 +156,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                 <Button
                   type="green"
                   disabled
-                  className="mt-[2.4vw] w-[17.66vw] p-[0.64vw] text-[1.28vw] font-bold xl:mt-7.5 xl:w-[220px] xl:p-2 xl:text-base"
+                  className="mt-[2.4vw] w-[17.66vw] p-[0.64vw] text-[1.28vw] font-semibold xl:mt-7.5 xl:w-[220px] xl:p-2 xl:text-base"
                 >
                   Coming soon
                 </Button>

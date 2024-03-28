@@ -1,18 +1,18 @@
-<svg width="192" height="54" viewBox="0 0 192 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="5" height="5" transform="matrix(1 0 0 -1 1 53)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="191" y="53" width="5" height="5" transform="rotate(-180 191 53)" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(1 0 0 -1 6 48)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="186" y="48" width="5" height="5" transform="rotate(-180 186 48)" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(1 0 0 -1 11 53)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="181" y="53" width="5" height="5" transform="rotate(-180 181 53)" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(1 0 0 -1 1 43)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="191" y="43" width="5" height="5" transform="rotate(-180 191 43)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="1" y="1" width="5" height="5" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(-1 0 0 1 191 1)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="6" y="6" width="5" height="5" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(-1 0 0 1 186 6)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="11" y="1" width="5" height="5" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(-1 0 0 1 181 1)" stroke="#6F7784" stroke-width="0.8"/>
-<rect x="1" y="11" width="5" height="5" stroke="#6F7784" stroke-width="0.8"/>
-<rect width="5" height="5" transform="matrix(-1 0 0 1 191 11)" stroke="#6F7784" stroke-width="0.8"/>
+<svg width="228" height="42" viewBox="0 0 228 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="4" height="4" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="5" y="5" width="4" height="4" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="1" y="9" width="4" height="4" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="9" y="1" width="4" height="4" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(1 0 0 -1 1 41)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(1 0 0 -1 5 37)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(1 0 0 -1 1 33)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(1 0 0 -1 9 41)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(-1 0 0 1 227 1)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(-1 0 0 1 223 5)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(-1 0 0 1 227 9)" stroke="#6F7784" stroke-width="0.8"/>
+<rect width="4" height="4" transform="matrix(-1 0 0 1 219 1)" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="227" y="41" width="4" height="4" transform="rotate(180 227 41)" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="223" y="37" width="4" height="4" transform="rotate(180 223 37)" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="227" y="33" width="4" height="4" transform="rotate(180 227 33)" stroke="#6F7784" stroke-width="0.8"/>
+<rect x="219" y="41" width="4" height="4" transform="rotate(180 219 41)" stroke="#6F7784" stroke-width="0.8"/>
 </svg>

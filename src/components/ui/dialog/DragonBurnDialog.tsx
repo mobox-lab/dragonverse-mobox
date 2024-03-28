@@ -39,13 +39,13 @@ export default function DragonBurnDialog() {
       }}
       render={() => (
         <div className="flex w-full flex-col items-center text-center">
-          <h1 className="text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">Burn Mechanism</h1>
+          <h1 className="text-[1.6vw]/[1.6vw] font-medium xl:text-xl/5">Burn Mechanism</h1>
           <p className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-medium xl:mt-1 xl:text-sm/6">Dragonverse Neo Governance</p>
           <div className="mt-10 flex items-center">
             <img src="/img/mobox.png" alt="" className="h-[3.84vw] w-[3.84vw] xl:h-12 xl:w-12" />
             <div className="ml-[0.8vw] flex flex-col gap-[0.16vw] text-left xl:ml-2.5 xl:gap-0.5">
-              <p className="text-[1.6vw]/[1.92vw] font-semibold xl:text-xl/6">MBOX</p>
-              <p className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">
+              <p className="text-[1.6vw]/[1.92vw] font-medium xl:text-xl/6">MBOX</p>
+              <p className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">
                 Balance: <span className="text-yellow">{shortenBalance(Number(formatEther(BigInt(balance?.value ?? 0))))}</span>
               </p>
             </div>
@@ -80,7 +80,7 @@ export default function DragonBurnDialog() {
             </div>
             proposals burning
             <span className="ml-[0.96vw] text-[1.12vw]/[2.4vw] font-medium text-yellow xl:ml-3 xl:text-sm/7.5">
-              <span className="text-xl/7.5 font-semibold">{burnCost}</span> $MBOX
+              <span className="text-xl/7.5 font-medium">{burnCost}</span> $MBOX
             </span>
           </div>
           <div className="mt-[3.2vw] text-left text-[0.96vw]/[1.6vw] font-medium text-white/80 xl:mt-10 xl:text-xs/5">
@@ -99,7 +99,7 @@ export default function DragonBurnDialog() {
             disabled={!proposalNum}
             type="red"
             loading={isLoading}
-            className="mt-[1.6vw] h-[3.52vw] self-stretch text-[1.28vw]/[1.6vw] font-semibold xl:mt-5 xl:h-11 xl:text-base/5"
+            className="mt-[1.6vw] h-[3.52vw] self-stretch text-[1.28vw]/[1.6vw] font-medium xl:mt-5 xl:h-11 xl:text-base/5"
           >
             Submit
           </Button>

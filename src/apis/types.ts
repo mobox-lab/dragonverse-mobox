@@ -1,6 +1,7 @@
-import { Address } from 'viem';
+import { DragonProposalSortField, DragonProposalState, TradeType } from '@/constants/enum';
+import { PayTokenEnum } from '@/constants/hatch';
 import { SiweMessage } from 'siwe';
-import { DragonProposalSortField, DragonProposalState } from '@/constants/enum';
+import { Address } from 'viem';
 
 export type EvmLoginParams = {
   address: string;
@@ -15,9 +16,14 @@ export type BtcLoginParams = {
   publicKey: string;
 };
 
-export type UserInfo = {
+export type LoginRes = {
   address: Address;
   accessToken: string;
+};
+
+export type FetchListParams = {
+  page?: number;
+  size?: number;
 };
 
 export type CodeDetail = {
@@ -163,4 +169,113 @@ export type LogItem = {
   app_id: number;
   action: number;
   ts: number;
+};
+
+export type BuffNumberDataItem = { min: number; max: number | null; buff: number };
+
+export type BoundAddress = {
+  buffAddress: string;
+  buffAAAddress: string;
+};
+
+export type BindAddressParams = {
+  signature: string;
+  publicKey?: string;
+  buffAddress: string;
+};
+
+export type UserInfo = {
+  btcAddress: string;
+  evmAddress: string;
+  showName: string;
+};
+
+export type BRC420Item = {
+  total: number;
+  list: {
+    inscription_id: string;
+    content_id: string;
+    deploy_inscription_id: string;
+    content_type: string;
+  }[];
+};
+
+export type AllRewardData = {
+  evmAddress: string;
+  showName: string;
+  mdbl: string;
+  blueBox: number;
+  thisSong: number;
+  mBtc: string;
+  moDragonEpic: number;
+  moDragonRare: number;
+  moDragonUncommon: number;
+  couponFreeHistory: number;
+  couponEightHistory: number;
+};
+export type CouponResult = {
+  couponTwoCurrent: number;
+  couponEightCurrent: number;
+  couponFreeCurrent: number;
+};
+
+export type HatchDryRunBody = {
+  quantity: number;
+  couponTwoCount: number;
+  couponEightCount: number;
+  couponFreeCount: number;
+  payToken: PayTokenEnum;
+};
+
+export type HatchDryRunResult = {
+  evmAddress: string;
+  bizId: string;
+  payDollar: number;
+  payTokenType: string;
+  payTokenAmount: string;
+  hatchQuantity: number;
+};
+
+export type HatchRewardResult = {
+  evmAddress: string;
+  showName: any;
+};
+
+export type MintRewardResult = {
+  mdbl: string;
+  blueBox: number;
+  thisSong: number;
+  mBtc: string;
+  moDragonEpic: number;
+  moDragonRare: number;
+  moDragonUncommon: number;
+  couponFree: number;
+  couponEight: number;
+};
+
+export type FetchTradeHistoryParams = {
+  page?: number;
+  size?: number;
+  evmAddress?: string; // my/all
+};
+export type TradeHistoryListItem = {
+  price: string;
+  evmAddress: string;
+  txHash: string;
+  shares: string;
+  assets: string;
+  tradeType: TradeType;
+  blockNumber: number;
+  blockTimestamp: number;
+};
+export type TradeHistoryListItemData = {
+  totalCount: number;
+  tradeList: TradeHistoryListItem[];
+};
+
+export type PriceHistory = {
+  sharePrice: string;
+  blockNumber: number;
+  blockTimestamp: number;
+  createdAt: string;
 };
