@@ -14,7 +14,7 @@ export const BTCConnectProvider = ({ children }: PropsWithChildren) => {
         projectId: '48a2f135-a5c8-41ba-99f2-918d6c6b2dfb',
         clientKey: 'cHdhsJobzJWpHrpuEVwT4WqzNxfjW0pEPSbzfknv',
         appId: PARTICLE_APP_ID,
-        aaOptions: { accountContracts: { BTC: [{ chainIds: [686868], version: '1.0.0' }] } },
+        aaOptions: { accountContracts: { BTC: [{ chainIds: [4200, 686868], version: '1.0.0' }] } },
       }}
       connectors={[new UnisatConnector(), new OKXConnector(), new BitgetConnector()]}
     >
