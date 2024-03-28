@@ -9,7 +9,7 @@ import { ONE, SocialLinks } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useFetchShares } from '@/hooks/useFetchShares';
 import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
-import { clsxm, formatNumber, isDecimal } from '@/utils';
+import { clsxm, formatNumber, isDecimal, lessThanOneFormat } from '@/utils';
 import clsx from 'clsx';
 import { parseEther } from 'ethers';
 import { useAtomValue, useSetAtom } from 'jotai';
@@ -279,7 +279,7 @@ export default function RewardV3({ className }: { className?: string }) {
                 My $MDBL <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] w-[1.6vw] xl:h-5 xl:w-5" />
               </div>
               <div className="text-[2.4vw]/[3.52vw] font-medium text-yellow xl:text-3xl/[44px]">
-                {formatNumber(balance || 0n, false)}
+                {lessThanOneFormat(balance)}
               </div>
               <div className="flex items-center justify-start gap-[0.32vw] text-[0.96vw]/[1.6vw] text-gray-300 xl:gap-1 xl:text-xs/5">
                 Stay Tuned for $MDBL Claim Schedule

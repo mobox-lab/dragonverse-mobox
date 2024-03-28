@@ -1,4 +1,4 @@
-import { getAddress } from 'viem';
+import { getAddress, parseEther } from 'viem';
 import Decimal from 'decimal.js-light';
 import { bigIntToFloat } from '@/entities/bigint';
 
@@ -135,4 +135,8 @@ export function retainDigits(str: string, digits = 5): string {
   } else {
     return str;
   }
+}
+
+export function lessThanOneFormat(num: bigint) {
+  return (num || 0n) > 0n && (num || 0n) < parseEther('1') ? '< 1' : formatNumber(num || 0n, false);
 }
