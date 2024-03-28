@@ -18,6 +18,7 @@ import {
 } from '@/atoms/lbp';
 import {
   currentInputOutputAtom,
+  DEFAULT_SLIPPAGE_TOLERANCE,
   ExactField,
   inputChangeAtom,
   priceImpactAtom,
@@ -538,7 +539,7 @@ export default function Swap({ className }: { className?: string }) {
                             },
                           )}
                           onClick={() => {
-                            setSlip('0.5');
+                            setSlip(DEFAULT_SLIPPAGE_TOLERANCE);
                             setSlipType(SlipPageType.AUTO);
                           }}
                         >
