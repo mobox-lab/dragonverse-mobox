@@ -35,7 +35,7 @@ import Popover from '@/components/ui/popover';
 import { inputRegex, SocialLinks } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
-import { clsxm, escapeRegExp, formatNumber, openLink, retainDigits, shortenDigits } from '@/utils';
+import { clsxm, escapeRegExp, formatNumber, lessThanOneFormat, openLink, retainDigits, shortenDigits } from '@/utils';
 import clsx from 'clsx';
 import { formatEther, parseEther } from 'ethers';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
@@ -99,6 +99,7 @@ export default function Swap({ className }: { className?: string }) {
   const swapType = useAtomValue(swapTypeAtom);
   const { value: assetsBalance } = useAtomValue(assetsBalanceAtom);
   const { value: balance } = useAtomValue(shareBalanceAtom);
+
   const [slipType, setSlipType] = useState<SlipPageType>(SlipPageType.AUTO);
   const [isOpen, setIsOpen] = useState(false);
   const [slip, setSlip] = useAtom(slippageAtom);
@@ -397,9 +398,7 @@ export default function Swap({ className }: { className?: string }) {
                 My $MDBL <img src="/img/mdbl.webp" alt="mdbl" className="w-[1.6vw] xl:w-5" />
               </div>
               <div className="mt-[0.64vw] text-center text-[2.72vw]/[4.16vw] font-medium text-yellow xl:mt-2 xl:text-[34px]/[52px]">
-                {receiveShare.value != 0n
-                  ? formatNumber(BigInt(receiveShare.value), false)
-                  : formatNumber(BigInt(balance || 0n), false)}
+                {receiveShare.value != 0n ? lessThanOneFormat(BigInt(receiveShare.value)) : lessThanOneFormat(balance)}
               </div>
             </div>
 
@@ -661,7 +660,7 @@ export default function Swap({ className }: { className?: string }) {
                 className="cursor-pointer text-[1.12vw]/[1.6vw] font-medium text-yellow xl:text-sm/5"
                 onClick={() => fillInInput()}
               >
-                balance: {swapType === SwapField.Buy ? formatNumber(assetsBalance || 0n) : formatNumber(balance || 0n, false)}
+                balance: {swapType === SwapField.Buy ? formatNumber(assetsBalance || 0n) : lessThanOneFormat(balance)}
               </div>
             </div>
 
@@ -705,7 +704,7 @@ export default function Swap({ className }: { className?: string }) {
                 className="cursor-pointer text-right text-[1.12vw]/[1.6vw] font-medium text-yellow xl:text-sm/5"
                 onClick={() => fillOutInput()}
               >
-                balance: {swapType === SwapField.Buy ? formatNumber(balance || 0n, false) : formatNumber(assetsBalance || 0n)}
+                balance: {swapType === SwapField.Buy ? lessThanOneFormat(balance) : formatNumber(assetsBalance || 0n)}
               </div>
             </div>
 
