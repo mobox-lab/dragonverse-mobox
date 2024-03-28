@@ -93,7 +93,17 @@ export function shortenDigits(value: number | Decimal, digits = 5): string {
     else break;
   }
   if (zeros <= 4) return current.toDecimalPlaces(digits).toString();
-  let subscript = utfNum[zeros ?? 0];
+  if (zeros <= 10) {
+    const subscript = utfNum[zeros ?? 0];
+    const rest = suffix.slice(zeros);
+    return `${num}.0${subscript}${rest}`;
+  }
+  //  
+  const subscript = zeros
+    .toString()
+    .split('')
+    .map((num) => utfNum[parseInt(num)])
+    .join('');
   const rest = suffix.slice(zeros);
   return `${num}.0${subscript}${rest}`;
 }
