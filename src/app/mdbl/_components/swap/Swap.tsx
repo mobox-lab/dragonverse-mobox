@@ -630,7 +630,7 @@ export default function Swap({ className }: { className?: string }) {
                         <WarningSvg className="w-full" />
                       </div>
                       <div className="flex-1 text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
-                        Price Volatility Alert: Only input $MDBL amount to proceed in case of any transaction failure.
+                        Only input $MDBL amount to buy.
                       </div>
                     </div>
                   }
