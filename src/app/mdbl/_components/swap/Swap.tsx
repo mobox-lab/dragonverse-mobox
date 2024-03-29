@@ -23,7 +23,6 @@ import {
   inputChangeAtom,
   priceImpactAtom,
   slippageAtom,
-  swapErrorAtom,
   SwapField,
   swapParamsAtom,
   swapTypeAtom,
@@ -121,7 +120,6 @@ export default function Swap({ className }: { className?: string }) {
   const setInputChangeAtom = useSetAtom(inputChangeAtom);
   const swapParams = useAtomValue(swapParamsAtom);
 
-  const swapError = useAtomValue(swapErrorAtom);
   const receiveShare = useAtomValue(receiveShareAtom);
   const isSwapPaused = useAtomValue(isSwapPausedAtom);
 
@@ -242,12 +240,7 @@ export default function Swap({ className }: { className?: string }) {
   useEffect(() => {
     if (inputInRef?.current) {
       if (currentInputOutput[0] === 0n) {
-        if (
-          swapError === 'Error: Error: AmountInTooLarge()' ||
-          regExp.test(inputInDebounceValue) ||
-          inputInDebounceValue === '0' ||
-          inputInDebounceValue === '0.'
-        ) {
+        if (regExp.test(inputInDebounceValue) || inputInDebounceValue === '0' || inputInDebounceValue === '0.') {
           inputInRef.current.value = inputInDebounceValue;
         } else {
           inputInRef.current.value = '';
@@ -262,12 +255,7 @@ export default function Swap({ className }: { className?: string }) {
     }
     if (inputOutRef?.current) {
       if (currentInputOutput[1] === 0n) {
-        if (
-          swapError === 'Error: Error: AmountInTooLarge()' ||
-          regExp.test(inputOutDebounceValue) ||
-          inputOutDebounceValue === '0' ||
-          inputOutDebounceValue === '0.'
-        ) {
+        if (regExp.test(inputOutDebounceValue) || inputOutDebounceValue === '0' || inputOutDebounceValue === '0.') {
           inputOutRef.current.value = inputOutDebounceValue;
         } else {
           inputOutRef.current.value = '';
@@ -280,7 +268,7 @@ export default function Swap({ className }: { className?: string }) {
         }
       }
     }
-  }, [currentInputOutput, inputInDebounceValue, inputOutDebounceValue, swapError, swapType]);
+  }, [currentInputOutput, inputInDebounceValue, inputOutDebounceValue, swapType]);
 
   const bugAndSell = async () => {
     if (swapParams?.description === 'Approve') {
@@ -740,18 +728,16 @@ export default function Swap({ className }: { className?: string }) {
                     type="yellow"
                     className="h-[3.52vw] w-full font-semibold xl:h-11"
                     onClick={bugAndSell}
-                    disabled={isInsufficient || !!swapError}
+                    disabled={isInsufficient}
                     loading={isLoading}
                   >
                     {isInsufficient
                       ? 'Insufficient balance'
                       : swapParams?.description === 'Approve'
                         ? 'Approve'
-                        : swapError
-                          ? 'Amount out too large'
-                          : swapType === SwapField.Buy
-                            ? 'Buy'
-                            : 'Sell'}
+                        : swapType === SwapField.Buy
+                          ? 'Buy'
+                          : 'Sell'}
                   </Button>
                 )
               ) : (

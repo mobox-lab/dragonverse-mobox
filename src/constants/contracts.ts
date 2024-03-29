@@ -17,7 +17,7 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
       }
     : {
         // test
-        lbp: '0xd2c04eF31581c25694B4Add415A549E61D39672F',
+        lbp: '0x574Ea9117e1Ba2D218A0F814f85E9775eC5dda71',
         mdbl: '0xa1e8312144A51aDc8413082D2703c86E0cAA04f7',
         mbtc: '0x6E25b942c4536451512C8d3fCFCa390Efb7d1B33',
         reward: '0x37Ce49600B3c2EFDAb159aA2F229f70c10711CaF',
