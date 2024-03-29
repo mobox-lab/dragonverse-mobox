@@ -205,13 +205,13 @@ export default function RewardV3({ className }: { className?: string }) {
                   </div>
                 )}
               </div>
-              {/* 
+
               <div className="w-[22vw] xl:w-[275px]">
                 <div className="text-[0.96vw]/[1.6vw] xl:text-xs/5">
                   The claim will be available after the launch of M-Bluebox and M-Musicbox on Merlin Chain
                 </div>
-              </div> */}
-              {isMainConnected ? (
+              </div>
+              {/* {isMainConnected ? (
                 !isSupportedChain ? (
                   <Button
                     type="yellow"
@@ -239,7 +239,7 @@ export default function RewardV3({ className }: { className?: string }) {
                 >
                   Connect Wallet
                 </Button>
-              )}
+              )} */}
             </div>
             <div
               className={clsxm(
