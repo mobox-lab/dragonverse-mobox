@@ -44,9 +44,6 @@ export function linearInterpolation(start: bigint, end: bigint, elapsedTime: big
 
 export function getAmountIn(params: AmountInParams): bigint {
   const { amountOut, reserveIn, reserveOut, weightIn, weightOut } = params;
-  if (amountOut > MathLib.mulWad(reserveOut, 0x429d069189e0000n)) {
-    throw new PoolError('Error: AmountOutTooLarge()', toString());
-  }
 
   if (reserveOut === 0n) return 1n;
 
@@ -58,9 +55,6 @@ export function getAmountIn(params: AmountInParams): bigint {
 
 export function getAmountOut(params: AmountOutParams): bigint {
   const { amountIn, reserveIn, reserveOut, weightIn, weightOut } = params;
-  if (amountIn > MathLib.mulWad(reserveIn, 0x429d069189e0000n)) {
-    throw new Error('Error: AmountInTooLarge()');
-  }
   return MathLib.mulWad(
     reserveOut,
     MathLib.WAD - powWadUp(MathLib.divWadUp(reserveIn, reserveIn + amountIn), MathLib.divWad(weightIn, weightOut)),

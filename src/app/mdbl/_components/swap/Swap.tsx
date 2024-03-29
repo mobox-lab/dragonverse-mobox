@@ -66,11 +66,15 @@ export default function Swap({ className }: { className?: string }) {
       if (error?.name === 'UserRejected') {
         return;
       }
+      if (error?.name === 'EstimateGasExecutionError') {
+        toast.error(error.message);
+        return;
+      }
       if (error?.name === 'TransactionFailed') {
         toast.error('Please adjust your Slippage Tolerance');
-      } else {
-        toast.error('Network error, please try again later');
+        return;
       }
+      toast.error('Network error, please try again later');
     },
     onSuccess: (data) => {
       if (!data) return;

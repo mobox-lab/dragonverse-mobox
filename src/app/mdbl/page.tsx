@@ -43,7 +43,7 @@ export default function MDBL() {
             'flex-wrap items-stretch': isMobile,
           })}
         >
-          <LBPPriceChart className={clsxm({ 'h-auto w-full': isMobile })} />
+          <LBPPriceChart className={clsxm({ 'h-auto w-full overflow-hidden': isMobile })} />
           <div className={clsxm({ 'grid flex-grow grid-cols-3 gap-[1.6vw] xl:gap-5': isMobile })}>
             <Swap className={clsxm('w-[28.16vw] xl:w-[352px]', { 'h-auto': isMobile })} />
             {isMobile && <RewardV3 className="col-span-2 mt-0 h-auto" />}

@@ -157,7 +157,7 @@ export default function Chart() {
         </div>
       }
     >
-      <div className={clsxm('-ml-[5.12vw] h-full xl:-ml-15 xs:-ml-16', { '-ml-[11vw]': isMobile })}>
+      <div className="-ml-[5.12vw] h-full xl:-ml-15 xs:-ml-[11vw]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={priceData}>
             <defs>

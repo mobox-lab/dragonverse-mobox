@@ -61,11 +61,15 @@ export function useMainWriteContract({ onError, onSuccess }: MainWriteContractPr
       } catch (error: any) {
         setIsTxLoading(false);
         setTxHash(undefined);
-        if (error?.shortMessage === 'User rejected the request.' || error?.message === 'The user rejected the request.') {
-          onError?.({ code: 4001, name: 'UserRejected', message: 'User rejected the request.' });
-        } else {
-          onError?.(error);
+        if (error?.name === 'EstimateGasExecutionError') {
+          onError?.({ code: 50001, name: error.name, message: error.shortMessage });
+          return;
         }
+        if (error?.name === 'TransactionExecutionError') {
+          onError?.({ code: 4001, name: 'UserRejected', message: 'User rejected the request.' });
+          return;
+        }
+        onError?.(error);
       }
       return hash;
     },
