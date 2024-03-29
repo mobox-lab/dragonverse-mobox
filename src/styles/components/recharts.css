@@ -40,6 +40,10 @@
 .xAxis .recharts-cartesian-axis-tick:first-child > text {
   text-anchor: start;
 }
+.xAxis .recharts-cartesian-axis-tick:last-child > text {
+  text-anchor: end;
+}
+
 
 .recharts-dot {
   fill: #ffe7ab;

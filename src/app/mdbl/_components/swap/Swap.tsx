@@ -23,7 +23,6 @@ import {
   inputChangeAtom,
   priceImpactAtom,
   slippageAtom,
-  swapErrorAtom,
   SwapField,
   swapParamsAtom,
   swapTypeAtom,
@@ -51,6 +50,7 @@ import { wagmiConfig } from '@/providers/wagmi-provider';
 import { watchAsset } from 'viem/actions';
 import { isMobile } from 'react-device-detect';
 import ReactGA from 'react-ga4';
+import WarningSvg from '@/../public/svg/warning.svg?component';
 
 export enum SlipPageType {
   AUTO = 'auto',
@@ -121,7 +121,6 @@ export default function Swap({ className }: { className?: string }) {
   const setInputChangeAtom = useSetAtom(inputChangeAtom);
   const swapParams = useAtomValue(swapParamsAtom);
 
-  const swapError = useAtomValue(swapErrorAtom);
   const receiveShare = useAtomValue(receiveShareAtom);
   const isSwapPaused = useAtomValue(isSwapPausedAtom);
 
@@ -242,12 +241,7 @@ export default function Swap({ className }: { className?: string }) {
   useEffect(() => {
     if (inputInRef?.current) {
       if (currentInputOutput[0] === 0n) {
-        if (
-          swapError === 'Error: Error: AmountInTooLarge()' ||
-          regExp.test(inputInDebounceValue) ||
-          inputInDebounceValue === '0' ||
-          inputInDebounceValue === '0.'
-        ) {
+        if (regExp.test(inputInDebounceValue) || inputInDebounceValue === '0' || inputInDebounceValue === '0.') {
           inputInRef.current.value = inputInDebounceValue;
         } else {
           inputInRef.current.value = '';
@@ -262,12 +256,7 @@ export default function Swap({ className }: { className?: string }) {
     }
     if (inputOutRef?.current) {
       if (currentInputOutput[1] === 0n) {
-        if (
-          swapError === 'Error: Error: AmountInTooLarge()' ||
-          regExp.test(inputOutDebounceValue) ||
-          inputOutDebounceValue === '0' ||
-          inputOutDebounceValue === '0.'
-        ) {
+        if (regExp.test(inputOutDebounceValue) || inputOutDebounceValue === '0' || inputOutDebounceValue === '0.') {
           inputOutRef.current.value = inputOutDebounceValue;
         } else {
           inputOutRef.current.value = '';
@@ -280,7 +269,7 @@ export default function Swap({ className }: { className?: string }) {
         }
       }
     }
-  }, [currentInputOutput, inputInDebounceValue, inputOutDebounceValue, swapError, swapType]);
+  }, [currentInputOutput, inputInDebounceValue, inputOutDebounceValue, swapType]);
 
   const bugAndSell = async () => {
     if (swapParams?.description === 'Approve') {
@@ -351,6 +340,9 @@ export default function Swap({ className }: { className?: string }) {
   };
 
   const fillInInput = () => {
+    if (swapType === SwapField.Buy) {
+      return;
+    }
     const fillNumber = swapType === SwapField.Sell ? balance : assetsBalance;
     setInputInDebounceValue(formatEther(fillNumber));
   };
@@ -619,21 +611,79 @@ export default function Swap({ className }: { className?: string }) {
               )}
             </div>
 
-            <div className="mt-[3.2vw] flex h-[3.52vw] items-center justify-between bg-white/10 px-[0.96vw] xl:mt-10 xl:h-11 xl:px-3">
-              <input
-                className={'max-w-[50%] flex-1 bg-transparent text-[1.28vw]/[1.6vw] text-yellow xl:text-base/5'}
-                placeholder="0.0"
-                ref={inputInRef}
-                autoComplete="off"
-                autoCorrect="off"
-                pattern="^[0-9]*[.,]?[0-9]*$"
-                minLength={1}
-                maxLength={10}
-                type="text"
-                inputMode="decimal"
-                spellCheck="false"
-                onChange={inputInChange}
-              />
+            <div
+              className={clsxm(
+                'mt-[3.2vw] flex h-[3.52vw] items-center justify-between bg-white/10 pr-[0.96vw] xl:mt-10 xl:h-11 xl:pr-3',
+                {
+                  'bg-white/[0.04]': swapType === SwapField.Buy,
+                },
+              )}
+            >
+              {swapType === SwapField.Buy ? (
+                <Tooltip
+                  className="p-[1.12vw] xl:p-3.5"
+                  offsetX={22}
+                  placement="top-start"
+                  title={
+                    <div className="flex w-[22.08vw] items-start gap-[0.64vw] xl:w-[276px] xl:gap-2">
+                      <div className="basis-[1.6vw] xl:basis-5">
+                        <WarningSvg className="w-full" />
+                      </div>
+                      <div className="flex-1 text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
+                        Price Volatility Alert: Only input $MDBL amount to proceed in case of any transaction failure.
+                      </div>
+                    </div>
+                  }
+                >
+                  {/* <input
+                    className={
+                      'max-w-[50%] flex-1 bg-transparent pl-[0.96vw] text-[1.28vw]/[1.6vw] text-yellow xl:pl-3 xl:text-base/5'
+                    }
+                    placeholder="0.0"
+                    // disabled
+                    ref={inputInRef}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    pattern="^[0-9]*[.,]?[0-9]*$"
+                    minLength={1}
+                    maxLength={10}
+                    type="text"
+                    inputMode="decimal"
+                    spellCheck="false"
+                    onChange={inputInChange}
+                  /> */}
+                  <div
+                    className={clsxm(
+                      'max-w-[50%] flex-1 cursor-not-allowed bg-transparent pl-[0.96vw] text-[1.28vw]/[1.6vw] text-gray-300 xl:pl-3 xl:text-base/5',
+                      {
+                        'text-yellow': currentInputOutput[0] && currentInputOutput[0] != 0n,
+                      },
+                    )}
+                  >
+                    {currentInputOutput[0] && currentInputOutput[0] != 0n
+                      ? retainDigits(formatEther(currentInputOutput[0] ?? 0n))
+                      : '0.0'}
+                  </div>
+                </Tooltip>
+              ) : (
+                <input
+                  className={
+                    'max-w-[50%] flex-1 bg-transparent pl-[0.96vw] text-[1.28vw]/[1.6vw] text-yellow xl:pl-3 xl:text-base/5'
+                  }
+                  placeholder="0.0"
+                  ref={inputInRef}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  pattern="^[0-9]*[.,]?[0-9]*$"
+                  minLength={1}
+                  maxLength={10}
+                  type="text"
+                  inputMode="decimal"
+                  spellCheck="false"
+                  onChange={inputInChange}
+                />
+              )}
+
               {swapType === SwapField.Buy ? (
                 <div className="flex items-center justify-end gap-[0.64vw] xl:gap-1.5">
                   <div className="text-nowrap text-[1.08vw]/[1.6vw] text-gray-300 xl:text-sm/5">$M-BTC</div>
@@ -674,8 +724,9 @@ export default function Swap({ className }: { className?: string }) {
             <div className="mt-[1.92vw] flex h-[3.52vw] items-center justify-between bg-white/10 px-[0.96vw] xl:mt-6 xl:h-11 xl:px-3">
               <input
                 className={'max-w-[50%] flex-1 bg-transparent text-[1.28vw]/[1.6vw] text-yellow xl:text-base/5'}
-                placeholder="0.0"
+                placeholder={swapType === SwapField.Buy ? 'Enter amount' : '0.0'}
                 ref={inputOutRef}
+                autoFocus={swapType === SwapField.Buy ? true : false}
                 autoComplete="off"
                 autoCorrect="off"
                 pattern="^[0-9]*[.,]?[0-9]*$"
@@ -740,18 +791,16 @@ export default function Swap({ className }: { className?: string }) {
                     type="yellow"
                     className="h-[3.52vw] w-full font-semibold xl:h-11"
                     onClick={bugAndSell}
-                    disabled={isInsufficient || !!swapError}
+                    disabled={isInsufficient}
                     loading={isLoading}
                   >
                     {isInsufficient
                       ? 'Insufficient balance'
                       : swapParams?.description === 'Approve'
                         ? 'Approve'
-                        : swapError
-                          ? 'Amount out too large'
-                          : swapType === SwapField.Buy
-                            ? 'Buy'
-                            : 'Sell'}
+                        : swapType === SwapField.Buy
+                          ? 'Buy'
+                          : 'Sell'}
                   </Button>
                 )
               ) : (
