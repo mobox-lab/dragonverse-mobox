@@ -29,16 +29,16 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
     {
       key: '/',
       to: '/',
-      content: 'Home',
-      icon: <DragonKey />,
-      point: 'home',
-    },
-    {
-      key: '/mdbl',
-      to: 'mdbl',
       content: 'MDBL Launch',
       icon: <DBAL />,
       point: 'mdbl',
+    },
+    {
+      key: '/dragonkey',
+      to: '/dragonkey',
+      content: 'DragonKey',
+      icon: <DragonKey />,
+      point: 'dragonkey',
     },
     // {
     //   key: '/backpack',

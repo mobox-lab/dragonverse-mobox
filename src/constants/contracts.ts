@@ -10,8 +10,8 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
   process.env.NEXT_PUBLIC_CHAIN_ENV === 'production'
     ? {
         // prod
-        lbp: '0xce237e02d5fAEE00607562FCD31c531579417e42',
-        mdbl: '0xa592297ff2a8f214d14fb5039e092407eeccb297',
+        lbp: '0xDe7F454f021DBF7ECe47fe2E625e7c6706c596C0',
+        mdbl: '0x8Aed42735027aa6d97023D8196B084eCFbA701af',
         mbtc: '0xB880fd278198bd590252621d4CD071b1842E9Bcd',
         reward: '0x72A8c0063551c8005eF5690b0066145544fA7Bec',
       }
