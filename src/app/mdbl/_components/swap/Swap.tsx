@@ -619,7 +619,6 @@ export default function Swap({ className }: { className?: string }) {
               <input
                 className={'max-w-[50%] flex-1 bg-transparent text-[1.28vw]/[1.6vw] text-yellow xl:text-base/5'}
                 placeholder="0.0"
-                onBlur={inputInCancel}
                 ref={inputInRef}
                 autoComplete="off"
                 autoCorrect="off"
@@ -672,7 +671,6 @@ export default function Swap({ className }: { className?: string }) {
               <input
                 className={'max-w-[50%] flex-1 bg-transparent text-[1.28vw]/[1.6vw] text-yellow xl:text-base/5'}
                 placeholder="0.0"
-                onBlur={inputOutCancel}
                 ref={inputOutRef}
                 autoComplete="off"
                 autoCorrect="off"
