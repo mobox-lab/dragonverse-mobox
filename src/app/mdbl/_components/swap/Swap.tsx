@@ -621,6 +621,7 @@ export default function Swap({ className }: { className?: string }) {
             >
               {swapType === SwapField.Buy ? (
                 <Tooltip
+                  className="p-[1.12vw] xl:p-3.5"
                   offsetX={22}
                   placement="top-start"
                   title={
