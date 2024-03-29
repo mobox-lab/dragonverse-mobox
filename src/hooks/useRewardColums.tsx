@@ -10,7 +10,7 @@ export const useRewardColumns = () => {
     () => [
       LogHelper.accessor('balance', {
         header: () => (
-          <p className="flex-grow-[3] pl-[1.28vw] text-left text-[0.96vw]/[2.24vw] xl:pl-4 xl:text-xs/7">$MDBL balance</p>
+          <p className="flex-grow-[3] pl-[1.28vw] text-left text-[0.96vw]/[2.24vw] xl:pl-4 xl:text-xs/7">$MDBL Balance</p>
         ),
         cell: ({ getValue }) => {
           return (
@@ -25,7 +25,7 @@ export const useRewardColumns = () => {
         },
       }),
       LogHelper.accessor('share', {
-        header: () => <p className={clsxm('flex-grow-[3] text-[0.96vw]/[2.24vw] xl:text-xs/7')}>share of total supply</p>,
+        header: () => <p className={clsxm('flex-grow-[3] text-[0.96vw]/[2.24vw] xl:text-xs/7')}>Share of Total Supply</p>,
         cell: ({ getValue }) => (
           <p className={clsxm('flex-grow-[3] truncate pr-[3.84vw] text-[1.12vw]/[1.92vw] xl:pr-12 xl:text-sm/6')}>
             {getValue()}
