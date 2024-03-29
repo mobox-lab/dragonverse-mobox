@@ -34,6 +34,10 @@ export function useConnectEvmWallet() {
             window.open('https://metamask.io/download', '_blank');
             return;
           }
+          if (connector.name === 'OKX Wallet') {
+            window.open('https://www.okx.com/web3', '_blank');
+            return;
+          }
           if (connector.name === 'TokenPocket') {
             window.open('https://www.tokenpocket.pro', '_blank');
             return;
