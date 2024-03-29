@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Sider from './Sider';
 import { siderCollapsedAtom } from '@/atoms';
