@@ -629,7 +629,7 @@ export default function Swap({ className }: { className?: string }) {
                         <WarningSvg className="w-full" />
                       </div>
                       <div className="flex-1 text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
-                        Price Volatility Alert Only input $MDBL amount to proceed in case of any transaction failure.
+                        Price Volatility Alert: Only input $MDBL amount to proceed in case of any transaction failure.
                       </div>
                     </div>
                   }
@@ -653,7 +653,7 @@ export default function Swap({ className }: { className?: string }) {
                   /> */}
                   <div
                     className={clsxm(
-                      'max-w-[50%] flex-1 bg-transparent pl-[0.96vw] text-[1.28vw]/[1.6vw] text-gray-300 xl:pl-3 xl:text-base/5',
+                      'max-w-[50%] flex-1 cursor-not-allowed bg-transparent pl-[0.96vw] text-[1.28vw]/[1.6vw] text-gray-300 xl:pl-3 xl:text-base/5',
                       {
                         'text-yellow': currentInputOutput[0] && currentInputOutput[0] != 0n,
                       },
