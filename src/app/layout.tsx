@@ -25,11 +25,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Providers>
           <div className="scrollbar-hide flex overflow-auto">
             <LeftSider />
-            <div
-              className={clsx(`relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]`, {
-                '!ml-[19.04vw] xl:!ml-[238px]': isHome,
-              })}
-            >
+            <div className={clsx(`relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]`)}>
               {connectButtonExcludePath.includes(pathname) ? null : (
                 <div className="sticky z-50 flex items-center justify-end pt-[2.4vw] xl:container xl:pt-7.5">
                   <div className="px-[3.2vw] xl:px-0">
