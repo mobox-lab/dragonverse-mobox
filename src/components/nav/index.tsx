@@ -40,6 +40,13 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
       icon: <DragonKey />,
       point: 'dragonkey',
     },
+    {
+      key: '/stake',
+      to: '/stake',
+      content: 'Stake',
+      icon: <DragonKey />,
+      point: 'stake',
+    },
     // {
     //   key: '/backpack',
     //   to: 'backpack',
