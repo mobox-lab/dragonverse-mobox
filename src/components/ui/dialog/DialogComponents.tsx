@@ -4,6 +4,7 @@ import { ClientOnly } from '@/components/common/ClientOnly';
 import DragonBurnDialog from '@/components/ui/dialog/DragonBurnDialog';
 import MainWalletConnectDialog from '@/components/ui/dialog/wallet-connect/MainWalletConnectDialog';
 import LBPRewardDialog from './LBPRewardDialog';
+import StakeHistoryDialog from './StakeHistoryDialog';
 
 export default function DialogComponents() {
   return (
@@ -11,6 +12,7 @@ export default function DialogComponents() {
       <DragonBurnDialog />
       <MainWalletConnectDialog />
       <LBPRewardDialog />
+      <StakeHistoryDialog />
     </ClientOnly>
   );
 }

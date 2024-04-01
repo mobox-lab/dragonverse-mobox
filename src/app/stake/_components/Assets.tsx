@@ -1,7 +1,14 @@
+'use client';
+
+import DetailSvg from '@/../public/svg/detail.svg?component';
+import { stakeHistoryDialogOpenAtom } from '@/atoms';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import Button from '@/components/ui/button';
 import { clsxm } from '@/utils';
+import { useSetAtom } from 'jotai/react';
 
 export default function Assets() {
+  const setDialogOpen = useSetAtom(stakeHistoryDialogOpenAtom);
   return (
     <div
       className={clsxm(
@@ -9,6 +16,9 @@ export default function Assets() {
       )}
     >
       <PatternWithoutLine />
+      <Button onClick={() => setDialogOpen(true)} className="flex-center h-[3.52vw] w-[3.52vw] border-none xl:h-11 xl:w-11">
+        <DetailSvg className="h-[1.92vw] w-[1.92vw] xl:h-6 xl:w-6" />
+      </Button>
     </div>
   );
 }

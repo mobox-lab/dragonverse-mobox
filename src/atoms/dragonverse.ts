@@ -12,6 +12,8 @@ export const dragonBallBurnDialogOpenAtom = atom<boolean>(false);
 export const rankDialogOpenAtom = atom<boolean>(false);
 export const hatchDialogOpenAtom = atom<boolean>(false);
 export const LBPRewardDialogOpenAtom = atom<boolean>(false);
+export const stakeHistoryDialogOpenAtom = atom<boolean>(false);
+
 export const isMobileAtom = atom<boolean>(false);
 
 export const activeMenuAtom = atom<MenuItem>(MenuItem.DragonKey);
