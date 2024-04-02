@@ -1,14 +1,21 @@
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
 import { stakeHistoryDialogOpenAtom } from '@/atoms';
 import { useStakeHistoryColumns } from '@/hooks/stake/useStakeHistoryColumns';
-import { useStakePendingHistoryColumns } from '@/hooks/stake/useStakePendingHistoryColumns';
+import { StakePendingItem, useStakePendingHistoryColumns } from '@/hooks/stake/useStakePendingHistoryColumns';
 import { clsxm } from '@/utils';
 import { useAtom } from 'jotai';
 import { ChangeEventHandler, KeyboardEventHandler, useCallback, useMemo } from 'react';
 import Dialog from '.';
 import Button from '../button';
 import RankTable from '../table/RankTable';
-
+const pendingHistory: StakePendingItem[] = [
+  {
+    time: 1712030815,
+    period: '15 days',
+    rate: 25,
+    txHash: 'xxxx',
+  },
+];
 export default function StakeHistoryDialog() {
   const [isOpen, setIsOpen] = useAtom(stakeHistoryDialogOpenAtom);
   const columns = useStakeHistoryColumns();
@@ -65,7 +72,7 @@ export default function StakeHistoryDialog() {
           <RankTable
             bodyClass="pb-0 xl:pb-0"
             className="mt-[0.96vw] max-h-[13.28vw] overflow-x-auto xl:mt-3 xl:max-h-[166px]"
-            dataSource={[]}
+            dataSource={pendingHistory}
             columns={pendingColumns}
           />
           <h1 className="mt-[2.88vw] text-[1.6vw]/[2.4vw] font-semibold xl:mt-9 xl:text-xl/7.5">History</h1>
