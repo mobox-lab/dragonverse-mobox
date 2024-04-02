@@ -1,12 +1,5 @@
 import { atom } from 'jotai';
 import { PoolParams } from '@/entities/pool';
-import { LiquidityBootstrapPoolABI } from '@/abis/LiquidityBootstrapPool';
-import { CONTRACT_ADDRESSES } from '@/constants/contracts';
-import { ALLOW_CHAIN } from '@/constants';
-import { readContract } from '@wagmi/core';
-import { wagmiConfig } from '@/providers/wagmi-provider';
-import { atomWithQuery, atomWithSuspenseQuery } from 'jotai-tanstack-query';
-import { erc20Abi } from 'viem';
 
 type TokenPrice = {
   value: bigint;
