@@ -1,9 +1,12 @@
 'use client';
+
+import DetailSvg from '@/../public/svg/detail.svg?component';
+import { stakeHistoryDialogOpenAtom } from '@/atoms';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
-import { clsxm } from '@/utils';
-import { useEffect, useState } from 'react';
-import HistorySVG from '@/../public/svg/history.svg?component';
 import Button from '@/components/ui/button';
+import { clsxm } from '@/utils';
+import { useSetAtom } from 'jotai/react';
+import { useEffect, useState } from 'react';
 
 export default function Assets() {
   const [eMDBL, setEMDBL] = useState(4300);
@@ -45,6 +48,7 @@ export default function Assets() {
     setDivMDBLWidth(`${widthMDBL}%`);
   }, [eMDBL, accruedEMDBL, MDBL]);
 
+  const setDialogOpen = useSetAtom(stakeHistoryDialogOpenAtom);
   return (
     <div
       className={clsxm(
@@ -53,46 +57,49 @@ export default function Assets() {
     >
       <PatternWithoutLine />
       <div className="flex h-[1.6vw] w-full bg-gray-300 xl:h-5">
-        <div style={{ width: divEMDBLWidth }} className="bg-gradient-percent-red relative h-full">
+        <div style={{ width: divEMDBLWidth }} className="relative h-full bg-gradient-percent-red">
           {divEMDBLWidth !== '0%' && (
             <div className="absolute -right-[1px] top-1/2 z-10 h-[2.24vw] -translate-y-1/2 transform border-l-[2px] border-dashed border-white xl:h-7"></div>
           )}
         </div>
-        <div style={{ width: divAccruedEMDBLWidth }} className="bg-gradient-percent-yellow relative h-full">
+        <div style={{ width: divAccruedEMDBLWidth }} className="relative h-full bg-gradient-percent-yellow">
           {divAccruedEMDBLWidth !== '0%' && (
             <div className="absolute -right-[1px] top-1/2 z-10 h-[2.24vw] -translate-y-1/2 transform border-l-[2px] border-dashed border-white xl:h-7"></div>
           )}
         </div>
-        <div style={{ width: divMDBLWidth }} className="bg-gradient-percent-blue h-full"></div>
+        <div style={{ width: divMDBLWidth }} className="h-full bg-gradient-percent-blue"></div>
       </div>
       <div className="mt-[2.24vw] flex items-center justify-between xl:mt-7">
         <div className="flex items-center gap-[2.88vw] xl:gap-9">
           <div>
             <div className="flex items-center">
-              <div className="bg-gradient-percent-red h-[1.92vw] w-[0.96vw] xl:h-6 xl:w-3"></div>
+              <div className="h-[1.92vw] w-[0.96vw] bg-gradient-percent-red xl:h-6 xl:w-3"></div>
               <div className="ml-[0.64vw] text-[1.28vw]/[1.92vw] font-medium xl:ml-2 xl:text-base/6">eMDBL balance</div>
             </div>
             <div className="mt-[0.64vw] text-[1.92vw]/[1.92vw] font-medium text-yellow xl:mt-2 xl:text-2xl/6">4,300 eMDBL</div>
           </div>
           <div>
             <div className="flex items-center">
-              <div className="bg-gradient-percent-yellow h-[1.92vw] w-[0.96vw] xl:h-6 xl:w-3"></div>
+              <div className="h-[1.92vw] w-[0.96vw] bg-gradient-percent-yellow xl:h-6 xl:w-3"></div>
               <div className="ml-[0.64vw] text-[1.28vw]/[1.92vw] font-medium xl:ml-2 xl:text-base/6">Accrued eMDBL</div>
             </div>
             <div className="mt-[0.64vw] text-[1.92vw]/[1.92vw] font-medium text-yellow xl:mt-2 xl:text-2xl/6">4,300 eMDBL</div>
           </div>
           <div>
             <div className="flex items-center">
-              <div className="bg-gradient-percent-blue h-[1.92vw] w-[0.96vw] xl:h-6 xl:w-3"></div>
+              <div className="h-[1.92vw] w-[0.96vw] bg-gradient-percent-blue xl:h-6 xl:w-3"></div>
               <div className="ml-[0.64vw] text-[1.28vw]/[1.92vw] font-medium xl:ml-2 xl:text-base/6">$MDBL balance</div>
             </div>
             <div className="mt-[0.64vw] text-[1.92vw]/[1.92vw] font-medium text-yellow xl:mt-2 xl:text-2xl/6">4,300 $MDBL</div>
           </div>
         </div>
         <div className="flex items-center justify-end gap-[1.28vw] xl:gap-4">
-          <div className="flex-center h-[3.52vw] w-[3.52vw] cursor-pointer bg-white/10 backdrop-blur-xl xl:h-11 xl:w-11">
-            <HistorySVG className="h-[1.92vw] w-[1.92vw] xl:h-6 xl:w-6" />
-          </div>
+          <Button
+            onClick={() => setDialogOpen(true)}
+            className="flex-center h-[3.52vw] w-[3.52vw] border-none bg-white/10 xl:h-11 xl:w-11"
+          >
+            <DetailSvg className="h-[1.92vw] w-[1.92vw] xl:h-6 xl:w-6" />
+          </Button>
           <div className="flex-center h-[3.52vw] w-[12.8vw] cursor-pointer bg-white/10 font-semibold backdrop-blur-xl xl:h-11 xl:w-40">
             Redeem
           </div>

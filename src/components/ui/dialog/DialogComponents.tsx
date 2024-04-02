@@ -6,6 +6,7 @@ import MainWalletConnectDialog from '@/components/ui/dialog/wallet-connect/MainW
 import LBPRewardDialog from './LBPRewardDialog';
 import StakeBuffDialog from '@/components/ui/dialog/stake/StakeBuffDialog';
 import BtcWalletConnectDialog from '@/components/ui/dialog/wallet-connect/BtcWalletConnectDialog';
+import StakeHistoryDialog from './StakeHistoryDialog';
 
 export default function DialogComponents() {
   return (
@@ -15,6 +16,7 @@ export default function DialogComponents() {
       <DragonBurnDialog />
       <MainWalletConnectDialog />
       <BtcWalletConnectDialog />
+      <StakeHistoryDialog />
     </ClientOnly>
   );
 }
