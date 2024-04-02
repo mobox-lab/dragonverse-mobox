@@ -119,6 +119,12 @@ input[type='number']::-webkit-outer-spin-button {
       0px -0.5px 4px 0px #ffb800 inset;
   }
 
+  .button-orange {
+    box-shadow:
+      2px 2px 3px 0px rgba(255, 255, 255, 0.6) inset,
+      0px -1px 8px 0px #ff6b00 inset;
+  }
+
   .animated-opacity {
     animation: opacity-animation 2s infinite alternate; /*   */
   }

@@ -93,6 +93,11 @@ const config: Config = {
         'gradient-process': 'linear-gradient(180deg, #4B1700 0%, #341600 57.58%, #1D0900 100%)',
         'gradient-process-content': 'linear-gradient(180deg,#F2A000 2.78%, #7D4400 57.15%, #632900 97.22%)',
         'content-border': 'url("/img/border.webp")',
+        'gradient-percent-red': 'linear-gradient(180deg,#F97045 -10.71%, #9E1616 110.71%)',
+        'gradient-percent-yellow':
+          'linear-gradient(180deg,rgba(246, 192, 87, 0.80) 0%, rgba(255, 194, 77, 0.80) 0.01%, rgba(239, 145, 36, 0.80) 100%)',
+        'gradient-percent-blue': 'linear-gradient(180deg,#3CB3F6 -10.71%, #134CBA 110.71%)',
+        'gradient-orange': 'linear-gradient(#F1870B -10.71%, #9E0000 57.47%, #3E0000 110.71%)',
       },
       lineHeight: {
         3.5: '.875rem',
