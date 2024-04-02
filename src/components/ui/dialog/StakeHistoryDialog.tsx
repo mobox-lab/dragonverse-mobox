@@ -1,6 +1,6 @@
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
 import { stakeHistoryDialogOpenAtom } from '@/atoms';
-import { useStakeHistoryColumns } from '@/hooks/stake/useStakeHistoryColumns';
+import { StakeHistoryItem, StakeStatus, StakeType, useStakeHistoryColumns } from '@/hooks/stake/useStakeHistoryColumns';
 import { StakePendingItem, useStakePendingHistoryColumns } from '@/hooks/stake/useStakePendingHistoryColumns';
 import { clsxm } from '@/utils';
 import { useAtom } from 'jotai';
@@ -8,12 +8,27 @@ import { ChangeEventHandler, KeyboardEventHandler, useCallback, useMemo } from '
 import Dialog from '.';
 import Button from '../button';
 import RankTable from '../table/RankTable';
+
 const pendingHistory: StakePendingItem[] = [
   {
     time: 1712030815,
     period: '15 days',
     rate: 25,
     txHash: 'xxxx',
+  },
+];
+const history: StakeHistoryItem[] = [
+  {
+    time: 1712030815,
+    type: StakeType.REDEEM,
+    status: StakeStatus.CANCELLED,
+    txHash: '0x24...249fc',
+  },
+  {
+    time: 1712030815,
+    type: StakeType.STAKE,
+    status: StakeStatus.SUCCESS,
+    txHash: '0x24...249fc',
   },
 ];
 export default function StakeHistoryDialog() {
@@ -79,7 +94,7 @@ export default function StakeHistoryDialog() {
           <RankTable
             bodyClass="pb-0 xl:pb-0"
             className="mt-[0.96vw] max-h-[30.08vw] overflow-x-auto xl:mt-3 xl:max-h-[376px]"
-            dataSource={[]}
+            dataSource={history}
             columns={columns}
           />
           <div className="flex-center mt-[1.28vw] gap-[0.64vw] text-[0.96vw]/[1.44vw] xl:mt-4 xl:gap-2 xl:text-xs/4.5">

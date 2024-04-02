@@ -1,76 +1,98 @@
-import { RewardDataItem } from '@/constants/reward';
 import { clsxm } from '@/utils';
 import { createColumnHelper } from '@tanstack/react-table';
+import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
-const LogHelper = createColumnHelper<RewardDataItem>();
+export enum StakeType {
+  REDEEM = 'Redeem',
+  STAKE = 'Stake',
+}
+export enum StakeStatus {
+  SUCCESS = 'Success',
+  CANCELLED = 'Cancelled',
+}
+export type StakeHistoryItem = {
+  time: number;
+  type: StakeType; // Stake / Redeem
+  status: StakeStatus; // Redemption rate
+  txHash: string;
+};
+const stakeHistoryHelper = createColumnHelper<StakeHistoryItem>();
 
 export const useStakeHistoryColumns = () => {
   return useMemo(
     () => [
-      LogHelper.accessor('balance', {
+      stakeHistoryHelper.accessor('time', {
+        header: () => <p className="w-[7.68vw] flex-grow-[2] pl-[1.28vw] text-left xl:w-24 xl:pl-4">Time</p>,
+        cell: ({ getValue }) => {
+          return (
+            <p className="w-[7.68vw] flex-grow-[2] pl-[1.28vw] text-left align-middle text-[0.96vw]/[1.44vw] font-normal xl:w-24 xl:pl-4 xl:text-xs/4.5">
+              {dayjs(getValue() * 1000).format('YYYY/MM/DD HH:mm:ss')}
+            </p>
+          );
+        },
+      }),
+      stakeHistoryHelper.accessor('type', {
+        header: () => <p className="w-[3.2vw] flex-grow text-left xl:w-10">Type</p>,
+        cell: ({ getValue }) => {
+          return (
+            <p className="w-[3.2vw] flex-grow text-left text-[0.96vw]/[1.44vw] font-normal xl:w-10 xl:text-xs/4.5">
+              {getValue()}
+            </p>
+          );
+        },
+      }),
+      stakeHistoryHelper.display({
+        id: 'Amount',
+        header: () => <p className="w-[3.2vw] flex-grow-[2] xl:w-10">Amount</p>,
+        cell: ({ row }) => {
+          return (
+            <p className="flex w-[3.2vw] flex-grow-[2] items-center justify-end gap-1 text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:w-10 xl:text-sm/6">
+              1,000 eMDBL
+            </p>
+          );
+        },
+      }),
+
+      stakeHistoryHelper.display({
+        id: 'Receive',
+        header: () => <p className="w-[3.2vw] flex-grow-[2] xl:w-10">Receive</p>,
+        cell: ({ row }) => {
+          return (
+            <p className="flex w-[3.2vw] flex-grow-[2] items-center justify-end gap-1 text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:w-10 xl:text-sm/6">
+              3,000 $MDBL
+            </p>
+          );
+        },
+      }),
+      stakeHistoryHelper.accessor('status', {
         header: () => (
-          <p className="flex-grow-[3] pl-[1.28vw] text-left text-[0.96vw]/[2.24vw] xl:pl-4 xl:text-xs/7">$MDBL Balance</p>
+          <p className={clsxm('w-[3.84vw] flex-grow-[2] whitespace-nowrap pl-[3.84vw] text-left xl:w-12 xl:pl-12')}>Status</p>
         ),
+        cell: ({ getValue }) => (
+          <p
+            className={clsxm(
+              'w-[3.84vw] flex-grow-[2] truncate pl-[3.84vw] text-left text-[1.12vw]/[1.44vw] font-semibold xl:w-12 xl:pl-12 xl:text-sm/4.5',
+              getValue() === StakeStatus.SUCCESS ? 'text-green' : 'text-red',
+            )}
+          >
+            {getValue()}
+          </p>
+        ),
+      }),
+      stakeHistoryHelper.accessor('txHash', {
+        header: () => <p className="w-[3.84vw] flex-grow-[2] pr-[1.28vw] xl:w-12 xl:pr-4">Withdraw Tx</p>,
         cell: ({ getValue }) => {
           return (
             <p
               className={clsxm(
-                'flex-grow-[3] truncate pl-[1.28vw] text-left text-[1.12vw]/[1.92vw] font-medium text-yellow xl:pl-4 xl:text-sm/6',
+                'w-[3.84vw] flex-grow-[2] pr-[1.28vw] text-[1.12vw]/[1.44vw] font-semibold xl:w-12 xl:pr-4 xl:text-sm/4.5',
               )}
             >
               {getValue()}
             </p>
           );
         },
-      }),
-      LogHelper.accessor('share', {
-        header: () => <p className={clsxm('flex-grow-[3] text-[0.96vw]/[2.24vw] xl:text-xs/7')}>Share of Total Supply</p>,
-        cell: ({ getValue }) => (
-          <p className={clsxm('flex-grow-[3] truncate pr-[3.84vw] text-[1.12vw]/[1.92vw] xl:pr-12 xl:text-sm/6')}>
-            {getValue()}
-          </p>
-        ),
-      }),
-      LogHelper.accessor('musicBox', {
-        header: () => (
-          <p
-            className={clsxm(
-              'flex flex-grow-[3] items-center justify-end gap-[0.32vw] text-[0.96vw]/[2.24vw] xl:gap-1 xl:text-xs/7',
-            )}
-          >
-            <img src="/img/song-nft.webp" alt="song" className="w-[2.24vw] xl:w-7" /> M-MUSICBOX
-          </p>
-        ),
-        cell: ({ getValue }) => (
-          <p
-            className={clsxm(
-              'flex-grow-[3] truncate pr-[1.28vw] text-[1.12vw]/[1.92vw] font-medium text-yellow xl:pr-4 xl:text-sm/6',
-            )}
-          >
-            {getValue()}
-          </p>
-        ),
-      }),
-      LogHelper.accessor('blueBox', {
-        header: () => (
-          <p
-            className={clsxm(
-              'flex flex-grow-[3] items-center justify-end gap-[0.32vw] pr-[1.28vw] text-[0.96vw]/[2.24vw] xl:gap-1 xl:pr-4 xl:text-xs/7',
-            )}
-          >
-            <img src="/img/brc420.webp" alt="brc420" className="w-[2.24vw] xl:w-7 " /> M-BLUEBOX
-          </p>
-        ),
-        cell: ({ getValue }) => (
-          <p
-            className={clsxm(
-              'flex-grow-[3] truncate pr-[1.28vw] text-[1.12vw]/[1.92vw] font-medium text-yellow xl:pr-4 xl:text-sm/6',
-            )}
-          >
-            {getValue()}
-          </p>
-        ),
       }),
     ],
     [],
