@@ -197,8 +197,8 @@ const LightPaperPopover = ({ children }: { children: JSX.Element }) => {
     );
   return (
     <Tooltip
-      offsetX={{ mainAxis: 16, crossAxis: -12 }}
-      className="border-none bg-transparent p-0 pl-[0.96vw] backdrop-blur-unset xl:p-0 xl:pl-3"
+      offsetX={{ mainAxis: 16 }}
+      className="-mt-[2.24vw] border-none bg-transparent p-0 pl-[0.96vw] backdrop-blur-unset xl:-mt-7 xl:p-0 xl:pl-3"
       placement="right-start"
       title={content}
     >
