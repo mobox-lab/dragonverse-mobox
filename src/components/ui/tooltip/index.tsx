@@ -5,6 +5,7 @@ import {
   flip,
   FloatingPortal,
   offset,
+  OffsetOptions,
   Placement,
   shift,
   useDismiss,
@@ -18,7 +19,7 @@ import clsx from 'clsx';
 import { fontVariants } from '@/constants/font';
 
 type TooltipProps = {
-  offsetX?: number;
+  offsetX?: OffsetOptions;
   title: React.ReactNode;
   placement?: Placement;
   children: JSX.Element;
