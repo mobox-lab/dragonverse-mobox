@@ -48,8 +48,8 @@ export default function Chart() {
       setIndex(0, priceData.length - 1);
       return;
     }
-    const s = cur.subtract(12, 'h');
-    const e = cur.add(12, 'h');
+    const s = cur.subtract(36, 'h');
+    const e = cur.add(36, 'h');
     if (poolStart.isAfter(s)) {
       const endIdx = priceData.findIndex(({ date }) => !dayjs(date).isBefore(e));
       setIndex(0, endIdx);
