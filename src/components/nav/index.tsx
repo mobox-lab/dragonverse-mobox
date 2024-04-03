@@ -15,6 +15,7 @@ import { useLocation } from 'react-use';
 import ReactGA from 'react-ga4';
 import Button from '../ui/button';
 import Popover from '../ui/popover';
+import { isMobile } from 'react-device-detect';
 
 interface NavProps {}
 
@@ -77,17 +78,17 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
         if (key === 'litepaper')
           return (
             <Popover
-              className="origin-left"
+              className="relative left-5 origin-left"
               motionProps={{
                 initial: { opacity: 0, x: -10 },
                 animate: { opacity: 1, x: 0 },
                 exit: { opacity: 0, x: -10 },
               }}
-              offset={16}
+              offset={isMobile ? undefined : 16}
               placement="right"
               render={() => {
                 return (
-                  <div className="flex w-[13.44vw] origin-left flex-col rounded-[0.64vw] border border-gray-600 bg-black/60 p-[0.96vw] backdrop-blur-2xl xl:w-[168px] xl:rounded-lg xl:p-3 ">
+                  <div className="flex w-[13.44vw] origin-left flex-col rounded-[0.64vw] border border-gray-600 bg-black/60 p-[0.96vw] text-[1.28vw]/[1.76vw] backdrop-blur-2xl xl:w-[168px] xl:rounded-lg xl:p-3 xl:text-base/5.5 ">
                     <a
                       href="https://mobox.gitbook.io/dragonverse-neo-litepaper/"
                       target="_blank"
