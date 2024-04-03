@@ -15,6 +15,8 @@ import { AnimatePresence, MotionProps, motion } from 'framer-motion';
 import React, { cloneElement, useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { CloseSvg } from '../svg/CloseSvg';
+import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import { clsxm } from '@/utils';
 
 type DialogProps = {
   className?: string;
@@ -27,6 +29,7 @@ type DialogProps = {
   children?: React.JSX.Element;
   isDismiss?: boolean;
   disableAnim?: boolean;
+  pattern?: boolean;
 };
 
 function Dialog({
@@ -34,6 +37,7 @@ function Dialog({
   overlayClassName,
   contentClassName,
   render,
+  pattern = false,
   open: passedOpen = false,
   children,
   showCloseButton = true,
@@ -89,11 +93,14 @@ function Dialog({
                   {...motionProps}
                   {...getFloatingProps({ ref: setFloating })}
                 >
+                  {pattern && <PatternWithoutLine className="stroke-yellow" />}
                   <div className={twMerge(clsx('relative p-[2.88vw] xl:p-6'), contentClassName)}>
                     {showCloseButton && (
                       <CloseSvg
                         onClick={() => onChange(false)}
-                        className="absolute right-[2.4vw] top-[2.4vw] size-3.5 xl:right-7.5 xl:top-7"
+                        className={clsxm('absolute right-[2.4vw] top-[2.4vw] size-3.5 xl:right-7.5 xl:top-7', {
+                          'stroke-yellow': pattern,
+                        })}
                       />
                     )}
                     {render({

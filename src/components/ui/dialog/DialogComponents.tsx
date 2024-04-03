@@ -7,6 +7,7 @@ import LBPRewardDialog from './LBPRewardDialog';
 import StakeBuffDialog from '@/components/ui/dialog/stake/StakeBuffDialog';
 import BtcWalletConnectDialog from '@/components/ui/dialog/wallet-connect/BtcWalletConnectDialog';
 import StakeHistoryDialog from './StakeHistoryDialog';
+import StakeAndRedeemDialog from './stake/StakeAndRedeemDialog';
 
 export default function DialogComponents() {
   return (
@@ -17,6 +18,7 @@ export default function DialogComponents() {
       <MainWalletConnectDialog />
       <BtcWalletConnectDialog />
       <StakeHistoryDialog />
+      <StakeAndRedeemDialog />
     </ClientOnly>
   );
 }
