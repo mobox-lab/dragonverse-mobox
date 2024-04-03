@@ -5,10 +5,14 @@ import { stakeHistoryDialogOpenAtom } from '@/atoms';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
 import { clsxm } from '@/utils';
-import { useSetAtom } from 'jotai/react';
 import { useEffect, useState } from 'react';
+import { useSetAtom } from 'jotai';
+import { StakeRedeemType, stakeAndRedeemDialogAtom, stakeAndRedeemTypeAtom } from '@/atoms/stake';
 
 export default function Assets() {
+  const setStakeAndRedeemDialog = useSetAtom(stakeAndRedeemDialogAtom);
+  const setStakeAndRedeemType = useSetAtom(stakeAndRedeemTypeAtom);
+
   const [eMDBL, setEMDBL] = useState(4300);
   const [accruedEMDBL, setAccruedEMDBL] = useState(1);
   const [MDBL, setMDBL] = useState(2300);
@@ -103,7 +107,14 @@ export default function Assets() {
           <div className="flex-center h-[3.52vw] w-[12.8vw] cursor-pointer bg-white/10 font-semibold backdrop-blur-xl xl:h-11 xl:w-40">
             Redeem
           </div>
-          <Button type="yellow-dark" className={clsxm('h-[3.52vw] w-[12.8vw] font-semibold xl:h-11 xl:w-40')}>
+          <Button
+            type="yellow-dark"
+            className={clsxm('h-[3.52vw] w-[12.8vw] font-semibold xl:h-11 xl:w-40')}
+            onClick={() => {
+              setStakeAndRedeemDialog(true);
+              setStakeAndRedeemType(StakeRedeemType.Stake);
+            }}
+          >
             Stake
           </Button>
         </div>
