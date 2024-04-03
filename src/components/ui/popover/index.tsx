@@ -1,5 +1,5 @@
 import React, { cloneElement, useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionProps, motion } from 'framer-motion';
 import {
   offset,
   useFloating,
@@ -23,6 +23,7 @@ type PopoverProps = {
   children: React.JSX.Element;
   className?: string;
   offset?: number;
+  motionProps?: MotionProps;
 };
 
 function Popover({
@@ -33,6 +34,7 @@ function Popover({
   onOpenChange,
   className,
   offset: offsetNum,
+  motionProps,
 }: React.PropsWithChildren<PopoverProps>) {
   const [isOpen, setIsOpen] = useState(passedOpen);
 
@@ -71,6 +73,7 @@ function Popover({
               exit={{ opacity: 0, scale: 0.85 }}
               transition={{ type: 'spring', damping: 20, stiffness: 300 }}
               style={{ ...floatingStyles }}
+              {...motionProps}
               {...getFloatingProps({ ref: setFloating })}
             >
               {render({ close: () => onChange(false) })}

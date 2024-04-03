@@ -6,7 +6,7 @@ import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 
 type ButtonProps = {
   className?: string;
-  type?: 'red' | 'green' | 'bordered' | 'pattern' | 'blue' | 'yellow' | 'yellow-light' | 'yellow-dark';
+  type?: 'red' | 'green' | 'bordered' | 'pattern' | 'blue' | 'yellow' | 'yellow-light' | 'yellow-dark' | 'unstyled';
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   loading?: boolean;
@@ -40,15 +40,17 @@ const Button = forwardRef(function ButtonInner(
       onClick={loading ? undefined : onClick}
       disabled={disabled}
       className={twMerge(
-        clsx(
-          'relative overflow-hidden fill-white p-[0.64vw] text-center text-[1.28vw]/[1.92vw] font-medium xl:p-2 xl:text-base',
-          {
-            'after:absolute after:inset-0 after:bg-white after:opacity-0 hover:after:opacity-20': !disabled && !loading,
-          },
-          'disabled:cursor-not-allowed disabled:bg-[#2E2E2E] disabled:text-gray-300',
-          loading && 'cursor-not-allowed',
-          disabled ? bg['default'] : bg[type || 'default'],
-        ),
+        type === 'unstyled'
+          ? null
+          : clsx(
+              'relative overflow-hidden fill-white p-[0.64vw] text-center text-[1.28vw]/[1.92vw] font-medium xl:p-2 xl:text-base',
+              {
+                'after:absolute after:inset-0 after:bg-white after:opacity-0 hover:after:opacity-20': !disabled && !loading,
+              },
+              'disabled:cursor-not-allowed disabled:bg-[#2E2E2E] disabled:text-gray-300',
+              loading && 'cursor-not-allowed',
+              disabled ? bg['default'] : bg[type || 'default'],
+            ),
         className,
       )}
     >
