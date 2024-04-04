@@ -78,10 +78,9 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
         const { key, to, icon, content, point } = nav;
         if (key === 'litepaper')
           return (
-            <LightPaperPopover>
+            <LightPaperPopover key={key}>
               <Button
                 type="unstyled"
-                key={key}
                 className={clsx(
                   'group flex h-[4.32vw] w-full items-center rounded-[0.64vw] bg-white/6 pl-[1.12vw] hover:bg-white/16 xl:h-[54px] xl:rounded-lg xl:pl-3.5',
                   {
