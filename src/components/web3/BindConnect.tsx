@@ -1,20 +1,15 @@
 'use client';
 
-import { useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai/index';
 import Button from '@/components/ui/button';
-import { usePathname } from 'next/navigation';
 import { mainWalletConnectDialogAtom } from '@/atoms';
 import Web3StatusInner from '@/components/web3/Web3StatusInner';
 import { useIsMainConnected, useMainChain } from '@/hooks/wallet';
 
-const connectButtonExcludePath = ['/terms-of-use', '/events'];
-export default function Web3Status() {
+export default function BindConnect() {
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
   const { isSupportedChain, switchMainChain } = useMainChain();
-  const pathname = usePathname();
-
-  if (connectButtonExcludePath.includes(pathname)) return null;
 
   if (isMainConnected) {
     if (!isSupportedChain) {

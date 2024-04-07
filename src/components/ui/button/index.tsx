@@ -6,7 +6,7 @@ import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 
 type ButtonProps = {
   className?: string;
-  type?: 'red' | 'green' | 'bordered' | 'pattern' | 'blue' | 'yellow' | 'yellow-light' | 'yellow-dark' | 'unstyled';
+  type?: 'red' | 'green' | 'bordered' | 'pattern' | 'blue' | 'yellow' | 'yellow-light' | 'yellow-dark' | 'orange' | 'unstyled';
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   loading?: boolean;
@@ -16,6 +16,7 @@ type ButtonProps = {
 const bg = {
   default: 'bg-[#2E2E2E] border-[1px] border-[#DDCFE959]',
   red: 'border-red-500 border-[2px] bg-gradient-red',
+  orange: 'button-orange bg-gradient-orange',
   green: 'border-green-500 border-[2px] bg-gradient-green',
   yellow: 'button-yellow bg-gradient-yellow',
   'yellow-light': 'button-yellow-light bg-gradient-yellow-light',
