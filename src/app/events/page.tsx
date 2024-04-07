@@ -21,7 +21,7 @@ export default function Events() {
         <img className="mx-auto mt-3 h-10.5" src="/img/events/subtitle_airdrop.webp" alt="subtitle" />
       </div>
       <div className="mt-45">
-        <div className="pb-7.5">
+        <div className="flex-center pb-7.5">
           <BindConnect />
         </div>
         {isTipsShow && (
