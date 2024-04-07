@@ -34,20 +34,25 @@ export default function TradeHistories({ className }: { className?: string }) {
     [data?.totalCount],
   );
 
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    try {
-      const newPage = Number(e.target.value);
-      if (isNaN(newPage)) return;
-      setInputValue(e.target.value);
-    } catch (e) {
-      console.error(e);
-      return;
-    }
-  }, []);
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      if (type === TradeSortField.ALL) return; // block all input change
+      try {
+        const newPage = Number(e.target.value);
+        if (isNaN(newPage)) return;
+        setInputValue(e.target.value);
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    },
+    [type],
+  );
 
   const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       if (e.key === 'Enter') {
+        if (type === TradeSortField.ALL) return; // block all input change
         try {
           const newPage = Number(e.currentTarget.value);
           if (isNaN(newPage)) return;
@@ -58,7 +63,7 @@ export default function TradeHistories({ className }: { className?: string }) {
         }
       }
     },
-    [changePage],
+    [changePage, type],
   );
 
   return (
@@ -99,6 +104,7 @@ export default function TradeHistories({ className }: { className?: string }) {
         </Button>
         <input
           value={inputValue}
+          disabled={type === TradeSortField.ALL}
           className="h-[1.92vw] w-[1.92vw] border border-gray-300/50 bg-transparent text-center text-white xl:h-6 xl:w-6"
           onChange={onInputChange}
           onKeyDown={onInputKeyDown}
