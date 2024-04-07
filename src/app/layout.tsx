@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   description: 'Dragonverse Neo',
 };
 
-const connectButtonExcludePath = ['/terms-of-use'];
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">

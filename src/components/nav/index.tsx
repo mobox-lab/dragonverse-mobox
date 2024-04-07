@@ -2,6 +2,7 @@
 import Backpack from '@/../public/svg/bagpack.svg?component';
 import DBAL from '@/../public/svg/dbal.svg?component';
 import DragonKey from '@/../public/svg/menu-dragon-key.svg?component';
+import Events from '@/../public/svg/events.svg?component';
 import Governance from '@/../public/svg/menu-governance.svg?component';
 import Rank from '@/../public/svg/rank.svg?component';
 import { siderCollapsedAtom } from '@/atoms';
@@ -34,32 +35,39 @@ const Nav: React.FunctionComponent<NavProps> = (props) => {
       point: 'mdbl',
     },
     {
-      key: '/dragonkey',
-      to: '/dragonkey',
-      content: 'DragonKey',
-      icon: <DragonKey />,
-      point: 'dragonkey',
+      key: '/events',
+      to: '/events',
+      content: 'Events',
+      icon: <Events />,
+      point: 'events',
     },
-    {
-      key: '/stake',
-      to: '/stake',
-      content: 'Stake',
-      icon: <DragonKey />,
-      point: 'stake',
-    },
+    // {
+    //   key: '/dragonkey',
+    //   to: '/dragonkey',
+    //   content: 'DragonKey',
+    //   icon: <DragonKey />,
+    //   point: 'dragonkey',
+    // },
+    // {
+    //   key: '/stake',
+    //   to: '/stake',
+    //   content: 'Stake',
+    //   icon: <DragonKey />,
+    //   point: 'stake',
+    // },
     // {
     //   key: '/backpack',
     //   to: 'backpack',
     //   content: 'Backpack',
     //   icon: <Backpack />,
     // },
-    {
-      key: '/halloffame',
-      to: 'halloffame',
-      content: 'Hall of Fame',
-      icon: <Rank />,
-      point: 'hof',
-    },
+    // {
+    //   key: '/halloffame',
+    //   to: 'halloffame',
+    //   content: 'Hall of Fame',
+    //   icon: <Rank />,
+    //   point: 'hof',
+    // },
     // {
     //   key: '/governance',
     //   to: 'governance',
