@@ -8,6 +8,7 @@ import Web3Status from '@/components/web3/Web3Status';
 import ToastIcon from '@/components/ui/toast/ToastIcon';
 import DialogComponents from '@/components/ui/dialog/DialogComponents';
 import type { Metadata } from 'next';
+import '../utils/analytics';
 
 import '@/styles/index.css';
 import 'react-toastify/dist/ReactToastify.css';
