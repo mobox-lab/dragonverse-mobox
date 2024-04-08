@@ -4,7 +4,6 @@ import { useAtomValue } from 'jotai/index';
 import { formatNumber, shortenDigits } from '@/utils';
 import { useFetchTotalVolume } from '@/hooks/useFetchTotalVolume';
 import { latestBTCPriceAtom, latestMDBLChartPriceAtom, latestMDBLPriceAtom, weightDataAtom } from '@/atoms/lbp';
-import { useIsEnd } from '@/hooks/useIsEnd';
 
 export default function LBPPriceDetail() {
   const weightData = useAtomValue(weightDataAtom);
@@ -12,7 +11,7 @@ export default function LBPPriceDetail() {
   const latestBTCPrice = useAtomValue(latestBTCPriceAtom);
   const latestMDBLPrice = useAtomValue(latestMDBLPriceAtom);
   const latestMDBLChartPrice = useAtomValue(latestMDBLChartPriceAtom);
-  const isEnd = useIsEnd();
+  // const isEnd = useIsEnd();
 
   return (
     <div className="mb-[1.6vw] flex justify-between xl:mb-5">
@@ -42,7 +41,7 @@ export default function LBPPriceDetail() {
           <img src="/img/mdbl.webp" alt="mdbl" className="w-[1.6vw] xl:w-5" />
           <div className="ml-[0.64vw] text-[1.6vw]/[2.24vw] font-medium text-yellow xl:ml-2 xl:text-xl/7">
             <Suspense fallback="0">
-              {isEnd
+              {(weightData?.[1] || 0n) === 0n
                 ? formatNumber(BigInt(totalVolume?.sharesReserveEnd ?? 0), false)
                 : formatNumber(weightData?.[1] || 0n, false)}
             </Suspense>
@@ -52,16 +51,16 @@ export default function LBPPriceDetail() {
           <img src="/img/btc.webp" alt="Btc" className="w-[1.6vw] xl:w-5" />
           <div className="ml-[0.64vw] text-[1.6vw]/[2.24vw] font-medium text-yellow xl:ml-2 xl:text-xl/7">
             <Suspense fallback="0">
-              {isEnd ? formatNumber(BigInt(totalVolume?.assetsReserveEnd ?? 0)) : formatNumber(weightData?.[0] || 0n)}
+              {(weightData?.[0] || 0n) === 0n
+                ? formatNumber(BigInt(totalVolume?.assetsReserveEnd ?? 0))
+                : formatNumber(weightData?.[0] || 0n)}
             </Suspense>
           </div>
         </div>
       </div>
       <div>
         <div className="text-left text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:text-sm/6">Initial FDV</div>
-        <div className="mt-[0.48vw] text-left text-[1.6vw]/[2.24vw] font-medium text-yellow xl:mt-1.5 xl:text-xl/7">
-          $5M
-        </div>
+        <div className="mt-[0.48vw] text-left text-[1.6vw]/[2.24vw] font-medium text-yellow xl:mt-1.5 xl:text-xl/7">$5M</div>
       </div>
       <div>
         <div className="text-left text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:text-sm/6">IDO / Total Supply</div>
