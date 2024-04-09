@@ -30,7 +30,7 @@ const calculateTimeLeft = (timestamp: number): TimeLeft => {
   return timeLeft;
 };
 
-const useCountdown = (timestamp: number, refresh: number = 1000) => {
+const useCountdown = (timestamp: number, refresh: number = 1000, splitChar: string = ':') => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(timestamp));
 
   useEffect(() => {
@@ -44,8 +44,7 @@ const useCountdown = (timestamp: number, refresh: number = 1000) => {
   if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
     return 'end';
   }
-
-  return `${timeLeft.days}d: ${timeLeft.hours}h: ${timeLeft.minutes}m: ${timeLeft.seconds}s`;
+  return `${timeLeft.days}d${splitChar} ${timeLeft.hours}h${splitChar} ${timeLeft.minutes}m${splitChar} ${timeLeft.seconds}s`;
 };
 
 export default useCountdown;

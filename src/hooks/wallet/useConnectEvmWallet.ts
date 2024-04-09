@@ -1,9 +1,6 @@
 import { useCallback, useMemo, useRef } from 'react';
 import ReactGA from 'react-ga4';
-import { toast } from 'react-toastify';
-import { useAtomValue } from 'jotai/index';
 import { watchAccount } from '@wagmi/core';
-import { termOfUseAcceptedAtom } from '@/atoms';
 import { MainWalletType } from '@/constants/enum';
 import { wagmiConfig } from '@/providers/wagmi-provider';
 import { useMainAccount, useSignInWithEthereum } from '@/hooks/wallet';
@@ -15,14 +12,9 @@ export function useConnectEvmWallet() {
   const unwatchAccount = useRef<() => void>();
   const { walletType, majorAddress } = useMainAccount();
   const { signInWithEthereum } = useSignInWithEthereum();
-  const isAccepted = useAtomValue(termOfUseAcceptedAtom);
 
   const onEvmConnect = useCallback(
     async (connector: Connector) => {
-      if (!isAccepted) {
-        toast.error('Please read and agree to the Terms of Use');
-        return;
-      }
       try {
         const { accounts } = await connectAsync({ connector });
         ReactGA.event({ category: 'merlin', action: 'connect_wallet', label: connector.name });
@@ -46,7 +38,7 @@ export function useConnectEvmWallet() {
         disconnect();
       }
     },
-    [connectAsync, disconnect, isAccepted, signInWithEthereum],
+    [connectAsync, disconnect, signInWithEthereum],
   );
 
   useAccountEffect({

@@ -67,7 +67,7 @@ function Popover({
         {isOpen && (
           <FloatingFocusManager context={context} modal={false}>
             <motion.div
-              className={twMerge('backdrop-box z-10 rounded-lg', className)}
+              className={twMerge('z-10 rounded-lg backdrop-blur', className)}
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1, originY: 0 }}
               exit={{ opacity: 0, scale: 0.85 }}

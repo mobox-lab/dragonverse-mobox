@@ -11,4 +11,15 @@ export const accessTokenAtom = atomWithStorage<string | undefined>(STORAGE_KEY.A
 
 export const evmAddressAtom = atom<Address | undefined>(undefined);
 
-export const termOfUseAcceptedAtom = atomWithStorage('term_of_use', false);
+type BindWalletDetail = {
+  existedAddress: string;
+  buffAddress: string;
+  aaAddress: string;
+  signature: string;
+  publicKey: string;
+};
+
+export const bindWalletDataAtom = atom<BindWalletDetail | undefined>(undefined);
+
+export const isExistedAddressDialogAtom = atom<boolean>(false);
+export const isUnbindWalletDialogAtom = atom<boolean>(false);

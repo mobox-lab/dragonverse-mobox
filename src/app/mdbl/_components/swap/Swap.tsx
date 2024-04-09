@@ -515,7 +515,7 @@ export default function Swap({ className }: { className?: string }) {
                 onOpenChange={setIsOpen}
                 placement="bottom-end"
                 render={() => (
-                  <div className="w-[24.96vw] items-start border border-gray-600 bg-black px-[1.28vw] py-[1.6vw] backdrop-blur-2xl xl:w-[312px] xl:px-4 xl:py-5">
+                  <div className="w-[24.96vw] items-start border border-gray-600 bg-black px-[1.28vw] py-[1.6vw] xl:w-[312px] xl:px-4 xl:py-5">
                     <div className="flex items-center text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
                       Max Slippage
                       <Tooltip title="Slippage Tolerance is the maximum change in price you are willing to accept">

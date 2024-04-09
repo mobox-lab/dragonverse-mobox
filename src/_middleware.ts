@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 const BLOCKED_COUNTRY = 'CN';
 
 export const config = {
-  matcher: ['/', '/mdbl'],
+  matcher: ['/', '/mdbl', '/stake', '/events'],
 };
 
 export function middleware(req: NextRequest) {

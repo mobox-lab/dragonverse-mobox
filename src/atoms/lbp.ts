@@ -27,3 +27,5 @@ export const isAbleToClaimAtom = atom<boolean>(false);
 export const chartNeedRefreshAtom = atom<number>(0);
 
 export const isSwapPausedAtom = atom<boolean>(false);
+
+export const airdropSnapshotEndAtom = atom<boolean>(false);

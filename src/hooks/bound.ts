@@ -1,25 +1,20 @@
-import { useAtomValue } from 'jotai';
-import { accessTokenAtom } from '@/atoms';
-import { fetchBindAddress, fetchBoundAddress } from '@/apis';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useAccount } from 'wagmi';
+import { fetchBindAddress } from '@/apis';
 import { BindAddressParams } from '@/apis/types';
-
-export const useFetchBoundAddress = () => {
-  const accessToken = useAtomValue(accessTokenAtom);
-
-  return useQuery({
-    queryKey: ['fetch_bound_address', accessToken],
-    queryFn: () => fetchBoundAddress(),
-    select: ({ code, data }) => (code === 200 ? data : undefined),
-    enabled: !!accessToken,
-  });
-};
+import { useMutation } from '@tanstack/react-query';
+import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
+import { useBelongingDragonBall } from '@/hooks/events/useBelongingDragonBall';
 
 export const useMutationBindAddress = () => {
-  const { refetch } = useFetchBoundAddress();
+  const { address } = useAccount();
+  const { refetch } = useFetchBuffAddress({ address });
+  const { refetch: refetchDragonBall } = useBelongingDragonBall();
 
   return useMutation({
     mutationFn: (data: BindAddressParams) => fetchBindAddress(data),
-    onSuccess: () => refetch(),
+    onSuccess: () => {
+      refetch().then();
+      refetchDragonBall().then();
+    },
   });
 };

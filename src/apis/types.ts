@@ -279,3 +279,14 @@ export type PriceHistory = {
   blockTimestamp: number;
   createdAt: string;
 };
+
+export type BuffAddress = {
+  evmAddress: Address;
+  buffAddress: string;
+  buffAAAddress: Address;
+};
+
+export type DragonBallCount = {
+  btcDragonBallCount: number;
+  mDragonBallCount: number;
+};

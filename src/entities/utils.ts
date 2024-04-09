@@ -1,5 +1,3 @@
-import Decimal from 'decimal.js-light';
-
 export class MathLib {
   static WAD = 10n ** 18n;
 

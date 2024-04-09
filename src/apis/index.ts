@@ -5,25 +5,21 @@ import {
   AllRewardData,
   BRC420Item,
   BindAddressParams,
-  BoundAddress,
   BtcLoginParams,
-  CouponResult,
   DragonGameRank,
   DragonGovernInfo,
   DragonProposal,
   EvmLoginParams,
   FetchDragonProposalParams,
   FetchTradeHistoryParams,
-  HatchDryRunBody,
-  HatchDryRunResult,
   LoginRes,
   PriceHistory,
   TradeHistoryListItemData,
-  UserInfo,
+  BuffAddress,
+  DragonBallCount,
 } from './types';
 
-export const fetchDragonGovernInfo = (address?: Address) =>
-  request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
+export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
 
 export const fetchNumberOfDragonProposals = (address?: Address) =>
   request.get<any, Response<number>>('/modragonGovern/numberOfProposals', { params: { userAddress: address } });
@@ -45,14 +41,8 @@ export const fetchDragonProposals = ({
 export const fetchEvmLogin = (data: EvmLoginParams) => request.post<any, Response<LoginRes>>('/merlin/login/evm', data);
 export const fetchBtcLogin = (data: BtcLoginParams) => request.post<any, Response<LoginRes>>('/merlin/login/btc', data);
 
-export const fetchBoundAddress = () => request.get<any, Response<BoundAddress>>('/merlin/buff/bound/address');
-
 export const fetchBindAddress = (data: BindAddressParams) =>
   request.post<any, Response<any>>('/merlin/buff/bind/address', data);
-
-export const fetchUserInfo = () => request.get<any, Response<UserInfo>>('/merlin/user/info');
-
-export const fetchUserName = (data: { showName: string }) => request.post<any, Response<any>>('/merlin/user/name', data);
 
 export const fetchBRC420Balance = (data: { wallet_address?: string; deploy_inscription_id?: string }) =>
   request.post<any, Response<BRC420Item>>('https://api-1.brc420.io/api/v1/brc420/inscription/list', {
@@ -88,3 +78,12 @@ export const fetchMDBLShares = (address?: string) =>
   request.get<any, Response<{ myShare: string }>>('/merlin/launch/my/shares', { params: { address } });
 
 export const fetchNetworkStatus = () => request.get<any, Response<{ rpcStatus: boolean }>>('/merlin/network/status');
+
+export const fetchBuffAddress = (address?: string) =>
+  request.get<any, Response<BuffAddress>>('/merlin/buff/buff-address', { params: { evmAddress: address } });
+export const fetchEvmAddress = (address?: string) =>
+  request.get<any, Response<{ address: string }>>('/merlin/buff/evm-address', { params: { buffAddress: address } });
+
+export const fetchUnbindAddress = () => request.post<any, Response<boolean>>('/merlin/buff/unbind');
+
+export const fetchBelongingDragonBall = () => request.get<any, Response<DragonBallCount>>('/merlin/belonging/dragonball');

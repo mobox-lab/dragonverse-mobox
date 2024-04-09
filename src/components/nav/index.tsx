@@ -32,13 +32,13 @@ export default function Nav() {
       icon: <DBAL />,
       point: 'mdbl',
     },
-    // {
-    //   key: '/events',
-    //   to: '/events',
-    //   content: 'Events',
-    //   icon: <Events />,
-    //   point: 'events',
-    // },
+    {
+      key: '/events',
+      to: '/events',
+      content: 'Events',
+      icon: <Events />,
+      point: 'events',
+    },
     {
       key: 'litepaper',
       to: '',

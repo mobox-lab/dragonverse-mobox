@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import DragonBorder from '../_components/DragonBorder';
 
@@ -8,7 +9,7 @@ const TermsOfUse: React.FunctionComponent<TermsOfUseProps> = () => {
   return (
     <div className="relative mt-[5.44vw] border border-gray-600 bg-black/60 px-[3.2vw] py-[3.52vw] backdrop-blur-sm xl:mt-17 xl:px-10 xl:py-11">
       <DragonBorder className="inset-[0.64vw] -z-10 xl:inset-2" />
-      <h1 className="xl:text-3xl/11 text-center text-[2.4vw]/[3.52vw] font-medium">Terms of Use - MDBL</h1>
+      <h1 className="text-center text-[2.4vw]/[3.52vw] font-medium xl:text-3xl/11">Terms of Use - MDBL</h1>
       <h2 className="mt-[3.2vw] text-[1.6vw]/[2.4vw] font-medium xl:mt-10 xl:text-xl/7.5">
         Access from Restricted Areas is Prohibited
       </h2>
@@ -253,7 +254,7 @@ const TermsOfUse: React.FunctionComponent<TermsOfUseProps> = () => {
           Launch Site user interface.
         </li>
       </ul>
-      <h1 className="xl:text-3xl/11 mt-[4.8vw] text-[2.4vw]/[3.52vw] font-medium xl:mt-15">
+      <h1 className="mt-[4.8vw] text-[2.4vw]/[3.52vw] font-medium xl:mt-15 xl:text-3xl/11">
         Accordingly, you expressly agree that:
       </h1>
       <h3 className="mt-[1.6vw] text-[1.28vw]/[1.92vw] font-medium xl:mt-5 xl:text-base/6">

@@ -1,22 +1,26 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import Dialog from '@/components/ui/dialog';
-import { btcWalletConnectDialogAtom } from '@/atoms';
+import { useMainAccount } from '@/hooks/wallet';
 import { useMutationBindAddress } from '@/hooks/bound';
 import ConnectButton from '@/components/ui/button/ConnectButton';
-import { useMainAccount, useMainSignMessage } from '@/hooks/wallet';
-import { useBTCProvider, useConnectModal, useConnector } from '@particle-network/btc-connectkit';
+import { useMutationEvmAddress } from '@/hooks/events/useBuffAddress';
+import { useBTCProvider, useConnectModal, useConnector, useETHProvider } from '@particle-network/btc-connectkit';
+import { bindWalletDataAtom, btcWalletConnectDialogAtom, isExistedAddressDialogAtom } from '@/atoms';
 
 export default function BtcWalletConnectDialog() {
   const { disconnect } = useConnectModal();
   const { majorAddress } = useMainAccount();
   const { mutate } = useMutationBindAddress();
-  const { signMessage } = useMainSignMessage();
+  const { mutateAsync } = useMutationEvmAddress();
   const { connectors, connect } = useConnector();
-  const { accounts, getPublicKey } = useBTCProvider();
+  const { accounts, getPublicKey, signMessage } = useBTCProvider();
+  const { evmAccount } = useETHProvider();
   const [isConnect, setIsConnect] = useState<number>(0);
   const account = useMemo(() => accounts[0], [accounts]);
+  const setBindWalletData = useSetAtom(bindWalletDataAtom);
   const [isOpen, setIsOpen] = useAtom(btcWalletConnectDialogAtom);
+  const setIsExistedDialog = useSetAtom(isExistedAddressDialogAtom);
 
   const onConnect = async (id: string) => {
     try {
@@ -27,23 +31,32 @@ export default function BtcWalletConnectDialog() {
     }
   };
 
-  const onBindAddress = async (address: string) => {
+  const onBindAddress = async (address: string, aaAddress: string) => {
     try {
+      const data = await mutateAsync({ address });
       const publicKey = await getPublicKey();
-      const signature = await signMessage({ message: `bind address ${majorAddress}` });
-      mutate({ buffAddress: address, signature, publicKey });
+      const signature = await signMessage(`bind address ${majorAddress}`);
+      const bindParams = { buffAddress: address, signature, publicKey };
+      const existedAddress = data.data.address;
+      if (existedAddress) {
+        setBindWalletData({ existedAddress, aaAddress, ...bindParams });
+        setIsExistedDialog(true);
+      } else {
+        mutate(bindParams);
+      }
       setIsOpen(false);
       setIsConnect(0);
+      disconnect();
     } catch (error) {
       disconnect();
     }
   };
 
   useEffect(() => {
-    if (!isConnect || !account) return;
-    onBindAddress(account).then();
+    if (!isConnect || !account || !evmAccount) return;
+    onBindAddress(account, evmAccount).then();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, isConnect]);
+  }, [account, isConnect, evmAccount]);
 
   return (
     <Dialog

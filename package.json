@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run rename",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "rename": "node scripts/rename.js"
   },
   "dependencies": {
     "@floating-ui/react": "^0.26.8",

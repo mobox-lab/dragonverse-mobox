@@ -65,6 +65,7 @@ const config: Config = {
         green: {
           500: '#64AB85',
           DEFAULT: '#1EDB8C',
+          700: '#A9FF54',
         },
         blue: {
           300: '#4383FF',
@@ -84,6 +85,8 @@ const config: Config = {
           550: '#3D444B',
           600: '#6F7784',
           700: '#111111',
+          750: '#141414',
+          800: '#15130F',
         },
       },
       backgroundImage: {

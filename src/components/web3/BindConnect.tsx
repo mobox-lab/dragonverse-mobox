@@ -3,13 +3,17 @@
 import { useSetAtom } from 'jotai/index';
 import Button from '@/components/ui/button';
 import { mainWalletConnectDialogAtom } from '@/atoms';
-import Web3StatusInner from '@/components/web3/Web3StatusInner';
-import { useIsMainConnected, useMainChain } from '@/hooks/wallet';
+import { useIsMainConnected, useMainAccount, useMainChain } from '@/hooks/wallet';
+import BindEvmWallet from '@/components/web3/BindEvmWallet';
+import BindBtcWallet from '@/components/web3/BindBtcWallet';
+import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
 
 export default function BindConnect() {
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
   const { isSupportedChain, switchMainChain } = useMainChain();
+  const { majorAddress } = useMainAccount();
+  const { data } = useFetchBuffAddress({ address: majorAddress });
 
   if (isMainConnected) {
     if (!isSupportedChain) {
@@ -23,7 +27,13 @@ export default function BindConnect() {
         </Button>
       );
     }
-    return <Web3StatusInner />;
+    return (
+      <div className="flex w-full max-w-[540px] items-center justify-between gap-4">
+        <BindEvmWallet />
+        <div className="w-7.5">{data?.buffAAAddress && <img src="/svg/bind.svg" alt="bind" className="w-full" />}</div>
+        <BindBtcWallet />
+      </div>
+    );
   }
 
   return (
