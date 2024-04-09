@@ -30,7 +30,7 @@ export default function BindEvmWallet() {
       open={isOpen}
       onOpenChange={setIsOpen}
       placement="bottom-start"
-      className="w-full max-w-[230px]"
+      className="w-full max-w-[238px]"
       render={() => (
         <div className="flex items-start">
           <div className="w-full border border-gray-600 bg-black/60 p-2 text-[1.12vw]/[1.6vw] xl:text-xs/4">

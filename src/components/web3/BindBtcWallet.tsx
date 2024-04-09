@@ -33,7 +33,7 @@ export default function BindBtcWallet() {
       open={isOpen}
       onOpenChange={setIsOpen}
       placement="bottom-start"
-      className="w-full max-w-[230px]"
+      className="w-full max-w-[238px]"
       render={() => (
         <div className="flex items-start">
           <div className="w-full border border-gray-600 bg-black/60 p-2 text-[1.12vw]/[1.6vw] backdrop-blur xl:text-xs/4">
@@ -57,7 +57,7 @@ export default function BindBtcWallet() {
                 <ClipSVG
                   className="w-[0.96vw] cursor-pointer stroke-white xl:w-3"
                   onClick={() => {
-                    copyToClipboard(data.buffAAAddress ?? '');
+                    copyToClipboard(data.buffAddress ?? '');
                     toast.success('BTC address copied');
                   }}
                 />
