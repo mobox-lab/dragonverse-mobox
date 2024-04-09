@@ -28,9 +28,13 @@ export default function BindConnect() {
       );
     }
     return (
-      <div className="flex w-full max-w-[540px] items-center justify-between gap-4">
+      <div className="flex w-full max-w-[540px] items-center justify-between gap-4 font-semibold">
         <BindEvmWallet />
-        <div className="w-7.5">{data?.buffAAAddress && <img src="/svg/bind.svg" alt="bind" className="w-full" />}</div>
+        {data?.buffAAAddress && (
+          <div className="w-7.5">
+            <img src="/svg/bind.svg" alt="bind" className="w-full" />
+          </div>
+        )}
         <BindBtcWallet />
       </div>
     );
@@ -39,7 +43,7 @@ export default function BindConnect() {
   return (
     <Button
       type="pattern"
-      className="h-[4.96vw] w-[16vw] border text-[1.28vw]/[1.92vw] font-medium xl:h-12 xl:w-[200px] xl:text-sm/3.5"
+      className="h-[4.96vw] w-[16vw] border text-[1.28vw]/[1.92vw] font-semibold xl:h-12 xl:w-[200px] xl:text-sm/3.5"
       onClick={() => setWalletConnect(true)}
     >
       CONNECT

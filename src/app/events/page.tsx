@@ -74,7 +74,7 @@ export default function Events() {
         </div>
         <div
           className={clsxm(
-            'relative mx-auto flex max-w-[54.4vw] items-center justify-between bg-legendary/30 px-[1.28vw] py-[0.64vw] text-[0.96vw]/[1.6vw] text-legendary backdrop-blur-2xl xl:max-w-[680px] xl:px-4 xl:py-2 xl:text-xs/5',
+            'relative mx-auto flex max-w-[54.4vw] items-center justify-between bg-legendary/30 px-[1.28vw] py-[0.64vw] text-[0.96vw]/[1.6vw] font-medium text-legendary backdrop-blur-2xl xl:max-w-[680px] xl:px-4 xl:py-2 xl:text-xs/5',
             {
               'bg-blue/30 text-blue': airdropSnapshotEnd,
             },
@@ -91,12 +91,12 @@ export default function Events() {
             </>
           )}
         </div>
-        <div className="relative mx-auto mt-[1.28vw] w-full max-w-[54.4vw] border border-gray-600 bg-black/60 px-[3.2vw] py-[3.52vw] backdrop-blur-sm xl:mt-4 xl:max-w-[680px] xl:px-10 xl:py-11">
+        <div className="relative mx-auto mt-[1.28vw] w-full max-w-[54.4vw] border border-gray-600 bg-black/60 px-[2.4vw] py-[3.2vw] backdrop-blur-sm xl:mt-4 xl:max-w-[680px] xl:px-7.5 xl:py-10">
           <PatternWithoutLine />
-          <p className="mt-[0.32vw] text-center text-[1.28vw]/[1.76vw] font-medium xl:mt-1 xl:text-base/5.5">My Airdrop</p>
-          <div className="flex-center mb-[3.84vw] mt-[0.96vw] gap-[0.48vw] xl:mb-12 xl:mt-3 xl:gap-1.5">
+          <p className="text-center text-[1.28vw]/[1.76vw] font-semibold xl:text-base/5.5">My Airdrop</p>
+          <div className="flex-center mb-[3.2vw] mt-[0.96vw] gap-[0.48vw] xl:mb-10 xl:mt-3 xl:gap-1.5">
             <img className="h-[2.88vw] xl:h-9" src="/img/mdbl.webp" alt="mdbl" />
-            <p className="text-[2.4vw]/[2.4vw] font-medium text-yellow xl:text-3xl/7.5">{totalShare}</p>
+            <p className="text-[2.4vw]/[2.4vw] font-semibold text-yellow xl:text-3xl/7.5">{totalShare}</p>
           </div>
           {canClaim && (
             <div className="flex-center mt-[1.28vw] xl:mt-4">
@@ -109,19 +109,18 @@ export default function Events() {
             </div>
           )}
           <div className="flex flex-col gap-[1.6vw] border border-gray-600/50 p-[1.6vw] xl:gap-5 xl:p-5">
-            <p className="flex items-center gap-[0.96vw] align-middle text-[1.12vw]/[1.92vw] font-medium xl:gap-3 xl:text-sm/6">
-              <span className="text-[1.6vw]/[1.92vw] font-medium text-green xl:text-xl/6">Part I:</span> LBP $MDBL Holding
-              Airdrop
+            <p className="flex items-center gap-[0.96vw] align-middle text-[1.12vw]/[1.92vw] font-semibold xl:gap-3 xl:text-sm/6">
+              <span className="text-[1.6vw]/[1.92vw] text-green xl:text-xl/6">Part I:</span> LBP $MDBL Holding Airdrop
             </p>
             <div className="flex justify-between">
-              <div className="flex-center h-[2.88vw] gap-[0.48vw] text-[2.4vw]/[2.4vw] font-medium text-yellow xl:h-9 xl:gap-1.5 xl:text-3xl/7.5">
+              <div className="flex-center h-[2.88vw] gap-[0.48vw] text-[2.4vw]/[2.4vw] font-semibold text-yellow xl:h-9 xl:gap-1.5 xl:text-3xl/7.5">
                 <img src="/img/mdbl.webp" alt="mdbl" className="h-[2.88vw] xl:h-9" />
                 {majorAddress ? part1.toLocaleString() : '--'}
               </div>
-              <div className="flex items-center gap-[0.32vw] text-center text-[1.28vw]/[1.76vw] font-medium xl:gap-1 xl:text-base/5.5">
+              <div className="flex items-center gap-[0.32vw] text-center text-[1.28vw]/[1.76vw] font-semibold xl:gap-1 xl:text-base/5.5">
                 <img src="/img/mdbl.webp" alt="mdbl" className="mr-[0.16vw] h-[1.92vw] xl:mr-0.5 xl:h-6" />
                 $MDBL Balance :
-                <div className="ml-[1.28vw] flex justify-end text-[1.92vw]/[1.92vw] font-medium text-yellow xl:ml-4 xl:text-2xl/6">
+                <div className="ml-[1.28vw] flex justify-end text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-4 xl:text-2xl/6">
                   {majorAddress ? (
                     <>
                       {data ? formatNumber(data) : 0}&nbsp;
@@ -143,10 +142,9 @@ export default function Events() {
                   </div>
                 )
               : null}
-            <div className="flex justify-between text-[1.28vw]/[1.92vw] font-medium xl:text-base/6">
-              <p className="flex items-center gap-[0.96vw] align-middle text-[1.12vw]/[1.92vw] font-medium xl:gap-3 xl:text-sm/6">
-                <span className="text-[1.6vw]/[1.92vw] font-medium text-green xl:text-xl/6">Part II:</span> Dragon Ball Holders
-                Airdrop
+            <div className="flex justify-between text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">
+              <p className="flex items-center gap-[0.96vw] align-middle text-[1.12vw]/[1.92vw] font-semibold xl:gap-3 xl:text-sm/6">
+                <span className="text-[1.6vw]/[1.92vw] text-green xl:text-xl/6">Part II:</span> Dragon Ball Holders Airdrop
               </p>
               <p className="flex items-center gap-[0.16vw] xl:gap-0.5">
                 (1
@@ -158,18 +156,18 @@ export default function Events() {
               </p>
             </div>
             <div className="mt-[1.6vw] flex justify-between xl:mt-5">
-              <div className="flex-center h-[2.88vw] gap-[0.48vw] text-[2.4vw]/[2.4vw] font-medium text-yellow xl:h-9 xl:gap-1.5 xl:text-3xl/7.5">
+              <div className="flex-center h-[2.88vw] gap-[0.48vw] text-[2.4vw]/[2.4vw] font-semibold text-yellow xl:h-9 xl:gap-1.5 xl:text-3xl/7.5">
                 <img src="/img/mdbl.webp" alt="mdbl" className="h-[2.88vw] xl:h-9" />
                 {majorAddress ? part2.toLocaleString() : '--'}
               </div>
-              <div className="flex-center gap-[0.32vw] text-[1.28vw]/[1.76vw] font-medium xl:gap-1 xl:text-base/5.5">
+              <div className="flex-center gap-[0.32vw] text-[1.28vw]/[1.76vw] font-semibold xl:gap-1 xl:text-base/5.5">
                 Dragon Ball <img className="w-[1.92vw] xl:w-6" src="/img/dragon-ball.webp" alt="dragon-ball" />
-                <span className="ml-[0.32vw] text-[1.92vw]/[1.92vw] font-medium xl:ml-1 xl:text-2xl/6">
+                <span className="ml-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold xl:ml-1 xl:text-2xl/6">
                   x{dragonBall?.btcDragonBallCount ?? 0}
                 </span>
                 <span className="ml-[1.6vw] xl:ml-5">M-Dragon Ball</span>
                 <img className="w-[1.92vw] xl:w-6" src="/img/dragon-ball-merlin.webp" alt="dragon-ball" />
-                <span className="ml-[0.32vw] text-[1.92vw]/[1.92vw] font-medium xl:ml-1 xl:text-2xl/6">
+                <span className="ml-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold xl:ml-1 xl:text-2xl/6">
                   x{dragonBall?.mDragonBallCount ?? 0}
                 </span>
               </div>

@@ -14,5 +14,5 @@ export default function AirdropCountDown() {
     setAirdropSnapshotEndAtom(true);
   }, [countdown, setAirdropSnapshotEndAtom]);
 
-  return <div>{countdown}</div>;
+  return <div className="font-semibold">{countdown}</div>;
 }
