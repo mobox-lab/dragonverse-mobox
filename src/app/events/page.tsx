@@ -70,7 +70,7 @@ export default function Events() {
       </div>
       <div className="mt-[14.4vw] xl:mt-45">
         <div className="flex-center pb-[2.4vw] xl:pb-7.5">
-          <BindConnect />
+          <BindConnect disabledBind={airdropSnapshotEnd} />
         </div>
         <div
           className={clsxm(

@@ -58,7 +58,7 @@ export default function BindEvmWallet() {
         </div>
       )}
     >
-      <div className="flex-center bg-gray-750 relative h-12 flex-1 cursor-pointer gap-1.5 border border-green/50 bg-gradient-to-b from-green/10 to-green/10 text-xs font-medium">
+      <div className="flex-center bg-gray-750 relative h-12 max-w-[238px] flex-1 cursor-pointer gap-1.5 border border-green/50 bg-gradient-to-b from-green/10 to-green/10 text-xs font-medium">
         <PatternWithoutLine className="stroke-green" />
         <div className="h-[1.92vw] w-[1.92vw] rounded-full border bg-white xl:h-6 xl:w-6">
           <img src="/img/merlin-chain.png" className="h-full w-full" alt="merlin" />

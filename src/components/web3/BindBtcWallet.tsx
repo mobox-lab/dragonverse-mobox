@@ -12,8 +12,13 @@ import ArrowSVG from '@/../public/svg/arrow-02.svg?component';
 import BindBtcConnect from '@/components/web3/BindBtcConnect';
 import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import { clsx } from 'clsx';
 
-export default function BindBtcWallet() {
+type BindConnectProps = {
+  disabledBind?: boolean;
+};
+
+export default function BindBtcWallet({ disabledBind }: BindConnectProps) {
   const { majorAddress } = useMainAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [, copyToClipboard] = useCopyToClipboard();
@@ -50,7 +55,7 @@ export default function BindBtcWallet() {
                 />
               </div>
             </div>
-            <div className="border-b border-white/25 px-[0.64vw] py-[1.28vw] xl:px-2 xl:py-4">
+            <div className={clsx('border-white/25 px-[0.64vw] py-[1.28vw] xl:px-2 xl:py-4', disabledBind ? '' : 'border-b')}>
               <p className="text-[0.96vw]/[1.28vw] font-medium text-gray-300 xl:text-xs/4">BTC Address</p>
               <div className="mt-[0.48vw] flex items-center gap-[0.48vw] xl:mt-1.5 xl:gap-1.5">
                 {shortenAddress(data.buffAddress)}
@@ -63,13 +68,15 @@ export default function BindBtcWallet() {
                 />
               </div>
             </div>
-            <div
-              onClick={onUnbindClick}
-              className="flex cursor-pointer items-center gap-[0.48vw] px-[0.8vw] pb-[0.96vw] pt-[1.44vw] hover:bg-white/[0.12] hover:backdrop-blur-lg xl:gap-1.5 xl:px-2.5 xl:pb-3 xl:pt-4.5"
-            >
-              <img className="h-[1.6vw] w-[1.6vw] xl:h-5 xl:w-5" src="/svg/logout.svg" alt="" />
-              Unbind
-            </div>
+            {!disabledBind && (
+              <div
+                onClick={onUnbindClick}
+                className="flex cursor-pointer items-center gap-[0.48vw] px-[0.8vw] pb-[0.96vw] pt-[1.44vw] hover:bg-white/[0.12] hover:backdrop-blur-lg xl:gap-1.5 xl:px-2.5 xl:pb-3 xl:pt-4.5"
+              >
+                <img className="h-[1.6vw] w-[1.6vw] xl:h-5 xl:w-5" src="/svg/logout.svg" alt="" />
+                Unbind
+              </div>
+            )}
           </div>
         </div>
       )}
