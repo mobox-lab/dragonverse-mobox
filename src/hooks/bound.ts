@@ -4,6 +4,7 @@ import { BindAddressParams } from '@/apis/types';
 import { useMutation } from '@tanstack/react-query';
 import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
 import { useBelongingDragonBall } from '@/hooks/events/useBelongingDragonBall';
+import { toast } from 'react-toastify';
 
 export const useMutationBindAddress = () => {
   const { address } = useAccount();
@@ -15,6 +16,11 @@ export const useMutationBindAddress = () => {
     onSuccess: () => {
       refetch().then();
       refetchDragonBall().then();
+    },
+    onError: (error: any) => {
+      const { data, code } = error ?? {};
+      if (code === 400 && data?.[0] === 'particle service error')
+        toast.error('AA Wallet service is unstable, please try again later.');
     },
   });
 };
