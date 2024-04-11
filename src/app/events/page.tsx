@@ -173,6 +173,10 @@ export default function Events() {
               </div>
             </div>
           </div>
+          <p className="mt-3 text-center text-xs/5 text-gray-300">
+            Due to network congestion, please complete all Dragon Ball transfers at least 2 hours prior to the snapshot for a
+            precise snapshot result.
+          </p>
           <div className="flex-center mt-[1.6vw] h-[1.6vw] gap-[0.96vw] text-[0.96vw]/[1.6vw] xl:mt-5 xl:h-5 xl:gap-3 xl:text-xs/5">
             {majorAddress ? (
               <>
