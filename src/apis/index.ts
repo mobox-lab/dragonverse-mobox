@@ -17,6 +17,7 @@ import {
   TradeHistoryListItemData,
   BuffAddress,
   DragonBallCount,
+  SnapShotData,
 } from './types';
 
 export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
@@ -87,3 +88,5 @@ export const fetchEvmAddress = (address?: string) =>
 export const fetchUnbindAddress = () => request.post<any, Response<boolean>>('/merlin/buff/unbind');
 
 export const fetchBelongingDragonBall = () => request.get<any, Response<DragonBallCount>>('/merlin/belonging/dragonball');
+
+export const fetchAirdropSnap = () => request.get<any, Response<SnapShotData>>('/merlin/airdrop/snap');

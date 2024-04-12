@@ -1,54 +1,37 @@
 'use client';
 
-import InfoSVG from '@/../public/svg/info.svg?component';
-import { airdropSnapshotEndAtom } from '@/atoms/lbp';
-import { ClientOnly } from '@/components/common/ClientOnly';
-import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
-import Button from '@/components/ui/button';
-import BindConnect from '@/components/web3/BindConnect';
-import { CDN_URL } from '@/constants';
-import { AIRDROP_COUNT, ETHERS, SELL_COUNT } from '@/constants/events';
-import { useBelongingDragonBall } from '@/hooks/events/useBelongingDragonBall';
-import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
-import { useMDBLShares } from '@/hooks/events/useMDBLShares';
-import { useMainAccount } from '@/hooks/wallet';
-import { clsxm, formatNumber, shortenAddress } from '@/utils';
-import Decimal from 'decimal.js-light';
-import { useAtomValue } from 'jotai';
 import { useMemo } from 'react';
-import AirdropCountDown from './_components/AirdropCountDown';
+import { formatEther } from 'viem';
+import { CDN_URL } from '@/constants';
+import Decimal from 'decimal.js-light';
+import Button from '@/components/ui/button';
+import { useMainAccount } from '@/hooks/wallet';
+import { formatNumber, shortenAddress } from '@/utils';
+import { ETHERS, SELL_COUNT } from '@/constants/events';
+import InfoSVG from '@/../public/svg/info.svg?component';
+import { useSnapshotData } from '@/hooks/events/useSnapshotData';
+import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import SnapShotWalletButton from '@/app/events/_components/SnapShotWalletButton';
 
 const canClaim = false;
 
 export default function Events() {
   const { majorAddress } = useMainAccount();
-  const { data } = useMDBLShares();
-  const { data: buffAddress } = useFetchBuffAddress({ address: majorAddress });
-  const { data: dragonBall } = useBelongingDragonBall();
-  const airdropSnapshotEnd = useAtomValue(airdropSnapshotEndAtom);
+  const { data } = useSnapshotData();
   const percent = useMemo(() => {
     if (!data) return 0;
-    const res = Number((data * 100000n) / SELL_COUNT) / 1000;
+    const res = Number((BigInt(data.mdblBalance) * 100000n) / SELL_COUNT) / 1000;
     if (res < 0.001) return '<0.001';
     return new Decimal(res).tosd(3).toNumber();
   }, [data]);
-  const showTooltip = useMemo(() => (data ?? 0n) < 1000n * ETHERS, [data]);
 
-  const part1 = useMemo(() => {
-    if (!data) return 0n;
-    const res = (data * AIRDROP_COUNT) / SELL_COUNT / ETHERS;
-    return res ? res : 1n;
-  }, [data]);
+  const showTooltip = useMemo(() => BigInt(data?.mdblBalance ?? 0n) < 1000n * ETHERS, [data]);
 
-  const part2 = useMemo(() => {
-    if (!data || data < 1000n * ETHERS || !dragonBall) return 0n;
-    return BigInt(dragonBall.btcDragonBallCount + dragonBall.mDragonBallCount) * 105n;
-  }, [data, dragonBall]);
+  const part1 = useMemo(() => Number(formatEther(BigInt(data?.rewardByBalance ?? 0n))), [data?.rewardByBalance]);
 
-  const totalShare = useMemo(() => {
-    if (!majorAddress) return '--';
-    return (part1 + part2).toLocaleString();
-  }, [majorAddress, part1, part2]);
+  const part2 = useMemo(() => Number(formatEther(BigInt(data?.rewardByBall ?? 0n))), [data?.rewardByBall]);
+
+  const myAirdrop = useMemo(() => Number(formatEther(BigInt(data?.airdropMdblBalance ?? 0n))), [data?.airdropMdblBalance]);
 
   return (
     <div className="pb-[3.84vw] xl:pb-12">
@@ -70,33 +53,19 @@ export default function Events() {
       </div>
       <div className="mt-[14.4vw] xl:mt-45">
         <div className="flex-center pb-[2.4vw] xl:pb-7.5">
-          <BindConnect disabledBind={airdropSnapshotEnd} />
+          <SnapShotWalletButton data={data} />
         </div>
-        <div
-          className={clsxm(
-            'relative mx-auto flex max-w-[54.4vw] items-center justify-between bg-legendary/30 px-[1.28vw] py-[0.64vw] text-[0.96vw]/[1.6vw] font-medium text-legendary backdrop-blur-2xl xl:max-w-[680px] xl:px-4 xl:py-2 xl:text-xs/5',
-            {
-              'bg-blue/30 text-blue': airdropSnapshotEnd,
-            },
-          )}
-        >
-          {airdropSnapshotEnd ? (
-            'Snapshot completed, stay tuned for airdrop claim schedule'
-          ) : (
-            <>
-              Snapshot Time: 8:00 AM UTC, April 12, 2024&nbsp;
-              <ClientOnly>
-                <AirdropCountDown />
-              </ClientOnly>
-            </>
-          )}
+        <div className="relative mx-auto flex max-w-[54.4vw] items-center justify-between bg-blue/30 px-[1.28vw] py-[0.64vw] text-[0.96vw]/[1.6vw] font-medium text-blue backdrop-blur-2xl xl:max-w-[680px] xl:px-4 xl:py-2 xl:text-xs/5">
+          Snapshot completed, stay tuned for airdrop claim schedule
         </div>
         <div className="relative mx-auto mt-[1.28vw] w-full max-w-[54.4vw] border border-gray-600 bg-black/60 px-[2.4vw] py-[3.2vw] backdrop-blur-sm xl:mt-4 xl:max-w-[680px] xl:px-7.5 xl:py-10">
           <PatternWithoutLine />
           <p className="text-center text-[1.28vw]/[1.76vw] font-semibold xl:text-base/5.5">My Airdrop</p>
           <div className="flex-center mb-[3.2vw] mt-[0.96vw] gap-[0.48vw] xl:mb-10 xl:mt-3 xl:gap-1.5">
             <img className="h-[2.88vw] xl:h-9" src="/img/mdbl.webp" alt="mdbl" />
-            <p className="text-[2.4vw]/[2.4vw] font-semibold text-yellow xl:text-3xl/7.5">{totalShare}</p>
+            <p className="text-[2.4vw]/[2.4vw] font-semibold text-yellow xl:text-3xl/7.5">
+              {majorAddress ? myAirdrop.toLocaleString() : '--'}
+            </p>
           </div>
           {canClaim && (
             <div className="flex-center mt-[1.28vw] xl:mt-4">
@@ -123,7 +92,7 @@ export default function Events() {
                 <div className="ml-[1.28vw] flex justify-end text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-4 xl:text-2xl/6">
                   {majorAddress ? (
                     <>
-                      {data ? formatNumber(data) : 0}&nbsp;
+                      {data ? formatNumber(BigInt(data.mdblBalance)) : 0}&nbsp;
                       {percent ? <p className="text-[1.12vw]/[1.92vw] xl:text-sm/6">({percent}%)</p> : null}
                     </>
                   ) : (
@@ -163,12 +132,12 @@ export default function Events() {
               <div className="flex-center gap-[0.32vw] text-[1.28vw]/[1.76vw] font-semibold xl:gap-1 xl:text-base/5.5">
                 Dragon Ball <img className="w-[1.92vw] xl:w-6" src="/img/dragon-ball.webp" alt="dragon-ball" />
                 <span className="ml-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold xl:ml-1 xl:text-2xl/6">
-                  x{dragonBall?.btcDragonBallCount ?? 0}
+                  x{data?.btcDragonBallCount ?? 0}
                 </span>
                 <span className="ml-[1.6vw] xl:ml-5">M-Dragon Ball</span>
                 <img className="w-[1.92vw] xl:w-6" src="/img/dragon-ball-merlin.webp" alt="dragon-ball" />
                 <span className="ml-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold xl:ml-1 xl:text-2xl/6">
-                  x{dragonBall?.mDragonBallCount ?? 0}
+                  x{data?.mDragonBallCount ?? 0}
                 </span>
               </div>
             </div>
@@ -187,12 +156,12 @@ export default function Events() {
                   </div>
                   {shortenAddress(majorAddress)}
                 </div>
-                {buffAddress?.buffAddress && (
+                {data?.buffAddress && (
                   <div className="flex-center gap-[0.32vw] xl:gap-1">
                     <div className="size-[1.28vw] rounded-full border bg-white xl:size-4">
                       <img src="/img/btc.webp" className="h-full w-full" alt="merlin" />
                     </div>
-                    {shortenAddress(buffAddress.buffAddress)}({shortenAddress(buffAddress.buffAAAddress)})
+                    {shortenAddress(data.buffAddress)}({shortenAddress(data.buffAAAddress)})
                   </div>
                 )}
               </>

@@ -8,11 +8,7 @@ import BindEvmWallet from '@/components/web3/BindEvmWallet';
 import BindBtcWallet from '@/components/web3/BindBtcWallet';
 import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
 
-type BindConnectProps = {
-  disabledBind?: boolean;
-};
-
-export default function BindConnect({ disabledBind }: BindConnectProps) {
+export default function BindConnect() {
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
   const { isSupportedChain, switchMainChain } = useMainChain();
@@ -39,13 +35,7 @@ export default function BindConnect({ disabledBind }: BindConnectProps) {
             <img src="/svg/bind.svg" alt="bind" className="w-full" />
           </div>
         )}
-        {disabledBind ? (
-          data?.buffAAAddress ? (
-            <BindBtcWallet disabledBind={disabledBind} />
-          ) : null
-        ) : (
-          <BindBtcWallet disabledBind={disabledBind} />
-        )}
+        <BindBtcWallet />
       </div>
     );
   }

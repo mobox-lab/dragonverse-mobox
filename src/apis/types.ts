@@ -290,3 +290,17 @@ export type DragonBallCount = {
   btcDragonBallCount: number;
   mDragonBallCount: number;
 };
+
+export type SnapShotData = {
+  airdropMdblBalance: string;
+  blockNumber: number;
+  btcDragonBallCount: number;
+  buffAAAddress: string;
+  buffAddress: string;
+  dragonBallTotalCount: number;
+  evmAddress: string;
+  mDragonBallCount: number;
+  mdblBalance: string;
+  rewardByBalance: string;
+  rewardByBall: string;
+};
