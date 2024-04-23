@@ -6,7 +6,19 @@ import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 
 type ButtonProps = {
   className?: string;
-  type?: 'red' | 'green' | 'bordered' | 'pattern' | 'blue' | 'yellow' | 'yellow-light' | 'yellow-dark' | 'orange' | 'unstyled';
+  loadingClassName?: string;
+  type?:
+    | 'red'
+    | 'green'
+    | 'bordered'
+    | 'pattern'
+    | 'blue'
+    | 'yellow'
+    | 'yellow-light'
+    | 'yellow-dark'
+    | 'orange'
+    | 'yellow-shallow'
+    | 'unstyled';
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
   loading?: boolean;
@@ -21,17 +33,25 @@ const bg = {
   yellow: 'button-yellow bg-gradient-yellow',
   'yellow-light': 'button-yellow-light bg-gradient-yellow-light',
   'yellow-dark': 'button-yellow-dark bg-gradient-yellow-dark',
+  'yellow-shallow': 'bg-[#554c35]/80 backdrop-blur-sm',
   bordered: 'border-white border-[1px] bg-transparent',
   pattern: 'bg-black/60 border-[1px] border-gray-600 backdrop-blur-sm',
   blue: 'bg-blue/20 hover:bg-blue/30 text-blue',
 };
 
-function Loading() {
-  return <LoadingSvg className="mr-1 inline animate-spin" />;
+function Loading({ className }: { className?: string }) {
+  return (
+    <LoadingSvg
+      className={clsx(
+        'relative -top-[0.16vw] mr-[0.32vw] inline h-[1.28vw] w-[1.28vw] animate-spin fill-white xl:-top-[2px] xl:mr-1 xl:h-4 xl:w-4',
+        className,
+      )}
+    />
+  );
 }
 
 const Button = forwardRef(function ButtonInner(
-  { className, children, onClick, disabled, type, loading, htmlType }: React.PropsWithChildren<ButtonProps>,
+  { className, children, onClick, disabled, type, loading, htmlType, loadingClassName }: React.PropsWithChildren<ButtonProps>,
   ref: LegacyRef<HTMLButtonElement>,
 ) {
   return (
@@ -56,7 +76,7 @@ const Button = forwardRef(function ButtonInner(
       )}
     >
       <>
-        {loading ? <Loading /> : null}
+        {loading ? <Loading className={loadingClassName} /> : null}
         {children}
       </>
       {type === 'pattern' && <PatternWithoutLine />}

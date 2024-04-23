@@ -44,3 +44,5 @@ export function objHasProp<O, K extends string>(
 export function isDecimal(s: string | number) {
   return s.toString().includes('.');
 }
+
+export const convertScientificToNormal = (value: any) => Number(value).toLocaleString('fullwide', { useGrouping: false });

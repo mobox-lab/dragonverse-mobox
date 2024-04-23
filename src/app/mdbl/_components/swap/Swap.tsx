@@ -14,7 +14,6 @@ import {
   poolInitialAtom,
   shareBalanceAtom,
   receiveShareAtom,
-  isSwapPausedAtom,
 } from '@/atoms/lbp';
 import {
   currentInputOutputAtom,
@@ -122,7 +121,6 @@ export default function Swap({ className }: { className?: string }) {
   const swapParams = useAtomValue(swapParamsAtom);
 
   const receiveShare = useAtomValue(receiveShareAtom);
-  const isSwapPaused = useAtomValue(isSwapPausedAtom);
 
   const [, inputInCancel] = useDebounce(
     () => {
@@ -781,10 +779,6 @@ export default function Swap({ className }: { className?: string }) {
                 !isSupportedChain ? (
                   <Button type="yellow" className="h-[3.52vw] w-full font-semibold xl:h-11" onClick={() => switchMainChain()}>
                     Wrong Network
-                  </Button>
-                ) : isSwapPaused ? (
-                  <Button disabled className="h-[3.52vw] w-full font-semibold xl:h-11">
-                    Paused
                   </Button>
                 ) : (
                   <Button

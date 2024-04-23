@@ -1,3 +1,4 @@
+import { PeriodType } from '@/components/ui/dialog/stake/StakeAndRedeemDialog';
 import { merlinMainnet, merlinTestnet } from '@/connectors/chains';
 
 export const PARTICLE_APP_ID = process.env.NEXT_PUBLIC_PARTICLE_APP_ID ?? '';
@@ -25,3 +26,30 @@ export const SocialLinks = {
 };
 
 export const ONE = 1000000000000000000n;
+
+export const MAX_UINT_256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+
+export const periodTime = process.env.NEXT_PUBLIC_CHAIN_ENV === 'production' ? 24 * 60 * 60 : 60;
+
+export const periodData = [
+  {
+    id: PeriodType.Day15,
+    percent: 25,
+    days: 15,
+  },
+  {
+    id: PeriodType.Day30,
+    percent: 35,
+    days: 30,
+  },
+  {
+    id: PeriodType.Day60,
+    percent: 50,
+    days: 60,
+  },
+  {
+    id: PeriodType.Day120,
+    percent: 100,
+    days: 120,
+  },
+];

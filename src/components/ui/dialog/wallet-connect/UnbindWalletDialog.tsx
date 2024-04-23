@@ -31,7 +31,7 @@ export default function UnbindWalletDialog() {
             Confirm that you are unbinding the following BTC address from your current EVM address.
           </div>
           <div className="mt-[0.96vw] text-[1.12vw]/[1.92vw] xl:mt-3 xl:text-sm/6">
-            Note that unbinding might affect your part 2 airdrop eligibility.
+            Please note that unbinding BTC wallet might affect your Boost Rate.
           </div>
           <div className="mt-[1.92vw] grid place-items-center gap-[1.28vw] xl:mt-6 xl:gap-4">
             <div className="flex-center relative h-[3.84vw] w-full max-w-[230px] gap-[0.48vw] border border-gray-600 bg-gray-750 text-[1.12vw]/[1.6vw] font-medium xl:h-12 xl:gap-1.5 xl:text-sm">

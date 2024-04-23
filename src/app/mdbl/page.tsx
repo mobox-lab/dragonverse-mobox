@@ -3,7 +3,6 @@
 import { clsxm } from '@/utils';
 import { CDN_URL } from '@/constants';
 import { isMobile } from 'react-device-detect';
-import Alert from '@/app/mdbl/_components/Alert';
 import Swap from '@/app/mdbl/_components/swap/Swap';
 import RewardV3 from '@/app/mdbl/_components/RewardV3';
 import WeightInfo from '@/app/mdbl/_components/WeightInfo';
@@ -17,7 +16,6 @@ export default function MDBL() {
 
   return (
     <main className="px-[3.2vw] pb-[3.84vw] xl:px-0 xl:pb-12">
-      <Alert />
       <video
         className="absolute left-1/2 top-0 -z-10 h-auto w-full max-w-[1536px] -translate-x-1/2 transform"
         autoPlay

@@ -257,6 +257,7 @@ export type FetchTradeHistoryParams = {
   page?: number;
   size?: number;
   evmAddress?: string; // my/all
+  order?: string;
 };
 export type TradeHistoryListItem = {
   price: string;
@@ -291,6 +292,37 @@ export type DragonBallCount = {
   mDragonBallCount: number;
 };
 
+export enum StakeTradeStatus {
+  Completed = 0,
+  Pending,
+  Cancelled,
+}
+
+export enum StakeTradeType {
+  Stake = 0,
+  Redeem,
+}
+
+export type StakeItem = {
+  id: number;
+  transactionType: StakeTradeType;
+  evmAddress: string;
+  txHash: string;
+  amount: string;
+  receive: string;
+  startTime: number;
+  endTime: number;
+  tradeStatus: StakeTradeStatus;
+  redeemIndex: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type StakeHistoryListItemData = {
+  totalCount: number;
+  tradeList: StakeItem[];
+};
+
 export type SnapShotData = {
   airdropMdblBalance: string;
   blockNumber: number;
@@ -303,4 +335,51 @@ export type SnapShotData = {
   mdblBalance: string;
   rewardByBalance: string;
   rewardByBall: string;
+};
+
+export type DragonBuffItem = {
+  quality: number;
+  dragonCount: number;
+  dragonPower: number;
+};
+
+export type StakeBuff = {
+  dragonBallCount: number;
+  btcDragonBallCount: number;
+  mDragonBallCount: number;
+  dragonBallBuff: number;
+  dragonTotalBuff: number;
+  totalBuff: number;
+  dragonCount: number;
+  dragonBuffDetail: DragonBuffItem[];
+};
+
+export type StakeRewardSignature = {
+  evmAddress: string;
+  domainSeparator: string;
+  balance: string;
+  toAddress: string;
+  nonce: string;
+  deadline: number;
+  r?: string;
+  s?: string;
+  v?: string;
+};
+
+export type AirdropProof = {
+  amount: string;
+  evmAddress: string;
+  index: number;
+  proof: string[];
+};
+
+export type DailyReward = {
+  currentDayReward: number | string;
+  rewardConfig: RewardConfig[];
+};
+
+export type RewardConfig = {
+  min: number | string;
+  max?: number | string;
+  dailyReward: number | string;
 };

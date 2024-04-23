@@ -2,7 +2,7 @@ import { Chain } from 'viem';
 
 export const merlinMainnet: Chain = {
   id: 4200,
-  name: 'MerlinMainnet',
+  name: 'Merlin Mainnet',
   nativeCurrency: {
     decimals: 18,
     name: 'Bitcoin',
@@ -29,7 +29,7 @@ export const merlinMainnet: Chain = {
 
 export const merlinTestnet: Chain = {
   id: 686868,
-  name: 'MerlinTestnet',
+  name: 'Merlin Testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'Bitcoin',
@@ -53,4 +53,19 @@ export const merlinTestnet: Chain = {
     },
   },
   testnet: true,
+} as const;
+
+export const P12Test: Chain = {
+  id: 121212,
+  name: 'P12Test',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'p12',
+    symbol: 'p12',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.tenderly.co/fork/324315d5-cc09-44d4-baff-55b1599f5207'],
+    },
+  },
 } as const;

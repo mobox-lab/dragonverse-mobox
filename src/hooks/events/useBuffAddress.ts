@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { fetchBuffAddress, fetchEvmAddress, fetchUnbindAddress } from '@/apis';
 import { useAccount } from 'wagmi';
-import { useBelongingDragonBall } from '@/hooks/events/useBelongingDragonBall';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useFetchStakeBuff } from '@/hooks/stake/useFetchStakeBuff';
+import { fetchBuffAddress, fetchEvmAddress, fetchUnbindAddress } from '@/apis';
 
 export function useFetchBuffAddress({ address }: { address?: string }) {
   return useQuery({
@@ -22,13 +22,13 @@ export function useMutationEvmAddress() {
 export function useMutationUnbindAddress() {
   const { address } = useAccount();
   const { refetch } = useFetchBuffAddress({ address });
-  const { refetch: refetchDragonBall } = useBelongingDragonBall();
+  const { refetch: refetchStakeBuff } = useFetchStakeBuff(address);
 
   return useMutation({
     mutationFn: () => fetchUnbindAddress(),
     onSuccess: () => {
       refetch().then();
-      refetchDragonBall().then();
+      refetchStakeBuff().then();
     },
   });
 }

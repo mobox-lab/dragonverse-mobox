@@ -1,6 +1,6 @@
-import { getAddress, parseEther } from 'viem';
-import Decimal from 'decimal.js-light';
 import { bigIntToFloat } from '@/entities/bigint';
+import Decimal from 'decimal.js-light';
+import { getAddress, parseEther } from 'viem';
 
 export function isAddress(value: any): string | false {
   try {

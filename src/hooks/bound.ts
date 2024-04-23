@@ -1,21 +1,21 @@
 import { useAccount } from 'wagmi';
+import { toast } from 'react-toastify';
 import { fetchBindAddress } from '@/apis';
 import { BindAddressParams } from '@/apis/types';
 import { useMutation } from '@tanstack/react-query';
 import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
-import { useBelongingDragonBall } from '@/hooks/events/useBelongingDragonBall';
-import { toast } from 'react-toastify';
+import { useFetchStakeBuff } from '@/hooks/stake/useFetchStakeBuff';
 
 export const useMutationBindAddress = () => {
   const { address } = useAccount();
   const { refetch } = useFetchBuffAddress({ address });
-  const { refetch: refetchDragonBall } = useBelongingDragonBall();
+  const { refetch: refetchStakeBuff } = useFetchStakeBuff(address);
 
   return useMutation({
     mutationFn: (data: BindAddressParams) => fetchBindAddress(data),
     onSuccess: () => {
       refetch().then();
-      refetchDragonBall().then();
+      refetchStakeBuff().then();
     },
     onError: (error: any) => {
       const { data, code } = error ?? {};

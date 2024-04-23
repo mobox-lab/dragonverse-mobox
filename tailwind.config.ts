@@ -60,8 +60,10 @@ const config: Config = {
       },
       colors: {
         legendary: '#FFAA2C',
-        epic: '#7638FF',
+        epic: '#FB8E01',
+        rare: '#7638FF',
         uncommon: '#14752D',
+        common: '#606374',
         green: {
           500: '#64AB85',
           DEFAULT: '#1EDB8C',
@@ -77,6 +79,7 @@ const config: Config = {
         red: {
           500: '#F55D70',
           DEFAULT: '#FF2358',
+          600: '#FB1E1E',
         },
         gray: {
           300: '#A5A6AB',

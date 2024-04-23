@@ -10,7 +10,7 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
             staleTime: 1000 * 60 * 5, // 5 minutes
             refetchOnWindowFocus: false,
             refetchIntervalInBackground: false,
-            retry: (failureCount, error: any) => error.code !== 401 && failureCount < 3,
+            retry: (failureCount, error: any) => error?.code !== 401 && failureCount < 3,
           },
         },
       }),

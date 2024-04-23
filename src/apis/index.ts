@@ -6,6 +6,9 @@ import {
   BRC420Item,
   BindAddressParams,
   BtcLoginParams,
+  BuffAddress,
+  DailyReward,
+  DragonBallCount,
   DragonGameRank,
   DragonGovernInfo,
   DragonProposal,
@@ -14,10 +17,12 @@ import {
   FetchTradeHistoryParams,
   LoginRes,
   PriceHistory,
-  TradeHistoryListItemData,
-  BuffAddress,
-  DragonBallCount,
   SnapShotData,
+  StakeBuff,
+  StakeHistoryListItemData,
+  StakeRewardSignature,
+  TradeHistoryListItemData,
+  AirdropProof,
 } from './types';
 
 export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
@@ -89,4 +94,43 @@ export const fetchUnbindAddress = () => request.post<any, Response<boolean>>('/m
 
 export const fetchBelongingDragonBall = () => request.get<any, Response<DragonBallCount>>('/merlin/belonging/dragonball');
 
+export const fetchStakePendingHistoryList = ({ page = 1, size = 5 }: FetchTradeHistoryParams) =>
+  request.get<any, Response<StakeHistoryListItemData>>('/merlin/stake/pending', {
+    params: {
+      page,
+      size,
+    },
+  });
+
+export const fetchStakeHistoryList = ({ page = 1, size = 5, order }: FetchTradeHistoryParams) =>
+  request.get<any, Response<StakeHistoryListItemData>>('/merlin/stake/history', {
+    params: {
+      page,
+      size,
+      order,
+    },
+  });
+
+export const fetchStakePendingCount = () => request.get<any, Response<number>>('/merlin/stake/pending-count');
+
 export const fetchAirdropSnap = () => request.get<any, Response<SnapShotData>>('/merlin/airdrop/snap');
+
+export const fetchStakeBuff = (address?: string) =>
+  request.get<any, Response<StakeBuff>>('/merlin/stake/buff', { params: { address } });
+
+export const fetchTotalReward = (address?: string) =>
+  request.get<
+    any,
+    Response<{
+      rewardBalance: string;
+    }>
+  >('/merlin/stake/reward-balance', { params: { evmAddress: address } });
+
+export const fetchStakeReward = () => request.post<any, Response<{ id: string }>>('/merlin/stake/claim/reward');
+export const fetchStakeRewardSig = (id?: string) =>
+  request.get<any, Response<StakeRewardSignature>>('/merlin/stake/claim/reward/signature', { params: { id } });
+
+export const fetchAirdropProof = (address?: string) =>
+  request.get<any, Response<AirdropProof>>('/merlin/airdrop/proof', { params: { address } });
+
+export const fetchDailyReward = () => request.get<any, Response<DailyReward>>('/merlin/stake/daily-reward');

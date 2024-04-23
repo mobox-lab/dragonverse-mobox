@@ -13,6 +13,7 @@ import DBAL from '@/../public/svg/dbal.svg?component';
 import Events from '@/../public/svg/events.svg?component';
 import LitepaperSvg from '@/../public/svg/litepaper.svg?component';
 import LightPaperPopover from '@/components/nav/LightPaperPopover';
+import Stake from '@/../public/svg/stake.svg?component';
 
 export default function Nav() {
   const siderCollapsed = useAtomValue(siderCollapsedAtom);
@@ -31,6 +32,13 @@ export default function Nav() {
       content: '$MDBL Launch',
       icon: <DBAL />,
       point: 'mdbl',
+    },
+    {
+      key: '/vault',
+      to: '/vault',
+      content: 'Vault',
+      icon: <Stake />,
+      point: 'vault',
     },
     {
       key: '/events',

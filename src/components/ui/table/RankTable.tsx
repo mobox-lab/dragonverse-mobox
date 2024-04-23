@@ -9,11 +9,22 @@ type RankTableProps = {
   columns: any[];
   className?: string;
   bodyClass?: string;
+  rowClass?: string;
+  gapClass?: string;
   loading?: boolean;
   renderBottom?: () => ReactNode;
 };
 
-export default function RankTable({ dataSource, columns, className, loading, renderBottom, bodyClass }: RankTableProps) {
+export default function RankTable({
+  dataSource,
+  columns,
+  className,
+  loading,
+  renderBottom,
+  bodyClass,
+  rowClass,
+  gapClass,
+}: RankTableProps) {
   const data = useMemo(() => dataSource, [dataSource]);
   const { getRowModel, getHeaderGroups } = useReactTable({
     columns,
@@ -27,7 +38,10 @@ export default function RankTable({ dataSource, columns, className, loading, ren
       <div className="border-b border-gray bg-[#43454980]">
         {getHeaderGroups().map((headerGroup) => (
           <div
-            className="flex w-full gap-[1.92vw] py-[0.8vw] text-[0.96vw]/[1.44vw] font-medium xl:gap-6 xl:py-2.5 xl:text-xs/4.5"
+            className={clsxm(
+              'flex w-full gap-[1.92vw] py-[0.8vw] text-[0.96vw]/[1.44vw] font-medium xl:gap-6 xl:py-2.5 xl:text-xs/4.5',
+              gapClass,
+            )}
             key={headerGroup.id}
           >
             {headerGroup.headers.map((header) => (
@@ -42,6 +56,8 @@ export default function RankTable({ dataSource, columns, className, loading, ren
             <motion.div
               className={clsxm(
                 'flex w-full items-center gap-[1.92vw] border-b border-gray py-[0.96vw] text-[0.96vw]/[1.44vw] font-medium xl:gap-6 xl:py-3 xl:text-xs/4.5',
+                rowClass,
+                gapClass,
               )}
               key={row.id}
             >

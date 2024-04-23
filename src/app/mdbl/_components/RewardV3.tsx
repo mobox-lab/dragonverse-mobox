@@ -1,14 +1,13 @@
 import DiscordIcon from '@/../public/svg/discord.svg?component';
 import LoadingSvg from '@/../public/svg/loading-02.svg?component';
 import XIcon from '@/../public/svg/x.svg?component';
-import { LBPRewardDialogOpenAtom, mainWalletConnectDialogAtom } from '@/atoms';
-import { poolInitialAtom, shareBalanceAtom, vestEndAtom } from '@/atoms/lbp';
+import { LBPRewardDialogOpenAtom } from '@/atoms';
+import { poolInitialAtom, shareBalanceAtom } from '@/atoms/lbp';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
-import Button from '@/components/ui/button';
 import { ONE, SocialLinks } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useFetchShares } from '@/hooks/useFetchShares';
-import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useMainAccount, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm, formatNumber, isDecimal, lessThanOneFormat } from '@/utils';
 import clsx from 'clsx';
 import { parseEther } from 'ethers';
@@ -16,19 +15,15 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { toast } from 'react-toastify';
-import { useCopyToClipboard } from 'react-use';
-import { bigIntToFloat } from '../../../entities/bigint';
+import { bigIntToFloat } from '@/entities/bigint';
 import { useIsEnd } from '@/hooks/useIsEnd';
-import { useIsClaimed } from '@/hooks/reward/useIsClaimed';
 import { Address } from 'viem';
 import { RewardABI } from '@/abis/Reward';
 import { getProofByAddress } from '@/utils/reward';
 import ReactGA from 'react-ga4';
 
 export default function RewardV3({ className }: { className?: string }) {
-  const isMainConnected = useIsMainConnected();
-  const { isSupportedChain, switchMainChain } = useMainChain();
-  const { writeContract, isLoading } = useMainWriteContract({
+  const { writeContract } = useMainWriteContract({
     onError: (error) => {
       if (error?.name === 'UserRejected') {
         return;
@@ -41,13 +36,10 @@ export default function RewardV3({ className }: { className?: string }) {
     },
     onSuccess: (data) => {
       if (!data) return;
-      const log = data[0];
       toast.success(`Claimed reward succeeded`);
     },
   });
 
-  const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
-  const [, copyToClipboard] = useCopyToClipboard();
   const [UIloading, setUILoading] = useState<boolean>(true);
   const pool = useAtomValue(poolInitialAtom);
   const isEnd = useIsEnd();
@@ -58,8 +50,6 @@ export default function RewardV3({ className }: { className?: string }) {
   const { evmAddress } = useMainAccount();
 
   const { data } = useFetchShares({ address: evmAddress });
-
-  const { data: isClaimed } = useIsClaimed(evmAddress as Address);
 
   const balance = useMemo(() => {
     if (isEnd) {
