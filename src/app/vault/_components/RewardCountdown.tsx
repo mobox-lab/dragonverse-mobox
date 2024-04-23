@@ -1,11 +1,13 @@
 import useCountdown from '@/hooks/useCountdown';
 import dayjs, { Dayjs } from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { useCallback, useEffect, useState } from 'react';
+dayjs.extend(utc);
 
 export default function RewardCountdown() {
   const getTargetTime = useCallback((curTime?: Dayjs) => {
-    const now = curTime ?? dayjs();
-    const target = now.hour(16).minute(0).second(0).millisecond(0);
+    const now = curTime ?? dayjs.utc();
+    const target = now.hour(8).minute(0).second(0).millisecond(0);
     return now.isBefore(target) ? target : target.add(1, 'day');
   }, []);
 
@@ -14,7 +16,7 @@ export default function RewardCountdown() {
 
   useEffect(() => {
     if (countdown === 'end') {
-      setEndTime(getTargetTime(dayjs().add(1, 'm')).valueOf() / 1000);
+      setEndTime(getTargetTime(dayjs.utc().add(1, 'm')).valueOf() / 1000);
     }
   }, [countdown, getTargetTime]);
 
