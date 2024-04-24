@@ -290,9 +290,9 @@ export default function StakeAndRedeemDialog() {
               <div className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
                 Choose
                 <Tooltip
-                  className="w-[24.88vw] xl:w-[311px]"
+                  className="w-[42.96vw] xl:w-[537px]"
                   title={
-                    <ul className="ml-3 list-disc text-sm/5.5">
+                    <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
                       <li>The redemption can be cancelled anytime before the $MDBL claim.</li>
                       <li>The eMDBL under redemption process will still be calculated into the liquidity yield.</li>
                       <li>The unredeemable portion will be considered as slashings.</li>
