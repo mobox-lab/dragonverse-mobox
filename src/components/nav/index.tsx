@@ -78,7 +78,7 @@ export default function Nav() {
                 )}
               >
                 {cloneElement(icon, {
-                  className: clsx('xl:w-6.5 w-[2.08vw] fill-gray-300 stroke-gray-300', {
+                  className: clsx('xl:size-6.5 size-[2.08vw] fill-gray-300 stroke-gray-300', {
                     'fill-white stroke-white': key === activeRouter,
                   }),
                 })}
