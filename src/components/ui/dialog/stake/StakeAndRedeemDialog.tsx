@@ -126,6 +126,7 @@ export default function StakeAndRedeemDialog() {
       open={isOpen}
       pattern
       className="w-[35.2vw] border-yellow/50 bg-[#15130f] backdrop-blur-2xl xl:w-[440px]"
+      contentClassName="pb-[2.88vw] xl:pb-9"
       onOpenChange={setIsOpen}
       render={() => (
         <div>
@@ -294,6 +295,7 @@ export default function StakeAndRedeemDialog() {
                     <ul className="ml-3 list-disc text-sm/5.5">
                       <li>The redemption can be cancelled anytime before the $MDBL claim.</li>
                       <li>The eMDBL under redemption process will still be calculated into the liquidity yield.</li>
+                      <li>The unredeemable portion will be considered as slashings.</li>
                     </ul>
                   }
                 >
