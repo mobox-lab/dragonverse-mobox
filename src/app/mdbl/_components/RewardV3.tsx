@@ -1,13 +1,13 @@
 import DiscordIcon from '@/../public/svg/discord.svg?component';
 import LoadingSvg from '@/../public/svg/loading-02.svg?component';
 import XIcon from '@/../public/svg/x.svg?component';
-import { LBPRewardDialogOpenAtom } from '@/atoms';
+import { LBPRewardDialogOpenAtom, mainWalletConnectDialogAtom } from '@/atoms';
 import { poolInitialAtom, shareBalanceAtom } from '@/atoms/lbp';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import { ONE, SocialLinks } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useFetchShares } from '@/hooks/useFetchShares';
-import { useMainAccount, useMainWriteContract } from '@/hooks/wallet';
+import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm, formatNumber, isDecimal, lessThanOneFormat } from '@/utils';
 import clsx from 'clsx';
 import { parseEther } from 'ethers';
@@ -21,9 +21,14 @@ import { Address } from 'viem';
 import { RewardABI } from '@/abis/Reward';
 import { getProofByAddress } from '@/utils/reward';
 import ReactGA from 'react-ga4';
+import { useIsClaimed } from '@/hooks/reward/useIsClaimed';
+import Button from '@/components/ui/button';
 
 export default function RewardV3({ className }: { className?: string }) {
-  const { writeContract } = useMainWriteContract({
+  const { isSupportedChain, switchMainChain } = useMainChain();
+  const isMainConnected = useIsMainConnected();
+  const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
+  const { writeContract, isLoading } = useMainWriteContract({
     onError: (error) => {
       if (error?.name === 'UserRejected') {
         return;
@@ -50,6 +55,7 @@ export default function RewardV3({ className }: { className?: string }) {
   const { evmAddress } = useMainAccount();
 
   const { data } = useFetchShares({ address: evmAddress });
+  const { data: isClaimed } = useIsClaimed(evmAddress as Address);
 
   const balance = useMemo(() => {
     if (isEnd) {
@@ -196,12 +202,12 @@ export default function RewardV3({ className }: { className?: string }) {
                 )}
               </div>
 
-              <div className="w-[22vw] xl:w-[275px]">
+              {/* <div className="w-[22vw] xl:w-[275px]">
                 <div className="text-[0.96vw]/[1.6vw] xl:text-xs/5">
                   The claim will be available after the launch of M-Bluebox and M-Musicbox on Merlin Chain
                 </div>
-              </div>
-              {/* {isMainConnected ? (
+              </div> */}
+              {isMainConnected ? (
                 !isSupportedChain ? (
                   <Button
                     type="yellow"
@@ -229,7 +235,7 @@ export default function RewardV3({ className }: { className?: string }) {
                 >
                   Connect Wallet
                 </Button>
-              )} */}
+              )}
             </div>
             <div
               className={clsxm(
