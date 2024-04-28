@@ -29,16 +29,16 @@ export default function Nav() {
     {
       key: '/',
       to: '/',
+      content: '$MDBL Vault',
+      icon: <Stake />,
+      point: 'vault',
+    },
+    {
+      key: '/mdbl',
+      to: '/mdbl',
       content: '$MDBL Launch',
       icon: <DBAL />,
       point: 'mdbl',
-    },
-    {
-      key: '/vault',
-      to: '/vault',
-      content: 'Vault',
-      icon: <Stake />,
-      point: 'vault',
     },
     {
       key: '/events',

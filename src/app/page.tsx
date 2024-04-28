@@ -1,4 +1,4 @@
-import MDBL from '@/app/mdbl/page';
+import Vault from '@/app/vault/page';
 export default function App() {
-  return <MDBL />;
+  return <Vault />;
 }
