@@ -5,6 +5,8 @@ export enum StakeRedeemType {
 }
 export const stakeBuffDialogAtom = atom<boolean>(false);
 
+export const stakeFirstGuideDialogAtom = atom<boolean>(false);
+
 export const stakeAndRedeemDialogAtom = atom<boolean>(false);
 export const stakeAndRedeemTypeAtom = atom<StakeRedeemType>(StakeRedeemType.Stake);
 
