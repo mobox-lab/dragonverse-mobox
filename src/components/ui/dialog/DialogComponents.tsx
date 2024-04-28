@@ -11,12 +11,14 @@ import StakeHistoryDialog from './stake/StakeHistoryDialog';
 import StakeAndRedeemDialog from './stake/StakeAndRedeemDialog';
 import ExistedAddressBindDialog from '@/components/ui/dialog/wallet-connect/ExistedAddressBindDialog';
 import UnbindWalletDialog from '@/components/ui/dialog/wallet-connect/UnbindWalletDialog';
+import FirstStakeGuideDialog from './stake/FirstStakeGuideDialog';
 
 export default function DialogComponents() {
   return (
     <ClientOnly>
       <StakeAndRedeemDialog />
       <StakeBuffDialog />
+      <FirstStakeGuideDialog />
       <LBPRewardDialog />
       <DragonBurnDialog />
       <MainWalletConnectDialog />

@@ -8,21 +8,23 @@ import {
   stakeAndRedeemDialogAtom,
   stakeAndRedeemTypeAtom,
   stakeBuffDialogAtom,
+  stakeFirstGuideDialogAtom,
 } from '@/atoms/stake';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
-import Tooltip from '@/components/ui/tooltip';
+import { STORAGE_KEY } from '@/constants/storage';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
 import { useFetchStakeBuff } from '@/hooks/stake/useFetchStakeBuff';
 import { useStakePendingCount } from '@/hooks/stake/useStakePendingCount';
 import { useMainAccount } from '@/hooks/wallet';
-import { clsxm, formatNumber, openLink } from '@/utils';
+import { clsxm, formatNumber } from '@/utils';
+import { getLocalStorage } from '@/utils/storage';
 import { useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { formatEther } from 'viem';
-import SuccessSvg from '@/../public/svg/success.svg?component';
 
 export default function Assets() {
+  const setStakeFirstGuideDialogAtom = useSetAtom(stakeFirstGuideDialogAtom);
   const setStakeAndRedeemDialog = useSetAtom(stakeAndRedeemDialogAtom);
   const setStakeAndRedeemType = useSetAtom(stakeAndRedeemTypeAtom);
   const setStakeBuffOpen = useSetAtom(stakeBuffDialogAtom);
@@ -93,6 +95,16 @@ export default function Assets() {
 
   const setDialogOpen = useSetAtom(stakeHistoryDialogOpenAtom);
 
+  const stakeOrRedeem = useCallback(
+    async (type: StakeRedeemType) => {
+      setStakeAndRedeemType(type);
+      const isFirstStakeHaveRead = await getLocalStorage(STORAGE_KEY.FIRST_STAKE_GUIDE_HAVE_READ);
+      if (isFirstStakeHaveRead) setStakeAndRedeemDialog(true);
+      else setStakeFirstGuideDialogAtom(true);
+    },
+    [setStakeAndRedeemDialog, setStakeAndRedeemType, setStakeFirstGuideDialogAtom],
+  );
+
   return (
     <div
       className={clsxm(
@@ -158,10 +170,7 @@ export default function Assets() {
             <DetailSvg className="h-[1.92vw] w-[1.92vw] xl:h-6 xl:w-6" />
           </Button>
           <Button
-            onClick={() => {
-              setStakeAndRedeemDialog(true);
-              setStakeAndRedeemType(StakeRedeemType.Redeem);
-            }}
+            onClick={() => stakeOrRedeem(StakeRedeemType.Redeem)}
             className="flex-center-[3.52vw] w-[12.8vw] border-none bg-white/10 xl:h-11 xl:w-40"
           >
             Redeem
@@ -169,10 +178,7 @@ export default function Assets() {
           <Button
             type="yellow-dark"
             className={clsxm('h-[3.52vw] w-[12.8vw] font-semibold xl:h-11 xl:w-40')}
-            onClick={() => {
-              setStakeAndRedeemDialog(true);
-              setStakeAndRedeemType(StakeRedeemType.Stake);
-            }}
+            onClick={() => stakeOrRedeem(StakeRedeemType.Stake)}
           >
             Stake
           </Button>
