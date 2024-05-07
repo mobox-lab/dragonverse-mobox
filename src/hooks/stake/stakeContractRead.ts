@@ -187,6 +187,7 @@ export function useStakeContractRead() {
       allowance: stakeData?.[4].result,
       refetch,
       activeEmdblBalance,
+      inactiveRefetch,
     };
-  }, [reward?.rewardBalance, stakeData, inactiveEMDBL?.inactiveEmdblAmount, refetch]);
+  }, [reward?.rewardBalance, stakeData, inactiveEMDBL?.inactiveEmdblAmount, refetch, inactiveRefetch]);
 }

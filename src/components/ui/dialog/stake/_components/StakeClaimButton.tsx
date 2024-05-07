@@ -2,6 +2,7 @@ import { EMDBLABI } from '@/abis';
 import { refetchPendingCountAtom, refetchPendingHistoryListAtom, refetchStakeHistoryListAtom } from '@/atoms/stake';
 import Button from '@/components/ui/button';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
+import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
 import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtomValue } from 'jotai';
@@ -11,6 +12,7 @@ export default function StakeClaimButton({ redeemIndex, className }: { redeemInd
   const refetchPending = useAtomValue(refetchPendingHistoryListAtom);
   const refetchStake = useAtomValue(refetchStakeHistoryListAtom);
   const refetchPendingCount = useAtomValue(refetchPendingCountAtom);
+  const { inactiveRefetch } = useStakeContractRead();
   const { isSupportedChain, switchMainChain } = useMainChain();
 
   const { writeContract, isLoading } = useMainWriteContract({
@@ -30,6 +32,7 @@ export default function StakeClaimButton({ redeemIndex, className }: { redeemInd
         refetchPending?.();
         refetchStake?.();
         refetchPendingCount?.();
+        inactiveRefetch?.();
       }, 6000);
     },
   });
