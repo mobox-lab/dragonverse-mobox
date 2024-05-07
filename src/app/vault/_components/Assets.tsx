@@ -30,7 +30,7 @@ export default function Assets() {
   const setStakeBuffOpen = useSetAtom(stakeBuffDialogAtom);
 
   const { evmAddress } = useMainAccount();
-  const { accruedBalance, emdblBalance, mdblBalance } = useStakeContractRead();
+  const { accruedBalance, emdblBalance, mdblBalance, activeEmdblBalance } = useStakeContractRead();
 
   const { data: stakeBuff } = useFetchStakeBuff(evmAddress);
   const [eMDBL, setEMDBL] = useState<number>(0);
@@ -133,7 +133,7 @@ export default function Assets() {
               <div className="text-[1.28vw]/[1.92vw] font-medium xl:text-base/6">Active eMDBL</div>
             </div>
             <div className="mt-[0.64vw] bg-gradient-text bg-clip-text text-[2.4vw]/[2.4vw] font-bold text-transparent xl:mt-2 xl:text-3xl/7.5">
-              {formatNumber(emdblBalance || 0n, false)}
+              {formatNumber(activeEmdblBalance, false)}
             </div>
           </div>
           <div className="mx-[2.56vw] h-[3.84vw] w-[1px] bg-yellow/50 xl:mx-8 xl:h-12"></div>

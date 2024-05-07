@@ -8,6 +8,7 @@ import { useMainAccount } from '../wallet';
 import { useFetchTotalReward } from './useFetchTotalReward';
 import { emdblTotalSupplyAtom } from '@/atoms/stake';
 import { useSetAtom } from 'jotai';
+import { useFetchInactiveEMDL } from './useFetchInactiveEMDL';
 
 export function useTotalSupply() {
   const { data } = useReadContract({
@@ -109,6 +110,8 @@ export function useAccruedBalance() {
 //  
 export function useStakeContractRead() {
   const { data: reward, refetch } = useFetchTotalReward();
+  const { data: inactiveEMDBL, refetch: inactiveRefetch } = useFetchInactiveEMDL();
+
   const chainId = ALLOW_CHAIN;
   const { mdbl, emdbl } = CONTRACT_ADDRESSES;
   const { evmAddress } = useMainAccount();
@@ -170,6 +173,11 @@ export function useStakeContractRead() {
       reward?.rewardBalance !== undefined && stakeData?.[3].result !== undefined
         ? BigInt(reward?.rewardBalance) - stakeData[3].result
         : 0n;
+
+    const activeEmdblBalance =
+      inactiveEMDBL?.inactiveEmdblAmount !== undefined && stakeData?.[0].result !== undefined
+        ? stakeData?.[0].result - BigInt(inactiveEMDBL?.inactiveEmdblAmount)
+        : 0n;
     return {
       emdblBalance: stakeData?.[0].result,
       mdblBalance: stakeData?.[1].result,
@@ -178,6 +186,7 @@ export function useStakeContractRead() {
       totalAccruedBalance: BigInt(reward?.rewardBalance || '0'),
       allowance: stakeData?.[4].result,
       refetch,
+      activeEmdblBalance,
     };
-  }, [reward, stakeData, refetch]);
+  }, [reward?.rewardBalance, stakeData, inactiveEMDBL?.inactiveEmdblAmount, refetch]);
 }
