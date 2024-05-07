@@ -134,3 +134,6 @@ export const fetchAirdropProof = (address?: string) =>
   request.get<any, Response<AirdropProof>>('/merlin/airdrop/proof', { params: { address } });
 
 export const fetchDailyReward = () => request.get<any, Response<DailyReward>>('/merlin/stake/daily-reward');
+
+export const fetchInactiveEMDBL = (address?: string) =>
+  request.get<any, Response<{ inactiveEmdblAmount: string }>>('/merlin/stake/inactive-emdbl', { params: { address } });

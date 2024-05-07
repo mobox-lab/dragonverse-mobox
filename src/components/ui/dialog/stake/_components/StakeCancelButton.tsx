@@ -2,6 +2,7 @@ import LoadingSvg from '@/../public/svg/loading.svg?component';
 import { EMDBLABI } from '@/abis';
 import { refetchPendingCountAtom, refetchPendingHistoryListAtom, refetchStakeHistoryListAtom } from '@/atoms/stake';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
+import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
 import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtomValue } from 'jotai';
@@ -12,6 +13,7 @@ export default function StakeCancelButton({ redeemIndex }: { redeemIndex?: numbe
   const refetchStake = useAtomValue(refetchStakeHistoryListAtom);
   const refetchPendingCount = useAtomValue(refetchPendingCountAtom);
   const { isSupportedChain, switchMainChain } = useMainChain();
+  const { inactiveRefetch } = useStakeContractRead();
 
   const { writeContract, isLoading } = useMainWriteContract({
     onError: (error) => {
@@ -30,6 +32,7 @@ export default function StakeCancelButton({ redeemIndex }: { redeemIndex?: numbe
         refetchPending?.();
         refetchStake?.();
         refetchPendingCount?.();
+        inactiveRefetch?.();
       }, 6000);
     },
   });
