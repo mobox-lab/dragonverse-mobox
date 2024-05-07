@@ -130,7 +130,7 @@ export default function Assets() {
           <div>
             <div className="flex items-center">
               {/* <div className="h-[1.92vw] w-[0.96vw] bg-gradient-percent-red xl:h-6 xl:w-3"></div> */}
-              <div className="text-[1.28vw]/[1.92vw] font-medium xl:text-base/6">eMDBL Balance</div>
+              <div className="text-[1.28vw]/[1.92vw] font-medium xl:text-base/6">Active eMDBL</div>
             </div>
             <div className="mt-[0.64vw] bg-gradient-text bg-clip-text text-[2.4vw]/[2.4vw] font-bold text-transparent xl:mt-2 xl:text-3xl/7.5">
               {formatNumber(emdblBalance || 0n, false)}
