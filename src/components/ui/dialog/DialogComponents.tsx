@@ -12,6 +12,7 @@ import StakeAndRedeemDialog from './stake/StakeAndRedeemDialog';
 import ExistedAddressBindDialog from '@/components/ui/dialog/wallet-connect/ExistedAddressBindDialog';
 import UnbindWalletDialog from '@/components/ui/dialog/wallet-connect/UnbindWalletDialog';
 import FirstStakeGuideDialog from './stake/FirstStakeGuideDialog';
+import RewardHistoryDialog from '@/components/ui/dialog/RewardHistoryDialog';
 
 export default function DialogComponents() {
   return (
@@ -27,6 +28,7 @@ export default function DialogComponents() {
       <ExistedAddressBindDialog />
       <UnbindWalletDialog />
       <RewardDetailDialog />
+      <RewardHistoryDialog />
     </ClientOnly>
   );
 }

@@ -383,3 +383,16 @@ export type RewardConfig = {
   max?: number | string;
   dailyReward: number | string;
 };
+
+export type RewardHistoryItem = {
+  evmAddress: string;
+  emdblRealBalance: string;
+  totalBuff: number;
+  creatAt: string;
+  rewardAmount: string;
+};
+
+export type StakeRewardHistory = {
+  totalCount: number;
+  rewardHistoryList: RewardHistoryItem[];
+};

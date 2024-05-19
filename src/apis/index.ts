@@ -22,7 +22,7 @@ import {
   StakeHistoryListItemData,
   StakeRewardSignature,
   TradeHistoryListItemData,
-  AirdropProof,
+  AirdropProof, StakeRewardHistory,
 } from './types';
 
 export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
@@ -137,3 +137,11 @@ export const fetchDailyReward = () => request.get<any, Response<DailyReward>>('/
 
 export const fetchInactiveEMDBL = (address?: string) =>
   request.get<any, Response<{ inactiveEmdblAmount: string }>>('/merlin/stake/inactive-emdbl', { params: { address } });
+
+export const fetchStakeRewardHistory = ({ page = 1, size = 5 }) =>
+  request.get<any, Response<StakeRewardHistory>>('/merlin/stake/reward-history', {
+    params: {
+      page,
+      size,
+    },
+  });

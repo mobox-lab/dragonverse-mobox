@@ -11,6 +11,7 @@ export const stakeAndRedeemDialogAtom = atom<boolean>(false);
 export const stakeAndRedeemTypeAtom = atom<StakeRedeemType>(StakeRedeemType.Stake);
 
 export const rewardDetailDialogAtom = atom<boolean>(false);
+export const rewardHistoryDialogAtom = atom<boolean>(false);
 
 export const refetchPendingCountAtom = atom<Function | null>(null);
 export const refetchPendingHistoryListAtom = atom<Function | null>(null);
