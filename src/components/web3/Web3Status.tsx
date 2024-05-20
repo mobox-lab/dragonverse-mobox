@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 import { mainWalletConnectDialogAtom } from '@/atoms';
 import Web3StatusInner from '@/components/web3/Web3StatusInner';
 import { useIsMainConnected, useMainChain } from '@/hooks/wallet';
+import WalletAssets from '@/components/web3/WalletAssets';
 
-const connectButtonExcludePath = ['/terms-of-use', '/events'];
+const connectButtonExcludePath = ['/terms-of-use', '/events', '/burn'];
 export default function Web3Status() {
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
@@ -28,7 +29,12 @@ export default function Web3Status() {
         </Button>
       );
     }
-    return <Web3StatusInner />;
+    return (
+      <div className="flex-center gap-3.5">
+        <Web3StatusInner />
+        {/* <WalletAssets /> */}
+      </div>
+    );
   }
 
   return (

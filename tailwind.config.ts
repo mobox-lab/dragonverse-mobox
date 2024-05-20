@@ -57,6 +57,7 @@ const config: Config = {
         90: '22.5rem',
         93: '23.25rem',
         100: '25rem',
+        110: '27.5rem',
       },
       colors: {
         legendary: '#FFAA2C',
@@ -75,6 +76,8 @@ const config: Config = {
         },
         yellow: {
           DEFAULT: '#FFE7AB',
+          800: '#6A5C3C',
+          850: '#452A08',
         },
         red: {
           500: '#F55D70',
@@ -84,12 +87,14 @@ const config: Config = {
         gray: {
           300: '#A5A6AB',
           DEFAULT: '#4E4E50',
+          400: '#4C4C4C',
           500: '#434851',
           550: '#3D444B',
           600: '#6F7784',
           700: '#111111',
           750: '#141414',
           800: '#15130F',
+          850: '#0E0F15',
         },
       },
       backgroundImage: {
@@ -108,6 +113,8 @@ const config: Config = {
           'linear-gradient(180deg,rgba(246, 192, 87, 0.80) 0%, rgba(255, 194, 77, 0.80) 0.01%, rgba(239, 145, 36, 0.80) 100%)',
         'gradient-percent-blue': 'linear-gradient(180deg,#3CB3F6 -10.71%, #134CBA 110.71%)',
         'gradient-orange': 'linear-gradient(#F1870B -10.71%, #9E0000 57.47%, #3E0000 110.71%)',
+        'gradient-buff-card': 'linear-gradient(180deg, #593A0C 0%, #1C0C01 80.63%)',
+        'gradient-buff-card-hover': ' linear-gradient(180deg, #67420A 0%, #2C1200 80.63%)',
       },
       lineHeight: {
         3.5: '.875rem',

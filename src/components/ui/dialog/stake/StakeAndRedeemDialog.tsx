@@ -300,7 +300,7 @@ export default function StakeAndRedeemDialog() {
                   }
                 >
                   <span className="-mb-[0.16vw] inline-block cursor-pointer xl:-mb-0.5">
-                    <InfoSVG className="ml-[0.32vw] w-[1.12vw] xl:ml-1 xl:w-3.5" />
+                    <InfoSVG className="ml-[0.32vw] w-[1.12vw] stroke-white xl:ml-1 xl:w-3.5" />
                   </span>
                 </Tooltip>
               </div>

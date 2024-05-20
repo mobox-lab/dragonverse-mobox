@@ -1,4 +1,4 @@
-import { DragonProposalSortField, DragonProposalState, TradeType } from '@/constants/enum';
+import { DragonProposalSortField, DragonProposalState, GameRumbleGrade, TradeType } from '@/constants/enum';
 import { PayTokenEnum } from '@/constants/hatch';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
@@ -382,6 +382,216 @@ export type RewardConfig = {
   min: number | string;
   max?: number | string;
   dailyReward: number | string;
+};
+
+export type MoGamePetRankItem = {
+  addr: string;
+  userName: string;
+  headUrl: string | null; //  
+  petName: string;
+  petRarity: number;
+  petAttack: number;
+  petObtainTime: number;
+  ts: number;
+};
+export type MoGameFightRankItem = {
+  addr: string;
+  userName: string;
+  headUrl: null; //  
+  grade: GameRumbleGrade;
+  gradePower: number;
+  ts: number;
+};
+export type MoGameRankData<T> = {
+  rank: T[];
+  page: number;
+  startTime: number;
+  endTime: number;
+  round: number;
+  limit: number;
+};
+
+export type RankCurrentRound = {
+  gameRoundInfo: {
+    round: number;
+    startTime: number;
+    endTime: number;
+    currentReward: CurrentReward;
+    nextReward: NextReward;
+    participantCnt: number;
+    nextParticipantCnt: number;
+    rewardRatio: RewardRatio;
+  };
+};
+
+export type CurrentReward = {
+  mdbl: number;
+  emdbl: number;
+};
+
+export type NextReward = {
+  mdbl: number;
+  emdbl: number;
+};
+
+export type RewardRatio = {
+  pet: number;
+  fight: number;
+};
+
+export type BuffData = {
+  dreamPetBuff: DreamPetBuff;
+  infinityBuff: InfinityBuff;
+  dragonPalConfigList: DragonPalConfigList[];
+};
+
+export type DreamPetBuff = {
+  light: DragonBuff;
+  water: DragonBuff;
+  fire: DragonBuff;
+  wood: DragonBuff;
+  ground: DragonBuff;
+  totalBuff: number;
+};
+
+export type DragonBuff = {
+  list: DragonBuffList[];
+  total: number;
+};
+
+export type DragonBuffList = {
+  dragonPalId: number;
+  categoryId: number;
+  amount: number;
+  attributeType: number;
+  catchTimeStamp: number;
+  sleep: boolean;
+};
+
+export type InfinityBuff = {
+  dark: DragonBuff;
+  water: DragonBuff;
+  fire: DragonBuff;
+  wood: DragonBuff;
+  ground: DragonBuff;
+  totalBuff: number;
+};
+
+export type DragonPalConfigList = {
+  id: number;
+  category_id: number;
+  attributeType: number;
+  unlockTime: number;
+  dreamPetBuff: number;
+  infinityRambleBuff: number;
+  avatarUrl: string;
+};
+
+export type ObtainData = {
+  walletAddress: string;
+  stamina: number;
+  activeEmdbl: string;
+  gameStaminaRecoverySec: number;
+  gameStaminaConfig: GameStaminaConfig;
+};
+
+export type GameStaminaConfig = {
+  activeEmdbl: string;
+  stamina: number;
+};
+
+export type GameAsset = {
+  DragonEgg: DragonEgg;
+  DragonCaptureBall: DragonCaptureBall;
+};
+
+export type DragonEgg = {
+  unclaim: number;
+  total: number;
+  unUsed: number;
+};
+
+export type DragonCaptureBall = {
+  unclaim: number;
+  total: number;
+  unUsed: number;
+};
+
+export type GameRound = {
+  round: number;
+  startTime: number;
+  endTime: number;
+};
+
+export type FetchGameRankParams = {
+  page?: number;
+  size?: number;
+  address?: string;
+  round?: number;
+};
+
+export type PetRankItem = {
+  rank: number;
+  round: number;
+  gparkUid: string;
+  gparkUserAddress: string;
+  gparkUserName: string;
+  gparkUserAvatar: string;
+  petName: string;
+  petRarity: number;
+  petOriginalAttack: number;
+  petAttack: number;
+  recordTime: number;
+  mdblReward: string;
+  emdblReward: string;
+  buff: {
+    light: number;
+    water: number;
+    fire: number;
+    wood: number;
+    ground: number;
+    totalBuff: number;
+  };
+};
+
+export type PetRankRes = {
+  list: PetRankItem[];
+  myself?: PetRankItem;
+};
+
+export type FightRankItem = {
+  rank: number;
+  round: number;
+  gparkUid: string;
+  gparkUserAddress: string;
+  gparkUserName: string;
+  gparkUserAvatar: string;
+  grade: number;
+  gradeOriginalPower: number;
+  gradePower: number;
+  recordTime: number;
+  mdblReward: string;
+  emdblReward: string;
+  buff: {
+    dark: number;
+    water: number;
+    fire: number;
+    wood: number;
+    ground: number;
+    totalBuff: number;
+  };
+};
+
+export type FightRankRes = {
+  list: PetRankItem[];
+  myself?: PetRankItem;
+};
+
+export type DragonBallBurnRank = {
+  evmAddress: string;
+  rank?: number;
+  burnCount?: number;
+  merl?: number;
 };
 
 export type RewardHistoryItem = {

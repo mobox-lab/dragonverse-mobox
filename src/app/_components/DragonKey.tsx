@@ -1,20 +1,21 @@
 'use client';
 
-import ArrowSvg from '@/../public/svg/arrow.svg?component';
+import ClipSVG from '@/../public/svg/clip.svg?component';
+import { mainWalletConnectDialogAtom } from '@/atoms';
 import Background from '@/components/background';
 import Button from '@/components/ui/button';
-import { useIsMobile } from '@/hooks/useIsMobile';
+import Tooltip from '@/components/ui/tooltip';
 import { useIsMounted } from '@/hooks/useIsMounted';
 import clsx from 'clsx';
 import { useSetAtom } from 'jotai';
 import React, { useState } from 'react';
-import ReactGA from 'react-ga4';
+import { toast } from 'react-toastify';
+import { useCopyToClipboard } from 'react-use';
 import { useAccount } from 'wagmi';
-import DragonBorder from './DragonBorder';
-import { mainWalletConnectDialogAtom } from '@/atoms';
-import { CDN_URL } from '@/constants';
 
 interface DragonKeyProps {}
+const md5Value = 'bf4abb516606c74f68b1944c0513fc26';
+const sha1Value = 'a6454d164bfe616680911ac8d1a5d0be0706ddca';
 
 const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
   const { address } = useAccount();
@@ -22,15 +23,79 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
   const [downloadDisabled] = useState<boolean>(true);
   const [detailVisible, setDetailVisible] = useState<boolean>(true);
   const isMounted = useIsMounted();
-  const { mobile } = useIsMobile();
+  const [, copyToClipboard] = useCopyToClipboard();
 
   return (
-    <div className={clsx('px-[5vw] pb-12 sm:px-[20px]', { 'pt-[57px]': mobile })}>
+    <div className={clsx('px-[5vw] pb-12 sm:px-[20px]')}>
       <Background />
       {/* <Menu /> */}
-      <div className="mt-[2.88vw] flex flex-col items-center xl:mt-9">
+      <div className="xl:-mt-9 -mt-[2.88vw] flex h-full flex-col items-center">
         <img src="/img/dragonverse.png" alt="logo" className="w-[25vw]" />
-        <div className="self-start">
+        <Tooltip
+          offsetX={12}
+          className="w-[28.16vw] xl:w-[352px]"
+          title={
+            <>
+              <h3 className="mb-[0.64vw] text-[1.12vw]/[1.6vw] xl:mb-2 xl:text-sm/5">Minimum System Requirements</h3>
+              <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">CPU: Intel Core i5-7400 or AMD equivalent</p>
+              <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">RAM: 8 GB</p>
+              <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">GPU: NVIDIA GeForce GTX 960 or AMD equivalent</p>
+              <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">OS: Windows 10 64-bit (Above)</p>
+            </>
+          }
+        >
+          <Button
+            className="mt-[28vw] flex h-[8.16vw] w-[28.16vw] items-center justify-center xl:h-[102px] xl:w-[352px]"
+            type="red"
+            disabled={downloadDisabled}
+            onClick={() => {
+              if (downloadDisabled) return;
+              window.open('https://cdn1.p12.games/pge/download/PGE_latest.exe', '_blank');
+            }}
+          >
+            {downloadDisabled ? (
+              <div>
+                {/* <img src="/img/download-disabled.webp" alt="download" className="relative top-0.5 w-[13.65vw] xl:w-[170px]" /> */}
+                <img
+                  src="/img/download-coming-soon.webp"
+                  draggable={false}
+                  alt="download"
+                  className="relative top-0.5 w-[14.8vw] xl:w-[185px]"
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center">
+                <img src="/img/download.webp" alt="download" className="w-[23.68vw] xl:w-[296px]" />
+                <p className="shadow-text-unbox text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
+                  Current Version: 1.0.1 Update on: 2024.04.10
+                </p>
+              </div>
+            )}
+          </Button>
+        </Tooltip>
+        {/* <div className="mt-[1.12vw] text-[0.96vw]/[1.92vw] font-medium text-gray-300 xl:mt-3.5 xl:text-xs/6">
+          <p className="flex items-center">
+            md5: {md5Value}
+            <ClipSVG
+              className="ml-[0.64vw] w-[0.96vw] cursor-pointer stroke-gray-300 hover:stroke-white xl:ml-2 xl:w-3"
+              onClick={() => {
+                copyToClipboard(md5Value);
+                toast.success('md5 copied');
+              }}
+            />
+          </p>
+          <p className="flex items-center">
+            sha1: {sha1Value}
+            <ClipSVG
+              className="ml-[0.64vw] w-[0.96vw] cursor-pointer stroke-gray-300 hover:stroke-white xl:ml-2 xl:w-3"
+              onClick={() => {
+                copyToClipboard(sha1Value);
+                toast.success('sha1 copied');
+              }}
+            />
+          </p>
+        </div> */}
+        {/* <div className="self-start">
           <Button
             className="mt-[18vw] flex h-[5.76vw] w-[22vw] items-center justify-center xl:h-[72px] xl:w-[274px]"
             type="red"
@@ -169,7 +234,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
             alt="dragon-key"
             className="absolute -top-[13.65vw] right-0 w-[25.2vw] xl:-top-[170px] xl:w-[314px]"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

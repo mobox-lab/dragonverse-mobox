@@ -27,6 +27,23 @@ body {
   .flex-center {
     @apply flex items-center justify-center;
   }
+  .clip-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+  }
+  .border-with-triangle {
+    border: 14px solid #ffe7ab80;
+    @apply border-b-transparent border-l-transparent border-r-transparent;
+    &::after {
+      content: '';
+      display: block;
+      border: 13px solid #29251e;
+      position: absolute;
+      left: -13px;
+      top: -15px;
+      @apply border-b-transparent border-l-transparent border-r-transparent;
+    }
+  }
 }
 
 .rotate-container {
@@ -123,6 +140,14 @@ input[type='number']::-webkit-outer-spin-button {
     box-shadow:
       2px 2px 3px 0px rgba(255, 255, 255, 0.6) inset,
       0px -1px 8px 0px #ff6b00 inset;
+  }
+
+  .buff-card {
+    stroke-width: 1px;
+    stroke: #452a08;
+    box-shadow:
+      0.5px 0.5px 1.5px 0px #fff inset,
+      0px -0.5px 4px 0px #ffb800 inset;
   }
 
   .animated-opacity {

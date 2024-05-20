@@ -2,27 +2,37 @@ import request, { Response } from '@/apis/request';
 import { DragonProposalSortField } from '@/constants/enum';
 import { Address } from 'viem';
 import {
+  AirdropProof,
   AllRewardData,
   BRC420Item,
   BindAddressParams,
   BtcLoginParams,
   BuffAddress,
+  BuffData,
   DailyReward,
+  DragonBallBurnRank,
   DragonBallCount,
   DragonGameRank,
   DragonGovernInfo,
   DragonProposal,
   EvmLoginParams,
   FetchDragonProposalParams,
+  FetchGameRankParams,
   FetchTradeHistoryParams,
+  FightRankRes,
+  GameAsset,
+  GameRound,
   LoginRes,
+  ObtainData,
+  PetRankRes,
   PriceHistory,
+  RankCurrentRound,
   SnapShotData,
   StakeBuff,
   StakeHistoryListItemData,
   StakeRewardSignature,
   TradeHistoryListItemData,
-  AirdropProof, StakeRewardHistory,
+  StakeRewardHistory,
 } from './types';
 
 export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
@@ -137,6 +147,41 @@ export const fetchDailyReward = () => request.get<any, Response<DailyReward>>('/
 
 export const fetchInactiveEMDBL = (address?: string) =>
   request.get<any, Response<{ inactiveEmdblAmount: string }>>('/merlin/stake/inactive-emdbl', { params: { address } });
+
+export const fetchRankCurrentRound = () => request.get<any, Response<RankCurrentRound>>('/pge-game/rank/round/current');
+
+export const fetchBuffData = () => request.get<any, Response<BuffData>>('/pge-game/dragon-verse-pal/get-pal-buff');
+
+export const fetchObtain = () => request.get<any, Response<ObtainData>>('/pge-game/stamina/obtain-web');
+
+export const fetchGameAsset = () => request.get<any, Response<GameAsset>>('/pge-game/dragon-verse-assets/get-user-asset');
+
+export const claimGameAsset = (type: 'DragonEgg' | 'CaptureBall') =>
+  request.post<any, Response<boolean>>('/pge-game/dragon-verse-assets/claim-use-asset', { assetName: type });
+
+export const fetchGameRoundList = () => request.get<any, Response<{ list: GameRound[] }>>('/pge-game/rank/round/list');
+
+export const fetchPetRank = ({ page = 1, size = 20, round, address }: FetchGameRankParams) =>
+  request.get<any, Response<PetRankRes>>('/pge-game/rank/pet/list', {
+    params: {
+      page,
+      size,
+      round,
+      address,
+    },
+  });
+
+export const fetchFightRank = ({ page = 1, size = 20, round, address }: FetchGameRankParams) =>
+  request.get<any, Response<FightRankRes>>('/pge-game/rank/fight/list', {
+    params: {
+      page,
+      size,
+      round,
+      address,
+    },
+  });
+
+export const fetchBurnRank = () => request.get<any, Response<DragonBallBurnRank[]>>('/merlin/burn/dragonball-rank');
 
 export const fetchStakeRewardHistory = ({ page = 1, size = 5 }) =>
   request.get<any, Response<StakeRewardHistory>>('/merlin/stake/reward-history', {

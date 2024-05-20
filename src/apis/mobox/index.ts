@@ -1,7 +1,8 @@
-import { BoxWallet } from './mobox';
+import { NFT_MOBOX_API_PREFIX } from '@/constants/env';
 import { Response } from '../request';
+import { DepositAddress, MoGameFightRankItem, MoGamePetRankItem, MoGameRankData, WithdrawData } from '../types';
+import { BoxWallet } from './mobox';
 import request from './request';
-import { DepositAddress, WithdrawData } from '../types';
 
 export const fetchBoxWallet = () => request.post<any, Response<BoxWallet>>('/user/symbol/balance', { symbol: 'mbox' });
 
@@ -17,3 +18,20 @@ export const fetchLogs = ({ page = 1, limit = 20 }: { page?: number; limit?: num
 
 export const getMoboxAccessToken = (token?: string) =>
   request.post<any, Response<{ token: string }>>('/oauth/p12', { ptoken: token });
+
+export const fetchMoPetGameRank = ({ page = 1, round = 1 }: { page?: number; round?: number }) =>
+  request.get<any, Response<MoGameRankData<MoGamePetRankItem>>>('/mo-rank/pet/leaderboard', {
+    params: {
+      round,
+      page,
+    },
+    baseURL: NFT_MOBOX_API_PREFIX,
+  });
+export const fetchMoFightRank = ({ page = 1, round = 1 }: { page?: number; round?: number }) =>
+  request.get<any, Response<MoGameRankData<MoGameFightRankItem>>>('/mo-rank/fight/leaderboard', {
+    params: {
+      round,
+      page,
+    },
+    baseURL: NFT_MOBOX_API_PREFIX,
+  });

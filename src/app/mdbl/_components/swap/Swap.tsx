@@ -518,7 +518,7 @@ export default function Swap({ className }: { className?: string }) {
                       Max Slippage
                       <Tooltip title="Slippage Tolerance is the maximum change in price you are willing to accept">
                         <span className="cursor-pointer">
-                          <InfoSVG className="ml-[0.32vw] w-[1.12vw] xl:ml-1 xl:w-3.5" />
+                          <InfoSVG className="ml-[0.32vw] w-[1.12vw] stroke-white xl:ml-1 xl:w-3.5" />
                         </span>
                       </Tooltip>
                     </div>

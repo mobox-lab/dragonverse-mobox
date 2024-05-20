@@ -51,7 +51,7 @@ export default function Tooltip({ children, title, placement = 'top', offsetX, c
         {open && (
           <div
             className={clsx(
-              'border border-gray-600 bg-black/60 p-[1.28vw] text-[0.96vw]/[1.44vw] backdrop-blur-lg xl:p-4 xl:text-xs/3.5',
+              'border border-gray-600 bg-gray-750 p-[1.28vw] text-[0.96vw]/[1.44vw] xl:p-4 xl:text-xs/3.5',
               className,
               ...fontVariants,
             )}

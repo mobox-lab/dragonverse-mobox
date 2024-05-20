@@ -1,31 +1,39 @@
-import { PropsWithChildren } from 'react';
-import clsx from 'clsx';
-import Providers from '@/providers/root';
-import { poppins } from '@/constants/font';
-import { ToastContainer } from 'react-toastify';
+'use client';
 import LeftSider from '@/components/layout/LeftSider';
-import Web3Status from '@/components/web3/Web3Status';
-import ToastIcon from '@/components/ui/toast/ToastIcon';
 import DialogComponents from '@/components/ui/dialog/DialogComponents';
+import ToastIcon from '@/components/ui/toast/ToastIcon';
+import Web3Status from '@/components/web3/Web3Status';
+import { poppins } from '@/constants/font';
+import Providers from '@/providers/root';
+import clsx from 'clsx';
 import type { Metadata } from 'next';
+import { PropsWithChildren } from 'react';
+import { ToastContainer } from 'react-toastify';
 import '../utils/analytics';
 
 import '@/styles/index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { clsxm } from '@/utils';
+import { useIsHome } from '@/hooks/useIsHome';
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: 'Dragonverse Neo',
   description: 'Dragonverse Neo',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  const { isHome } = useIsHome();
   return (
     <html lang="en">
       <body className={clsx(poppins.className, poppins.variable)}>
         <Providers>
-          <div className="scrollbar-hide flex overflow-auto">
+          <div className="scrollbar-hide flex h-screen overflow-auto">
             <LeftSider />
-            <div className="relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]">
+            <div
+              className={clsxm('relative ml-[6.88vw] flex-auto overflow-auto transition-all ease-in-out xl:ml-[86px]', {
+                '!ml-[19.04vw] xl:!ml-[238px]': isHome,
+              })}
+            >
               <div className="sticky z-50 flex items-center justify-end pt-[2.4vw] xl:container xl:pt-7.5">
                 <div className="px-[3.2vw] xl:px-0">
                   <Web3Status />

@@ -14,6 +14,10 @@ import { formatNumber } from '@/utils';
 import { useSetAtom } from 'jotai';
 import { toast } from 'react-toastify';
 import RewardCountdown from './RewardCountdown';
+import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
+import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
+import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
+import { useState } from 'react';
 
 export default function MyReward() {
   const setRewardDetailDialog = useSetAtom(rewardDetailDialogAtom);
@@ -21,6 +25,12 @@ export default function MyReward() {
   const { isSupportedChain, switchMainChain } = useMainChain();
   const { evmAddress } = useMainAccount();
   const { totalAccruedBalance, accruedBalance, refetch } = useStakeContractRead();
+
+  const { data: obtain } = useFetchObtain();
+  const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
+  const { mutateAsync: claimGameAsset } = useClaimGameAsset();
+  const [captureClaimLoading, setCaptureClaimLoading] = useState<boolean>(false);
+  const [eggClaimLoading, setEggClaimLoading] = useState<boolean>(false);
 
   const { mutateAsync, isLoading } = useEMDBLClaimSignature();
   const { writeContract, isLoading: writeLoading } = useMainWriteContract({
@@ -61,6 +71,29 @@ export default function MyReward() {
     }
   };
 
+  const claimAsset = async (type: 'DragonEgg' | 'CaptureBall') => {
+    try {
+      if (type === 'DragonEgg') {
+        setEggClaimLoading(true);
+      } else if (type === 'CaptureBall') {
+        setCaptureClaimLoading(true);
+      }
+      const res = await claimGameAsset(type);
+      if (res.code === 200) {
+        refetchGameAsset();
+        toast.success('Claim Successfully.');
+      } else {
+        toast.error('Claim Failed.');
+      }
+    } catch (error) {
+    } finally {
+      if (type === 'DragonEgg') {
+        setEggClaimLoading(false);
+      } else if (type === 'CaptureBall') {
+        setCaptureClaimLoading(false);
+      }
+    }
+  };
   return (
     <div className="mt-[2.88vw] xl:mt-9">
       <div className="grid grid-cols-2 gap-[1.92vw] xl:gap-6">
@@ -95,7 +128,7 @@ export default function MyReward() {
               <RewardCountdown />
             </ClientOnly>
             <Button
-              className="mt-[0.64vw] h-[3.52vw] w-[12.8vw] rounded-sm py-0 text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mt-2 xl:h-11 xl:w-[160px] xl:text-sm/4"
+              className="mt-[0.64vw] h-[3.52vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-bold text-yellow xl:mt-2 xl:h-11 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
               type="yellow-shallow"
               onClick={claimAccrued}
               loading={isLoading || writeLoading}
@@ -122,7 +155,87 @@ export default function MyReward() {
           />
           More rewards revealing soon
         </div>
+        {/* <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
+          <PatternWithoutLine />
+          <img draggable={false} src="/img/reward-bg-power.webp" alt="mdbl" className="absolute left-0 top-0 h-full w-full" />
+          <div className="grid h-full w-full grid-cols-2">
+            <div className="flex-center relative h-full flex-col">
+              <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Stamina Limit</div>
+              <div className="flex-center mt-[0.96vw] xl:mt-3">
+                <img src="/img/game-power.webp" alt="game power" className="w-[2.24vw] xl:w-7" />
+                <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-medium text-yellow xl:ml-2 xl:text-3xl/11">
+                  {obtain?.stamina || 0}
+                </div>
+              </div>
+              <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
+                {`eMDBL balance  >= ${formatNumber(BigInt(obtain?.gameStaminaConfig.activeEmdbl || 0), false)}`}
+              </div>
+            </div>
+          </div>
+        </div> */}
       </div>
+      {/* <p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Items</p>
+      <div className="mt-[0.96vw] grid grid-cols-2 gap-[1.92vw] xl:mt-3 xl:gap-6">
+        <div className="grid grid-cols-2 gap-[1.92vw] xl:gap-6">
+          <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
+            <PatternWithoutLine />
+            <img
+              draggable={false}
+              src="/img/reward-bg-snitch.webp"
+              alt="snitch"
+              className="absolute left-0 top-0 h-full w-full"
+            />
+            <div className="flex-center h-full flex-col">
+              <div className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">Blue Snitch</div>
+              <div className="mt-[0.96vw] flex items-center xl:mt-3">
+                <img src="/svg/capture-ball.svg" alt="capture ball" className="h-[2.24vw] xl:h-7" />
+                <div className="ml-[0.32vw] mt-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-1 xl:mt-1 xl:text-2xl/6">
+                  {gameAsset?.DragonCaptureBall.unclaim || 0}
+                </div>
+              </div>
+              <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
+                Total: {gameAsset?.DragonCaptureBall.total || 0}
+              </div>
+              <Button
+                className="mt-[1.12vw] h-[3.52vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-bold text-yellow xl:mt-3.5 xl:h-11 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
+                type="yellow-shallow"
+                loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
+                disabled={(gameAsset?.DragonCaptureBall.unclaim || 0) === 0}
+                onClick={() => claimAsset('CaptureBall')}
+                loading={captureClaimLoading}
+              >
+                Claim
+              </Button>
+            </div>
+          </div>
+          <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
+            <PatternWithoutLine />
+            <img draggable={false} src="/img/reward-bg-egg.webp" alt="egg" className="absolute left-0 top-0 h-full w-full" />
+            <div className="flex-center h-full flex-col">
+              <div className="text-[1.12vw]/[1.92vw] font-semibold xl:text-sm/6">Dragon Egg</div>
+              <div className="mt-[0.96vw] flex items-center xl:mt-3">
+                <img src="/img/hatch-egg-min.png" alt="egg" className="h-[2.24vw] xl:h-7" />
+                <div className="ml-[0.32vw] mt-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-1 xl:mt-1 xl:text-2xl/6">
+                  {gameAsset?.DragonEgg.unclaim || 0}
+                </div>
+              </div>
+              <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
+                Total: {gameAsset?.DragonEgg.total || 0}
+              </div>
+              <Button
+                className="mt-[1.12vw] h-[3.52vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-bold text-yellow xl:mt-3.5 xl:h-11 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
+                type="yellow-shallow"
+                loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
+                disabled={(gameAsset?.DragonEgg.unclaim || 0) === 0}
+                onClick={() => claimAsset('DragonEgg')}
+                loading={eggClaimLoading}
+              >
+                Claim
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 }

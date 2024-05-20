@@ -1,4 +1,9 @@
-import Vault from '@/app/vault/page';
+import DragonKey from './_components/DragonKey';
+
 export default function App() {
-  return <Vault />;
+  return (
+    <main>
+      <DragonKey />
+    </main>
+  );
 }

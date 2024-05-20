@@ -2,7 +2,7 @@ import { CouponResult } from '@/apis/types';
 import { MenuItem } from '@/constants/enum';
 import { atom } from 'jotai';
 
-export const siderCollapsedAtom = atom<boolean>(true);
+export const siderCollapsedAtom = atom<boolean>(false);
 
 export const dragonWalletConnectDialogAtom = atom<boolean>(false);
 export const dragonBurnDialogOpenAtom = atom<boolean>(false);

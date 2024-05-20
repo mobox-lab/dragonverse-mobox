@@ -9,7 +9,15 @@ type TimeLeft = {
   seconds: number;
 };
 
-const calculateTimeLeft = (timestamp: number): TimeLeft => {
+const calculateTimeLeft = (timestamp?: number): TimeLeft => {
+  if (!timestamp) {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    };
+  }
   const difference = timestamp * 1000 - Date.now();
   let timeLeft: TimeLeft = {
     days: 0,
@@ -30,7 +38,7 @@ const calculateTimeLeft = (timestamp: number): TimeLeft => {
   return timeLeft;
 };
 
-const useCountdown = (timestamp: number, refresh: number = 1000, splitChar: string = ':') => {
+const useCountdown = (timestamp?: number, refresh: number = 1000, splitChar: string = ':') => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(timestamp));
 
   useEffect(() => {

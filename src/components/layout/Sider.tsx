@@ -1,4 +1,5 @@
 import { siderCollapsedAtom } from '@/atoms';
+import { useIsHome } from '@/hooks/useIsHome';
 import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import React, { useCallback, useEffect, useMemo } from 'react';
@@ -22,16 +23,17 @@ export const SiderContext: React.Context<SiderContextProps> = React.createContex
 
 const Sider: React.FunctionComponent<SiderProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useAtom(siderCollapsedAtom);
+  const { isHome } = useIsHome();
 
   const handleMouseEnter = useCallback(() => {
-    if (isMobile) return;
+    if (isMobile || isHome) return;
     setCollapsed(false);
-  }, [setCollapsed]);
+  }, [isHome, setCollapsed]);
 
   const handleMouseLeave = useCallback(() => {
-    if (isMobile) return;
+    if (isMobile || isHome) return;
     setCollapsed(true);
-  }, [setCollapsed]);
+  }, [isHome, setCollapsed]);
 
   const xlBreakpoint = 1280; //  
   const { width: windowWidth } = useWindowSize();
@@ -42,6 +44,11 @@ const Sider: React.FunctionComponent<SiderProps> = ({ children }) => {
     }),
     [windowWidth, xlBreakpoint],
   );
+
+  useEffect(() => {
+    if (isHome) setCollapsed(false);
+    else setCollapsed(true);
+  }, [isHome, setCollapsed]);
 
   return (
     <motion.aside

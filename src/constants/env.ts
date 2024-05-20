@@ -1,1 +1,2 @@
 export const MOBOX_API_PREFIX = process.env.NEXT_PUBLIC_MOBOX_API_PREFIX;
+export const NFT_MOBOX_API_PREFIX = process.env.NEXT_PUBLIC_NFT_MOBOX_API_PREFIX;

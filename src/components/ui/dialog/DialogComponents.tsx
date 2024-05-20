@@ -11,12 +11,16 @@ import StakeHistoryDialog from './stake/StakeHistoryDialog';
 import StakeAndRedeemDialog from './stake/StakeAndRedeemDialog';
 import ExistedAddressBindDialog from '@/components/ui/dialog/wallet-connect/ExistedAddressBindDialog';
 import UnbindWalletDialog from '@/components/ui/dialog/wallet-connect/UnbindWalletDialog';
+import WithdrawDialog from './WithdrawDialog';
+import BurnDragonBallDialog from './BurnDragonBallDialog';
 import FirstStakeGuideDialog from './stake/FirstStakeGuideDialog';
 import RewardHistoryDialog from '@/components/ui/dialog/RewardHistoryDialog';
 
 export default function DialogComponents() {
   return (
     <ClientOnly>
+      <WithdrawDialog />
+      <BurnDragonBallDialog />
       <StakeAndRedeemDialog />
       <StakeBuffDialog />
       <FirstStakeGuideDialog />

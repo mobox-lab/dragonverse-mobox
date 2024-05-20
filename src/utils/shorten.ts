@@ -10,9 +10,9 @@ export function isAddress(value: any): string | false {
   }
 }
 
-export function shortenAddress(address?: string, chars = 5): string {
+export function shortenAddress(address?: string, chars = 5, splitStr = '...'): string {
   if (!address) return '';
-  return `${address.substring(0, chars)}...${address.substring(address.length - chars)}`;
+  return address.substring(0, chars) + splitStr + address.substring(address.length - chars);
 }
 
 export function shortenStr(

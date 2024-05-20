@@ -131,7 +131,7 @@ export default function Events() {
             {majorAddress
               ? showTooltip && (
                   <div className="mb-[1.28vw] flex gap-[0.48vw] bg-blue/20 px-[1.28vw] py-[0.64vw] text-[0.96vw]/[1.6vw] xl:mb-4 xl:gap-1.5 xl:px-4 xl:py-2 xl:text-xs/5">
-                    <InfoSVG className="w-[1.12vw] xl:w-3.5" />
+                    <InfoSVG className="w-[1.12vw] stroke-white xl:w-3.5" />
                     To be eligible: you must hold ≥ 1000 $MDBL
                   </div>
                 )
