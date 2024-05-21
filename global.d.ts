@@ -17,6 +17,7 @@ declare global {
     ethereum?: Ethereum;
     bitkeep?: Ethereum;
     okxwallet?: Ethereum;
+    trustwallet?: Ethereum;
     Delaunay?: any;
   }
 }

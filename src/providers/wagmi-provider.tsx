@@ -1,12 +1,18 @@
 import { bsc, arbitrum, mainnet } from 'wagmi/chains';
 import { createConfig, http, WagmiProvider } from 'wagmi';
-import { metaMaskConnector, okxConnector, tokenPocketConnector, walletConnectConnector } from '@/connectors';
+import {
+  metaMaskConnector,
+  okxConnector,
+  tokenPocketConnector,
+  trustWalletConnector,
+  walletConnectConnector,
+} from '@/connectors';
 import { P12Test, merlinMainnet, merlinTestnet } from '@/connectors/chains';
 import type { PropsWithChildren } from 'react';
 
 export const wagmiConfig = createConfig({
   chains: [mainnet, bsc, arbitrum, merlinTestnet, merlinMainnet, P12Test],
-  connectors: [metaMaskConnector, okxConnector, tokenPocketConnector, walletConnectConnector],
+  connectors: [metaMaskConnector, okxConnector, tokenPocketConnector, walletConnectConnector, trustWalletConnector],
   pollingInterval: 6_000,
   transports: {
     [mainnet.id]: http(),

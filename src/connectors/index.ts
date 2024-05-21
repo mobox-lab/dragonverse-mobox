@@ -26,3 +26,13 @@ export const tokenPocketConnector = injected({
     },
   }),
 });
+
+export const trustWalletConnector = injected({
+  target: () => ({
+    id: 'TrustWallet',
+    name: 'TrustWallet',
+    provider: () => {
+      if (typeof window !== 'undefined') return window.trustwallet;
+    },
+  }),
+});
