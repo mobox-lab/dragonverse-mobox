@@ -39,6 +39,10 @@ export default function MainWalletConnectDialog() {
               <img className="h-7.5 w-7.5" src="/svg/walletconnect.svg" alt="icon" />
               <span className="md:hidden">{evmConnectors[3].name}</span>
             </ConnectButton>
+            <ConnectButton onClick={() => onEvmConnect(evmConnectors[4])}>
+              <img className="h-7.5 w-7.5" src="/svg/trustwallet.svg" alt="icon" />
+              <span className="md:hidden">{evmConnectors[4].name}</span>
+            </ConnectButton>
           </div>
         </div>
       )}
