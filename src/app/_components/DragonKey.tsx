@@ -49,7 +49,8 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                   GPU: NVIDIA GeForce GTX 960 or AMD equivalent
                 </p>
                 <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">OS: Windows 10 64-bit (Above)</p>
-                <p className="mt-[1.44vw] flex items-center text-[0.96vw]/[1.6vw] text-gray-300 xl:mt-4.5 xl:text-xs/5">
+                <div className="my-[1.28vw] h-px bg-white/25 xl:my-4" />
+                <p className="flex items-center text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">
                   <span className="truncate">md5: {md5Value}</span>
                   <ClipSVG
                     className="ml-[0.32vw] w-[0.96vw] cursor-pointer stroke-gray-300 hover:stroke-white xl:ml-1 xl:w-3"
