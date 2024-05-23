@@ -49,6 +49,27 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                   GPU: NVIDIA GeForce GTX 960 or AMD equivalent
                 </p>
                 <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">OS: Windows 10 64-bit (Above)</p>
+                <div className="my-[1.28vw] h-px bg-white/25 xl:my-4" />
+                <p className="flex items-center text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">
+                  <span className="truncate">md5: {md5Value}</span>
+                  <ClipSVG
+                    className="ml-[0.32vw] w-[0.96vw] cursor-pointer stroke-gray-300 hover:stroke-white xl:ml-1 xl:w-3"
+                    onClick={() => {
+                      copyToClipboard(md5Value);
+                      toast.success('md5 copied');
+                    }}
+                  />
+                </p>
+                <p className="flex w-full items-center truncate text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">
+                  <span className="truncate">sha1: {sha1Value}</span>
+                  <ClipSVG
+                    className="ml-[0.16vw] w-[0.96vw] cursor-pointer stroke-gray-300 hover:stroke-white xl:ml-0.5 xl:w-3"
+                    onClick={() => {
+                      copyToClipboard(sha1Value);
+                      toast.success('sha1 copied');
+                    }}
+                  />
+                </p>
               </>
             }
           >
@@ -83,7 +104,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
               )}
             </Button>
           </Tooltip>
-          <div className="mt-[1.12vw] text-[0.96vw]/[1.92vw] font-medium text-gray-300 xl:mt-3.5 xl:text-xs/6">
+          {/* <div className="mt-[1.12vw] text-[0.96vw]/[1.92vw] font-medium text-gray-300 xl:mt-3.5 xl:text-xs/6">
             <p className="flex items-center">
               md5: {md5Value}
               <ClipSVG
@@ -104,7 +125,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                 }}
               />
             </p>
-          </div>
+          </div> */}
           {!tipOpened && (
             <div className="mt-[1.28vw] flex w-[28vw] items-center justify-between rounded-sm bg-blue-300/30 px-[0.64vw] py-[0.48vw] text-[0.96vw]/[1.6vw] font-medium xl:mt-4 xl:w-[350px] xl:px-2 xl:py-1.5 xl:text-xs/5">
               It is recommended to reinstall for better experience.
