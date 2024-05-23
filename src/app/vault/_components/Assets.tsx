@@ -22,6 +22,7 @@ import { getLocalStorage } from '@/utils/storage';
 import { useSetAtom } from 'jotai';
 import { useCallback, useEffect, useState } from 'react';
 import { formatEther } from 'viem';
+import ReactGA from 'react-ga4';
 
 export default function Assets() {
   const setStakeFirstGuideDialogAtom = useSetAtom(stakeFirstGuideDialogAtom);
@@ -97,6 +98,7 @@ export default function Assets() {
 
   const stakeOrRedeem = useCallback(
     async (type: StakeRedeemType) => {
+      ReactGA.event({ category: 'merlin', action: type });
       setStakeAndRedeemType(type);
       const isFirstStakeHaveRead = await getLocalStorage(STORAGE_KEY.FIRST_STAKE_GUIDE_HAVE_READ);
       if (isFirstStakeHaveRead) setStakeAndRedeemDialog(true);
@@ -159,7 +161,10 @@ export default function Assets() {
         </div>
         <div className="flex items-center justify-end gap-[1.28vw] xl:gap-4">
           <Button
-            onClick={() => setDialogOpen(true)}
+            onClick={() => {
+              ReactGA.event({ category: 'merlin', action: 'stake_record' });
+              setDialogOpen(true);
+            }}
             className="flex-center relative h-[3.52vw] w-[3.52vw] overflow-visible border-none bg-white/10 xl:h-11 xl:w-11"
           >
             {stakePendingCount ? (
@@ -231,7 +236,10 @@ export default function Assets() {
           </div>
           <Button
             type="orange"
-            onClick={() => setStakeBuffOpen(true)}
+            onClick={() => {
+              ReactGA.event({ category: 'merlin', action: 'boost' });
+              setStakeBuffOpen(true);
+            }}
             className={clsxm('h-[3.52vw] w-[12.8vw] font-semibold xl:h-11 xl:w-40')}
           >
             Boost

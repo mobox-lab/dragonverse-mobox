@@ -6,6 +6,7 @@ import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
 import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtomValue } from 'jotai';
+import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
 
 export default function StakeCancelButton({ redeemIndex }: { redeemIndex?: number }) {
@@ -38,6 +39,7 @@ export default function StakeCancelButton({ redeemIndex }: { redeemIndex?: numbe
   });
 
   const cancel = async (index?: number) => {
+    ReactGA.event({ category: 'merlin', action: 'confirm_redeem' });
     const hash = await writeContract({
       abi: EMDBLABI,
       functionName: 'cancelRedemption',

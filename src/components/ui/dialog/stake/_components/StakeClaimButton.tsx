@@ -6,6 +6,7 @@ import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
 import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtomValue } from 'jotai';
+import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
 
 export default function StakeClaimButton({ redeemIndex, className }: { redeemIndex?: number; className?: string }) {
@@ -38,6 +39,7 @@ export default function StakeClaimButton({ redeemIndex, className }: { redeemInd
   });
 
   const claim = async (index?: number) => {
+    ReactGA.event({ category: 'merlin', action: 'redeem_claim' });
     const hash = await writeContract({
       abi: EMDBLABI,
       functionName: 'completeRedemption',

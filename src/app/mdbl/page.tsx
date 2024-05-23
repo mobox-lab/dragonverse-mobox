@@ -15,7 +15,7 @@ export default function MDBL() {
   useLBPContractReads();
 
   return (
-    <main className="px-[3.2vw] pb-[3.84vw] xl:px-0 xl:pb-12">
+    <main className="px-[3.2vw] pb-[3.84vw] xl:pb-12">
       <video
         className="absolute left-1/2 top-0 -z-10 h-auto w-full max-w-[1536px] -translate-x-1/2 transform"
         autoPlay

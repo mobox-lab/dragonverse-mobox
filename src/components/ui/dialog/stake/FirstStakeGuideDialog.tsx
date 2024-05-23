@@ -7,6 +7,7 @@ import { setLocalStorage } from '@/utils/storage';
 import { motion } from 'framer-motion';
 import { useAtom, useSetAtom } from 'jotai';
 import { useCallback } from 'react';
+import ReactGA from 'react-ga4';
 import Dialog from '..';
 import Button from '../../button';
 
@@ -37,6 +38,7 @@ export default function FirstStakeGuideDialog() {
               className="relative size-[7.68vw] xl:size-24"
               alt="Guide"
               onClick={() => {
+                ReactGA.event({ category: 'merlin', action: 'vault_guide' });
                 openLink('https://mbox.medium.com/introducing-mdbl-liquidity-yield-program-stage-1-840d82ad8138');
                 onClick();
               }}

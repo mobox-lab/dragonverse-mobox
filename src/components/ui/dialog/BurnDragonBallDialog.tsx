@@ -1,21 +1,20 @@
 'use client';
 
-import { inputRegex } from '@/constants';
+import { BatchBurnABI } from '@/abis';
+import { MDragonBallABI } from '@/abis/MDragonBall';
+import { mainWalletConnectDialogAtom } from '@/atoms';
+import { burnDragonBallDialogAtom } from '@/atoms/burn';
+import { CONTRACT_ADDRESSES } from '@/constants/contracts';
+import { useBurnContractRead } from '@/hooks/burn/burnContractRead';
 import { useIsMainConnected, useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtom, useSetAtom } from 'jotai';
 import { escapeRegExp } from 'lodash-es';
 import { useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
-import { formatEther, parseEther } from 'viem';
 import Dialog from '.';
-import { burnDragonBallDialogAtom } from '@/atoms/burn';
-import { useBurnContractRead } from '@/hooks/burn/burnContractRead';
-import { mainWalletConnectDialogAtom } from '@/atoms';
 import Button from '../button';
-import { CONTRACT_ADDRESSES } from '@/constants/contracts';
-import { MDragonBallABI } from '@/abis/MDragonBall';
-import { BatchBurnABI } from '@/abis';
 
 export default function BurnDragonBallDialog() {
   const isMainConnected = useIsMainConnected();
@@ -139,7 +138,10 @@ export default function BurnDragonBallDialog() {
                 <Button
                   type="yellow-dark"
                   className={clsxm('mt-[1.28vw] h-[3.52vw] w-full font-semibold xl:mt-4 xl:h-11')}
-                  onClick={() => switchMainChain()}
+                  onClick={() => {
+                    ReactGA.event({ category: 'merlin', action: 'wrong_network' });
+                    switchMainChain();
+                  }}
                 >
                   Wrong Network
                 </Button>

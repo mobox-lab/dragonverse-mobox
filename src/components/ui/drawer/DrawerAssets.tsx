@@ -63,7 +63,7 @@ export default function DrawerAssets() {
           <div className="mt-[1.92vw] xl:mt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center ">
-                <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.92vw] xl:h-6" />
+                <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.92vw] xl:h-6" />
                 <div className="ml-[0.8vw] text-[1.6vw]/[1.6vw] font-medium xl:ml-2.5 xl:text-base/5">eMDBL</div>
               </div>
               <div className="text-[1.6vw]/[1.6vw]  font-semibold text-yellow xl:text-xl/5">

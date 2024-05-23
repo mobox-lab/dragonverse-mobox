@@ -5,13 +5,14 @@ import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { cloneElement, useCallback, useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
+import ReactGA from 'react-ga4';
 import { NavItemProps } from '.';
 import Button from '../ui/button';
 import Popover from '../ui/popover';
 import Tooltip from '../ui/tooltip';
 
 export default function SecondNavList({ currentItem }: { currentItem: NavItemProps }) {
-  const { icon, label, children } = currentItem;
+  const { icon, label, children, pointLabel } = currentItem;
   const siderCollapsed = useAtomValue(siderCollapsedAtom);
   // TODO: Optimism
   const isActive = false;
@@ -62,6 +63,9 @@ export default function SecondNavList({ currentItem }: { currentItem: NavItemPro
             <a
               key={key}
               href={to ?? href}
+              onClick={() => {
+                ReactGA.event({ category: 'merlin', action: 'main_menu', label: pointLabel });
+              }}
               target={to ? '_self' : '_blank'}
               className="rounded-[0.48vw] px-[1.12vw] py-[1.28vw] hover:bg-white/[0.16] xl:rounded-md xl:px-3.5 xl:py-4"
             >
@@ -70,7 +74,7 @@ export default function SecondNavList({ currentItem }: { currentItem: NavItemPro
           ))}
         </div>
       ) : null,
-    [children],
+    [children, pointLabel],
   );
   if (isMobile)
     return (

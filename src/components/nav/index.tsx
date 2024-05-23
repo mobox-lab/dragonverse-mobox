@@ -34,12 +34,6 @@ const navList: NavItemProps[] = [
     icon: <HomeSvg />,
     pointLabel: 'home',
   },
-  // {
-  //   key: '$MDBL',
-  //   isGroup: true,
-  //   label: '$MDBL',
-  //   icon: <Stake />,
-  // children: [
   {
     key: '/vault',
     to: '/vault',
@@ -52,17 +46,15 @@ const navList: NavItemProps[] = [
   //   to: 'halloffame',
   //   label: 'Hall of Fame',
   //   icon: <Rank />,
-  //   pointLabel: 'halloffame',
+  //   pointLabel: 'hof',
   // },
   {
     key: '/mdbl',
     to: '/mdbl',
     label: '$MDBL Launch',
     icon: <DBAL />,
-    pointLabel: 'mdbl',
+    pointLabel: 'lbp',
   },
-  //   ],
-  // },
   {
     key: 'events',
     isGroup: true,
@@ -73,13 +65,13 @@ const navList: NavItemProps[] = [
         key: '/burn',
         to: '/burn',
         label: 'Dragon Balls: The Summon',
-        pointLabel: 'burn',
+        pointLabel: 'event-burn',
       },
       {
         key: '/events',
         to: '/events',
         label: 'Post-LBP Airdrop',
-        pointLabel: 'events',
+        pointLabel: 'event-airdrop',
       },
     ],
   },
@@ -88,6 +80,7 @@ const navList: NavItemProps[] = [
     isGroup: true,
     label: 'Litepaper',
     icon: <LitepaperSvg />,
+    pointLabel: 'litepaper',
     children: [
       {
         key: 'litepaper-en',

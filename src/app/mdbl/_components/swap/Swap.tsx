@@ -418,7 +418,10 @@ export default function Swap({ className }: { className?: string }) {
                   <Button
                     type="yellow"
                     className={clsx('mt-[1.28vw] h-[3.52vw] w-full font-semibold xl:mt-4 xl:h-11')}
-                    onClick={() => switchMainChain()}
+                    onClick={() => {
+                      ReactGA.event({ category: 'merlin', action: 'wrong_network' });
+                      switchMainChain();
+                    }}
                   >
                     Wrong Network
                   </Button>
@@ -777,7 +780,14 @@ export default function Swap({ className }: { className?: string }) {
 
               {isMainConnected ? (
                 !isSupportedChain ? (
-                  <Button type="yellow" className="h-[3.52vw] w-full font-semibold xl:h-11" onClick={() => switchMainChain()}>
+                  <Button
+                    type="yellow"
+                    className="h-[3.52vw] w-full font-semibold xl:h-11"
+                    onClick={() => {
+                      ReactGA.event({ category: 'merlin', action: 'wrong_network' });
+                      switchMainChain();
+                    }}
+                  >
                     Wrong Network
                   </Button>
                 ) : (

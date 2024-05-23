@@ -12,6 +12,7 @@ import ArrowSVG from '@/../public/svg/arrow-02.svg?component';
 import BindBtcConnect from '@/components/web3/BindBtcConnect';
 import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import ReactGA from 'react-ga4';
 
 export default function BindBtcWallet() {
   const { majorAddress } = useMainAccount();
@@ -21,6 +22,7 @@ export default function BindBtcWallet() {
   const { data } = useFetchBuffAddress({ address: majorAddress });
 
   const onUnbindClick = () => {
+    ReactGA.event({ category: 'merlin', action: 'unbind_wallet' });
     setIsUnbind(true);
   };
 

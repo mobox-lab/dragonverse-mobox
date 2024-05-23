@@ -1,21 +1,17 @@
 'use client';
 
+import { RankCurrentRound } from '@/apis/types';
+import { gameRankTypeAtom } from '@/atoms/rank';
 import { GameRankType } from '@/constants/enum';
 import { clsxm } from '@/utils';
-import { useState } from 'react';
-import DragonGameRank from './DragonGameRank';
+import { useAtomValue } from 'jotai';
 import InfinityRumbleGameRank from './InfinityRumbleGameRank';
 import PetOdysseyGameRank from './PetOdysseyGameRank';
-import GameRankTab from './GameRankTab';
-import { useAtomValue } from 'jotai';
-import { gameRankTypeAtom } from '@/atoms/rank';
-import { RankCurrentRound } from '@/apis/types';
 export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }) {
   const rankType = useAtomValue(gameRankTypeAtom);
 
   return (
     <div className="flex flex-col items-center px-[3.2vw] pb-[4.16vw] pt-[3vw] text-center xl:px-10 xl:pb-13 xl:pt-6">
-      <GameRankTab className="mb-7.5" roundInfo={roundInfo} />
       {/* 
       <div className="flex w-full items-end justify-between border-b border-gray">
         <div className="flex text-[1.12vw]/[1.76vw] font-semibold text-gray-300 xl:text-sm/5.5">
@@ -65,7 +61,7 @@ export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }
         className={clsxm('mt-[1.44vw] xl:mt-4.5', { 'clip-hidden': rankType !== GameRankType.Rumble })}
         roundInfo={roundInfo}
       />
-      <DragonGameRank className={clsxm('mt-[1.44vw] xl:mt-4.5', { 'clip-hidden': rankType !== GameRankType.Dragon })} />
+      {/* <DragonGameRank className={clsxm('mt-[1.44vw] xl:mt-4.5', { 'clip-hidden': rankType !== GameRankType.Dragon })} /> */}
     </div>
   );
 }

@@ -4,23 +4,27 @@ import ClipSVG from '@/../public/svg/clip.svg?component';
 import { mainWalletConnectDialogAtom } from '@/atoms';
 import Background from '@/components/background';
 import Button from '@/components/ui/button';
+import { CloseSvg } from '@/components/ui/svg/CloseSvg';
 import Tooltip from '@/components/ui/tooltip';
+import { STORAGE_KEY } from '@/constants/storage';
 import { useIsMounted } from '@/hooks/useIsMounted';
 import clsx from 'clsx';
 import { useSetAtom } from 'jotai';
 import React, { useState } from 'react';
+import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
-import { useCopyToClipboard } from 'react-use';
+import { useCopyToClipboard, useLocalStorage } from 'react-use';
 import { useAccount } from 'wagmi';
 
 interface DragonKeyProps {}
-const md5Value = 'bf4abb516606c74f68b1944c0513fc26';
-const sha1Value = 'a6454d164bfe616680911ac8d1a5d0be0706ddca';
+const md5Value = '27274c2a5b337298e05c7283662fdb00';
+const sha1Value = '13443058a32df4bd5a2c1b734107853b133fccb9';
+const downloadDisabled = false;
 
 const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
+  const [tipOpened, setTipOpened] = useLocalStorage(STORAGE_KEY.DOWNLOAD_TIP_OPENED, false);
   const { address } = useAccount();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
-  const [downloadDisabled] = useState<boolean>(true);
   const [detailVisible, setDetailVisible] = useState<boolean>(true);
   const isMounted = useIsMounted();
   const [, copyToClipboard] = useCopyToClipboard();
@@ -53,6 +57,8 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
               disabled={downloadDisabled}
               onClick={() => {
                 if (downloadDisabled) return;
+                ReactGA.event({ category: 'merlin', action: 'download_pge' });
+
                 window.open('https://cdn1.p12.games/pge/download/PGE_latest.exe', '_blank');
               }}
             >
@@ -70,13 +76,13 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                 <div className="flex flex-col items-center">
                   <img src="/img/download.webp" alt="download" className="w-[23.68vw] xl:w-[296px]" />
                   <p className="shadow-text-unbox text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
-                    Current Version: 1.0.1 Update on: 2024.04.10
+                    Current Version: 1.1.0 Update on: 2024.05.23
                   </p>
                 </div>
               )}
             </Button>
           </Tooltip>
-          {/* <div className="mt-[1.12vw] text-[0.96vw]/[1.92vw] font-medium text-gray-300 xl:mt-3.5 xl:text-xs/6">
+          <div className="mt-[1.12vw] text-[0.96vw]/[1.92vw] font-medium text-gray-300 xl:mt-3.5 xl:text-xs/6">
             <p className="flex items-center">
               md5: {md5Value}
               <ClipSVG
@@ -97,7 +103,13 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                 }}
               />
             </p>
-          </div> */}
+          </div>
+          {!tipOpened && (
+            <div className="mt-[1.28vw] flex w-[28vw] items-center gap-[0.48vw] rounded-sm bg-blue-300/30 px-[0.96vw] py-[0.64vw] text-[0.96vw]/[1.6vw] font-medium xl:mt-4 xl:w-[350px] xl:gap-1.5 xl:px-3 xl:py-2 xl:text-xs/5">
+              It is recommended to reinstall the client for optimal game experience.
+              <CloseSvg onClick={() => setTipOpened(true)} className="size-[0.96vw] stroke-white xl:size-3" />
+            </div>
+          )}
         </div>
 
         {/* <div className="self-start">

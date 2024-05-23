@@ -9,6 +9,7 @@ import { useMainAccount } from '../wallet';
 import { parseEther } from 'viem';
 import InfoSvg from '@/../public/svg/info.svg?component';
 import Tooltip from '@/components/ui/tooltip';
+import Decimal from 'decimal.js-light';
 
 const moGamePetRankHelper = createColumnHelper<PetRankItem>();
 
@@ -45,8 +46,10 @@ export const usePetOdysseyGameRankColumns = () => {
         },
       }),
       moGamePetRankHelper.accessor('gparkUserAddress', {
-        header: () => <p className={clsxm('w-17 flex-grow-[2] text-left')}>Address</p>,
-        cell: ({ getValue }) => <p className={clsxm('w-17 flex-grow-[2] truncate text-left')}>{shortenAddress(getValue())}</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[2] pl-[0.64vw] text-left xl:pl-2')}>Address</p>,
+        cell: ({ getValue }) => (
+          <p className={clsxm('w-17 flex-grow-[2] truncate pl-[0.64vw] text-left xl:pl-2')}>{shortenAddress(getValue())}</p>
+        ),
       }),
       moGamePetRankHelper.accessor('petName', {
         header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Pet Name</p>,
@@ -56,13 +59,13 @@ export const usePetOdysseyGameRankColumns = () => {
         },
       }),
       moGamePetRankHelper.accessor('petRarity', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Quality</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[1] text-left')}>Quality</p>,
         cell: ({ getValue, row }) => {
           const rarity = getValue() - 1;
           const { rank } = row.original;
           return (
             <p
-              className={clsxm('w-17 flex-grow-[3] truncate text-left font-medium')}
+              className={clsxm('w-17 flex-grow-[1] truncate text-left font-medium')}
               style={{ color: rarityStyles[rarity as Rarity]?.color }}
             >
               {rank === -1 ? '--' : Rarity[rarity]}
@@ -103,7 +106,7 @@ export const usePetOdysseyGameRankColumns = () => {
         header: () => (
           <p
             className={clsxm(
-              'flex w-20 flex-grow-[4] items-center justify-end gap-[0.32vw] font-semibold text-yellow xl:gap-1',
+              'flex w-20 flex-grow-[4] items-center justify-end gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
@@ -133,7 +136,7 @@ export const usePetOdysseyGameRankColumns = () => {
                   <div className="flex flex-col items-center">
                     <div className="text-[0.96vw]/[2.24vw] xl:text-xs/7">Total</div>
                     <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                      {(buff?.totalBuff || 0) * 100}%
+                      {new Decimal(buff?.totalBuff || 0).times(100).toNumber()}%
                     </div>
                   </div>
                   <div className="h-[3.2vw] w-[1px] bg-yellow/50 xl:h-10"></div>
@@ -141,31 +144,31 @@ export const usePetOdysseyGameRankColumns = () => {
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/light-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.light || 0) * 100}%
+                        {new Decimal(buff?.light || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/fire-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.fire || 0) * 100}%
+                        {new Decimal(buff?.fire || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/water-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.water || 0) * 100}%
+                        {new Decimal(buff?.water || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/forest-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.wood || 0) * 100}%
+                        {new Decimal(buff?.wood || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/mountain-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.ground || 0) * 100}%
+                        {new Decimal(buff?.ground || 0).times(100).toNumber()}%
                       </div>
                     </div>
                   </div>
@@ -186,13 +189,13 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'mdblReward',
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pr-4')}>Reward</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[6] pr-4')}>Reward</p>,
         cell: ({ getValue, row }) => {
           const { emdblReward, mdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[3] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
+                'flex w-17 flex-grow-[6] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
               )}
             >
               <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">

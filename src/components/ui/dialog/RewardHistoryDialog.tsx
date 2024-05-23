@@ -10,7 +10,7 @@ import { useFetchRewardHistory } from '@/hooks/stake/useFetchRewardHistory';
 import Button from '@/components/ui/button';
 import { clsxm } from '@/utils';
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
-import { formatEther } from "viem";
+import { formatEther } from 'viem';
 
 const size = 5;
 const rewardHistoryHelper = createColumnHelper<RewardHistoryItem>();
@@ -29,7 +29,9 @@ export default function RewardHistoryDialog() {
       }),
       rewardHistoryHelper.accessor('emdblRealBalance', {
         header: () => <div className="flex-1">Active eMDBL</div>,
-        cell: ({ getValue }) => <div className="flex-1 text-sm/4.5 font-semibold text-yellow">{formatEther(BigInt(getValue()))}</div>,
+        cell: ({ getValue }) => (
+          <div className="flex-1 text-sm/4.5 font-semibold text-yellow">{formatEther(BigInt(getValue()))}</div>
+        ),
       }),
       rewardHistoryHelper.accessor('totalBuff', {
         header: () => <div className="flex-1 text-sm/4.5">Buff</div>,
@@ -40,7 +42,7 @@ export default function RewardHistoryDialog() {
         cell: ({ getValue }) => (
           <div className="flex flex-1 items-center justify-end gap-1 pr-4 text-sm/4.5 font-semibold text-yellow">
             {formatEther(BigInt(getValue()))}
-            <img src="/img/mdbl.webp" alt="mdbl" className="w-[1.6vw] xl:w-5" />
+            <img src="/svg/emdbl.svg" alt="mdbl" className="h-[1.6vw] xl:h-5" />
           </div>
         ),
       }),

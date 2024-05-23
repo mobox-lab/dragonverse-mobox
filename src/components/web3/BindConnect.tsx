@@ -7,6 +7,7 @@ import { useIsMainConnected, useMainAccount, useMainChain } from '@/hooks/wallet
 import BindEvmWallet from '@/components/web3/BindEvmWallet';
 import BindBtcWallet from '@/components/web3/BindBtcWallet';
 import { useFetchBuffAddress } from '@/hooks/events/useBuffAddress';
+import ReactGA from 'react-ga4';
 
 export default function BindConnect() {
   const isMainConnected = useIsMainConnected();
@@ -21,7 +22,10 @@ export default function BindConnect() {
         <Button
           type="pattern"
           className="h-[4.96vw] w-[16vw] border text-[1.28vw]/[1.92vw] font-semibold xl:h-[62px] xl:w-[200px] xl:text-base/6"
-          onClick={() => switchMainChain()}
+          onClick={() => {
+            ReactGA.event({ category: 'merlin', action: 'wrong_network' });
+            switchMainChain();
+          }}
         >
           Wrong Network
         </Button>

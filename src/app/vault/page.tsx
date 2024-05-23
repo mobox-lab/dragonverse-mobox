@@ -5,7 +5,7 @@ import Summary from './_components/Summary';
 
 export default function Vault() {
   return (
-    <div className="px-[3.2vw] pb-[3.84vw] xl:px-0 xl:pb-12">
+    <div className="px-[3.2vw] pb-[3.84vw] xl:pb-12">
       <img
         src={`${CDN_URL}/dragon-banner-08.webp`}
         alt=""

@@ -212,7 +212,10 @@ export default function RewardV3({ className }: { className?: string }) {
                   <Button
                     type="yellow"
                     className="h-[3.52vw] w-[16vw] font-semibold xl:h-11 xl:w-[200px]"
-                    onClick={() => switchMainChain()}
+                    onClick={() => {
+                      ReactGA.event({ category: 'merlin', action: 'wrong_network' });
+                      switchMainChain();
+                    }}
                   >
                     Wrong Network
                   </Button>

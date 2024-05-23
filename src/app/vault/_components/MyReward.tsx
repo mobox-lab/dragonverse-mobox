@@ -8,16 +8,17 @@ import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
+import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useEMDBLClaimSignature } from '@/hooks/stake/useEMDBLClaimSignature';
+import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
+import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
 import { useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
 import { formatNumber } from '@/utils';
 import { useSetAtom } from 'jotai';
+import { useState } from 'react';
+import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
 import RewardCountdown from './RewardCountdown';
-import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
-import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
-import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
-import { useState } from 'react';
 
 export default function MyReward() {
   const setRewardDetailDialog = useSetAtom(rewardDetailDialogAtom);
@@ -26,7 +27,7 @@ export default function MyReward() {
   const { evmAddress } = useMainAccount();
   const { totalAccruedBalance, accruedBalance, refetch } = useStakeContractRead();
 
-  const { data: obtain } = useFetchObtain();
+  const { data: obtain, nextLevel } = useFetchObtain();
   const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
   const { mutateAsync: claimGameAsset } = useClaimGameAsset();
   const [captureClaimLoading, setCaptureClaimLoading] = useState<boolean>(false);
@@ -57,6 +58,7 @@ export default function MyReward() {
       switchMainChain();
       return;
     }
+    ReactGA.event({ category: 'merlin', action: 'claim_emdbl' });
     const res = await mutateAsync();
     if (res?.code === 200) {
       const data = res.data;
@@ -101,7 +103,10 @@ export default function MyReward() {
           <p className="text-[1.28vw]/[1.76vw] font-semibold xl:text-base/5.5">My Reward</p>
           <p
             className="flex cursor-pointer items-center text-[1.28vw]/[1.76vw] font-semibold text-blue xl:text-base/5.5"
-            onClick={() => setRewardDetailDialog(true)}
+            onClick={() => {
+              ReactGA.event({ category: 'merlin', action: 'reward_detail' });
+              setRewardDetailDialog(true);
+            }}
           >
             Reward Detail <ArrowSvg className="h-[1.12vw] rotate-90 gap-[0.16vw] fill-blue xl:h-3.5 xl:gap-0.5" />
           </p>
@@ -114,7 +119,7 @@ export default function MyReward() {
           <div className="relative flex flex-grow flex-col items-center">
             <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Accrued eMDBL</div>
             <div className="flex-center mt-[0.96vw] xl:mt-3">
-              <img src="/img/mdbl.webp" alt="mdbl" className="w-[2.24vw] xl:w-7" />
+              <img src="/svg/emdbl.svg" alt="emdbl" className="h-[2.24vw] xl:h-7" />
               <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-medium text-yellow xl:ml-2 xl:text-3xl/11">
                 {formatNumber(accruedBalance, false)}
               </div>
@@ -139,13 +144,16 @@ export default function MyReward() {
             </Button>
             <p
               className="mt-2 cursor-pointer text-[1.28vw]/[1.76vw] font-semibold text-blue xl:text-base/5.5"
-              onClick={() => setRewardHistoryDialog(true)}
+              onClick={() => {
+                ReactGA.event({ category: 'merlin', action: 'reward_history' });
+                setRewardHistoryDialog(true);
+              }}
             >
               Reward History
             </p>
           </div>
         </div>
-        <div className="flex-center relative h-full border border-gray-600 bg-black/60 text-[0.96vw]/[1.6vw] font-medium text-gray-300 backdrop-blur-sm xl:text-xs/5">
+        {/* <div className="flex-center relative h-full border border-gray-600 bg-black/60 text-[0.96vw]/[1.6vw] font-medium text-gray-300 backdrop-blur-sm xl:text-xs/5">
           <PatternWithoutLine />
           <img
             draggable={false}
@@ -154,27 +162,42 @@ export default function MyReward() {
             className="absolute inset-0 h-full w-full object-cover"
           />
           More rewards revealing soon
-        </div>
-        {/* <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
+        </div> */}
+        <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
           <PatternWithoutLine />
           <img draggable={false} src="/img/reward-bg-power.webp" alt="mdbl" className="absolute left-0 top-0 h-full w-full" />
-          <div className="grid h-full w-full grid-cols-2">
-            <div className="flex-center relative h-full flex-col">
-              <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Stamina Limit</div>
+          <div className="flex h-full w-full">
+            <div className="flex-center relative ml-[5.12vw] h-full flex-col xl:ml-16">
+              <div className="flex items-center text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">
+                Stamina
+                <span className="ml-[0.64vw] text-[0.96vw]/[1.6vw] text-yellow xl:ml-2 xl:text-xs/5">
+                  (Basic: {obtain?.basicStamina || 0})
+                </span>
+              </div>
               <div className="flex-center mt-[0.96vw] xl:mt-3">
                 <img src="/img/game-power.webp" alt="game power" className="w-[2.24vw] xl:w-7" />
-                <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-medium text-yellow xl:ml-2 xl:text-3xl/11">
-                  {obtain?.stamina || 0}
+                <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-semibold text-yellow xl:ml-2 xl:text-3xl/11">
+                  +{obtain?.boostStamina || 0}
                 </div>
               </div>
-              <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
-                {`eMDBL balance  >= ${formatNumber(BigInt(obtain?.gameStaminaConfig.activeEmdbl || 0), false)}`}
-              </div>
+              {(obtain?.basicStamina || 0) === 0 ? (
+                <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
+                  You are not in the whitelist of this season.
+                </div>
+              ) : (
+                <div className="mt-[0.32vw] flex text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-1 xl:text-xs/5">
+                  Next Level: {formatNumber(BigInt(nextLevel?.eMDBL || 0), false)} active eMDBL {'->'}
+                  <img src="/img/game-power.webp" alt="game power" className="mx-[0.32vw] w-[1.6vw] xl:mx-1 xl:w-5" />
+                  <span className="font-semibold text-yellow">
+                    +{Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0)}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
-      {/* <p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Items</p>
+      <p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Items</p>
       <div className="mt-[0.96vw] grid grid-cols-2 gap-[1.92vw] xl:mt-3 xl:gap-6">
         <div className="grid grid-cols-2 gap-[1.92vw] xl:gap-6">
           <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
@@ -201,14 +224,17 @@ export default function MyReward() {
                 type="yellow-shallow"
                 loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
                 disabled={(gameAsset?.DragonCaptureBall.unclaim || 0) === 0}
-                onClick={() => claimAsset('CaptureBall')}
+                onClick={() => {
+                  ReactGA.event({ category: 'merlin', action: 'blue_snitch_claim' });
+                  claimAsset('CaptureBall');
+                }}
                 loading={captureClaimLoading}
               >
                 Claim
               </Button>
             </div>
           </div>
-          <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
+          {/* <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">
             <PatternWithoutLine />
             <img draggable={false} src="/img/reward-bg-egg.webp" alt="egg" className="absolute left-0 top-0 h-full w-full" />
             <div className="flex-center h-full flex-col">
@@ -227,15 +253,18 @@ export default function MyReward() {
                 type="yellow-shallow"
                 loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
                 disabled={(gameAsset?.DragonEgg.unclaim || 0) === 0}
-                onClick={() => claimAsset('DragonEgg')}
+                onClick={() => {
+                  ReactGA.event({ category: 'merlin', action: 'dragon_egg_claim' });
+                  claimAsset('DragonEgg');
+                }}
                 loading={eggClaimLoading}
               >
                 Claim
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

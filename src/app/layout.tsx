@@ -28,7 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <LeftSider />
             <Container>
               <div className="sticky z-50 flex items-center justify-end pt-[2.4vw] xl:container xl:pt-7.5">
-                <div className="px-[3.2vw] xl:px-0">
+                <div className="px-[3.2vw]">
                   <Web3Status />
                 </div>
               </div>

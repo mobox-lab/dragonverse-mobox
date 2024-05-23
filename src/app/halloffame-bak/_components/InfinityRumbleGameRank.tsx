@@ -1,17 +1,16 @@
 import LoadingSvg from '@/../public/svg/loading.svg?component';
-import RefreshSvg from '@/../public/svg/refresh.svg?component';
+import { GameRound, RankCurrentRound } from '@/apis/types';
 import RankTable from '@/components/ui/table/RankTable';
 import { GameRankType } from '@/constants/enum';
+import { useFetchGameRoundList } from '@/hooks/rank/useFetchGameRoundList';
 import { useFetchMoboxGameRank } from '@/hooks/rank/useFetchMoboxGameRank';
 import { useInfinityRumbleGameRankColumns } from '@/hooks/rank/useInfinityRumbleGameRankColumns';
+import { useMainAccount } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
+import dayjs from 'dayjs';
 import { useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ChangeRoundButton from './ChangeRoundButton';
-import { GameRound, RankCurrentRound } from '@/apis/types';
-import { useFetchGameRoundList } from '@/hooks/rank/useFetchGameRoundList';
-import dayjs from 'dayjs';
-import { useMainAccount } from '@/hooks/wallet';
 
 export default function InfinityRumbleGameRank({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
   const { evmAddress } = useMainAccount();
@@ -77,7 +76,7 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
 
   return (
     <div className={clsxm('flex w-full flex-col', className)}>
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex select-none items-center gap-[0.96vw] text-[1.28vw]/[1.44vw] xl:gap-3 xl:text-base/4.5">
           Round {currentRound?.round} :{' '}
           {currentRound
@@ -85,12 +84,7 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
             : null}
           <ChangeRoundButton roundList={roundList?.list ?? []} currentRound={currentRound} onChange={roundChange} />
         </div>
-        <div
-          onClick={() => refetch()}
-          className="flex-center h-[3.2vw] w-[3.2vw] cursor-pointer rounded bg-white/10 backdrop-blur-xl xl:h-10 xl:w-10"
-        >
-          <RefreshSvg className="h-[1.6vw] w-[1.6vw] fill-gray-300 stroke-gray-300 xl:h-5 xl:w-5" />
-        </div>
+        <p className="text-[0.96vw]/[1.6vw] font-medium xl:text-xs/5">Updated every 5 minutes</p>
       </div>
       <RankTable
         firstLineHighLight={!!evmAddress}

@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
 import { formatEther } from 'viem';
+import ReactGA from 'react-ga4';
 
 export default function Summary() {
   const [blocks, setBlocks] = useState<number>(0);
@@ -91,7 +92,10 @@ export default function Summary() {
           src="/img/guide-icon.webp"
           className="relative size-[7.68vw] xl:size-24"
           alt="Guide"
-          onClick={() => openLink('https://mbox.medium.com/introducing-mdbl-liquidity-yield-program-stage-1-840d82ad8138')}
+          onClick={() => {
+            ReactGA.event({ category: 'merlin', action: 'vault_guide' });
+            openLink('https://mbox.medium.com/introducing-mdbl-liquidity-yield-program-stage-1-840d82ad8138');
+          }}
         />
       </motion.div>
 

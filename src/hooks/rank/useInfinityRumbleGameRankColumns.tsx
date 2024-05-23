@@ -8,6 +8,7 @@ import { useMainAccount } from '../wallet';
 import { parseEther } from 'viem';
 import Tooltip from '@/components/ui/tooltip';
 import InfoSvg from '@/../public/svg/info.svg?component';
+import Decimal from 'decimal.js-light';
 
 const moGameFightHelper = createColumnHelper<FightRankItem>();
 
@@ -30,11 +31,11 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.accessor('gparkUserName', {
-        header: () => <p className={clsxm('w-17 flex-grow-[2] text-left')}>Name</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Name</p>,
         cell: ({ getValue, row }) => {
           const { gparkUserAvatar, rank } = row.original;
           return (
-            <p className={clsxm('flex w-17 flex-grow-[2] items-center truncate text-left')}>
+            <p className={clsxm('flex w-17 flex-grow-[3] items-center truncate text-left')}>
               {gparkUserAvatar ? (
                 <img alt="" src={gparkUserAvatar} className="mr-[0.32vw] aspect-square h-[1.6vw] xl:mr-1 xl:h-5" />
               ) : null}
@@ -44,15 +45,17 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.accessor('gparkUserAddress', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pl-[0.32vw] text-left xl:pl-1')}>Address</p>,
-        cell: ({ getValue }) => <p className={clsxm('w-17 flex-grow-[3] truncate text-left')}>{shortenAddress(getValue())}</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[3] pl-[0.64vw] text-left xl:pl-2')}>Address</p>,
+        cell: ({ getValue }) => (
+          <p className={clsxm('w-17 flex-grow-[3] truncate pl-[0.64vw] text-left xl:pl-2')}>{shortenAddress(getValue())}</p>
+        ),
       }),
       moGameFightHelper.accessor('grade', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Tier</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[1] text-left')}>Tier</p>,
         cell: ({ getValue, row }) => {
           const { rank } = row.original;
           const grade = GameRumbleGrade[getValue()];
-          return <p className={clsxm('w-17 flex-grow-[3] truncate text-left')}>{rank === -1 ? '--' : grade}</p>;
+          return <p className={clsxm('w-17 flex-grow-[1] truncate text-left')}>{rank === -1 ? '--' : grade}</p>;
         },
       }),
       moGameFightHelper.accessor('gradeOriginalPower', {
@@ -92,7 +95,7 @@ export const useInfinityRumbleGameRankColumns = () => {
         header: () => (
           <p
             className={clsxm(
-              'flex w-20 flex-grow-[4] items-center justify-end gap-[0.32vw] font-semibold text-yellow xl:gap-1',
+              'flex w-20 flex-grow-[3] items-center justify-end gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
@@ -122,7 +125,7 @@ export const useInfinityRumbleGameRankColumns = () => {
                   <div className="flex flex-col items-center">
                     <div className="text-[0.96vw]/[2.24vw] xl:text-xs/7">Total</div>
                     <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                      {(buff?.totalBuff || 0) * 100}%
+                      {new Decimal(buff?.totalBuff || 0).times(100).toNumber()}%
                     </div>
                   </div>
                   <div className="h-[3.2vw] w-[1px] bg-yellow/50 xl:h-10"></div>
@@ -130,31 +133,31 @@ export const useInfinityRumbleGameRankColumns = () => {
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/dark-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.dark || 0) * 100}%
+                        {new Decimal(buff?.dark || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/fire-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.fire || 0) * 100}%
+                        {new Decimal(buff?.fire || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/water-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.water || 0) * 100}%
+                        {new Decimal(buff?.water || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/forest-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.wood || 0) * 100}%
+                        {new Decimal(buff?.wood || 0).times(100).toNumber()}%
                       </div>
                     </div>
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/svg/mountain-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                        {(buff?.ground || 0) * 100}%
+                        {new Decimal(buff?.ground || 0).times(100).toNumber()}%
                       </div>
                     </div>
                   </div>
@@ -174,13 +177,13 @@ export const useInfinityRumbleGameRankColumns = () => {
       }),
       moGameFightHelper.display({
         id: 'reward',
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pr-4')}>Reward</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[6] pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const { emdblReward, mdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[3] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
+                'flex w-17 flex-grow-[6] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
               )}
             >
               <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">

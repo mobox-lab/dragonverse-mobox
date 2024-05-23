@@ -416,27 +416,15 @@ export type RankCurrentRound = {
     round: number;
     startTime: number;
     endTime: number;
-    currentReward: CurrentReward;
-    nextReward: NextReward;
-    participantCnt: number;
-    nextParticipantCnt: number;
-    rewardRatio: RewardRatio;
+    PetReward: {
+      mdbl: number;
+      emdbl: number;
+    };
+    FightReward: {
+      mdbl: number;
+      emdbl: number;
+    };
   };
-};
-
-export type CurrentReward = {
-  mdbl: number;
-  emdbl: number;
-};
-
-export type NextReward = {
-  mdbl: number;
-  emdbl: number;
-};
-
-export type RewardRatio = {
-  pet: number;
-  fight: number;
 };
 
 export type BuffData = {
@@ -489,15 +477,16 @@ export type DragonPalConfigList = {
 
 export type ObtainData = {
   walletAddress: string;
-  stamina: number;
-  activeEmdbl: string;
   gameStaminaRecoverySec: number;
-  gameStaminaConfig: GameStaminaConfig;
+  stamina: number;
+  basicStamina: number;
+  boostStamina: number;
+  gameStaminaConfig: GameStaminaConfig[];
 };
 
 export type GameStaminaConfig = {
-  activeEmdbl: string;
-  stamina: number;
+  eMDBL: number;
+  stamina: number | string;
 };
 
 export type GameAsset = {

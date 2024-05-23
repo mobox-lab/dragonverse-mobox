@@ -3,6 +3,7 @@ import { GameRound } from '@/apis/types';
 import Popover from '@/components/ui/popover';
 import { clsxm } from '@/utils';
 import { useState } from 'react';
+import ReactGA from 'react-ga4';
 
 export default function ChangeRoundButton({
   roundList,
@@ -21,16 +22,17 @@ export default function ChangeRoundButton({
       placement="bottom-start"
       className="xl"
       render={() => (
-        <div className="w-[16vw] items-start border border-gray-600 bg-gray-750 px-[0.48vw] xl:w-[200px] xl:p-1.5">
+        <div className="flex flex-col items-start gap-[0.32vw] border border-gray-600 bg-gray-750 px-[0.48vw] xl:gap-1 xl:p-1.5">
           {roundList.map((item) => {
             return (
               <div
                 key={item.round}
                 className={clsxm(
-                  'cursor-pointer rounded-[0.16vw] px-[0.8vw] py-[0.64vw] text-left hover:bg-white/10 xl:rounded-sm xl:px-2.5 xl:py-2',
+                  'cursor-pointer rounded-[0.16vw] px-[0.8vw] py-[0.64vw] text-left text-[0.96vw]/[1.44vw] hover:bg-white/10 xl:rounded-sm xl:px-2.5 xl:py-2 xl:text-xs/4.5',
                   { 'bg-white/10': currentRound?.round === item.round },
                 )}
                 onClick={() => {
+                  ReactGA.event({ category: 'merlin', action: 'round_switch', label: item.round.toString() });
                   onChange?.(item);
                   setIsOpen(false);
                 }}

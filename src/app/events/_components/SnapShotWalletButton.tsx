@@ -1,20 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
-import { useSetAtom } from 'jotai/index';
-import { shortenAddress } from '@/utils';
+import ArrowSVG from '@/../public/svg/arrow-02.svg?component';
+import ClipSVG from '@/../public/svg/clip.svg?component';
 import { SnapShotData } from '@/apis/types';
+import { mainWalletConnectDialogAtom } from '@/atoms';
+import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
 import Popover from '@/components/ui/popover';
-import { useCopyToClipboard } from 'react-use';
-import { mainWalletConnectDialogAtom } from '@/atoms';
-import ClipSVG from '@/../public/svg/clip.svg?component';
 import BindEvmWallet from '@/components/web3/BindEvmWallet';
-import ArrowSVG from '@/../public/svg/arrow-02.svg?component';
 import { useIsMainConnected, useMainChain } from '@/hooks/wallet';
-import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import { shortenAddress } from '@/utils';
+import { motion } from 'framer-motion';
+import { useSetAtom } from 'jotai/index';
+import { useState } from 'react';
+import ReactGA from 'react-ga4';
+import { toast } from 'react-toastify';
+import { useCopyToClipboard } from 'react-use';
 
 type SnapShotWalletButtonProps = {
   data?: SnapShotData;
@@ -33,7 +34,10 @@ export default function SnapShotWalletButton({ data }: SnapShotWalletButtonProps
         <Button
           type="pattern"
           className="h-[4.96vw] w-[16vw] border text-[1.28vw]/[1.92vw] font-semibold xl:h-[62px] xl:w-[200px] xl:text-base/6"
-          onClick={() => switchMainChain()}
+          onClick={() => {
+            ReactGA.event({ category: 'merlin', action: 'wrong_network' });
+            switchMainChain();
+          }}
         >
           Wrong Network
         </Button>

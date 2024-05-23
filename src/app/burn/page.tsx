@@ -87,7 +87,7 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
                       10,500,000
                     </div>
                   </div>
-                  <img src="/img/mdbl.webp" alt="mdbl" className="size-[3.84vw] xl:size-12" />
+                  <img src="/svg/emdbl.svg" alt="emdbl" className="h-[3.84vw] xl:h-12" />
                 </div>
                 <div className="mt-[2.56vw] flex items-center justify-between xl:mt-8">
                   <div className="text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">You Burned</div>
@@ -120,7 +120,7 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
                     <div className="text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5">
                       {formatNumber(userReward[4], false)}
                     </div>
-                    <img src="/img/mdbl.webp" alt="mdbl" className="size-[1.6vw] xl:size-5" />
+                    <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
                   </div>
                 </div>
                 <Button

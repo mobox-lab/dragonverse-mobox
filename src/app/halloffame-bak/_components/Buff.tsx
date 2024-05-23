@@ -337,20 +337,29 @@ const Buff: React.FunctionComponent<BuffProps> = (props) => {
       <div className="mt-[0.96vw] grid grid-cols-2 gap-[1.76vw] xl:mt-3 xl:gap-5.5">
         <div className="relative flex h-[15.04vw] flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:pt-5">
           <PatternWithoutLine />
-          <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Total $MDBL</div>
-          <div className="mt-[2.56vw] flex items-center justify-center xl:mt-8">
-            <img src="/img/mdbl.webp" alt="mdbl" className="w-[2.24vw] xl:w-7" />
+          <img src="/img/rank-reward-bg.webp" alt="mdbl" className="absolute left-0 top-0 h-full w-full" />
+
+          <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">$MDBL</div>
+          <div className="flex-center flex-1 text-center text-[1.12vw]/[1.6vw] text-gray-300 xl:text-sm/5">
+            Will be revealed at the end of the season.
+          </div>
+          {/* <div className="mt-[2.56vw] flex items-center justify-center xl:mt-8">
+            <img src="/img/mdbl.webp" alt="mdbl" className="h-[2.24vw] xl:h-7" />
             <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
               {formatNumber(1000000000000000000000n, false)}
             </div>
           </div>
-          <div className="mt-[2.88vw] text-[0.96vw]/[1.6vw] xl:mt-9 xl:text-xs/5">Will be airdropped to your wallet.</div>
+          <div className="mt-[2.88vw] text-[0.96vw]/[1.6vw] xl:mt-9 xl:text-xs/5">Will be airdropped to your wallet.</div> */}
         </div>
         <div className="relative flex h-[15.04vw] flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:pt-5">
           <PatternWithoutLine />
+          <img src="/img/rank-reward-bg.webp" alt="mdbl" className="absolute left-0 top-0 h-full w-full" />
           <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">eMDBL</div>
-          <div className="mt-[2.56vw] flex items-center justify-center xl:mt-8">
-            <img src="/img/mdbl.webp" alt="mdbl" className="w-[2.24vw] xl:w-7" />
+          <div className="flex-center flex-1 text-center text-[1.12vw]/[1.6vw] text-gray-300 xl:text-sm/5">
+            Will be revealed at the end of the season.
+          </div>
+          {/* <div className="mt-[2.56vw] flex items-center justify-center xl:mt-8">
+            <img src="/svg/emdbl.svg" alt="emdbl" className="h-[2.24vw] xl:h-7" />
             <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
               {formatNumber(1000000000000000000000n, false)}
             </div>
@@ -361,7 +370,7 @@ const Buff: React.FunctionComponent<BuffProps> = (props) => {
             loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
           >
             Claim
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
