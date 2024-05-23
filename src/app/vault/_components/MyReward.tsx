@@ -184,7 +184,10 @@ export default function MyReward() {
                   Next Level: {formatNumber(BigInt(nextLevel?.eMDBL || 0), false)} active eMDBL {'->'}
                   <img src="/img/game-power.webp" alt="game power" className="mx-[0.32vw] w-[1.6vw] xl:mx-1 xl:w-5" />
                   <span className="font-semibold text-yellow">
-                    +{Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0)}
+                    +
+                    {nextLevel
+                      ? Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0)
+                      : 0}
                   </span>
                 </div>
               )}
