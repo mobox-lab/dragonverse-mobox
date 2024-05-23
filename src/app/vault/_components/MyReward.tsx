@@ -179,15 +179,18 @@ export default function MyReward() {
                 <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
                   You are not in the whitelist of this season.
                 </div>
-              ) : (
+              ) : nextLevel ? (
                 <div className="mt-[0.32vw] flex text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-1 xl:text-xs/5">
                   Next Level: {formatNumber(BigInt(nextLevel?.eMDBL || 0), false)} active eMDBL {'->'}
                   <img src="/img/game-power.webp" alt="game power" className="mx-[0.32vw] w-[1.6vw] xl:mx-1 xl:w-5" />
                   <span className="font-semibold text-yellow">
-                    +{Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0)}
+                    +
+                    {nextLevel
+                      ? Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0)
+                      : 0}
                   </span>
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
