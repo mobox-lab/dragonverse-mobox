@@ -17,6 +17,7 @@ import { useCopyToClipboard, useLocalStorage } from 'react-use';
 import { useAccount } from 'wagmi';
 
 interface DragonKeyProps {}
+
 const md5Value = '27274c2a5b337298e05c7283662fdb00';
 const sha1Value = '13443058a32df4bd5a2c1b734107853b133fccb9';
 const downloadDisabled = false;
@@ -105,8 +106,8 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
             </p>
           </div>
           {!tipOpened && (
-            <div className="mt-[1.28vw] flex w-[28vw] items-center gap-[0.48vw] rounded-sm bg-blue-300/30 px-[0.96vw] py-[0.64vw] text-[0.96vw]/[1.6vw] font-medium xl:mt-4 xl:w-[350px] xl:gap-1.5 xl:px-3 xl:py-2 xl:text-xs/5">
-              It is recommended to reinstall the client for optimal game experience.
+            <div className="mt-[1.28vw] flex w-[28vw] items-center justify-between rounded-sm bg-blue-300/30 px-[0.64vw] py-[0.48vw] text-[0.96vw]/[1.6vw] font-medium xl:mt-4 xl:w-[350px] xl:px-2 xl:py-1.5 xl:text-xs/5">
+              It is recommended to reinstall for better experience.
               <CloseSvg onClick={() => setTipOpened(true)} className="size-[0.96vw] stroke-white xl:size-3" />
             </div>
           )}
