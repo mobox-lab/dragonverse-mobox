@@ -24,9 +24,6 @@ export function useFetchObtain() {
         return value;
       });
       const jsonData: GameStaminaConfig[] = JSON.parse(jsonString);
-      console.log(jsonData);
-      console.log(data);
-
       const stamina = data.stamina;
 
       const nextLevel = jsonData.find((item) => parseInt(item.stamina.toString(), 10) > stamina);
