@@ -168,16 +168,11 @@ export default function MyReward() {
           <img draggable={false} src="/img/reward-bg-power.webp" alt="mdbl" className="absolute left-0 top-0 h-full w-full" />
           <div className="flex h-full w-full">
             <div className="flex-center relative ml-[5.12vw] h-full flex-col xl:ml-16">
-              <div className="flex items-center text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">
-                Stamina
-                <span className="ml-[0.64vw] text-[0.96vw]/[1.6vw] text-yellow xl:ml-2 xl:text-xs/5">
-                  (Basic: {obtain?.basicStamina || 0})
-                </span>
-              </div>
+              <div className="flex items-center text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Stamina</div>
               <div className="flex-center mt-[0.96vw] xl:mt-3">
                 <img src="/img/game-power.webp" alt="game power" className="w-[2.24vw] xl:w-7" />
                 <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-semibold text-yellow xl:ml-2 xl:text-3xl/11">
-                  +{obtain?.boostStamina || 0}
+                  {obtain?.stamina || 0}
                 </div>
               </div>
               {(obtain?.basicStamina || 0) === 0 ? (
@@ -189,7 +184,7 @@ export default function MyReward() {
                   Next Level: {formatNumber(BigInt(nextLevel?.eMDBL || 0), false)} active eMDBL {'->'}
                   <img src="/img/game-power.webp" alt="game power" className="mx-[0.32vw] w-[1.6vw] xl:mx-1 xl:w-5" />
                   <span className="font-semibold text-yellow">
-                    +{Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0)}
+                    +{Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0)}
                   </span>
                 </div>
               )}
