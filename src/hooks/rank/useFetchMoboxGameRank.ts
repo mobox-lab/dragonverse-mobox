@@ -25,13 +25,13 @@ export const useFetchMoboxGameRank = (type?: GameRankType, round?: number) => {
   const { evmAddress } = useMainAccount();
   const { data, isLoading, hasNextPage, isFetchingNextPage, refetch, fetchNextPage } = useInfiniteQuery({
     queryKey: [key, type, round],
-    initialPageParam: 1,
+    initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
-      let res = await fn({ page: pageParam, round, address: evmAddress });
+      let res = await fn({ page: pageParam + 1, round, address: evmAddress });
       return res?.data;
     },
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage?.rank?.length === 20) {
+      if (lastPage?.list?.length === 20) {
         return pages.length;
       } else {
         return null;
