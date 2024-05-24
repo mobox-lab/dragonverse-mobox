@@ -13,14 +13,20 @@ import { motion } from 'framer-motion';
 import { clickableMotionProps } from '@/utils/motionAnim';
 import { openLink } from '@/utils';
 import ReactGA from 'react-ga4';
+import useCountdown from '@/hooks/useCountdown';
 
 interface HallOfFameProps {}
 
 const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
   const { data } = useFetchRankCurrentRound();
+  const timeLeft = useCountdown(data?.gameRoundInfo.endTime, 1000, '');
   return (
     <div className={clsx('px-[5vw] pb-12 sm:px-[20px]')}>
-      <img src={`${CDN_URL}/dragon-banner-03.jpg`} alt="dragon" className="absolute left-0 top-10 -z-10 h-auto w-full" />
+      <img
+        src={`${CDN_URL}/dragon-banner-03.jpg`}
+        alt="dragon"
+        className="absolute left-1/2 top-10 -z-10 h-auto w-full max-w-[1536px] -translate-x-1/2 transform"
+      />
       <img
         src="/img/rank-title.webp"
         alt="Hall of Fame"
@@ -56,7 +62,7 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
       </div> */}
       {/* <Process type="pet" total={data?.gameRoundInfo.nextParticipantCnt} current={data?.gameRoundInfo.participantCnt} /> */}
 
-      <motion.div className="mt-[16.64vw] size-[7.68vw] cursor-pointer xl:mt-[208px] xl:size-24" {...clickableMotionProps()}>
+      <motion.div className="mt-[15.04vw] size-[7.68vw] cursor-pointer xl:mt-[154px] xl:size-24" {...clickableMotionProps()}>
         <img
           draggable={false}
           src="/img/guide-icon.webp"
@@ -68,7 +74,11 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
           }}
         />
       </motion.div>
-      <GameRankTab className="mb-7.5 mt-[2.88vw] xl:mt-9" roundInfo={data} />
+      <div className="mt-[2.88] flex items-center text-[1.28vw]/[1.6vw] xl:mt-9 xl:text-base/5">
+        Season {data?.gameRoundInfo?.round || 1}
+        <span className="ml-[0.96vw] text-[1.6vw]/[1.92vw] font-semibold text-yellow xl:ml-3 xl:text-xl/6">{timeLeft}</span>
+      </div>
+      <GameRankTab className="mb-7.5 mt-[1.28vw] xl:mt-4" roundInfo={data} />
       <div className="relative mt-[2.88vw] w-full border border-gray-600 bg-black/60 backdrop-blur-sm xl:mt-9">
         <PatternWithoutLine />
         <GameRank roundInfo={data} />

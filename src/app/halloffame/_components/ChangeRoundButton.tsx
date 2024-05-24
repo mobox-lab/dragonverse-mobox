@@ -37,7 +37,7 @@ export default function ChangeRoundButton({
                   setIsOpen(false);
                 }}
               >
-                Round {item.round}
+                Season {item.round}
               </div>
             );
           })}

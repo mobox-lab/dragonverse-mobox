@@ -1,14 +1,13 @@
-import GradeSvg from '@/../public/svg/grade.svg?component';
+import InfoSvg from '@/../public/svg/info.svg?component';
 import { FightRankItem } from '@/apis/types';
+import Tooltip from '@/components/ui/tooltip';
 import { GameRumbleGrade } from '@/constants/enum';
 import { clsxm, formatNumber, shortenAddress } from '@/utils';
 import { createColumnHelper } from '@tanstack/react-table';
-import { useMemo } from 'react';
-import { useMainAccount } from '../wallet';
-import { parseEther } from 'viem';
-import Tooltip from '@/components/ui/tooltip';
-import InfoSvg from '@/../public/svg/info.svg?component';
 import Decimal from 'decimal.js-light';
+import { useMemo } from 'react';
+import { parseEther } from 'viem';
+import { useMainAccount } from '../wallet';
 
 const moGameFightHelper = createColumnHelper<FightRankItem>();
 
@@ -60,22 +59,8 @@ export const useInfinityRumbleGameRankColumns = () => {
       }),
       moGameFightHelper.accessor('gradeOriginalPower', {
         header: () => (
-          <p className={clsxm('flex w-17 flex-grow-[3] items-center justify-end gap-[0.32vw] xl:gap-1')}>
-            Original Points
-            <Tooltip
-              className="w-[39.28vw] xl:w-[491px]"
-              title={
-                <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
-                  <li>{'You need to have at least one pet with ATK >= 60 to enter the leaderboard.'}</li>
-                  <li>ATK will be boosted based on your Buffs.</li>
-                  <li>Rankings are ultimately determined by the boosted ATK.</li>
-                </ul>
-              }
-            >
-              <span className="cursor-pointer">
-                <InfoSvg className="size-[1.12vw] stroke-white xl:size-3.5" />
-              </span>
-            </Tooltip>
+          <p className={clsxm('flex w-17 flex-grow-[3] items-center justify-end gap-[0.32vw] pr-[3.52vw] xl:gap-1 xl:pr-11')}>
+            Rumble Points
           </p>
         ),
         cell: ({ getValue, row }) => {
@@ -83,7 +68,7 @@ export const useInfinityRumbleGameRankColumns = () => {
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[3] items-center justify-end gap-1 truncate text-[0.96vw]/[1.44vw] xl:text-xs/4.5',
+                'flex w-17 flex-grow-[3] items-center justify-end gap-1 truncate pr-[3.52vw] text-[0.96vw]/[1.44vw] xl:pr-11 xl:text-xs/4.5',
               )}
             >
               {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
@@ -99,14 +84,13 @@ export const useInfinityRumbleGameRankColumns = () => {
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
-            Buffed Points
+            Boosted Rumble Points
             <Tooltip
-              className="w-[39.28vw] xl:w-[491px]"
               title={
                 <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
-                  <li>{'You need to have at least one pet with ATK >= 60 to enter the leaderboard.'}</li>
-                  <li>ATK will be boosted based on your Buffs.</li>
-                  <li>Rankings are ultimately determined by the boosted ATK.</li>
+                  <li>At least 1 Rumble Point required to enter the leaderboard</li>
+                  <li>Dragonpal buffs can boost Rumble Points by percentage</li>
+                  <li>Leaderboard rankings are determined by Boosted Rumble Points</li>
                 </ul>
               }
             >
@@ -166,7 +150,7 @@ export const useInfinityRumbleGameRankColumns = () => {
             >
               <p
                 className={clsxm(
-                  'flex w-17 flex-grow-[3] items-center justify-end gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
+                  'flex w-20 flex-grow-[3] items-center justify-end gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
                 )}
               >
                 {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
@@ -176,24 +160,20 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.display({
-        id: 'reward',
-        header: () => <p className={clsxm('w-17 flex-grow-[6] pr-4')}>Reward</p>,
+        id: 'emdblReward',
+        header: () => <p className={clsxm('w-17 flex-grow-[3] pr-4')}>Reward</p>,
         cell: ({ row }) => {
-          const { emdblReward, mdblReward, rank } = row.original;
+          const { emdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[6] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
+                'flex w-17 flex-grow-[3] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
               )}
             >
-              <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
-                {rank <= 0 ? '--' : formatNumber(BigInt(emdblReward || 0), false)}
+              <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
+                {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
               </span>
               <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
-              <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                {rank <= 0 ? '--' : formatNumber(BigInt(mdblReward || 0), false)}
-              </span>
-              <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
             </p>
           );
         },

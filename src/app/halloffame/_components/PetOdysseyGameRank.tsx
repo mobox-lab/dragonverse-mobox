@@ -78,7 +78,7 @@ export default function PetOdysseyGameRank({ className, roundInfo }: { className
     <div className={clsxm('flex w-full flex-col', className)}>
       <div className="flex items-center justify-between">
         <div className="flex select-none items-center gap-[0.96vw] text-[1.28vw]/[1.44vw] xl:gap-3 xl:text-base/4.5">
-          Round {currentRound?.round} :{' '}
+          Season {currentRound?.round} :{' '}
           {currentRound
             ? `${dayjs(currentRound.startTime).format('MMM DD')} - ${dayjs(currentRound.endTime).format('MMM DD')}`
             : null}

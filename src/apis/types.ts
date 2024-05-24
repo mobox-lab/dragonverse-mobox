@@ -424,6 +424,22 @@ export type RankCurrentRound = {
       mdbl: number;
       emdbl: number;
     };
+    petTopReward: {
+      mdbl: number;
+      emdbl: number;
+    };
+    petBasicReward: {
+      mdbl: number;
+      emdbl: number;
+    };
+    fightTopReward: {
+      mdbl: number;
+      emdbl: number;
+    };
+    fightBasicReward: {
+      mdbl: number;
+      emdbl: number;
+    };
   };
 };
 

@@ -36,7 +36,7 @@ export default function Web3Status() {
     return (
       <div className="flex-center gap-3.5">
         <Web3StatusInner />
-        {/* <WalletAssets /> */}
+        {/*<WalletAssets />*/}
       </div>
     );
   }
