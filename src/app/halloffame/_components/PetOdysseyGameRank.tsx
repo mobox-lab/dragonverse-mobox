@@ -80,7 +80,7 @@ export default function PetOdysseyGameRank({ className, roundInfo }: { className
         <div className="flex select-none items-center gap-[0.96vw] text-[1.28vw]/[1.44vw] xl:gap-3 xl:text-base/4.5">
           Season {currentRound?.round} :{' '}
           {currentRound
-            ? `${dayjs(currentRound.startTime).format('MMM DD')} - ${dayjs(currentRound.endTime).format('MMM DD')}`
+            ? `${dayjs(currentRound.startTime * 1000).format('MMM DD')} - ${dayjs(currentRound.endTime * 1000).format('MMM DD')}`
             : null}
           <ChangeRoundButton roundList={roundList?.list ?? []} currentRound={currentRound} onChange={roundChange} />
         </div>
