@@ -63,6 +63,13 @@ export function useBurnContractRead() {
         functionName: 'getUsereMDBLRewardData',
         args: evmAddress ? [evmAddress as Address] : undefined,
       },
+      {
+        chainId,
+        address: batchBurn,
+        abi: BatchBurnABI,
+        functionName: 'isClaimed', // merl isClaim
+        args: evmAddress ? [evmAddress as Address, 1n] : undefined,
+      },
     ],
     query: { refetchInterval: 6_000, enabled: !!evmAddress },
   });
@@ -77,6 +84,7 @@ export function useBurnContractRead() {
       isReceiveOpen: data?.[1].result ?? false,
       isEMDBLClaim: userData?.[4].result ?? false,
       userReward: userData?.[5].result ?? [0n, 0n, 0n, 0n, 0n],
+      isMERLClaim: userData?.[6].result ?? false,
     };
   }, [userData, data]);
 }

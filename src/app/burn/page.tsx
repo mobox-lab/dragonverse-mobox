@@ -8,20 +8,55 @@ import { CDN_URL } from '@/constants';
 import { useBurnContractRead } from '@/hooks/burn/burnContractRead';
 import useCountdown from '@/hooks/useCountdown';
 import { useSetAtom } from 'jotai';
-import { formatEther, parseEther } from 'viem';
+import { Address, formatEther, parseEther } from 'viem';
 import SnapShotWalletButton from '../events/_components/SnapShotWalletButton';
 import RewardTable from './_components/RewardTable';
 import { formatNumber } from '@/utils';
 import { useClaimBurnEMDBLReward } from '@/hooks/burn/useClaimBurnReward';
 import Decimal from 'decimal.js-light';
+import { getMerlProofByAddress } from '@/utils/reward';
+import { useMainAccount, useMainWriteContract } from '@/hooks/wallet';
+import { toast } from 'react-toastify';
+import { CONTRACT_ADDRESSES } from '@/constants/contracts';
+import { BatchBurnABI } from '@/abis';
 
 interface BurnProps {}
 
 const Burn: React.FunctionComponent<BurnProps> = (props) => {
-  const { totalBurn, balance, userBurn, isReceiveOpen, isEMDBLClaim, userReward } = useBurnContractRead();
+  const { totalBurn, balance, userBurn, isReceiveOpen, isEMDBLClaim, userReward, isMERLClaim } = useBurnContractRead();
   const countdown = useCountdown(1716624000, 1000, '');
   const setBurnOpen = useSetAtom(burnDragonBallDialogAtom);
   const { write, isLoading } = useClaimBurnEMDBLReward();
+  const { writeContract, isLoading: merlClaimIsLoading } = useMainWriteContract({
+    onError: (error) => {
+      if (error?.name === 'UserRejected') {
+        return;
+      }
+      if (error?.name === 'EstimateGasExecutionError') {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Network error, please try again later');
+    },
+    onSuccess: (data) => {
+      if (!data) return;
+      const log = data[0];
+      toast.success('Claim succeeded');
+    },
+  });
+  const { evmAddress } = useMainAccount();
+  const claim = async () => {
+    const proofData = getMerlProofByAddress(evmAddress as Address);
+    if (proofData.value && proofData.proof) {
+      const value = proofData.value;
+      const hash = await writeContract({
+        abi: BatchBurnABI,
+        functionName: 'usersReceiveMERLRewards',
+        args: [value[0], value[2], proofData.proof],
+        address: CONTRACT_ADDRESSES.batchBurn,
+      });
+    }
+  };
   return (
     <div>
       <img
@@ -160,7 +195,9 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
                   className="mt-[1.44vw] h-[3.52vw] w-full rounded-[0.16vw] py-0 text-[1.28vw]/[1.28vw] font-bold text-yellow xl:mt-4.5 xl:h-11 xl:rounded-sm xl:text-base/4"
                   type="yellow-shallow"
                   loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
-                  disabled
+                  loading={merlClaimIsLoading}
+                  onClick={claim}
+                  disabled={userBurn <= 0 || isMERLClaim}
                 >
                   Claim
                 </Button>
