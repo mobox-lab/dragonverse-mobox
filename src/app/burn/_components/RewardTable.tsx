@@ -4,13 +4,15 @@ import { DragonBallBurnRank } from '@/apis/types';
 import RankTable from '@/components/ui/table/RankTable';
 import { useFetchBurnRankData } from '@/hooks/burn/useFetchBurnRankData';
 import { useMERLRewardColumns } from '@/hooks/burn/useMERLRewardColumns';
-
+import { useSetAtom } from 'jotai';
+import { isInBurnRankAtom } from '@/atoms/burn';
 
 export default function RewardTable() {
   const { evmAddress } = useMainAccount();
   const firstLineHighLight = useMemo(() => !!evmAddress, [evmAddress]);
   const { data: fetchData } = useFetchBurnRankData();
   const columns = useMERLRewardColumns(firstLineHighLight);
+  const setIsInBurnRank = useSetAtom(isInBurnRankAtom);
 
   const calcData = useMemo(() => {
     const data = fetchData?.length ? fetchData : [];
@@ -18,13 +20,15 @@ export default function RewardTable() {
     const myDataIdx = data.findIndex((item) => item.evmAddress === evmAddress);
     const calcData: DragonBallBurnRank[] = [];
     if (myDataIdx === -1) {
+      setIsInBurnRank(false); //  
       calcData.push({ evmAddress });
       return calcData.concat(data);
     }
     const myData = data[myDataIdx];
+    setIsInBurnRank(true); //  
     calcData.push(myData);
     return calcData.concat(data);
-  }, [evmAddress, fetchData]);
+  }, [evmAddress, fetchData, setIsInBurnRank]);
 
   return (
     <RankTable
