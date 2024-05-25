@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { burnDragonBallDialogAtom } from '@/atoms/burn';
+import { burnDragonBallDialogAtom, isInBurnRankAtom } from '@/atoms/burn';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
 import { CDN_URL } from '@/constants';
 import { useBurnContractRead } from '@/hooks/burn/burnContractRead';
 import useCountdown from '@/hooks/useCountdown';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { Address, formatEther, parseEther } from 'viem';
 import SnapShotWalletButton from '../events/_components/SnapShotWalletButton';
 import RewardTable from './_components/RewardTable';
@@ -27,6 +27,7 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
   const countdown = useCountdown(1716624000, 1000, '');
   const setBurnOpen = useSetAtom(burnDragonBallDialogAtom);
   const { write, isLoading } = useClaimBurnEMDBLReward();
+  const isInBurnRank = useAtomValue(isInBurnRankAtom);
   const { writeContract, isLoading: merlClaimIsLoading } = useMainWriteContract({
     onError: (error) => {
       if (error?.name === 'UserRejected') {
@@ -197,7 +198,7 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
                   loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
                   loading={merlClaimIsLoading}
                   onClick={claim}
-                  disabled={userBurn <= 0 || isMERLClaim}
+                  disabled={userBurn <= 0 || isMERLClaim || !isInBurnRank}
                 >
                   Claim
                 </Button>
