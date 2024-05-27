@@ -183,7 +183,7 @@ export const usePetOdysseyGameRankColumns = () => {
                 )}
               >
                 <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
-                  9,{rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
+                  {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
                 </span>
                 <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
               </p>
@@ -203,7 +203,7 @@ export const usePetOdysseyGameRankColumns = () => {
               )}
             >
               <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                9,{rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
+                {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
               </span>
               <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
             </p>
