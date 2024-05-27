@@ -1,4 +1,4 @@
-import { DragonProposalSortField, DragonProposalState, GameRumbleGrade, TradeType } from '@/constants/enum';
+import { DragonProposalSortField, DragonProposalState, GameRumbleGrade, PetRarity, TradeType } from '@/constants/enum';
 import { PayTokenEnum } from '@/constants/hatch';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
@@ -543,7 +543,7 @@ export type PetRankItem = {
   gparkUserName: string;
   gparkUserAvatar: string;
   petName: string;
-  petRarity: number;
+  petRarity: PetRarity;
   petOriginalAttack: number;
   petAttack: number;
   recordTime: number;

@@ -1,7 +1,7 @@
 import LoadingSvg from '@/../public/svg/loading.svg?component';
 import { GameRound, RankCurrentRound } from '@/apis/types';
 import RankTable from '@/components/ui/table/RankTable';
-import { GameRankType } from '@/constants/enum';
+import { GameRankType, PetRarity } from '@/constants/enum';
 import { useFetchGameRoundList } from '@/hooks/rank/useFetchGameRoundList';
 import { useFetchMoboxGameRank } from '@/hooks/rank/useFetchMoboxGameRank';
 import { usePetOdysseyGameRankColumns } from '@/hooks/rank/usePetOdysseyGameRankColumns';
@@ -38,7 +38,7 @@ export default function PetOdysseyGameRank({ className, roundInfo }: { className
             gparkUserName: '',
             gparkUserAvatar: '',
             petName: '',
-            petRarity: 0,
+            petRarity: PetRarity.Common,
             petOriginalAttack: 0,
             petAttack: 0,
             recordTime: 0,
