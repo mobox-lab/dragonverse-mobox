@@ -17,10 +17,10 @@ export const useInfinityRumbleGameRankColumns = () => {
     () => [
       moGameFightHelper.display({
         id: 'Rank',
-        header: () => <p className="w-12 flex-grow pl-[1.28vw] text-left xl:pl-4">Rank</p>,
+        header: () => <p className="w-12 flex-grow pl-[1.28vw] text-center xl:pl-4">Rank</p>,
         cell: ({ row }) => {
           return (
-            <p className="w-12 flex-grow pl-[1.28vw] text-left xl:pl-4">
+            <p className="w-12 flex-grow pl-[1.28vw] text-center xl:pl-4">
               {row.original.rank <= 0 ? '--' : row.original.rank}
               {row.original.gparkUserAddress === evmAddress && (
                 <span className="ml-[0.64vw] font-semibold text-yellow xl:ml-2">You</span>
@@ -30,11 +30,11 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.accessor('gparkUserName', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Name</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[3] text-center')}>Name</p>,
         cell: ({ getValue, row }) => {
           const { gparkUserAvatar, rank } = row.original;
           return (
-            <p className={clsxm('flex w-17 flex-grow-[3] items-center truncate text-left')}>
+            <p className={clsxm('flex w-17 flex-grow-[3] items-center truncate text-center')}>
               {gparkUserAvatar ? (
                 <img alt="" src={gparkUserAvatar} className="mr-[0.32vw] aspect-square h-[1.6vw] xl:mr-1 xl:h-5" />
               ) : null}
@@ -44,22 +44,24 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.accessor('gparkUserAddress', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pl-[0.64vw] text-left xl:pl-2')}>Address</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[3] pl-[0.64vw] text-center xl:pl-2')}>Address</p>,
         cell: ({ getValue }) => (
-          <p className={clsxm('w-17 flex-grow-[3] truncate pl-[0.64vw] text-left xl:pl-2')}>{shortenAddress(getValue())}</p>
+          <p className={clsxm('w-17 flex-grow-[3] truncate pl-[0.64vw] text-center xl:pl-2')}>{shortenAddress(getValue())}</p>
         ),
       }),
       moGameFightHelper.accessor('grade', {
-        header: () => <p className={clsxm('w-17 flex-grow-[1] text-left')}>Tier</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[1] text-center')}>Tier</p>,
         cell: ({ getValue, row }) => {
           const { rank } = row.original;
           const grade = GameRumbleGrade[getValue()];
-          return <p className={clsxm('w-17 flex-grow-[1] truncate text-left')}>{rank === -1 ? '--' : grade}</p>;
+          return <p className={clsxm('w-17 flex-grow-[1] truncate text-center')}>{rank === -1 ? '--' : grade}</p>;
         },
       }),
       moGameFightHelper.accessor('gradeOriginalPower', {
         header: () => (
-          <p className={clsxm('flex w-17 flex-grow-[3] items-center justify-end gap-[0.32vw] pr-[3.52vw] xl:gap-1 xl:pr-11')}>
+          <p
+            className={clsxm('flex w-17 flex-grow-[3] items-center justify-center gap-[0.32vw] pr-[3.52vw] xl:gap-1 xl:pr-11')}
+          >
             Rumble Points
           </p>
         ),
@@ -68,7 +70,7 @@ export const useInfinityRumbleGameRankColumns = () => {
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[3] items-center justify-end gap-1 truncate pr-[3.52vw] text-[0.96vw]/[1.44vw] xl:pr-11 xl:text-xs/4.5',
+                'flex w-17 flex-grow-[3] items-center justify-center gap-1 truncate pr-[3.52vw] text-[0.96vw]/[1.44vw] xl:pr-11 xl:text-xs/4.5',
               )}
             >
               {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
@@ -80,7 +82,7 @@ export const useInfinityRumbleGameRankColumns = () => {
         header: () => (
           <p
             className={clsxm(
-              'flex w-20 flex-grow-[3] items-center justify-end gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
+              'flex w-20 flex-grow-[3] items-center justify-center gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
@@ -150,7 +152,7 @@ export const useInfinityRumbleGameRankColumns = () => {
             >
               <p
                 className={clsxm(
-                  'flex w-20 flex-grow-[3] items-center justify-end gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
+                  'flex w-20 flex-grow-[3] items-center justify-center gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
                 )}
               >
                 {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}

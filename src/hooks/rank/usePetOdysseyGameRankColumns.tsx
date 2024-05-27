@@ -1,7 +1,7 @@
 import InfoSvg from '@/../public/svg/info.svg?component';
 import { PetRankItem } from '@/apis/types';
 import Tooltip from '@/components/ui/tooltip';
-import { Rarity, rarityStyles } from '@/constants/enum';
+import { PetRarity, Rarity, petRarityStyles, rarityStyles } from '@/constants/enum';
 import { clsxm, formatNumber, shortenAddress } from '@/utils';
 import { createColumnHelper } from '@tanstack/react-table';
 import Decimal from 'decimal.js-light';
@@ -17,10 +17,10 @@ export const usePetOdysseyGameRankColumns = () => {
     () => [
       moGamePetRankHelper.display({
         id: 'Rank',
-        header: () => <p className="w-14 flex-grow pl-[1.28vw] text-left xl:pl-4">Rank</p>,
+        header: () => <p className="w-14 flex-grow pl-[1.28vw] text-center xl:pl-4">Rank</p>,
         cell: ({ row }) => {
           return (
-            <p className="w-14 flex-grow pl-[1.28vw] text-left xl:pl-4">
+            <p className="w-14 flex-grow pl-[1.28vw] text-center xl:pl-4">
               {row.original.rank <= 0 ? '--' : row.original.rank}
               {row.original.gparkUserAddress === evmAddress && (
                 <span className="ml-[0.64vw] font-semibold text-yellow xl:ml-2">You</span>
@@ -30,11 +30,11 @@ export const usePetOdysseyGameRankColumns = () => {
         },
       }),
       moGamePetRankHelper.accessor('gparkUserName', {
-        header: () => <p className={clsxm('w-17 flex-grow-[2] text-left')}>Name</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[2] text-center')}>Name</p>,
         cell: ({ getValue, row }) => {
           const { gparkUserAvatar, rank } = row.original;
           return (
-            <p className={clsxm('flex w-17 flex-grow-[2] items-center truncate text-left')}>
+            <p className={clsxm('flex w-17 flex-grow-[2] items-center truncate text-center')}>
               {gparkUserAvatar ? (
                 <img alt="" src={gparkUserAvatar} className="mr-[0.32vw] aspect-square h-[1.6vw] xl:mr-1 xl:h-5" />
               ) : null}
@@ -44,43 +44,43 @@ export const usePetOdysseyGameRankColumns = () => {
         },
       }),
       moGamePetRankHelper.accessor('gparkUserAddress', {
-        header: () => <p className={clsxm('w-20 flex-grow-[2] pl-[0.64vw] text-left xl:pl-2')}>Address</p>,
+        header: () => <p className={clsxm('w-20 flex-grow-[2] pl-[0.64vw] text-center xl:pl-2')}>Address</p>,
         cell: ({ getValue }) => (
-          <p className={clsxm('w-20 flex-grow-[2] truncate pl-[0.64vw] text-left xl:pl-2')}>{shortenAddress(getValue())}</p>
+          <p className={clsxm('w-20 flex-grow-[2] truncate pl-[0.64vw] text-center xl:pl-2')}>{shortenAddress(getValue())}</p>
         ),
       }),
-      moGamePetRankHelper.accessor('petName', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Pet Name</p>,
-        cell: ({ getValue, row }) => {
-          const { rank } = row.original;
-          return <p className={clsxm('w-17 flex-grow-[3] truncate text-left')}>{rank === -1 ? '--' : getValue()}</p>;
-        },
-      }),
+      // moGamePetRankHelper.accessor('petName', {
+      //   header: () => <p className={clsxm('w-17 flex-grow-[3] text-left')}>Pet Name</p>,
+      //   cell: ({ getValue, row }) => {
+      //     const { rank } = row.original;
+      //     return <p className={clsxm('w-17 flex-grow-[3] truncate text-left')}>{rank === -1 ? '--' : getValue()}</p>;
+      //   },
+      // }),
       moGamePetRankHelper.accessor('petRarity', {
-        header: () => <p className={clsxm('w-17 flex-grow-[1] text-left')}>Quality</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[1] text-center')}>Quality</p>,
         cell: ({ getValue, row }) => {
-          const rarity = getValue() - 1;
+          const rarity = getValue();
           const { rank } = row.original;
           return (
             <p
-              className={clsxm('w-17 flex-grow-[1] truncate text-left font-medium')}
-              style={{ color: rarityStyles[rarity as Rarity]?.color }}
+              className={clsxm('w-17 flex-grow-[1] truncate text-center font-medium')}
+              style={{ color: petRarityStyles[rarity]?.color }}
             >
-              {rank === -1 ? '--' : Rarity[rarity]}
+              {rank === -1 ? '--' : PetRarity[rarity]}
             </p>
           );
         },
       }),
       moGamePetRankHelper.accessor('petOriginalAttack', {
         header: () => (
-          <p className={clsxm('flex w-20 flex-grow-[2] items-center justify-end gap-[0.32vw] pr-[2.24vw] xl:gap-1 xl:pr-7')}>
+          <p className={clsxm('flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center xl:gap-1')}>
             Pet Score
           </p>
         ),
         cell: ({ getValue, row }) => {
           const { rank } = row.original;
           return (
-            <p className={clsxm('w-20 flex-grow-[2] pr-[2.24vw] xl:pr-7')}>
+            <p className={clsxm('w-20 flex-grow-[2] text-center')}>
               {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
             </p>
           );
@@ -90,7 +90,7 @@ export const usePetOdysseyGameRankColumns = () => {
         header: () => (
           <p
             className={clsxm(
-              'flex w-24 flex-grow-[5] items-center justify-end gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
+              'flex w-24 flex-grow-[5] items-center justify-center gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
@@ -160,7 +160,7 @@ export const usePetOdysseyGameRankColumns = () => {
             >
               <p
                 className={clsxm(
-                  'flex w-24 flex-grow-[5] items-center justify-end gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
+                  'flex w-24 flex-grow-[5] items-center justify-center gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
                 )}
               >
                 {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
@@ -172,18 +172,18 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'emdblReward',
-        header: () => <p className={clsxm('w-20 flex-grow-[5]')}> </p>,
+        header: () => <p className={clsxm('w-20 flex-grow-[3]')}> </p>,
         cell: ({ row }) => {
           const { emdblReward, rank } = row.original;
           return (
-            <div className="flex w-20 flex-grow-[5] justify-end">
+            <div className="flex w-20 flex-grow-[3] justify-end">
               <p
                 className={clsxm(
-                  '-mr-[1.28vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-4 xl:text-sm/4.5',
+                  '-mr-[2.56vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-8 xl:text-sm/4.5',
                 )}
               >
                 <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
-                  {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
+                  9,{rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
                 </span>
                 <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
               </p>
@@ -193,17 +193,17 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'mdblReward',
-        header: () => <p className={clsxm('w-24 flex-grow-[5] pr-[1.28vw] xl:pr-4')}>Reward</p>,
+        header: () => <p className={clsxm('w-24 flex-grow-[3] pr-[1.28vw] xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const { mdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-24 flex-grow-[5] items-center justify-end truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
+                'flex w-24 flex-grow-[3] items-center justify-end truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
               )}
             >
               <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
+                9,{rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
               </span>
               <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
             </p>
