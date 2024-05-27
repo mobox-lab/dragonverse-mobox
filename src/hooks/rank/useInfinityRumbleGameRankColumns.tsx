@@ -161,13 +161,13 @@ export const useInfinityRumbleGameRankColumns = () => {
       }),
       moGameFightHelper.display({
         id: 'emdblReward',
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pr-4')}>Reward</p>,
+        header: () => <p className={clsxm('w-17 flex-grow-[3] pr-[1.28vw] xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const { emdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[3] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
+                'flex w-17 flex-grow-[3] items-center justify-end truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
               )}
             >
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">

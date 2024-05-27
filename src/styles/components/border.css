@@ -1,0 +1,40 @@
+.border-with-triangle {
+  border: 1.12vw solid #ffe7ab80;
+  @apply border-b-transparent border-l-transparent border-r-transparent;
+  &::after {
+    content: '';
+    display: block;
+    border: 1.04vw solid #29251e;
+    position: absolute;
+    left: -1.04vw;
+    top: -1.2vw;
+    @apply border-b-transparent border-l-transparent border-r-transparent;
+  }
+}
+@media (min-width: 1280px) {
+  .border-with-triangle {
+    border-width: 14px;
+    &::after {
+      border-width: 13px;
+      left: -13px;
+      top: -15px;
+    }
+  }
+}
+
+.border-dragon {
+  border: 2.08vw solid;
+  border-image: url('/svg/dragon/border/dragon-border.svg');
+  border-image-slice: 26;
+}
+@media (min-width: 1280px) {
+  .border-dragon {
+    border-width: 26px;
+  }
+}
+
+.border-dragon-button {
+  border: 12px solid;
+  border-image: url('/svg/button-border.svg');
+  border-image-slice: 14;
+}

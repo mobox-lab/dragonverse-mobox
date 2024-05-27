@@ -1,4 +1,5 @@
 @import './globals.css';
+@import './components/border.css';
 @import './components/scrollbar.css';
 @import './components/toast.css';
 @import './components/recharts.css';
