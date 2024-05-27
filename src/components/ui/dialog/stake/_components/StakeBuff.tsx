@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { clsx } from 'clsx';
-import { useMainAccount } from '@/hooks/wallet';
-import ArrowSvg from '@/../public/svg/arrow-03.svg?component';
 import Arrow2Svg from '@/../public/svg/arrow-02.svg?component';
+import ArrowSvg from '@/../public/svg/arrow-03.svg?component';
 import { useFetchStakeBuff } from '@/hooks/stake/useFetchStakeBuff';
+import { useMainAccount } from '@/hooks/wallet';
+import { clsx } from 'clsx';
+import { useState } from 'react';
 
 const DRAGON_BUFF = [
   { icon: '/img/modragon-common.webp', text: 'Common', style: 'text-common' },
@@ -72,7 +72,9 @@ export default function StakeBuff() {
             {stakeBuff?.dragonTotalBuff ? (
               <div className="flex-center cursor-pointer gap-1.5 pl-8" onClick={onDetailClick}>
                 <p className="text-base font-medium text-yellow">{(stakeBuff?.dragonTotalBuff ?? 0) / 10}%</p>
-                <Arrow2Svg className={clsx('w-2 transition-all', isShowDetail ? 'rotate-180' : 'rotate-0')} />
+                <Arrow2Svg
+                  className={clsx('w-[0.64vw] fill-white transition-all xl:w-2', isShowDetail ? 'rotate-180' : 'rotate-0')}
+                />
               </div>
             ) : null}
           </div>
