@@ -90,7 +90,7 @@ export const usePetOdysseyGameRankColumns = () => {
         header: () => (
           <p
             className={clsxm(
-              'flex w-20 flex-grow-[4] items-center justify-end gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
+              'flex w-24 flex-grow-[5] items-center justify-end gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
@@ -160,7 +160,7 @@ export const usePetOdysseyGameRankColumns = () => {
             >
               <p
                 className={clsxm(
-                  'flex w-20 flex-grow-[4] items-center justify-end gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
+                  'flex w-24 flex-grow-[5] items-center justify-end gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
                 )}
               >
                 {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
@@ -172,11 +172,11 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'emdblReward',
-        header: () => <p className={clsxm('w-17 flex-grow-[6]')}> </p>,
+        header: () => <p className={clsxm('w-20 flex-grow-[5]')}> </p>,
         cell: ({ row }) => {
           const { emdblReward, rank } = row.original;
           return (
-            <div className="flex w-17 flex-grow-[6] justify-end">
+            <div className="flex w-20 flex-grow-[5] justify-end">
               <p
                 className={clsxm(
                   '-mr-[1.28vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-4 xl:text-sm/4.5',
@@ -193,16 +193,16 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'mdblReward',
-        header: () => <p className={clsxm('w-17 flex-grow-[6] pr-4')}>Reward</p>,
+        header: () => <p className={clsxm('w-24 flex-grow-[5] pr-[1.28vw] xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const { mdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[6] items-center justify-end truncate pr-4 text-[1.12vw]/[1.44vw] xl:text-sm/4.5',
+                'flex w-24 flex-grow-[5] items-center justify-end truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
               )}
             >
-              <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
+              <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
                 {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
               </span>
               <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />

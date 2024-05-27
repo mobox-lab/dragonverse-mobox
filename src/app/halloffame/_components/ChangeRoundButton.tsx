@@ -20,9 +20,8 @@ export default function ChangeRoundButton({
       open={isOpen}
       onOpenChange={setIsOpen}
       placement="bottom-start"
-      className="xl"
       render={() => (
-        <div className="flex flex-col items-start gap-[0.32vw] border border-gray-600 bg-gray-750 px-[0.48vw] xl:gap-1 xl:p-1.5">
+        <div className="flex flex-col items-center gap-[0.32vw] border border-gray-600 bg-gray-750 p-[0.48vw] xl:gap-1 xl:p-1.5">
           {roundList.map((item) => {
             return (
               <div
@@ -45,7 +44,7 @@ export default function ChangeRoundButton({
       )}
     >
       <div className="flex-center h-[3.2vw] w-[3.2vw] cursor-pointer rounded bg-white/10 backdrop-blur-xl xl:h-10 xl:w-10">
-        <Arrow2Svg className={clsxm('w-2.5 transition-all', isOpen ? 'rotate-0' : 'rotate-180')} />
+        <Arrow2Svg className={clsxm('w-[0.8vw] fill-white transition-all xl:w-2.5', isOpen ? 'rotate-0' : 'rotate-180')} />
       </div>
     </Popover>
   );

@@ -31,19 +31,6 @@ body {
     position: absolute;
     clip: rect(0 0 0 0);
   }
-  .border-with-triangle {
-    border: 14px solid #ffe7ab80;
-    @apply border-b-transparent border-l-transparent border-r-transparent;
-    &::after {
-      content: '';
-      display: block;
-      border: 13px solid #29251e;
-      position: absolute;
-      left: -13px;
-      top: -15px;
-      @apply border-b-transparent border-l-transparent border-r-transparent;
-    }
-  }
 }
 
 .rotate-container {
@@ -71,22 +58,6 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 @layer components {
-  .border-dragon {
-    border: 2.08vw solid;
-    border-image: url('/svg/dragon/border/dragon-border.svg');
-    border-image-slice: 26;
-  }
-  @media (min-width: 1280px) {
-    .border-dragon {
-      border-width: 26px;
-    }
-  }
-  .border-dragon-button {
-    border: 12px solid;
-    border-image: url('/svg/button-border.svg');
-    border-image-slice: 14;
-  }
-
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;

@@ -1,19 +1,17 @@
 'use client';
 
-import { CDN_URL } from '@/constants';
-import clsx from 'clsx';
-import DragonBorder from '../_components/DragonBorder';
-import GameRank from './_components/GameRank';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
-import Buff from './_components/Buff';
-import Process from './_components/Process';
+import { CDN_URL } from '@/constants';
 import { useFetchRankCurrentRound } from '@/hooks/rank/useFetchRankCurrentRound';
-import GameRankTab from './_components/GameRankTab';
-import { motion } from 'framer-motion';
-import { clickableMotionProps } from '@/utils/motionAnim';
-import { openLink } from '@/utils';
-import ReactGA from 'react-ga4';
 import useCountdown from '@/hooks/useCountdown';
+import { openLink } from '@/utils';
+import { clickableMotionProps } from '@/utils/motionAnim';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import ReactGA from 'react-ga4';
+import Buff from './_components/Buff';
+import GameRank from './_components/GameRank';
+import GameRankTab from './_components/GameRankTab';
 
 interface HallOfFameProps {}
 
@@ -78,7 +76,7 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
         Season {data?.gameRoundInfo?.round || 1}
         <span className="ml-[0.96vw] text-[1.6vw]/[1.92vw] font-semibold text-yellow xl:ml-3 xl:text-xl/6">{timeLeft}</span>
       </div>
-      <GameRankTab className="mb-7.5 mt-[1.28vw] xl:mt-4" roundInfo={data} />
+      <GameRankTab className="mb-[2.4vw] mt-[1.28vw] xl:mb-7.5 xl:mt-4" roundInfo={data} />
       <div className="relative mt-[2.88vw] w-full border border-gray-600 bg-black/60 backdrop-blur-sm xl:mt-9">
         <PatternWithoutLine />
         <GameRank roundInfo={data} />
