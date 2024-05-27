@@ -74,6 +74,32 @@ export const rarityStyles = {
   },
 };
 
+export enum PetRarity {
+  Common = 1,
+  Rare,
+  Epic,
+  Legendary,
+  Mythical,
+}
+
+export const petRarityStyles = {
+  [PetRarity.Common]: {
+    color: '#94999D',
+  },
+  [PetRarity.Rare]: {
+    color: '#3956F4',
+  },
+  [PetRarity.Epic]: {
+    color: '#B442ED',
+  },
+  [PetRarity.Legendary]: {
+    color: '#FFD864',
+  },
+  [PetRarity.Mythical]: {
+    color: '#FF3B08',
+  },
+};
+
 export enum TradeType {
   BUY = 'Buy',
   SELL = 'Sell',
