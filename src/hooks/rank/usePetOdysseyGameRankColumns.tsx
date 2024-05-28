@@ -17,10 +17,10 @@ export const usePetOdysseyGameRankColumns = () => {
     () => [
       moGamePetRankHelper.display({
         id: 'Rank',
-        header: () => <p className="w-14 flex-grow pl-[1.28vw] text-center xl:pl-4">Rank</p>,
+        header: () => <p className="flex-center w-14 flex-grow-[1] pl-[1.28vw] text-center font-semibold xl:pl-4">Rank</p>,
         cell: ({ row }) => {
           return (
-            <p className="w-14 flex-grow pl-[1.28vw] text-center xl:pl-4">
+            <p className="w-14 flex-grow-[1] pl-[1.28vw] text-center xl:pl-4">
               {row.original.rank <= 0 ? '--' : row.original.rank}
               {row.original.gparkUserAddress === evmAddress && (
                 <span className="ml-[0.64vw] font-semibold text-yellow xl:ml-2">You</span>
@@ -30,11 +30,11 @@ export const usePetOdysseyGameRankColumns = () => {
         },
       }),
       moGamePetRankHelper.accessor('gparkUserName', {
-        header: () => <p className={clsxm('w-17 flex-grow-[2] text-center')}>Name</p>,
+        header: () => <p className={clsxm('flex-center w-18 flex-grow-[2] text-center font-semibold')}>Name</p>,
         cell: ({ getValue, row }) => {
           const { gparkUserAvatar, rank } = row.original;
           return (
-            <p className={clsxm('flex w-17 flex-grow-[2] items-center truncate text-center')}>
+            <p className={clsxm('flex w-18 flex-grow-[2] items-center truncate text-center')}>
               {gparkUserAvatar ? (
                 <img alt="" src={gparkUserAvatar} className="mr-[0.32vw] aspect-square h-[1.6vw] xl:mr-1 xl:h-5" />
               ) : null}
@@ -44,7 +44,9 @@ export const usePetOdysseyGameRankColumns = () => {
         },
       }),
       moGamePetRankHelper.accessor('gparkUserAddress', {
-        header: () => <p className={clsxm('w-20 flex-grow-[2] pl-[0.64vw] text-center xl:pl-2')}>Address</p>,
+        header: () => (
+          <p className={clsxm('flex-center w-20 flex-grow-[2] pl-[0.64vw] text-center font-semibold xl:pl-2')}>Address</p>
+        ),
         cell: ({ getValue }) => (
           <p className={clsxm('w-20 flex-grow-[2] truncate pl-[0.64vw] text-center xl:pl-2')}>{shortenAddress(getValue())}</p>
         ),
@@ -57,7 +59,7 @@ export const usePetOdysseyGameRankColumns = () => {
       //   },
       // }),
       moGamePetRankHelper.accessor('petRarity', {
-        header: () => <p className={clsxm('w-17 flex-grow-[1] text-center')}>Quality</p>,
+        header: () => <p className={clsxm('flex-center w-17 flex-grow-[1] text-center font-semibold')}>Quality</p>,
         cell: ({ getValue, row }) => {
           const rarity = getValue();
           const { rank } = row.original;
@@ -73,7 +75,11 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.accessor('petOriginalAttack', {
         header: () => (
-          <p className={clsxm('flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center xl:gap-1')}>
+          <p
+            className={clsxm(
+              'flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center font-semibold xl:gap-1',
+            )}
+          >
             Pet Score
           </p>
         ),
@@ -88,26 +94,24 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.accessor('petAttack', {
         header: () => (
-          <p
-            className={clsxm(
-              'flex w-24 flex-grow-[5] items-center justify-center gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
-            )}
-          >
-            <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
-            Boosted Pet Score
-            <Tooltip
-              title={
-                <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
-                  <li>At least 1 pet with Pet Score ≥ 1 required to enter the leaderboard</li>
-                  <li>Dragonpal buffs can boost Pet Score by percentage</li>
-                  <li>Leaderboard rankings are determined by Boosted Pet Score</li>
-                </ul>
-              }
-            >
-              <span className="cursor-pointer">
-                <InfoSvg className="size-[1.12vw] stroke-yellow xl:size-3.5" />
-              </span>
-            </Tooltip>
+          <p className={clsxm('w-24 flex-grow-[5] overflow-visible')}>
+            <div className="flex w-full items-center justify-center gap-[0.32vw] text-center font-semibold text-yellow xl:gap-1">
+              <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
+              Boosted Pet Score
+              <Tooltip
+                title={
+                  <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
+                    <li>At least 1 pet with Pet Score ≥ 1 required to enter the leaderboard</li>
+                    <li>Dragonpal buffs can boost Pet Score by percentage</li>
+                    <li>Leaderboard rankings are determined by Boosted Pet Score</li>
+                  </ul>
+                }
+              >
+                <span className="cursor-pointer">
+                  <InfoSvg className="size-[1.12vw] stroke-yellow xl:size-3.5" />
+                </span>
+              </Tooltip>
+            </div>
           </p>
         ),
         cell: ({ getValue, row }) => {
@@ -172,11 +176,11 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'emdblReward',
-        header: () => <p className={clsxm('w-20 flex-grow-[3]')}> </p>,
+        header: () => <p className={clsxm('w-20 flex-grow-[2]')}></p>,
         cell: ({ row }) => {
           const { emdblReward, rank } = row.original;
           return (
-            <div className="flex w-20 flex-grow-[3] justify-end">
+            <div className="flex w-20 flex-grow-[2] justify-end">
               <p
                 className={clsxm(
                   '-mr-[2.56vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-8 xl:text-sm/4.5',
@@ -193,7 +197,9 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.display({
         id: 'mdblReward',
-        header: () => <p className={clsxm('w-24 flex-grow-[3] pr-[1.28vw] xl:pr-4')}>Reward</p>,
+        header: () => (
+          <p className={clsxm('flex w-24 flex-grow-[3] items-center pr-[1.28vw] text-left font-semibold xl:pr-4')}>Reward</p>
+        ),
         cell: ({ row }) => {
           const { mdblReward, rank } = row.original;
           return (
