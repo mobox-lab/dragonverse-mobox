@@ -17,7 +17,7 @@ export const useInfinityRumbleGameRankColumns = () => {
     () => [
       moGameFightHelper.display({
         id: 'Rank',
-        header: () => <p className="w-12 flex-grow pl-[1.28vw] text-center xl:pl-4">Rank</p>,
+        header: () => <p className="flex-center w-12 flex-grow pl-[1.28vw] text-center font-semibold xl:pl-4">Rank</p>,
         cell: ({ row }) => {
           return (
             <p className="w-12 flex-grow pl-[1.28vw] text-center xl:pl-4">
@@ -30,7 +30,7 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.accessor('gparkUserName', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] text-center')}>Name</p>,
+        header: () => <p className={clsxm('flex-center w-17 flex-grow-[3] text-center font-semibold')}>Name</p>,
         cell: ({ getValue, row }) => {
           const { gparkUserAvatar, rank } = row.original;
           return (
@@ -44,13 +44,15 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.accessor('gparkUserAddress', {
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pl-[0.64vw] text-center xl:pl-2')}>Address</p>,
+        header: () => (
+          <p className={clsxm('flex-center w-17 flex-grow-[3] pl-[0.64vw] text-center font-semibold xl:pl-2')}>Address</p>
+        ),
         cell: ({ getValue }) => (
           <p className={clsxm('w-17 flex-grow-[3] truncate pl-[0.64vw] text-center xl:pl-2')}>{shortenAddress(getValue())}</p>
         ),
       }),
       moGameFightHelper.accessor('grade', {
-        header: () => <p className={clsxm('w-17 flex-grow-[1] text-center')}>Tier</p>,
+        header: () => <p className={clsxm('flex-center w-17 flex-grow-[1] text-center font-semibold')}>Tier</p>,
         cell: ({ getValue, row }) => {
           const { rank } = row.original;
           const grade = GameRumbleGrade[getValue()];
@@ -60,7 +62,9 @@ export const useInfinityRumbleGameRankColumns = () => {
       moGameFightHelper.accessor('gradeOriginalPower', {
         header: () => (
           <p
-            className={clsxm('flex w-17 flex-grow-[3] items-center justify-center gap-[0.32vw] pr-[3.52vw] xl:gap-1 xl:pr-11')}
+            className={clsxm(
+              'flex w-17 flex-grow-[3] items-center justify-center gap-[0.32vw] pr-[3.52vw] font-semibold xl:gap-1 xl:pr-11',
+            )}
           >
             Rumble Points
           </p>
@@ -82,7 +86,7 @@ export const useInfinityRumbleGameRankColumns = () => {
         header: () => (
           <p
             className={clsxm(
-              'flex w-20 flex-grow-[3] items-center justify-center gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1',
+              'flex w-24 flex-grow-[4] items-center justify-center gap-[0.32vw] text-center font-semibold text-yellow xl:gap-1',
             )}
           >
             <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
@@ -152,7 +156,7 @@ export const useInfinityRumbleGameRankColumns = () => {
             >
               <p
                 className={clsxm(
-                  'flex w-20 flex-grow-[3] items-center justify-center gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
+                  'flex w-24 flex-grow-[4] items-center justify-center gap-1 truncate text-[1.12vw]/[1.44vw] font-semibold text-yellow xl:text-sm/4.5',
                 )}
               >
                 {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
@@ -163,13 +167,13 @@ export const useInfinityRumbleGameRankColumns = () => {
       }),
       moGameFightHelper.display({
         id: 'emdblReward',
-        header: () => <p className={clsxm('w-17 flex-grow-[3] pr-[1.28vw] xl:pr-4')}>Reward</p>,
+        header: () => <p className={clsxm('flex-center w-17 flex-grow-[3] pr-[1.28vw] font-semibold xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const { emdblReward, rank } = row.original;
           return (
             <p
               className={clsxm(
-                'flex w-17 flex-grow-[3] items-center justify-end truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
+                'flex-center w-17 flex-grow-[3] truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
               )}
             >
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
