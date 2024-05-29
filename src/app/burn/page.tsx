@@ -42,7 +42,7 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
         </div>
         <div className="mx-auto flex h-[2.88vw] w-full max-w-[54.4vw] items-center justify-between bg-legendary/30 px-[1.28vw] text-[0.96vw]/[1.6vw] font-medium text-legendary backdrop-blur-2xl xl:h-9 xl:max-w-[680px] xl:px-4 xl:text-xs/5">
           <div>Limited Time Window [05/20 8AM UTC - 05/25 8AM UTC]</div>
-          <div>Ends in: {countdown}</div>
+          <div>Ended</div>
         </div>
         <div className="relative mx-auto mt-[1.28vw] w-full max-w-[54.4vw] border border-gray-600 bg-black/60 px-[2.4vw] py-[2.88vw] backdrop-blur-sm xl:mt-4 xl:max-w-[680px] xl:px-7.5 xl:py-9">
           <PatternWithoutLine />
