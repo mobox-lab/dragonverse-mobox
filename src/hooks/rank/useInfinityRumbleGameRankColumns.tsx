@@ -61,13 +61,9 @@ export const useInfinityRumbleGameRankColumns = () => {
       }),
       moGameFightHelper.accessor('gradeOriginalPower', {
         header: () => (
-          <p
-            className={clsxm(
-              'flex w-17 flex-grow-[3] items-center justify-center gap-[0.32vw] pr-[3.52vw] font-semibold xl:gap-1 xl:pr-11',
-            )}
-          >
-            Rumble Points
-          </p>
+          <div className={clsxm('relative w-17 flex-grow-[3] whitespace-nowrap font-semibold xl:gap-1')}>
+            <p className="flex-center absolute inset-0 pr-[3.52vw] xl:pr-11">Rumble Points</p>
+          </div>
         ),
         cell: ({ getValue, row }) => {
           const { rank } = row.original;
@@ -84,27 +80,25 @@ export const useInfinityRumbleGameRankColumns = () => {
       }),
       moGameFightHelper.accessor('gradePower', {
         header: () => (
-          <p
-            className={clsxm(
-              'flex w-24 flex-grow-[4] items-center justify-center gap-[0.32vw] text-center font-semibold text-yellow xl:gap-1',
-            )}
-          >
-            <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
-            Boosted Rumble Points
-            <Tooltip
-              title={
-                <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
-                  <li>At least 1 Rumble Point required to enter the leaderboard</li>
-                  <li>Dragonpal buffs can boost Rumble Points by percentage</li>
-                  <li>Leaderboard rankings are determined by Boosted Rumble Points</li>
-                </ul>
-              }
-            >
-              <span className="cursor-pointer">
-                <InfoSvg className="size-[1.12vw] stroke-yellow xl:size-3.5" />
-              </span>
-            </Tooltip>
-          </p>
+          <div className={clsxm('relative w-24 flex-grow-[4] text-center')}>
+            <div className="flex-center absolute inset-0 gap-[0.32vw] whitespace-nowrap font-semibold text-yellow xl:gap-1">
+              <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
+              Boosted Rumble Points
+              <Tooltip
+                title={
+                  <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
+                    <li>At least 1 Rumble Point required to enter the leaderboard</li>
+                    <li>Dragonpal buffs can boost Rumble Points by percentage</li>
+                    <li>Leaderboard rankings are determined by Boosted Rumble Points</li>
+                  </ul>
+                }
+              >
+                <span className="cursor-pointer">
+                  <InfoSvg className="size-[1.12vw] stroke-yellow xl:size-3.5" />
+                </span>
+              </Tooltip>
+            </div>
+          </div>
         ),
         cell: ({ getValue, row }) => {
           const { rank, buff } = row.original;

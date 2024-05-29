@@ -11,7 +11,6 @@ import { parseEther } from 'viem';
 export default function GameRankTab({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
   const [rankType, setRankType] = useAtom(gameRankTypeAtom);
 
-  
   const tabs: {
     label: string;
     value: GameRankType;
@@ -75,7 +74,7 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
             </h2>
             <div
               className={clsxm('flex items-center justify-center px-[1.28vw] py-[1.6vw] xl:px-5 xl:py-4', {
-                'gap-[2.88vw] xl:gap-9': rewardKey === 'PetReward',
+                'gap-[1.2vw] xl:gap-9': rewardKey === 'PetReward',
                 'relative grid grid-cols-2': rewardKey === 'FightReward',
               })}
             >
@@ -119,7 +118,7 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
                 ></div>
               )}
               <div className="flex flex-col items-center gap-[0.64vw] xl:gap-2">
-                <p className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For all including Top30</p>
+                <p className="whitespace-nowrap text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For all including Top30</p>
                 <div className="flex items-center justify-center gap-4">
                   {(roundInfo?.gameRoundInfo?.[allKey]?.emdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
