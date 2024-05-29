@@ -94,8 +94,8 @@ export const usePetOdysseyGameRankColumns = () => {
       }),
       moGamePetRankHelper.accessor('petAttack', {
         header: () => (
-          <p className={clsxm('w-24 flex-grow-[5] overflow-visible')}>
-            <div className="flex w-full items-center justify-center gap-[0.32vw] text-center font-semibold text-yellow xl:gap-1">
+          <div className={clsxm('relative w-24 flex-grow-[5] overflow-visible whitespace-nowrap')}>
+            <div className="absolute inset-0 flex w-full items-center justify-center gap-[0.32vw] text-center font-semibold text-yellow xl:gap-1">
               <img src="/svg/boost.svg" alt="boost" className="size-[1.6vw] xl:size-5" />
               Boosted Pet Score
               <Tooltip
@@ -112,7 +112,7 @@ export const usePetOdysseyGameRankColumns = () => {
                 </span>
               </Tooltip>
             </div>
-          </p>
+          </div>
         ),
         cell: ({ getValue, row }) => {
           const { rank, buff } = row.original;
