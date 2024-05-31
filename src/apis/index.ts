@@ -33,6 +33,7 @@ import {
   StakeRewardSignature,
   TradeHistoryListItemData,
   StakeRewardHistory,
+  RankRewardBalance,
 } from './types';
 
 export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
@@ -190,3 +191,14 @@ export const fetchStakeRewardHistory = ({ page = 1, size = 5 }) =>
       size,
     },
   });
+
+export const fetchRankRewardBalance = ({ address }: { address?: string }) =>
+  request.get<any, Response<RankRewardBalance>>('/pge-game/rank/reward-balance', { params: { evmAddress: address } });
+
+export const fetchRankRewardClaim = () => request.post('/pge-game/rank/claim/reward');
+
+export const fetchClaimRewardSignature = ({ id }: { id?: number }) =>
+  request.get('/pge-game/rank/claim/reward/signature', { params: { id } });
+
+export const fetchRankMdblProof = (address?: string) =>
+  request.get<any, Response<AirdropProof>>('/pge-game/rank/mdbl-proof', { params: { evmAddress: address } });

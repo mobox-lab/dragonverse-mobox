@@ -205,192 +205,192 @@ export default function MyReward() {
           More rewards revealing soon
         </div> */}
       </div>
-      <p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Inventory</p>
-      <div className="mt-[0.96vw] grid grid-cols-3 gap-[1.6vw] xl:mt-3 xl:gap-5">
-        <div className="button-yellow-dark relative h-[14.4vw] bg-gradient-buff-card py-[1.6vw] xl:h-[180px] xl:py-5">
-          <PatternWithoutLine className="stroke-yellow" />
-          <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Stamina</div>
-          <div className="flex-center mt-[1.92vw] xl:mt-6">
-            <img src="/img/game-power.webp" alt="game power" className="w-[1.6vw] xl:w-5" />
-            <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
-              {obtain?.stamina || 0}
-            </div>
-          </div>
-          {(obtain?.basicStamina || 0) === 0 ? (
-            <div className="mt-[2.88vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-9 xl:text-xs/5">
-              You are not in the whitelist of this season.
-            </div>
-          ) : nextLevel ? (
-            <div className="mt-[2.88vw] flex justify-center text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-9 xl:text-xs/5">
-              Next Level: {formatNumber(BigInt(nextLevel?.eMDBL || 0), false)} active eMDBL {'->'}
-              <img src="/img/game-power.webp" alt="game power" className="mx-[0.32vw] w-[1.6vw] xl:mx-1 xl:w-5" />
-              <span className="font-semibold text-yellow">
-                +{nextLevel ? Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0) : 0}
-              </span>
-            </div>
-          ) : null}
-        </div>
-        <div className="button-yellow-dark relative h-[14.4vw] bg-gradient-buff-card py-[1.6vw] xl:h-[180px] xl:py-5">
-          <PatternWithoutLine className="stroke-yellow" />
-          <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Blue Snitch</div>
-          <div className="mt-[0.96vw] flex items-center justify-center xl:mt-3">
-            <img src="/svg/capture-ball.svg" alt="capture ball" className="h-[2.24vw] xl:h-7" />
-            <div className="ml-[0.32vw] mt-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-1 xl:mt-1 xl:text-2xl/6">
-              {gameAsset?.DragonCaptureBall.unclaim || 0}
-            </div>
-          </div>
-          <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-1 xl:text-xs/5">
-            Total: {gameAsset?.DragonCaptureBall.total || 0}
-          </div>
-          <div className="flex-center">
-            <Button
-              className="mt-[1.12vw] h-[2.88vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-bold text-yellow xl:mt-3.5 xl:h-9 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
-              type="yellow-shallow"
-              loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
-              disabled={(gameAsset?.DragonCaptureBall.unclaim || 0) === 0}
-              onClick={() => {
-                ReactGA.event({ category: 'merlin', action: 'blue_snitch_claim' });
-                claimAsset('CaptureBall');
-              }}
-              loading={captureClaimLoading}
-            >
-              Claim
-            </Button>
-          </div>
-        </div>
-        <div className="button-yellow-dark relative h-[14.4vw] bg-gradient-buff-card py-[1.6vw] xl:h-[180px] xl:py-5">
-          <PatternWithoutLine className="stroke-yellow" />
-          <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Dargonpal</div>
-          <div className="flex-center mt-[2.72vw] gap-[1.92vw] xl:mt-8.5 xl:gap-6">
-            <Tooltip
-              title={
-                <div className="w-[33.92vw] xl:w-[424px]">
-                  <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Light DragonPal Buff</div>
-                  <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
-                    {(groupConfig['1'] || []).map((item) => {
-                      const eleBuff = data?.dreamPetBuff.light.list || [];
-                      const groupByAttr = groupBy(eleBuff, 'attributeType');
-                      return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;
-                    })}
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex cursor-pointer flex-col items-center">
-                <img src="/svg/light-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                  {data?.dreamPetBuff?.light?.list?.length || 0}
-                </div>
-              </div>
-            </Tooltip>
-            <Tooltip
-              title={
-                <div className="w-[33.92vw] xl:w-[424px]">
-                  <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Dark DragonPal Buff</div>
-                  <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
-                    {(groupConfig['2'] || []).map((item) => {
-                      const eleBuff = data?.infinityBuff.dark.list || [];
-                      const groupByAttr = groupBy(eleBuff, 'attributeType');
-                      return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="infinityRambleBuff" />;
-                    })}
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex cursor-pointer flex-col items-center">
-                <img src="/svg/dark-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                  {data?.infinityBuff?.dark?.list?.length || 0}
-                </div>
-              </div>
-            </Tooltip>
-            <Tooltip
-              title={
-                <div className="w-[33.92vw] xl:w-[424px]">
-                  <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Fire DragonPal Buff</div>
-                  <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
-                    {(groupConfig['4'] || []).map((item) => {
-                      const eleBuff = data?.dreamPetBuff.fire.list || [];
-                      const groupByAttr = groupBy(eleBuff, 'attributeType');
-                      return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;
-                    })}
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex cursor-pointer flex-col items-center">
-                <img src="/svg/fire-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                  {data?.dreamPetBuff?.fire?.list?.length || 0}
-                </div>
-              </div>
-            </Tooltip>
-            <Tooltip
-              title={
-                <div className="w-[33.92vw] xl:w-[424px]">
-                  <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Water DragonPal Buff</div>
-                  <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
-                    {(groupConfig['3'] || []).map((item) => {
-                      const eleBuff = data?.dreamPetBuff.water.list || [];
-                      const groupByAttr = groupBy(eleBuff, 'attributeType');
-                      return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;
-                    })}
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex cursor-pointer flex-col items-center">
-                <img src="/svg/water-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                  {data?.dreamPetBuff?.water?.list?.length || 0}
-                </div>
-              </div>
-            </Tooltip>
-            <Tooltip
-              title={
-                <div className="w-[33.92vw] xl:w-[424px]">
-                  <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Wood DragonPal Buff</div>
-                  <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
-                    {(groupConfig['5'] || []).map((item) => {
-                      const eleBuff = data?.dreamPetBuff.wood.list || [];
-                      const groupByAttr = groupBy(eleBuff, 'attributeType');
-                      return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;
-                    })}
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex cursor-pointer flex-col items-center">
-                <img src="/svg/forest-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                  {data?.dreamPetBuff?.wood?.list?.length || 0}
-                </div>
-              </div>
-            </Tooltip>
-            <Tooltip
-              title={
-                <div className="w-[33.92vw] xl:w-[424px]">
-                  <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Earth DragonPal Buff</div>
-                  <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
-                    {(groupConfig['6'] || []).map((item) => {
-                      const eleBuff = data?.dreamPetBuff.ground.list || [];
-                      const groupByAttr = groupBy(eleBuff, 'attributeType');
-                      return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;
-                    })}
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex cursor-pointer flex-col items-center">
-                <img src="/svg/mountain-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
-                  {data?.dreamPetBuff?.ground?.list?.length || 0}
-                </div>
-              </div>
-            </Tooltip>
-          </div>
-        </div>
-      </div>
+      {/*<p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Inventory</p>*/}
+      {/*<div className="mt-[0.96vw] grid grid-cols-3 gap-[1.6vw] xl:mt-3 xl:gap-5">*/}
+      {/*  <div className="button-yellow-dark relative h-[14.4vw] bg-gradient-buff-card py-[1.6vw] xl:h-[180px] xl:py-5">*/}
+      {/*    <PatternWithoutLine className="stroke-yellow" />*/}
+      {/*    <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Stamina</div>*/}
+      {/*    <div className="flex-center mt-[1.92vw] xl:mt-6">*/}
+      {/*      <img src="/img/game-power.webp" alt="game power" className="w-[1.6vw] xl:w-5" />*/}
+      {/*      <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">*/}
+      {/*        {obtain?.stamina || 0}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*    {(obtain?.basicStamina || 0) === 0 ? (*/}
+      {/*      <div className="mt-[2.88vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-9 xl:text-xs/5">*/}
+      {/*        You are not in the whitelist of this season.*/}
+      {/*      </div>*/}
+      {/*    ) : nextLevel ? (*/}
+      {/*      <div className="mt-[2.88vw] flex justify-center text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-9 xl:text-xs/5">*/}
+      {/*        Next Level: {formatNumber(BigInt(nextLevel?.eMDBL || 0), false)} active eMDBL {'->'}*/}
+      {/*        <img src="/img/game-power.webp" alt="game power" className="mx-[0.32vw] w-[1.6vw] xl:mx-1 xl:w-5" />*/}
+      {/*        <span className="font-semibold text-yellow">*/}
+      {/*          +{nextLevel ? Number(nextLevel?.stamina || 0) - (obtain?.basicStamina || 0) - (obtain?.boostStamina || 0) : 0}*/}
+      {/*        </span>*/}
+      {/*      </div>*/}
+      {/*    ) : null}*/}
+      {/*  </div>*/}
+      {/*  <div className="button-yellow-dark relative h-[14.4vw] bg-gradient-buff-card py-[1.6vw] xl:h-[180px] xl:py-5">*/}
+      {/*    <PatternWithoutLine className="stroke-yellow" />*/}
+      {/*    <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Blue Snitch</div>*/}
+      {/*    <div className="mt-[0.96vw] flex items-center justify-center xl:mt-3">*/}
+      {/*      <img src="/svg/capture-ball.svg" alt="capture ball" className="h-[2.24vw] xl:h-7" />*/}
+      {/*      <div className="ml-[0.32vw] mt-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-1 xl:mt-1 xl:text-2xl/6">*/}
+      {/*        {gameAsset?.DragonCaptureBall.unclaim || 0}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*    <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-1 xl:text-xs/5">*/}
+      {/*      Total: {gameAsset?.DragonCaptureBall.total || 0}*/}
+      {/*    </div>*/}
+      {/*    <div className="flex-center">*/}
+      {/*      <Button*/}
+      {/*        className="mt-[1.12vw] h-[2.88vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-bold text-yellow xl:mt-3.5 xl:h-9 xl:w-[160px] xl:rounded-sm xl:text-sm/4"*/}
+      {/*        type="yellow-shallow"*/}
+      {/*        loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"*/}
+      {/*        disabled={(gameAsset?.DragonCaptureBall.unclaim || 0) === 0}*/}
+      {/*        onClick={() => {*/}
+      {/*          ReactGA.event({ category: 'merlin', action: 'blue_snitch_claim' });*/}
+      {/*          claimAsset('CaptureBall');*/}
+      {/*        }}*/}
+      {/*        loading={captureClaimLoading}*/}
+      {/*      >*/}
+      {/*        Claim*/}
+      {/*      </Button>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*  <div className="button-yellow-dark relative h-[14.4vw] bg-gradient-buff-card py-[1.6vw] xl:h-[180px] xl:py-5">*/}
+      {/*    <PatternWithoutLine className="stroke-yellow" />*/}
+      {/*    <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Dargonpal</div>*/}
+      {/*    <div className="flex-center mt-[2.72vw] gap-[1.92vw] xl:mt-8.5 xl:gap-6">*/}
+      {/*      <Tooltip*/}
+      {/*        title={*/}
+      {/*          <div className="w-[33.92vw] xl:w-[424px]">*/}
+      {/*            <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Light DragonPal Buff</div>*/}
+      {/*            <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">*/}
+      {/*              {(groupConfig['1'] || []).map((item) => {*/}
+      {/*                const eleBuff = data?.dreamPetBuff.light.list || [];*/}
+      {/*                const groupByAttr = groupBy(eleBuff, 'attributeType');*/}
+      {/*                return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;*/}
+      {/*              })}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <div className="flex cursor-pointer flex-col items-center">*/}
+      {/*          <img src="/svg/light-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />*/}
+      {/*          <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">*/}
+      {/*            {data?.dreamPetBuff?.light?.list?.length || 0}*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      </Tooltip>*/}
+      {/*      <Tooltip*/}
+      {/*        title={*/}
+      {/*          <div className="w-[33.92vw] xl:w-[424px]">*/}
+      {/*            <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Dark DragonPal Buff</div>*/}
+      {/*            <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">*/}
+      {/*              {(groupConfig['2'] || []).map((item) => {*/}
+      {/*                const eleBuff = data?.infinityBuff.dark.list || [];*/}
+      {/*                const groupByAttr = groupBy(eleBuff, 'attributeType');*/}
+      {/*                return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="infinityRambleBuff" />;*/}
+      {/*              })}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <div className="flex cursor-pointer flex-col items-center">*/}
+      {/*          <img src="/svg/dark-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />*/}
+      {/*          <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">*/}
+      {/*            {data?.infinityBuff?.dark?.list?.length || 0}*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      </Tooltip>*/}
+      {/*      <Tooltip*/}
+      {/*        title={*/}
+      {/*          <div className="w-[33.92vw] xl:w-[424px]">*/}
+      {/*            <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Fire DragonPal Buff</div>*/}
+      {/*            <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">*/}
+      {/*              {(groupConfig['4'] || []).map((item) => {*/}
+      {/*                const eleBuff = data?.dreamPetBuff.fire.list || [];*/}
+      {/*                const groupByAttr = groupBy(eleBuff, 'attributeType');*/}
+      {/*                return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;*/}
+      {/*              })}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <div className="flex cursor-pointer flex-col items-center">*/}
+      {/*          <img src="/svg/fire-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />*/}
+      {/*          <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">*/}
+      {/*            {data?.dreamPetBuff?.fire?.list?.length || 0}*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      </Tooltip>*/}
+      {/*      <Tooltip*/}
+      {/*        title={*/}
+      {/*          <div className="w-[33.92vw] xl:w-[424px]">*/}
+      {/*            <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Water DragonPal Buff</div>*/}
+      {/*            <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">*/}
+      {/*              {(groupConfig['3'] || []).map((item) => {*/}
+      {/*                const eleBuff = data?.dreamPetBuff.water.list || [];*/}
+      {/*                const groupByAttr = groupBy(eleBuff, 'attributeType');*/}
+      {/*                return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;*/}
+      {/*              })}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <div className="flex cursor-pointer flex-col items-center">*/}
+      {/*          <img src="/svg/water-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />*/}
+      {/*          <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">*/}
+      {/*            {data?.dreamPetBuff?.water?.list?.length || 0}*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      </Tooltip>*/}
+      {/*      <Tooltip*/}
+      {/*        title={*/}
+      {/*          <div className="w-[33.92vw] xl:w-[424px]">*/}
+      {/*            <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Wood DragonPal Buff</div>*/}
+      {/*            <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">*/}
+      {/*              {(groupConfig['5'] || []).map((item) => {*/}
+      {/*                const eleBuff = data?.dreamPetBuff.wood.list || [];*/}
+      {/*                const groupByAttr = groupBy(eleBuff, 'attributeType');*/}
+      {/*                return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;*/}
+      {/*              })}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <div className="flex cursor-pointer flex-col items-center">*/}
+      {/*          <img src="/svg/forest-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />*/}
+      {/*          <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">*/}
+      {/*            {data?.dreamPetBuff?.wood?.list?.length || 0}*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      </Tooltip>*/}
+      {/*      <Tooltip*/}
+      {/*        title={*/}
+      {/*          <div className="w-[33.92vw] xl:w-[424px]">*/}
+      {/*            <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">Earth DragonPal Buff</div>*/}
+      {/*            <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">*/}
+      {/*              {(groupConfig['6'] || []).map((item) => {*/}
+      {/*                const eleBuff = data?.dreamPetBuff.ground.list || [];*/}
+      {/*                const groupByAttr = groupBy(eleBuff, 'attributeType');*/}
+      {/*                return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="dreamPetBuff" />;*/}
+      {/*              })}*/}
+      {/*            </div>*/}
+      {/*          </div>*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <div className="flex cursor-pointer flex-col items-center">*/}
+      {/*          <img src="/svg/mountain-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />*/}
+      {/*          <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">*/}
+      {/*            {data?.dreamPetBuff?.ground?.list?.length || 0}*/}
+      {/*          </div>*/}
+      {/*        </div>*/}
+      {/*      </Tooltip>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
       {/* <div className="mt-[0.96vw] grid grid-cols-2 gap-[1.92vw] xl:mt-3 xl:gap-6">
         <div className="grid grid-cols-2 gap-[1.92vw] xl:gap-6">
           <div className="relative h-[14.24vw] border border-gray-600 bg-black/60 backdrop-blur-sm xl:h-[178px]">

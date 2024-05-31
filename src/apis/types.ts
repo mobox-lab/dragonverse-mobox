@@ -611,3 +611,7 @@ export type StakeRewardHistory = {
   totalCount: number;
   rewardHistoryList: RewardHistoryItem[];
 };
+
+export type RankRewardBalance = {
+  rewardBalance: string;
+}

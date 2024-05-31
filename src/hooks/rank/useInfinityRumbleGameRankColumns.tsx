@@ -34,7 +34,7 @@ export const useInfinityRumbleGameRankColumns = () => {
         cell: ({ getValue, row }) => {
           const { gparkUserAvatar, rank } = row.original;
           return (
-            <p className={clsxm('flex w-17 flex-grow-[3] items-center truncate text-center')}>
+            <p className={clsxm('flex w-17 flex-grow-[3] items-center justify-center truncate text-center')}>
               {gparkUserAvatar ? (
                 <img alt="" src={gparkUserAvatar} className="mr-[0.32vw] aspect-square h-[1.6vw] xl:mr-1 xl:h-5" />
               ) : null}

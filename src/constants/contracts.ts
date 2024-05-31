@@ -9,6 +9,7 @@ type ContractAddresses = {
   airdrop: Address;
   batchBurn: Address;
   mDragonBall: Address;
+  leaderboardRewards: Address;
 };
 export const CONTRACT_ADDRESSES: ContractAddresses =
   process.env.NEXT_PUBLIC_CHAIN_ENV === 'production'
@@ -22,6 +23,7 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         airdrop: '0x82AF7C863AFB0154D8e501179D47d4BbA150C664',
         batchBurn: '0xF6534dC2Fcb82a97E44E32FddF130CDe58777533',
         mDragonBall: '0x7c09e01c9257a404d5caf5c3dfa79bc00281734e',
+        leaderboardRewards: '0xA40748E0caCfbF986ac68b884644b3B9011D0394',
       }
     : {
         // test
@@ -33,4 +35,5 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         airdrop: '0xda42E394efC1efFA45d1DBc4f94bbC76cF8c4D33',
         batchBurn: '0x0786F335A0b0DF05D0224aF0c99B464b39078dF0',
         mDragonBall: '0x9Da60078e7B225820D7781D942E9f222c30Ed216',
+        leaderboardRewards: '0x81bdd98Bce37FB7C45a636bcE781DD17fBC46afE',
       };
