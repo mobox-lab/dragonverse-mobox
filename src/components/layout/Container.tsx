@@ -3,9 +3,11 @@
 import { ReactNode } from 'react';
 import { clsxm } from '@/utils';
 import { useIsHome } from '@/hooks/useIsHome';
+import { useFetchGameId } from '@/hooks/rank/useFetchGameId';
 
 export default function Container({ children }: { children: ReactNode }) {
   const { isHome } = useIsHome();
+  useFetchGameId();
 
   return (
     <div

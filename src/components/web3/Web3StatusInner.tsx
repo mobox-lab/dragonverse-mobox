@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
 import ReactGA from 'react-ga4';
+import { useAccount } from 'wagmi';
 import { useSetAtom } from 'jotai';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -12,9 +13,11 @@ import { shortenAddress } from '@/utils/shorten';
 import ClipSVG from '@/../public/svg/clip.svg?component';
 import ArrowSVG from '@/../public/svg/arrow-02.svg?component';
 import { useMainAccount, useMainDisconnect } from '@/hooks/wallet';
+import { CHAIN_CONFIG } from '@/constants/chain';
 
 export default function Web3StatusInner() {
   const { majorAddress } = useMainAccount();
+  const { chainId } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
   const setAccessToken = useSetAtom(accessTokenAtom);
   const { mainDisconnect } = useMainDisconnect();
@@ -65,7 +68,7 @@ export default function Web3StatusInner() {
         )}
       >
         <div className="h-[1.92vw] w-[1.92vw] rounded-full border bg-white xl:h-6 xl:w-6">
-          <img src="/img/merlin-chain.png" className="h-full w-full" alt="merlin" />
+          <img src={chainId ? CHAIN_CONFIG[chainId].icon : ''} className="h-full w-full" alt="chain" />
         </div>
         <p className="text-[1.12vw]/[1.12vw] xl:text-sm/3.5">{shortenAddress(majorAddress)}</p>
         <motion.div className="h-[0.64vw] w-[0.64vw] xl:h-2 xl:w-2" animate={{ rotate: isOpen ? 0 : 180 }}>

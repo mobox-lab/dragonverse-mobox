@@ -20,14 +20,21 @@ const config = {
   },
   [GameRankType.Dragon]: {},
 };
-export const useFetchMoboxGameRank = (type?: GameRankType, round?: number) => {
+
+type MoboxGameRankProps = {
+  type?: GameRankType;
+  round?: number;
+  gameId?: string;
+};
+
+export const useFetchMoboxGameRank = ({ type, round, gameId }: MoboxGameRankProps) => {
   const { key, fn } = config?.[type ?? GameRankType.PetOdyssey] as any;
   const { evmAddress } = useMainAccount();
   const { data, isLoading, hasNextPage, isFetchingNextPage, refetch, fetchNextPage } = useInfiniteQuery({
-    queryKey: [key, type, round],
+    queryKey: [key, type, round, gameId],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
-      let res = await fn({ page: pageParam + 1, round, address: evmAddress });
+      let res = await fn({ page: pageParam + 1, round, address: evmAddress, gameId });
       return res?.data;
     },
     getNextPageParam: (lastPage, pages) => {

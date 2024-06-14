@@ -1,5 +1,5 @@
 import { BatchBurnABI } from '@/abis';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useMemo } from 'react';
 import { Address } from 'viem';
@@ -8,7 +8,7 @@ import { useMainAccount } from '../wallet';
 import { MDragonBallABI } from '@/abis/MDragonBall';
 
 export function useBurnContractRead() {
-  const chainId = ALLOW_CHAIN;
+  const [chainId] = ALLOW_CHAINS;
   const { batchBurn, mDragonBall } = CONTRACT_ADDRESSES;
   const { evmAddress } = useMainAccount();
   const { data } = useReadContracts({

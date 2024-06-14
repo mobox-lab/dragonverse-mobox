@@ -4,10 +4,16 @@ import XIcon from '@/../public/svg/x.svg?component';
 import { LBPRewardDialogOpenAtom, mainWalletConnectDialogAtom } from '@/atoms';
 import { poolInitialAtom, shareBalanceAtom } from '@/atoms/lbp';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
-import { ONE, SocialLinks } from '@/constants';
+import { ALLOW_CHAINS, ONE, SocialLinks } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useFetchShares } from '@/hooks/useFetchShares';
-import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import {
+  useIsMainConnected,
+  useMainAccount,
+  useMainChain,
+  useMainWriteContract,
+  useSelectedChain,
+} from '@/hooks/wallet';
 import { clsxm, formatNumber, isDecimal, lessThanOneFormat } from '@/utils';
 import clsx from 'clsx';
 import { parseEther } from 'ethers';
@@ -25,7 +31,8 @@ import { useIsClaimed } from '@/hooks/reward/useIsClaimed';
 import Button from '@/components/ui/button';
 
 export default function RewardV3({ className }: { className?: string }) {
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
   const { writeContract, isLoading } = useMainWriteContract({
@@ -201,20 +208,14 @@ export default function RewardV3({ className }: { className?: string }) {
                   </div>
                 )}
               </div>
-
-              {/* <div className="w-[22vw] xl:w-[275px]">
-                <div className="text-[0.96vw]/[1.6vw] xl:text-xs/5">
-                  The claim will be available after the launch of M-Bluebox and M-Musicbox on Merlin Chain
-                </div>
-              </div> */}
               {isMainConnected ? (
-                !isSupportedChain ? (
+                !isMerlinChain ? (
                   <Button
                     type="yellow"
                     className="h-[3.52vw] w-[16vw] font-semibold xl:h-11 xl:w-[200px]"
                     onClick={() => {
                       ReactGA.event({ category: 'merlin', action: 'wrong_network' });
-                      switchMainChain();
+                      switchMainChain(ALLOW_CHAINS[0]).then();
                     }}
                   >
                     Wrong Network

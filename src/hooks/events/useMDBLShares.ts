@@ -1,10 +1,10 @@
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import { useAccount, useReadContract } from 'wagmi';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { LiquidityBootstrapPoolABI } from '@/abis/LiquidityBootstrapPool';
 
 export function useMDBLShares() {
-  const chainId = ALLOW_CHAIN;
+  const [chainId] = ALLOW_CHAINS;
   const { lbp } = CONTRACT_ADDRESSES;
   const { address } = useAccount();
 

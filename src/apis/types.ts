@@ -440,6 +440,18 @@ export type RankCurrentRound = {
       mdbl: number;
       emdbl: number;
     };
+    bscPetTopReward: {
+      mbox: number;
+    };
+    bscPetBasicReward: {
+      mbox: number;
+    };
+    bscFightTopReward: {
+      mbox: number;
+    };
+    bscFightBasicReward: {
+      mbox: number;
+    };
   };
 };
 
@@ -533,6 +545,7 @@ export type FetchGameRankParams = {
   size?: number;
   address?: string;
   round?: number;
+  gameId?: string;
 };
 
 export type PetRankItem = {
@@ -549,6 +562,7 @@ export type PetRankItem = {
   recordTime: number;
   mdblReward: string;
   emdblReward: string;
+  mboxReward: string;
   buff: {
     light: number;
     water: number;
@@ -577,6 +591,7 @@ export type FightRankItem = {
   recordTime: number;
   mdblReward: string;
   emdblReward: string;
+  mboxReward: string;
   buff: {
     dark: number;
     water: number;
@@ -614,4 +629,9 @@ export type StakeRewardHistory = {
 
 export type RankRewardBalance = {
   rewardBalance: string;
-}
+};
+
+export type PGEGameId = {
+  MerlinGameId: string;
+  BSCGameId: string;
+};

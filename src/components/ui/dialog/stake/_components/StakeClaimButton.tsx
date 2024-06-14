@@ -3,18 +3,20 @@ import { refetchPendingCountAtom, refetchPendingHistoryListAtom, refetchStakeHis
 import Button from '@/components/ui/button';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtomValue } from 'jotai';
 import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
+import { ALLOW_CHAINS } from '@/constants';
 
 export default function StakeClaimButton({ redeemIndex, className }: { redeemIndex?: number; className?: string }) {
   const refetchPending = useAtomValue(refetchPendingHistoryListAtom);
   const refetchStake = useAtomValue(refetchStakeHistoryListAtom);
   const refetchPendingCount = useAtomValue(refetchPendingCountAtom);
   const { inactiveRefetch } = useStakeContractRead();
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
 
   const { writeContract, isLoading } = useMainWriteContract({
     onError: (error) => {
@@ -51,8 +53,8 @@ export default function StakeClaimButton({ redeemIndex, className }: { redeemInd
   const onClick = async () => {
     if (isLoading) return;
     try {
-      if (!isSupportedChain) {
-        await switchMainChain();
+      if (!isMerlinChain) {
+        await switchMainChain(ALLOW_CHAINS[0]);
       }
       claim(redeemIndex);
     } catch (e) {

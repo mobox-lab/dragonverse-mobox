@@ -3,14 +3,16 @@ import { useAccount } from 'wagmi';
 import { toast } from 'react-toastify';
 import { formatNumber } from '@/utils';
 import { AirdropProof } from '@/apis/types';
+import { ALLOW_CHAINS } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { LeaderboardRewardsABI } from '@/abis/LeaderboardRewards';
-import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { useRankEMDBLClaimSignature } from '@/hooks/rank/useFetchRankReward';
 
 export function useRankEmdblRewardClaim() {
   const { address } = useAccount();
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const { mutateAsync, isLoading: fetchLoading } = useRankEMDBLClaimSignature();
   const { writeContract, isLoading: writeLoading } = useMainWriteContract({
     onError: (error) => {
@@ -31,8 +33,8 @@ export function useRankEmdblRewardClaim() {
   });
   const onClaimClick = useCallback(async () => {
     if (!address) return;
-    if (!isSupportedChain) {
-      switchMainChain().then();
+    if (!isMerlinChain) {
+      switchMainChain(ALLOW_CHAINS[0]).then();
       return;
     }
     const res = await mutateAsync();
@@ -47,7 +49,7 @@ export function useRankEmdblRewardClaim() {
     } else {
       toast.error('Error request.');
     }
-  }, [address, isSupportedChain, mutateAsync, switchMainChain, writeContract]);
+  }, [address, isMerlinChain, mutateAsync, switchMainChain, writeContract]);
 
   return useMemo(
     () => ({
@@ -60,7 +62,8 @@ export function useRankEmdblRewardClaim() {
 
 export function useRankMdblRewardClaim() {
   const { address } = useAccount();
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const { writeContract, isLoading: writeLoading } = useMainWriteContract({
     onError: (error) => {
       if (error?.name === 'UserRejected') {
@@ -82,8 +85,8 @@ export function useRankMdblRewardClaim() {
   const onClaimClick = useCallback(
     async (data: AirdropProof) => {
       if (!address) return;
-      if (!isSupportedChain) {
-        switchMainChain().then();
+      if (!isMerlinChain) {
+        switchMainChain(ALLOW_CHAINS[0]).then();
         return;
       }
       writeContract({
@@ -93,7 +96,7 @@ export function useRankMdblRewardClaim() {
         address: CONTRACT_ADDRESSES.leaderboardRewards,
       }).then();
     },
-    [address, isSupportedChain, switchMainChain, writeContract],
+    [address, isMerlinChain, switchMainChain, writeContract],
   );
   return useMemo(
     () => ({

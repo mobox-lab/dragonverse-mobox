@@ -18,6 +18,7 @@ type ButtonProps = {
     | 'yellow-dark'
     | 'orange'
     | 'yellow-shallow'
+    | 'yellow-shallow-2'
     | 'unstyled';
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
@@ -34,6 +35,7 @@ const bg = {
   'yellow-light': 'button-yellow-light bg-gradient-yellow-light',
   'yellow-dark': 'button-yellow-dark bg-gradient-yellow-dark',
   'yellow-shallow': 'bg-[#554c35]/80 backdrop-blur-sm',
+  'yellow-shallow-2': 'bg-[#4D442E]/50 hover:bg-[#4D442E]/80 hover:after:opacity-0',
   bordered: 'border-white border-[1px] bg-transparent',
   pattern: 'bg-black/60 border-[1px] border-gray-600 backdrop-blur-sm',
   blue: 'bg-blue/20 hover:bg-blue/30 text-blue',

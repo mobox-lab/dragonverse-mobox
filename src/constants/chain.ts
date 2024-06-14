@@ -1,4 +1,5 @@
-import { arbitrum, arbitrumGoerli, bsc, bscTestnet } from 'wagmi/chains';
+import { bsc, bscTestnet } from 'wagmi/chains';
+import { merlinMainnet, merlinTestnet } from '@/connectors/chains';
 
 export const CHAIN_CONFIG: Record<number, { icon?: string; name?: string }> = {
   [bsc.id]: {
@@ -9,12 +10,12 @@ export const CHAIN_CONFIG: Record<number, { icon?: string; name?: string }> = {
     icon: '/svg/chains/bsc.svg',
     name: 'BNB Test Chain',
   },
-  [arbitrum.id]: {
-    icon: '/svg/chains/arbitrum.svg',
-    name: 'Arbitrum One',
+  [merlinMainnet.id]: {
+    icon: '/img/merlin-chain.png',
+    name: 'Merlin Mainnet',
   },
-  [arbitrumGoerli.id]: {
-    icon: '/svg/chains/arbitrum.svg',
-    name: 'Arbitrum Goerli',
+  [merlinTestnet.id]: {
+    icon: '/img/merlin-chain.png',
+    name: 'Merlin Testnet',
   },
 };

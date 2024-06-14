@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import { useMainAccount } from '@/hooks/wallet';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 import { Address, encodeFunctionData, Hash, parseEventLogs } from 'viem';
@@ -29,7 +29,7 @@ export function useMainWriteContract({ onError, onSuccess }: MainWriteContractPr
     error,
   } = useWaitForTransactionReceipt({
     hash: txHash,
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
   });
 
   useEffect(() => {

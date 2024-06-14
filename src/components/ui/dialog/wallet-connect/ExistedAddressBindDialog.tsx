@@ -7,11 +7,14 @@ import { useMainAccount } from '@/hooks/wallet';
 import { useMutationBindAddress } from '@/hooks/bound';
 import { bindWalletDataAtom, isExistedAddressDialogAtom } from '@/atoms';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
+import { CHAIN_CONFIG } from '@/constants/chain';
+import { useAccount } from 'wagmi';
 
 export default function ExistedAddressBindDialog() {
   const [isOpen, setIsOpen] = useAtom(isExistedAddressDialogAtom);
   const data = useAtomValue(bindWalletDataAtom);
   const { majorAddress } = useMainAccount();
+  const { chainId } = useAccount();
   const { mutate } = useMutationBindAddress();
 
   const onBindClick = () => {
@@ -40,7 +43,7 @@ export default function ExistedAddressBindDialog() {
             <div className="flex-center relative h-[3.84vw] w-full max-w-[18.4vw] gap-[0.48vw] border border-gray-600 bg-gray-750 text-sm font-medium  xl:h-12 xl:max-w-[230px] xl:gap-1.5">
               <PatternWithoutLine />
               <div className="h-[1.92vw] w-[1.92vw] rounded-full border bg-white xl:h-6 xl:w-6">
-                <img src="/img/merlin-chain.png" className="h-full w-full" alt="merlin" />
+                <img src={chainId ? CHAIN_CONFIG[chainId].icon : ''} className="h-full w-full" alt="merlin" />
               </div>
               {shortenAddress(majorAddress)}
             </div>

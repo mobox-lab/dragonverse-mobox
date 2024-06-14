@@ -1,5 +1,5 @@
 import { EMDBLABI, MDBLABI } from '@/abis';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useEffect, useMemo } from 'react';
 import { Address } from 'viem';
@@ -15,7 +15,7 @@ export function useTotalSupply() {
     address: CONTRACT_ADDRESSES.emdbl,
     abi: EMDBLABI,
     functionName: 'totalSupply',
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
     query: {
       refetchInterval: 6_000,
     },
@@ -33,7 +33,7 @@ export function useEMDBLBalance() {
     abi: EMDBLABI,
     functionName: 'balanceOf',
     args: [evmAddress as Address],
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
     query: {
       enabled: !!evmAddress,
       refetchInterval: 6_000,
@@ -52,7 +52,7 @@ export function useMDBLBalance() {
     abi: MDBLABI,
     functionName: 'balanceOf',
     args: [evmAddress as Address],
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
     query: {
       enabled: !!evmAddress,
       refetchInterval: 6_000,
@@ -71,7 +71,7 @@ export function useEMDBLCanRedemptionBalance() {
     abi: EMDBLABI,
     functionName: 'getUserCanRedemptionBalance',
     args: [evmAddress as Address],
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
     query: {
       enabled: !!evmAddress,
       refetchInterval: 6_000,
@@ -92,7 +92,7 @@ export function useAccruedBalance() {
     abi: EMDBLABI,
     functionName: 'getUserHasUsedPermitQuota',
     args: [evmAddress as Address],
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
     query: {
       enabled: !!evmAddress,
       refetchInterval: 2_000,
@@ -112,7 +112,7 @@ export function useStakeContractRead() {
   const { data: reward, refetch } = useFetchTotalReward();
   const { data: inactiveEMDBL, refetch: inactiveRefetch } = useFetchInactiveEMDL();
 
-  const chainId = ALLOW_CHAIN;
+  const [chainId] = ALLOW_CHAINS;
   const { mdbl, emdbl } = CONTRACT_ADDRESSES;
   const { evmAddress } = useMainAccount();
   const setEmdblTotalSupply = useSetAtom(emdblTotalSupplyAtom);

@@ -17,10 +17,10 @@ export default function PetOdysseyGameRank({ className, roundInfo }: { className
   const { evmAddress } = useMainAccount();
   const [currentRound, setCurrentRound] = useState<GameRound | undefined>(undefined);
   const columns = usePetOdysseyGameRankColumns();
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank(
-    GameRankType.PetOdyssey,
-    currentRound?.round,
-  );
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
+    type: GameRankType.PetOdyssey,
+    round: currentRound?.round,
+  });
   const { ref, inView } = useInView();
   const rankItems = useMemo(() => {
     if (data?.pages?.length && data.pages[0]?.list) {
@@ -44,6 +44,7 @@ export default function PetOdysseyGameRank({ className, roundInfo }: { className
             recordTime: 0,
             mdblReward: '0',
             emdblReward: '0',
+            mboxReward: '0',
           },
           ...res,
         ];

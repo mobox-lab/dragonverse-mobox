@@ -11,7 +11,7 @@ import { ETHERS, SELL_COUNT } from '@/constants/events';
 import InfoSVG from '@/../public/svg/info.svg?component';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useSnapshotData } from '@/hooks/events/useSnapshotData';
-import { useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useMainAccount, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import SnapShotWalletButton from '@/app/events/_components/SnapShotWalletButton';
 import { AIRDROP_CLAIM_ABI, useAirdropIsClaimed, useFetchAirdropProof } from '@/hooks/events/useAirdropClaim';
@@ -19,7 +19,7 @@ import { AIRDROP_CLAIM_ABI, useAirdropIsClaimed, useFetchAirdropProof } from '@/
 export default function Events() {
   const { data } = useSnapshotData();
   const { majorAddress } = useMainAccount();
-  const { isSupportedChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const percent = useMemo(() => {
     if (!data) return 0;
     const res = Number((BigInt(data.mdblBalance) * 100000n) / SELL_COUNT) / 1000;
@@ -89,7 +89,7 @@ export default function Events() {
               {majorAddress ? myAirdrop.toLocaleString() : '--'}
             </p>
           </div>
-          {isSupportedChain && isClaimed !== undefined ? (
+          {isMerlinChain && isClaimed !== undefined ? (
             <div className="flex-center">
               <Button
                 type="yellow"

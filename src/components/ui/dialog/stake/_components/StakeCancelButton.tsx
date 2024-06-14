@@ -3,17 +3,19 @@ import { EMDBLABI } from '@/abis';
 import { refetchPendingCountAtom, refetchPendingHistoryListAtom, refetchStakeHistoryListAtom } from '@/atoms/stake';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
 import { useAtomValue } from 'jotai';
 import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
+import { ALLOW_CHAINS } from '@/constants';
 
 export default function StakeCancelButton({ redeemIndex }: { redeemIndex?: number }) {
   const refetchPending = useAtomValue(refetchPendingHistoryListAtom);
   const refetchStake = useAtomValue(refetchStakeHistoryListAtom);
   const refetchPendingCount = useAtomValue(refetchPendingCountAtom);
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const { inactiveRefetch } = useStakeContractRead();
 
   const { writeContract, isLoading } = useMainWriteContract({
@@ -51,8 +53,8 @@ export default function StakeCancelButton({ redeemIndex }: { redeemIndex?: numbe
   const onClick = async () => {
     if (isLoading) return;
     try {
-      if (!isSupportedChain) {
-        await switchMainChain();
+      if (!isMerlinChain) {
+        await switchMainChain(ALLOW_CHAINS[0]);
       }
       cancel(redeemIndex);
     } catch (e) {

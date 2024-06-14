@@ -12,7 +12,7 @@ import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useEMDBLClaimSignature } from '@/hooks/stake/useEMDBLClaimSignature';
 import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
 import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
-import { useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useMainAccount, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { clsxm, formatNumber } from '@/utils';
 import { useSetAtom } from 'jotai';
 import { useMemo, useState } from 'react';
@@ -23,6 +23,7 @@ import { useFetchBuffData } from '@/hooks/rank/useFetchBuffData';
 import { groupBy } from 'lodash-es';
 import Tooltip from '@/components/ui/tooltip';
 import { DragonPalConfigList } from '@/apis/types';
+import { ALLOW_CHAINS } from '@/constants';
 
 const DragonBuffItem = ({
   type,
@@ -52,11 +53,12 @@ const DragonBuffItem = ({
 export default function MyReward() {
   const setRewardDetailDialog = useSetAtom(rewardDetailDialogAtom);
   const setRewardHistoryDialog = useSetAtom(rewardHistoryDialogAtom);
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const { evmAddress } = useMainAccount();
   const { totalAccruedBalance, accruedBalance, refetch } = useStakeContractRead();
 
-  const { data: obtain, nextLevel } = useFetchObtain();
+  const { data: obtain } = useFetchObtain();
   const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
   const { mutateAsync: claimGameAsset } = useClaimGameAsset();
   const [captureClaimLoading, setCaptureClaimLoading] = useState<boolean>(false);
@@ -95,8 +97,8 @@ export default function MyReward() {
 
   const claimAccrued = async () => {
     if (!evmAddress || !accruedBalance) return;
-    if (!isSupportedChain) {
-      switchMainChain();
+    if (!isMerlinChain) {
+      switchMainChain(ALLOW_CHAINS[0]).then();
       return;
     }
     ReactGA.event({ category: 'merlin', action: 'claim_emdbl' });
@@ -121,7 +123,7 @@ export default function MyReward() {
       } else if (type === 'CaptureBall') {
         setCaptureClaimLoading(true);
       }
-      const res = await claimGameAsset(type);
+      const res = await claimGameAsset({ type });
       if (res.code === 200) {
         refetchGameAsset();
         toast.success('Claim Successfully.');

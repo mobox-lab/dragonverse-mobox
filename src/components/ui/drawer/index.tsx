@@ -24,7 +24,7 @@ type DrawerProps = {
   open?: boolean;
   className?: string;
   isDismiss?: boolean;
-  title?: string;
+  title?: React.ReactNode;
   children?: React.JSX.Element;
   onOpenChange?: (open: boolean) => void;
   render: (props: { close: () => void }) => React.ReactNode;
@@ -73,7 +73,7 @@ function Drawer({
                 <FloatingFocusManager context={context}>
                   <motion.aside
                     className={clsx(
-                      'absolute right-0 h-full border-l border-gray-600 bg-black/60 p-[2.4vw] backdrop-blur-lg xl:p-7.5',
+                      'absolute right-0 h-full flex flex-col bg-gray-850 p-[1.92vw] backdrop-blur-lg xl:p-6',
                       ...fontVariants,
                       className,
                     )}
@@ -84,7 +84,7 @@ function Drawer({
                     {...getFloatingProps({ ref: setFloating })}
                   >
                     {title ? (
-                      <div className="mb-[3.84vw] flex h-[2.88vw] items-center justify-between xl:mb-12 xl:h-9">
+                      <div className="mb-[3.84vw] flex items-center justify-between xl:mb-12">
                         <div className="flex-center gap-[0.64vw] text-[1.6vw]/[1.92vw] font-semibold xl:gap-2 xl:text-xl/6">
                           {parentNodeId && (
                             <div

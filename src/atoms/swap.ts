@@ -1,8 +1,7 @@
 import { atom } from 'jotai';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import { assetsBalanceAtom, mbtcAllowanceAtom, poolInitialAtom } from '@/atoms/lbp';
 import { evmAddressAtom } from '@/atoms/wallet';
-import { bigIntToFloat } from '@/entities/bigint';
 import { Address, erc20Abi, maxUint256 } from 'viem';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { LiquidityBootstrapPool, Pool } from '@/entities/pool';
@@ -182,7 +181,7 @@ export const approveParamsAtom = atom<SwapTokenParams | undefined>((get) => {
       errorMapping: {},
       writeParams: {
         abi: erc20Abi,
-        chainId: ALLOW_CHAIN,
+        chainId: ALLOW_CHAINS[0],
         address: token,
         functionName: 'approve',
         args: [spender, maxUint256],
@@ -220,7 +219,7 @@ export const swapParamsAtom = atom<SwapTokenParams | undefined>((get) => {
       abi: LiquidityBootstrapPoolABI,
       address: CONTRACT_ADDRESSES.lbp,
       functionName,
-      chainId: ALLOW_CHAIN,
+      chainId: ALLOW_CHAINS[0],
       args: args[tradeType],
     },
   };

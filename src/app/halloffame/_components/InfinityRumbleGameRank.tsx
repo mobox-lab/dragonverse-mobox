@@ -17,10 +17,10 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
   const columns = useInfinityRumbleGameRankColumns();
   const { data: roundList } = useFetchGameRoundList();
   const [currentRound, setCurrentRound] = useState<GameRound | undefined>(undefined);
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank(
-    GameRankType.Rumble,
-    currentRound?.round,
-  );
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
+    type: GameRankType.Rumble,
+    round: currentRound?.round,
+  });
   const { ref, inView } = useInView();
   const rankItems = useMemo(() => {
     if (data?.pages?.length && data.pages[0]?.list) {
@@ -43,6 +43,7 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
             recordTime: 0,
             mdblReward: '0',
             emdblReward: '0',
+            mboxReward: '0',
           },
           ...res,
         ];

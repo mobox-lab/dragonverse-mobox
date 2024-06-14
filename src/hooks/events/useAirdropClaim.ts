@@ -1,5 +1,5 @@
 import { useReadContract } from 'wagmi';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useQuery } from '@tanstack/react-query';
 import { fetchAirdropProof } from '@/apis';
@@ -59,7 +59,7 @@ export function useAirdropIsClaimed(index?: number) {
   return useReadContract({
     abi: AIRDROP_CLAIMED_ABI,
     address: CONTRACT_ADDRESSES.airdrop,
-    chainId: ALLOW_CHAIN,
+    chainId: ALLOW_CHAINS[0],
     functionName: 'isClaimed',
     args: bigintIndex ? [bigintIndex] : undefined,
     query: { enabled: !!bigintIndex },

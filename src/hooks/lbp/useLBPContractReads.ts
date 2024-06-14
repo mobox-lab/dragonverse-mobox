@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import { useReadContracts } from 'wagmi';
 import { Address, erc20Abi } from 'viem';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import {
   assetsBalanceAtom,
   isAbleToClaimAtom,
@@ -18,7 +18,7 @@ import { useBTCLatestAnswer } from '@/hooks/lbp/useBTCLatestAnswer';
 import { LiquidityBootstrapPoolABI } from '@/abis/LiquidityBootstrapPool';
 
 export default function useLBPContractReads() {
-  const chainId = ALLOW_CHAIN;
+  const [chainId] = ALLOW_CHAINS;
   const { lbp, mbtc } = CONTRACT_ADDRESSES;
   const setPoolInitial = useSetAtom(poolInitialAtom);
   const setAssetsBalance = useSetAtom(assetsBalanceAtom);

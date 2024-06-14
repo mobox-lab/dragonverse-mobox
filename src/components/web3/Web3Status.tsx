@@ -9,7 +9,8 @@ import { useIsMainConnected, useMainChain } from '@/hooks/wallet';
 import WalletAssets from '@/components/web3/WalletAssets';
 import ReactGA from 'react-ga4';
 
-const connectButtonExcludePath = ['/terms-of-use', '/events', '/burn'];
+const connectButtonExcludePath = ['/events', '/burn'];
+
 export default function Web3Status() {
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);

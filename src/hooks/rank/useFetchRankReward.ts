@@ -1,9 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Address } from 'viem';
 import { useReadContracts } from 'wagmi';
-import { ALLOW_CHAIN } from '@/constants';
+import { ALLOW_CHAINS } from '@/constants';
 import {
-  fetchAirdropProof,
   fetchClaimRewardSignature,
   fetchRankMdblProof,
   fetchRankRewardBalance,
@@ -14,7 +13,7 @@ import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { LeaderboardRewardsABI } from '@/abis/LeaderboardRewards';
 
 export function useReadLeaderboardRewards(address?: Address) {
-  const chainId = ALLOW_CHAIN;
+  const [chainId] = ALLOW_CHAINS;
   const { leaderboardRewards } = CONTRACT_ADDRESSES;
   const { data } = useReadContracts({
     contracts: [

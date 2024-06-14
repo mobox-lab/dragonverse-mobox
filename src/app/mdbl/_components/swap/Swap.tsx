@@ -30,9 +30,9 @@ import {
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
 import Popover from '@/components/ui/popover';
-import { inputRegex, SocialLinks } from '@/constants';
+import { ALLOW_CHAINS, inputRegex, SocialLinks } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
-import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useIsMainConnected, useMainAccount, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { clsxm, escapeRegExp, formatNumber, lessThanOneFormat, openLink, retainDigits, shortenDigits } from '@/utils';
 import clsx from 'clsx';
 import { formatEther, parseEther } from 'ethers';
@@ -106,7 +106,8 @@ export default function Swap({ className }: { className?: string }) {
   const [slipType, setSlipType] = useState<SlipPageType>(SlipPageType.AUTO);
   const [isOpen, setIsOpen] = useState(false);
   const [slip, setSlip] = useAtom(slippageAtom);
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const { evmAddress, walletType } = useMainAccount();
 
   const { data } = useFetchShares({ address: evmAddress });
@@ -414,13 +415,13 @@ export default function Swap({ className }: { className?: string }) {
               </div>
 
               {isMainConnected ? (
-                !isSupportedChain ? (
+                !isMerlinChain ? (
                   <Button
                     type="yellow"
                     className={clsx('mt-[1.28vw] h-[3.52vw] w-full font-semibold xl:mt-4 xl:h-11')}
                     onClick={() => {
                       ReactGA.event({ category: 'merlin', action: 'wrong_network' });
-                      switchMainChain();
+                      switchMainChain(ALLOW_CHAINS[0]).then();
                     }}
                   >
                     Wrong Network
@@ -779,13 +780,13 @@ export default function Swap({ className }: { className?: string }) {
               </div>
 
               {isMainConnected ? (
-                !isSupportedChain ? (
+                !isMerlinChain ? (
                   <Button
                     type="yellow"
                     className="h-[3.52vw] w-full font-semibold xl:h-11"
                     onClick={() => {
                       ReactGA.event({ category: 'merlin', action: 'wrong_network' });
-                      switchMainChain();
+                      switchMainChain(ALLOW_CHAINS[0]).then();
                     }}
                   >
                     Wrong Network

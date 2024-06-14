@@ -5,10 +5,10 @@ import SwitchSVG from '@/../public/svg/switch-02.svg?component';
 import { EMDBLABI, MDBLABI } from '@/abis';
 import { mainWalletConnectDialogAtom } from '@/atoms';
 import { StakeRedeemType, stakeAndRedeemDialogAtom, stakeAndRedeemTypeAtom } from '@/atoms/stake';
-import { MAX_UINT_256, inputRegex, periodData, periodTime } from '@/constants';
+import { MAX_UINT_256, inputRegex, periodData, periodTime, ALLOW_CHAINS } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { useIsMainConnected, useMainChain, useMainWriteContract } from '@/hooks/wallet';
+import { useIsMainConnected, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { clsxm, formatNumber } from '@/utils';
 import { useAtom, useSetAtom } from 'jotai';
 import { escapeRegExp } from 'lodash-es';
@@ -30,7 +30,8 @@ export enum PeriodType {
 export default function StakeAndRedeemDialog() {
   const isMainConnected = useIsMainConnected();
   const setWalletConnect = useSetAtom(mainWalletConnectDialogAtom);
-  const { isSupportedChain, switchMainChain } = useMainChain();
+  const { switchMainChain } = useMainChain();
+  const { isMerlinChain } = useSelectedChain();
   const [isOpen, setIsOpen] = useAtom(stakeAndRedeemDialogAtom);
   const [type, setType] = useAtom(stakeAndRedeemTypeAtom);
   const [stakeValue, setStakeValue] = useState<string>('');
@@ -203,13 +204,13 @@ export default function StakeAndRedeemDialog() {
                 </div>
               </div>
               {isMainConnected ? (
-                !isSupportedChain ? (
+                !isMerlinChain ? (
                   <Button
                     type="yellow-dark"
                     className={clsxm('mt-[1.28vw] h-[3.52vw] w-full font-semibold xl:mt-4 xl:h-11')}
                     onClick={() => {
                       ReactGA.event({ category: 'merlin', action: 'wrong_network' });
-                      switchMainChain();
+                      switchMainChain(ALLOW_CHAINS[0]);
                     }}
                   >
                     Wrong Network
@@ -357,13 +358,13 @@ export default function StakeAndRedeemDialog() {
                 </div>
               </div>
               {isMainConnected ? (
-                !isSupportedChain ? (
+                !isMerlinChain ? (
                   <Button
                     type="yellow-dark"
                     className={clsxm('mt-[1.28vw] h-[3.52vw] w-full font-semibold xl:mt-4 xl:h-11')}
                     onClick={() => {
                       ReactGA.event({ category: 'merlin', action: 'wrong_network' });
-                      switchMainChain();
+                      switchMainChain(ALLOW_CHAINS[0]).then();
                     }}
                   >
                     Wrong Network

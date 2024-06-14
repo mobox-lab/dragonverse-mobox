@@ -93,7 +93,7 @@ export default function SnapShotWalletButton({ data }: SnapShotWalletButtonProps
             <div className="flex-center relative h-12 flex-1 cursor-pointer gap-1.5 border border-green/50 bg-gray-750 bg-gradient-to-b from-green/10 to-green/10 text-xs font-medium">
               <PatternWithoutLine className="stroke-green" />
               <div className="h-[1.92vw] w-[1.92vw] rounded-full border bg-white xl:h-6 xl:w-6">
-                <img src="/img/btc.webp" className="h-full w-full" alt="merlin" />
+                <img src="/img/btc.webp" className="h-full w-full" alt="btc" />
               </div>
               {shortenAddress(data.buffAddress)}({shortenAddress(data.buffAAAddress)})
               <motion.div className="h-[0.64vw] w-[0.64vw] xl:h-2 xl:w-2" animate={{ rotate: isOpen ? 0 : 180 }}>
