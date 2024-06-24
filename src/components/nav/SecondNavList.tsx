@@ -99,7 +99,7 @@ export default function SecondNavList({ currentItem }: { currentItem: NavItemPro
       placement="right-start"
       title={renderContent()}
     >
-      {buttonEle}
+      <div className="w-full">{buttonEle}</div>
     </Tooltip>
   );
 }
