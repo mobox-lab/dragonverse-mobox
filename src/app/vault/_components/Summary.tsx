@@ -114,8 +114,8 @@ export default function Summary() {
                 </div>
               </div>
               <div>
-                <div className="black-outline w-[10.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[130px] xl:text-sm/6">
-                  Total eMDBL
+                <div className="black-outline w-[12.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[140px] xl:text-sm/6">
+                Total Active eMDBL
                 </div>
                 <div className="mt-[0.32vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-1 xl:text-2xl/6">
                   {formatNumber(totalSupply, false)}
@@ -137,8 +137,8 @@ export default function Summary() {
                 </div>
               </div>
               <div className="flex flex-col items-end text-right">
-                <div className="black-outline w-[10.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[130px] xl:text-sm/6">
-                  Total eMDBL
+                <div className="black-outline w-[12.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[140px] xl:text-sm/6">
+                  Total Active eMDBL
                 </div>
                 <div className="mt-[0.32vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-1 xl:text-2xl/6">
                   {formatNumber(BigInt(nextReward?.min || 0), false)}
