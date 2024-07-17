@@ -220,3 +220,5 @@ export const fetchPgeGameId = () => request.get<any, Response<PGEGameId>>('/pge-
 
 export const fetchRankMoboxProof = (address?: string) =>
   request.get<any, Response<AirdropProof>>('/pge-game/rank/mbox-proof', { params: { evmAddress: address } });
+
+export const fetchTotalActiveEmdbl = () => request.get('/merlin/stake/total-active-emdbl');

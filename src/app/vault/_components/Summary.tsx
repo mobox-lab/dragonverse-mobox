@@ -1,21 +1,22 @@
 'use client';
 import ProcessItemSvg from '@/../public/svg/process-item.svg?component';
 import { RewardConfig } from '@/apis/types';
-import { emdblTotalSupplyAtom } from '@/atoms/stake';
 import { useFetchDailyReward } from '@/hooks/stake/useFetchDailyReward';
 import { formatNumber, openLink } from '@/utils';
 import { clickableMotionProps } from '@/utils/motionAnim';
 import { motion } from 'framer-motion';
-import { useAtomValue } from 'jotai';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatEther } from 'viem';
 import ReactGA from 'react-ga4';
+import { useFetchTotalActiveEmdbl } from '@/hooks/stake/useFetchTotalActiveEmdbl';
 
 export default function Summary() {
   const [blocks, setBlocks] = useState<number>(0);
-  const totalSupply = useAtomValue(emdblTotalSupplyAtom);
-  // const totalSupply = parseEther('1000000000');
   const processRef = useRef<HTMLDivElement | null>(null);
+  const { data: emdblResult } = useFetchTotalActiveEmdbl();
+  const totalSupply = useMemo(() => {
+    return BigInt(emdblResult?.data ?? '0');
+  }, [emdblResult]);
 
   const [nextReward, setNextReward] = useState<RewardConfig>({
     dailyReward: '0',
