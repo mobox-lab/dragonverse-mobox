@@ -95,7 +95,7 @@ export default function Summary() {
           alt="Guide"
           onClick={() => {
             ReactGA.event({ category: 'merlin', action: 'vault_guide' });
-            openLink('https://mbox.medium.com/introducing-mdbl-liquidity-yield-program-stage-1-840d82ad8138');
+            openLink('https://mbox.medium.com/dragonverse-neo-season-2-is-live-5b413c7e9613');
           }}
         />
       </motion.div>
