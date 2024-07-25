@@ -1,6 +1,6 @@
 'use client';
 
-import { DragonProposal } from '@/apis/types';
+import type { DragonProposal } from '@/apis/types';
 import { DragonProposalState } from '@/constants/enum';
 import { clsxm, shortenAddress, shortenSnapStr } from '@/utils';
 import { computeTimeDifference } from '@/utils/date';

@@ -43,7 +43,7 @@ export default function ChangeRoundButton({
         </div>
       )}
     >
-      <div className="flex-center h-[3.2vw] w-[3.2vw] cursor-pointer rounded bg-white/10 backdrop-blur-xl xl:h-10 xl:w-10">
+      <div className="flex-center h-[3.2vw] w-[3.2vw] cursor-pointer rounded-[2px] bg-white/10 backdrop-blur-xl xl:h-10 xl:w-10">
         <Arrow2Svg className={clsxm('w-[0.8vw] fill-white transition-all xl:w-2.5', isOpen ? 'rotate-0' : 'rotate-180')} />
       </div>
     </Popover>

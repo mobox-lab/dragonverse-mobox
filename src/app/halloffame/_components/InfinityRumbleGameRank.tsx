@@ -91,6 +91,7 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
         firstLineHighLight={!!evmAddress}
         loading={isLoading}
         className="mt-[0.8vw] max-h-[35.68vw] overflow-x-auto xl:mt-2.5 xl:max-h-[446px]"
+        bodyClass='!pb-0'
         dataSource={rankItems ?? []}
         columns={columns}
         renderBottom={() => (

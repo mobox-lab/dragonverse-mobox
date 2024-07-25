@@ -1,4 +1,5 @@
 import { DragonProposalSortField, DragonProposalState, GameRumbleGrade, PetRarity, TradeType } from '@/constants/enum';
+import { GameAssetAction, GameAssetID } from '@/constants/gameAssets';
 import { PayTokenEnum } from '@/constants/hatch';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
@@ -184,7 +185,7 @@ export type BindAddressParams = {
   buffAddress: string;
 };
 
-export type UserInfo = {
+export type UserInfoGame = {
   btcAddress: string;
   evmAddress: string;
   showName: string;
@@ -419,26 +420,32 @@ export type RankCurrentRound = {
     PetReward: {
       mdbl: number;
       emdbl: number;
+      merl: number;
     };
     FightReward: {
       mdbl: number;
       emdbl: number;
+      merl: number;
     };
     petTopReward: {
       mdbl: number;
       emdbl: number;
+      merl: number;
     };
     petBasicReward: {
       mdbl: number;
       emdbl: number;
+      merl: number;
     };
     fightTopReward: {
       mdbl: number;
       emdbl: number;
+      merl: number;
     };
     fightBasicReward: {
       mdbl: number;
       emdbl: number;
+      merl: number;
     };
     bscPetTopReward: {
       mbox: number;
@@ -501,6 +508,7 @@ export type DragonPalConfigList = {
   dreamPetBuff: number;
   infinityRambleBuff: number;
   avatarUrl: string;
+  name: string;
 };
 
 export type ObtainData = {
@@ -518,8 +526,11 @@ export type GameStaminaConfig = {
 };
 
 export type GameAsset = {
-  DragonEgg: DragonEgg;
-  DragonCaptureBall: DragonCaptureBall;
+  // DragonEgg: DragonEgg;
+  // DragonCaptureBall: DragonCaptureBall;
+  list: DragonCaptureBall[];
+  captureProbability: number;
+  totalDragonPower: number;
 };
 
 export type DragonEgg = {
@@ -529,9 +540,10 @@ export type DragonEgg = {
 };
 
 export type DragonCaptureBall = {
+  resId: string;
   unclaim: number;
   total: number;
-  unUsed: number;
+  unuse: number;
 };
 
 export type GameRound = {
@@ -558,10 +570,12 @@ export type PetRankItem = {
   petName: string;
   petRarity: PetRarity;
   petOriginalAttack: number;
+  petEnchantScore: number;
   petAttack: number;
   recordTime: number;
   mdblReward: string;
   emdblReward: string;
+  merlReward: string;
   mboxReward: string;
   buff: {
     light: number;
@@ -591,6 +605,7 @@ export type FightRankItem = {
   recordTime: number;
   mdblReward: string;
   emdblReward: string;
+  merlReward: string;
   mboxReward: string;
   buff: {
     dark: number;
@@ -635,3 +650,72 @@ export type PGEGameId = {
   MerlinGameId: string;
   BSCGameId: string;
 };
+
+export type UserHDWalletBalances = {
+  balance: string;
+  symbol: string;
+};
+
+export type RechargeAddress = {
+  chainId: number;
+  hdWalletAddress: string;
+};
+
+export type UserGameInfo = {
+  gparkUserAvatar: string;
+  gparkUserName: string;
+};
+
+export type RechargeAddresss = {
+  merlin: string;
+};
+
+export type FetchWithdraw = {
+  chainId: number;
+  tokenName: string;
+  amount: string;
+  timestamp: number;
+  sign: string;
+};
+
+export type TradeHistoryItem = {
+  amount: string;
+  createdTimestamp: number;
+  fundAction: string;
+  state: string;
+};
+
+export type FetchTradeHistory = {
+  totalCount: number;
+  fundLogs: TradeHistoryItem[];
+};
+
+export type FetchBuyGameAsset = {
+  orderId: string;
+  consumeId: number;
+  buyCnt: number;
+  gameId: string;
+  timestamp: number;
+};
+
+export type FetchGameAssetLog = {
+  page: number;
+  pageSize: number;
+  resId: GameAssetID;
+  gameId: string;
+}
+
+export type FetchGameAssetLogResult = {
+  total: number;
+  data: GameAssetLogItem[];
+}
+
+export type GameAssetLogItem = {
+  id: number;
+  resId: GameAssetID;
+  amount: number;
+  action: GameAssetAction;
+  sourceId: number;
+  dragonPalId: number;
+  time: number;
+}

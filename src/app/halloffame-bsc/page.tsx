@@ -29,7 +29,7 @@ export default function HallOfFameBsc() {
       <img
         src="/img/rank-title-bsc.webp"
         alt="Hall of Fame"
-        className="absolute left-1/2 top-[2.56vw] w-[40.48vw] -translate-x-1/2 transform xl:top-8 xl:w-[506px]"
+        className="absolute left-1/2 top-[2.56vw] w-[40.48vw] -translate-x-1/2 transform xl:top-8 xl:w-[368px]"
       />
       <motion.div className="mt-[15.04vw] size-[7.68vw] cursor-pointer xl:mt-[154px] xl:size-24" {...clickableMotionProps()}>
         <img

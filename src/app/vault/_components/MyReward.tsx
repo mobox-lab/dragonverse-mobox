@@ -8,20 +8,16 @@ import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useEMDBLClaimSignature } from '@/hooks/stake/useEMDBLClaimSignature';
-import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
-import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
 import { useMainAccount, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
-import { clsxm, formatNumber } from '@/utils';
+import { formatNumber } from '@/utils';
 import { useSetAtom } from 'jotai';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
 import RewardCountdown from './RewardCountdown';
 import { useFetchBuffData } from '@/hooks/rank/useFetchBuffData';
 import { groupBy } from 'lodash-es';
-import Tooltip from '@/components/ui/tooltip';
 import { DragonPalConfigList } from '@/apis/types';
 import { ALLOW_CHAINS } from '@/constants';
 
@@ -57,12 +53,6 @@ export default function MyReward() {
   const { isMerlinChain } = useSelectedChain();
   const { evmAddress } = useMainAccount();
   const { totalAccruedBalance, accruedBalance, refetch } = useStakeContractRead();
-
-  const { data: obtain } = useFetchObtain();
-  const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
-  const { mutateAsync: claimGameAsset } = useClaimGameAsset();
-  const [captureClaimLoading, setCaptureClaimLoading] = useState<boolean>(false);
-  const [eggClaimLoading, setEggClaimLoading] = useState<boolean>(false);
 
   const { mutateAsync, isLoading } = useEMDBLClaimSignature();
   const { writeContract, isLoading: writeLoading } = useMainWriteContract({
@@ -116,29 +106,29 @@ export default function MyReward() {
     }
   };
 
-  const claimAsset = async (type: 'DragonEgg' | 'CaptureBall') => {
-    try {
-      if (type === 'DragonEgg') {
-        setEggClaimLoading(true);
-      } else if (type === 'CaptureBall') {
-        setCaptureClaimLoading(true);
-      }
-      const res = await claimGameAsset({ type });
-      if (res.code === 200) {
-        refetchGameAsset();
-        toast.success('Claim Successfully.');
-      } else {
-        toast.error('Claim Failed.');
-      }
-    } catch (error) {
-    } finally {
-      if (type === 'DragonEgg') {
-        setEggClaimLoading(false);
-      } else if (type === 'CaptureBall') {
-        setCaptureClaimLoading(false);
-      }
-    }
-  };
+  // const claimAsset = async (id: GameAssetIds) => {
+  //   try {
+  //     if (id === 10002) {
+  //       setEggClaimLoading(true);
+  //     } else if (id === 10001) {
+  //       setCaptureClaimLoading(true);
+  //     }
+  //     const res = await claimGameAsset({ id });
+  //     if (res.code === 200) {
+  //       refetchGameAsset();
+  //       toast.success('Claim Successfully.');
+  //     } else {
+  //       toast.error('Claim Failed.');
+  //     }
+  //   } catch (error) {
+  //   } finally {
+  //     if (id === 10002) {
+  //       setEggClaimLoading(false);
+  //     } else if (id === 10001) {
+  //       setCaptureClaimLoading(false);
+  //     }
+  //   }
+  // };
   return (
     <div className="mt-[2.88vw] xl:mt-9">
       <div className="grid grid-cols-2 gap-[1.92vw] xl:gap-6">
@@ -158,7 +148,7 @@ export default function MyReward() {
       <div className="mt-[0.96vw] grid h-[14.24vw] grid-cols-2 gap-[1.92vw] xl:mt-3 xl:h-[178px] xl:gap-6">
         <div className="relative flex h-full items-center border border-gray-600 bg-black/60 backdrop-blur-sm">
           <PatternWithoutLine />
-          <img draggable={false} src="/img/reward-bg-01_2.webp" alt="mdbl" className="absolute inset-0 -z-10 -mb-1 h-full" />
+          <img draggable={false} src="/img/reward-bg-01_2.webp" alt="mdbl" className="absolute inset-0 -z-10 -mb-1 h-full object-cover object-center" />
           <div className="relative flex flex-grow flex-col items-center">
             <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Accrued eMDBL</div>
             <div className="flex-center mt-[0.96vw] xl:mt-3">

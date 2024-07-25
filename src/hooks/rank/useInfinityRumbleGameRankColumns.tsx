@@ -160,10 +160,11 @@ export const useInfinityRumbleGameRankColumns = () => {
         },
       }),
       moGameFightHelper.display({
-        id: 'emdblReward',
+        id: 'merlReward',
         header: () => <p className={clsxm('flex-center w-17 flex-grow-[3] pr-[1.28vw] font-semibold xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
-          const { emdblReward, rank } = row.original;
+          const { merlReward, emdblReward, rank } = row.original;
+          const reward = merlReward || emdblReward || 0;
           return (
             <p
               className={clsxm(
@@ -171,9 +172,9 @@ export const useInfinityRumbleGameRankColumns = () => {
               )}
             >
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
+                {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
               </span>
-              <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
+              <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
             </p>
           );
         },

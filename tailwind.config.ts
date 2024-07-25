@@ -70,6 +70,7 @@ const config: Config = {
           500: '#64AB85',
           DEFAULT: '#1EDB8C',
           700: '#A9FF54',
+          
         },
         blue: {
           300: '#4383FF',

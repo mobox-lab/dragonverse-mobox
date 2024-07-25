@@ -1,6 +1,7 @@
 import { bigIntToFloat } from '@/entities/bigint';
 import Decimal from 'decimal.js-light';
 import { getAddress, parseEther } from 'viem';
+import { convertScientificToNormal } from '@/utils';
 
 export function isAddress(value: any): string | false {
   try {
@@ -10,9 +11,9 @@ export function isAddress(value: any): string | false {
   }
 }
 
-export function shortenAddress(address?: string, chars = 5, splitStr = '...'): string {
+export function shortenAddress(address?: string, chars = 5, splitStr = '...', end?: number): string {
   if (!address) return '';
-  return address.substring(0, chars) + splitStr + address.substring(address.length - chars);
+  return address.substring(0, chars) + splitStr + address.substring(address.length - (end ?? chars));
 }
 
 export function shortenStr(
@@ -112,6 +113,9 @@ export function formatNumber(num?: bigint, float = true) {
     amount: num ?? 0n,
     decimals: 18,
   }).toString();
+  if (numStr.includes('e') || numStr.includes('E')) {
+    numStr = convertScientificToNormal(numStr);
+  }
   let decimalIndex = numStr.indexOf('.');
   if (decimalIndex !== -1 && float) {
     //  

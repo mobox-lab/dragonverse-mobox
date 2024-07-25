@@ -35,7 +35,16 @@ import {
   StakeRewardHistory,
   RankRewardBalance,
   PGEGameId,
+  RechargeAddress,
+  UserGameInfo,
+  UserHDWalletBalances,
+  FetchWithdraw,
+  FetchTradeHistory,
+  FetchBuyGameAsset,
+  FetchGameAssetLog,
+  FetchGameAssetLogResult,
 } from './types';
+import { GameAssetID } from '@/constants/gameAssets';
 
 export const fetchDragonGovernInfo = () => request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo');
 
@@ -162,8 +171,8 @@ export const fetchObtain = (gameId?: string) =>
 export const fetchGameAsset = (gameId?: string) =>
   request.get<any, Response<GameAsset>>('/pge-game/dragon-verse-assets/get-user-asset', { params: { gameId } });
 
-export const claimGameAsset = (type: 'DragonEgg' | 'CaptureBall', gameId?: string) =>
-  request.post<any, Response<boolean>>('/pge-game/dragon-verse-assets/claim-use-asset', { assetName: type, gameId });
+export const claimGameAsset = (resId: GameAssetID, gameId?: string) =>
+  request.post<any, Response<boolean>>('/pge-game/dragon-verse-assets/claim-use-asset', { resId, gameId });
 
 export const fetchGameRoundList = (gameId?: string) =>
   request.get<
@@ -220,5 +229,30 @@ export const fetchPgeGameId = () => request.get<any, Response<PGEGameId>>('/pge-
 
 export const fetchRankMoboxProof = (address?: string) =>
   request.get<any, Response<AirdropProof>>('/pge-game/rank/mbox-proof', { params: { evmAddress: address } });
+
+export const fetchBalance = () => request.post<any, Response<UserHDWalletBalances>>('/user-fund/balance');
+
+export const fetchRechargeAddress = () => request.post<any, Response<RechargeAddress>>('/user-fund/deposit/address');
+
+export const fetchUserInfo = () => request.get<any, Response<UserGameInfo>>('pge-game/rank/user-info');
+
+export const fetchTradeHistory = (page: number, size: number = 20) =>
+  request.get<any, Response<FetchTradeHistory>>('/user-fund/logs', {
+    params: {
+      size,
+      page,
+    },
+  });
+
+export const fetchWithdraw = (data: FetchWithdraw) =>
+  request.post('/user-fund/withdraw', data);
+
+export const fetchBuyGameAsset = (data: FetchBuyGameAsset) => request.post('/user-fund/consume', data)
+
+export const fetchGameAssetLog = (params: FetchGameAssetLog) => request.get<any, Response<FetchGameAssetLogResult>>('/pge-game/dragon-verse-assets/get-asset-logs', {
+  params,
+});
+
+export const fetchIsWhitelist = () => request.get('/pge-game/stamina/whitelist-web');
 
 export const fetchTotalActiveEmdbl = () => request.get('/merlin/stake/total-active-emdbl');

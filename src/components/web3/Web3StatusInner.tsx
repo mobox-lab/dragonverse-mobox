@@ -70,7 +70,7 @@ export default function Web3StatusInner() {
         <div className="h-[1.92vw] w-[1.92vw] rounded-full border bg-white xl:h-6 xl:w-6">
           <img src={chainId ? CHAIN_CONFIG[chainId].icon : ''} className="h-full w-full" alt="chain" />
         </div>
-        <p className="text-[1.12vw]/[1.12vw] xl:text-sm/3.5">{shortenAddress(majorAddress)}</p>
+        <p className="text-[1.12vw]/[1.12vw] xl:text-sm/3.5">{shortenAddress(majorAddress, 5, '...', 3)}</p>
         <motion.div className="h-[0.64vw] w-[0.64vw] xl:h-2 xl:w-2" animate={{ rotate: isOpen ? 0 : 180 }}>
           <ArrowSVG viewBox="0 0 10 10" className="h-full w-full overflow-visible fill-white" preserveAspectRatio="none meet" />
         </motion.div>

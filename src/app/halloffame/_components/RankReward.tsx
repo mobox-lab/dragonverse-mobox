@@ -20,7 +20,6 @@ export default function RankReward() {
     [claimedEmdbl, totalEmdbl],
   );
   const allowClaimMdbl = useMemo(() => (totalMdbl > claimedMdbl ? totalMdbl - claimedMdbl : 0n), [claimedMdbl, totalMdbl]);
-
   const { onClaimClick: onClaimEmdblClick, isLoading: isClaimEmdblLoading } = useRankEmdblRewardClaim();
   const { onClaimClick: onClaimMdblClick, isLoading: isClaimMdblLoading } = useRankMdblRewardClaim();
 

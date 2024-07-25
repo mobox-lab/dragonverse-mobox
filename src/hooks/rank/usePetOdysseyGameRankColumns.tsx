@@ -92,6 +92,25 @@ export const usePetOdysseyGameRankColumns = () => {
           );
         },
       }),
+      // moGamePetRankHelper.accessor('petEnchantScore', {
+      //   header: () => (
+      //     <p
+      //       className={clsxm(
+      //         'flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center font-semibold xl:gap-1',
+      //       )}
+      //     >
+      //       Enchant Score
+      //     </p>
+      //   ),
+      //   cell: ({ getValue, row }) => {
+      //     const { rank } = row.original;
+      //     return (
+      //       <p className={clsxm('w-20 flex-grow-[2] text-center')}>
+      //         {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
+      //       </p>
+      //     );
+      //   },
+      // }),
       moGamePetRankHelper.accessor('petAttack', {
         header: () => (
           <div className={clsxm('relative w-24 flex-grow-[5] overflow-visible whitespace-nowrap')}>
@@ -174,44 +193,45 @@ export const usePetOdysseyGameRankColumns = () => {
           );
         },
       }),
+      // moGamePetRankHelper.display({
+      //   id: 'emdblReward',
+      //   header: () => <p className={clsxm('w-20 flex-grow-[2]')}></p>,
+      //   cell: ({ row }) => {
+      //     const { emdblReward, rank } = row.original;
+      //     return (
+      //       <div className="flex w-20 flex-grow-[2] justify-end">
+      //         <p
+      //           className={clsxm(
+      //             '-mr-[2.56vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-8 xl:text-sm/4.5',
+      //           )}
+      //         >
+      //           <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
+      //             {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
+      //           </span>
+      //           <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
+      //         </p>
+      //       </div>
+      //     );
+      //   },
+      // }),
       moGamePetRankHelper.display({
-        id: 'emdblReward',
-        header: () => <p className={clsxm('w-20 flex-grow-[2]')}></p>,
-        cell: ({ row }) => {
-          const { emdblReward, rank } = row.original;
-          return (
-            <div className="flex w-20 flex-grow-[2] justify-end">
-              <p
-                className={clsxm(
-                  '-mr-[2.56vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-8 xl:text-sm/4.5',
-                )}
-              >
-                <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
-                  {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
-                </span>
-                <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
-              </p>
-            </div>
-          );
-        },
-      }),
-      moGamePetRankHelper.display({
-        id: 'mdblReward',
+        id: 'merlReward',
         header: () => (
-          <p className={clsxm('flex w-24 flex-grow-[3] items-center pr-[1.28vw] text-left font-semibold xl:pr-4')}>Reward</p>
+          <p className={clsxm('flex-center w-24 flex-grow-[3] pr-[1.28vw] text-left font-semibold xl:pr-4')}>Reward</p>
         ),
         cell: ({ row }) => {
-          const { mdblReward, rank } = row.original;
+          const { merlReward, emdblReward, rank } = row.original;
+          const reward = merlReward || emdblReward || 0;
           return (
             <p
               className={clsxm(
-                'flex w-24 flex-grow-[3] items-center justify-end truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
+                'flex-center w-24 flex-grow-[3] truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
               )}
             >
               <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
+                {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
               </span>
-              <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
+              <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
             </p>
           );
         },

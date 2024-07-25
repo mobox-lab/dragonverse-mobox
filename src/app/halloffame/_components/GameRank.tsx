@@ -11,7 +11,7 @@ export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }
   const rankType = useAtomValue(gameRankTypeAtom);
 
   return (
-    <div className="flex flex-col items-center px-[3.2vw] pb-[4.16vw] pt-[3vw] text-center xl:px-10 xl:pb-13 xl:pt-6">
+      <div className='flex flex-col items-center px-[3.2vw] pb-[4.16vw] pt-[3vw] text-center xl:px-10 xl:pb-13 xl:pt-6'>
       {/* 
       <div className="flex w-full items-end justify-between border-b border-gray">
         <div className="flex text-[1.12vw]/[1.76vw] font-semibold text-gray-300 xl:text-sm/5.5">

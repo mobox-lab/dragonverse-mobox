@@ -1,0 +1,110 @@
+import { useMemo } from 'react';
+import dayjs from 'dayjs';
+import clsx from 'clsx';
+import { createColumnHelper } from '@tanstack/react-table';
+import { DragonPalConfigList, GameAssetLogItem } from '@/apis/types';
+import {
+  GAME_ASSET_ACTION_TEXT,
+  ADDITIONAL_ACTIONS,
+  GameAssetID,
+  GAME_ASSETS_ID,
+  GAME_ASSET_ICONS,
+  ASSET_USE_GAME,
+  GAME_ICONS,
+} from '@/constants/gameAssets';
+import { useFetchBuffData } from './rank/useFetchBuffData';
+
+const tradeHistoryHelper = createColumnHelper<GameAssetLogItem>();
+
+export const useGameAssetLogColumns = (assetID: GameAssetID) => {
+  const { data } = useFetchBuffData();
+  const dragonPalConfig = useMemo(() => {
+    return data?.dragonPalConfigList?.reduce(
+      (data, item) => ({ ...data, [item.id]: item }),
+      {} as Record<number, DragonPalConfigList>,
+    );
+  }, [data]);
+
+  return useMemo(
+    () => [
+      tradeHistoryHelper.accessor('time', {
+        header: () => <p className="w-[7.68vw] flex-grow-[3] pl-[1.28vw] text-left xl:w-24 xl:pl-4">Time</p>,
+        cell: ({ getValue }) => {
+          return (
+            <p className="w-[7.68vw] flex-grow-[3] pl-[1.28vw] text-left align-middle text-[0.96vw]/[1.44vw] font-normal xl:w-24 xl:pl-4 xl:text-xs/4.5">
+              {dayjs(getValue()).format('YYYY-MM-DD HH:mm:ss')}
+            </p>
+          );
+        },
+      }),
+      tradeHistoryHelper.accessor('action', {
+        header: () => <p className="w-[3.84vw] flex-grow text-center xl:w-12">Action</p>,
+        cell: ({ getValue }) => {
+          const value = getValue();
+
+          return (
+            <p className="w-[3.84vw] flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-12 xl:text-xs/4.5">
+              {value === 10001 && assetID == GAME_ASSETS_ID.CaptureBall ? 'Capture' : GAME_ASSET_ACTION_TEXT[value] || '-'}
+            </p>
+          );
+        },
+      }),
+      assetID === GAME_ASSETS_ID.CaptureBall
+        ? tradeHistoryHelper.accessor('dragonPalId', {
+            header: () => <p className="w-[10vw] flex-grow text-center xl:w-35">Result</p>,
+            cell: ({ getValue, row }) => {
+              const id = getValue();
+              const config = dragonPalConfig?.[id];
+
+              return (
+                <p className="w-[10vw] flex items-center justify-center flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-35 xl:text-xs/4.5">
+                  {config ? (
+                    <>
+                      <img src={config?.avatarUrl} className="size-[1.2vw] mr-[0.3vw]" />
+                      <span className='text-left'>{config.name ?? '-'}</span>
+                    </>
+                  ) : (
+                    row?.original?.action === 10001 ? (<span className='text-red'>Miss</span>) : <span className='text-green'>Succeed</span>
+                  )}
+                </p>
+              );
+            },
+          })
+        : tradeHistoryHelper.accessor('sourceId', {
+            header: () => <p className="w-[3.84vw] flex-grow text-center xl:w-24">Game</p>,
+            cell: ({ getValue, row }) => {
+              const value = getValue();
+
+              return (
+                <p className="w-[6.7vw] flex items-center justify-center flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-25 xl:text-xs/4.5">
+                  {
+                    GAME_ICONS[value] && <img src={GAME_ICONS[value]} className='w-[2vw] xl:w-5 mr-[0.5vw] xl:mr-2' />
+                  }
+                  {row?.original?.action === 10001 && value ? ASSET_USE_GAME[value] : '-'}
+                </p>
+              );
+            },
+          }),
+      tradeHistoryHelper.accessor('amount', {
+        header: () => <p className="w-[3.84vw] flex-grow-[1] pr-[1.28vw] xl:w-12 xl:pr-4">Amount</p>,
+        cell: ({ getValue, row }) => {
+          const isAdd = ADDITIONAL_ACTIONS.includes(row.original.action);
+
+          return (
+            <p
+              className={clsx(
+                'flex w-[3.84vw] flex-grow-[1] items-center justify-end pr-[1.28vw] text-right text-[1.12vw]/[1.44vw] font-medium leading-none xl:w-12 xl:pr-4 xl:text-sm/4.5',
+                isAdd ? 'text-green' : 'text-red',
+              )}
+            >
+              {isAdd ? '+' : (assetID == GAME_ASSETS_ID.CaptureBall ? '-' : '')}
+              {getValue()}
+              <img src={GAME_ASSET_ICONS[assetID]} className="ml-[0.3vw] h-[1.2vw]" />
+            </p>
+          );
+        },
+      }),
+    ],
+    [assetID, dragonPalConfig],
+  );
+};

@@ -73,36 +73,38 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
               </>
             }
           >
-            <Button
-              className="mt-[28vw] flex h-[8.16vw] w-[28.16vw] items-center justify-center xl:h-[102px] xl:w-[352px]"
-              type="red"
-              disabled={downloadDisabled}
-              onClick={() => {
-                if (downloadDisabled) return;
-                ReactGA.event({ category: 'merlin', action: 'download_pge' });
+            <div>
+              <Button
+                className="mt-[28vw] flex h-[8.16vw] w-[28.16vw] items-center justify-center xl:h-[102px] xl:w-[352px]"
+                type="red"
+                disabled={downloadDisabled}
+                onClick={() => {
+                  if (downloadDisabled) return;
+                  ReactGA.event({ category: 'merlin', action: 'download_pge' });
 
-                window.open('https://cdn1.p12.games/pge/download/PGE_latest.exe', '_blank');
-              }}
-            >
-              {downloadDisabled ? (
-                <div>
-                  {/* <img src="/img/download-disabled.webp" alt="download" className="relative top-0.5 w-[13.65vw] xl:w-[170px]" /> */}
-                  <img
-                    src="/img/download-coming-soon.webp"
-                    draggable={false}
-                    alt="download"
-                    className="relative top-0.5 w-[14.8vw] xl:w-[185px]"
-                  />
-                </div>
-              ) : (
-                <div className="flex flex-col items-center">
-                  <img src="/img/download.webp" alt="download" className="w-[23.68vw] xl:w-[296px]" />
-                  <p className="shadow-text-unbox text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
-                    Current Version: 1.1.0 Update on: 2024.05.23
-                  </p>
-                </div>
-              )}
-            </Button>
+                  window.open('https://cdn1.p12.games/pge/download/PGE_latest.exe', '_blank');
+                }}
+              >
+                {downloadDisabled ? (
+                  <div>
+                    {/* <img src="/img/download-disabled.webp" alt="download" className="relative top-0.5 w-[13.65vw] xl:w-[170px]" /> */}
+                    <img
+                      src="/img/download-coming-soon.webp"
+                      draggable={false}
+                      alt="download"
+                      className="relative top-0.5 w-[14.8vw] xl:w-[185px]"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <img src="/img/download.webp" alt="download" className="w-[23.68vw] xl:w-[296px]" />
+                    <p className="shadow-text-unbox text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
+                      Current Version: 1.1.0 Update on: 2024.05.23
+                    </p>
+                  </div>
+                )}
+              </Button>
+            </div>
           </Tooltip>
           {/* <div className="mt-[1.12vw] text-[0.96vw]/[1.92vw] font-medium text-gray-300 xl:mt-3.5 xl:text-xs/6">
             <p className="flex items-center">
