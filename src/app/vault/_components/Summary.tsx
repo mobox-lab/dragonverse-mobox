@@ -1,6 +1,6 @@
 'use client';
 import ProcessItemSvg from '@/../public/svg/process-item.svg?component';
-import { RewardConfig } from '@/apis/types';
+import { RewardConfig, VaultRewardToken } from '@/apis/types';
 import { useFetchDailyReward } from '@/hooks/stake/useFetchDailyReward';
 import { formatNumber, openLink } from '@/utils';
 import { clickableMotionProps } from '@/utils/motionAnim';

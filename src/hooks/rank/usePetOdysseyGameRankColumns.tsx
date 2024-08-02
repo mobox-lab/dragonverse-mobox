@@ -11,10 +11,10 @@ import { useMainAccount } from '../wallet';
 
 const moGamePetRankHelper = createColumnHelper<PetRankItem>();
 
-export const usePetOdysseyGameRankColumns = () => {
+export const usePetOdysseyGameRankColumns = (round?: number) => {
   const { evmAddress } = useMainAccount();
-  return useMemo(
-    () => [
+  return useMemo(() => {
+    const columns = [
       moGamePetRankHelper.display({
         id: 'Rank',
         header: () => <p className="flex-center w-14 flex-grow-[1] pl-[1.28vw] text-center font-semibold xl:pl-4">Rank</p>,
@@ -193,34 +193,42 @@ export const usePetOdysseyGameRankColumns = () => {
           );
         },
       }),
-      // moGamePetRankHelper.display({
-      //   id: 'emdblReward',
-      //   header: () => <p className={clsxm('w-20 flex-grow-[2]')}></p>,
-      //   cell: ({ row }) => {
-      //     const { emdblReward, rank } = row.original;
-      //     return (
-      //       <div className="flex w-20 flex-grow-[2] justify-end">
-      //         <p
-      //           className={clsxm(
-      //             '-mr-[2.56vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-8 xl:text-sm/4.5',
-      //           )}
-      //         >
-      //           <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
-      //             {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
-      //           </span>
-      //           <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
-      //         </p>
-      //       </div>
-      //     );
-      //   },
-      // }),
+    ];
+
+    if (round == 1) {
+      columns.push(
+        moGamePetRankHelper.display({
+          id: 'emdblReward',
+          header: () => <p className={clsxm('w-20 flex-grow-[2]')}></p>,
+          cell: ({ row }) => {
+            const { emdblReward, rank } = row.original;
+            return (
+              <div className="flex w-20 flex-grow-[2] justify-end">
+                <p
+                  className={clsxm(
+                    '-mr-[2.56vw] flex items-center justify-end truncate text-[1.12vw]/[1.44vw] xl:-mr-8 xl:text-sm/4.5',
+                  )}
+                >
+                  <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
+                    {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
+                  </span>
+                  <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
+                </p>
+              </div>
+            );
+          },
+        }),
+      );
+    }
+
+    columns.push(
       moGamePetRankHelper.display({
-        id: 'merlReward',
+        id: 'reward',
         header: () => (
           <p className={clsxm('flex-center w-24 flex-grow-[3] pr-[1.28vw] text-left font-semibold xl:pr-4')}>Reward</p>
         ),
         cell: ({ row }) => {
-          const { merlReward, emdblReward, rank } = row.original;
+          const { merlReward, emdblReward, rank, mdblReward } = row.original;
           const reward = merlReward || emdblReward || 0;
           return (
             <p
@@ -228,17 +236,29 @@ export const usePetOdysseyGameRankColumns = () => {
                 'flex-center w-24 flex-grow-[3] truncate pr-[1.28vw] text-[1.12vw]/[1.44vw] xl:pr-4 xl:text-sm/4.5',
               )}
             >
-              <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
-              </span>
-              <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
+              {round == 1 ? (
+                <>
+                  <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
+                    {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
+                  </span>
+                  <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
+                </>
+              ) : (
+                <>
+                  <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
+                    {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
+                  </span>
+                  <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
+                </>
+              )}
             </p>
           );
         },
       }),
-    ],
-    [evmAddress],
-  );
+    );
+
+    return columns;
+  }, [round, evmAddress]);
 };
 
 export const useBscPetOdysseyGameRankColumns = () => {

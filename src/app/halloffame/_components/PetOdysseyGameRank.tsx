@@ -16,7 +16,7 @@ export default function PetOdysseyGameRank({ className, roundInfo }: { className
   const { data: roundList } = useFetchGameRoundList();
   const { evmAddress } = useMainAccount();
   const [currentRound, setCurrentRound] = useState<GameRound | undefined>(undefined);
-  const columns = usePetOdysseyGameRankColumns();
+  const columns = usePetOdysseyGameRankColumns(currentRound?.round);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
     type: GameRankType.PetOdyssey,
     round: currentRound?.round,

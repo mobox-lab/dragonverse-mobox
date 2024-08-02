@@ -11,7 +11,7 @@ import { useMainAccount } from '../wallet';
 
 const moGameFightHelper = createColumnHelper<FightRankItem>();
 
-export const useInfinityRumbleGameRankColumns = () => {
+export const useInfinityRumbleGameRankColumns = (round?: number) => {
   const { evmAddress } = useMainAccount();
   return useMemo(
     () => [
@@ -164,7 +164,8 @@ export const useInfinityRumbleGameRankColumns = () => {
         header: () => <p className={clsxm('flex-center w-17 flex-grow-[3] pr-[1.28vw] font-semibold xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const { merlReward, emdblReward, rank } = row.original;
-          const reward = merlReward || emdblReward || 0;
+          const reward = (round == 1 ? emdblReward : merlReward) || 0;
+
           return (
             <p
               className={clsxm(
@@ -174,13 +175,13 @@ export const useInfinityRumbleGameRankColumns = () => {
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
                 {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
               </span>
-              <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
+              <img src={round == 1 ? '/svg/emdbl.svg' : '/img/merlin-chain.png'} alt="merl" className="h-[1.6vw] xl:h-5" />
             </p>
           );
         },
       }),
     ],
-    [evmAddress],
+    [round, evmAddress],
   );
 };
 

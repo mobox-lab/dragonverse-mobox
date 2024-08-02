@@ -51,7 +51,7 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
         <PatternWithoutLine />
         <GameRank roundInfo={data} />
       </div>
-      <Buff />
+      <Buff endTime={data?.gameRoundInfo.endTime || 0} />
     </div>
   );
 };

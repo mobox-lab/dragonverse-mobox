@@ -4,13 +4,17 @@ import { useReadContracts } from 'wagmi';
 import { ALLOW_CHAINS } from '@/constants';
 import {
   fetchClaimRewardSignature,
+  fetchFundRewardClaim,
+  fetchMyRewards,
   fetchRankMdblProof,
+  fetchRankMerlProof,
   fetchRankRewardBalance,
   fetchRankRewardClaim,
 } from '@/apis';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { LeaderboardRewardsABI } from '@/abis/LeaderboardRewards';
+import { RankReward } from '@/apis/types';
 
 export function useReadLeaderboardRewards(address?: Address) {
   const [chainId] = ALLOW_CHAINS;
@@ -90,5 +94,43 @@ export function useFetchRankMdblProof(address?: string) {
     queryFn: () => fetchRankMdblProof(address),
     select: (res) => (res.code === 200 ? res.data : undefined),
     enabled: !!address,
+  });
+}
+
+export function useFetchRankMerlProof(address?: string) {
+  return useQuery({
+    queryKey: ['fetch_rank_merl_proof', address],
+    queryFn: () => fetchRankMerlProof(address),
+    select: (res) => (res.code === 200 ? res.data : undefined),
+    enabled: !!address,
+  });
+}
+
+export function useFetchMyRewards(address?: string) {
+  return useQuery({
+    queryKey: ['fetch-my-rewards', address],
+    queryFn: () => fetchMyRewards(address!),
+    select: (res) => {
+      if (res.code === 200) {
+        return res.data.reduce(
+          (data, item) => ({
+            ...data,
+            [item.tokenName]: item,
+          }),
+          {} as Record<string, RankReward>,
+        );
+      }
+
+      return null;
+    },
+    enabled: !!address,
+  });
+}
+
+export function useFetchFundRewardClaim() {
+  return useMutation({
+    mutationFn(tokenName: string) {
+      return fetchFundRewardClaim(tokenName);
+    },
   });
 }

@@ -43,6 +43,7 @@ import {
   FetchBuyGameAsset,
   FetchGameAssetLog,
   FetchGameAssetLogResult,
+  FetchRankRewards,
 } from './types';
 import { GameAssetID } from '@/constants/gameAssets';
 
@@ -225,6 +226,9 @@ export const fetchClaimRewardSignature = ({ id }: { id?: number }) =>
 export const fetchRankMdblProof = (address?: string) =>
   request.get<any, Response<AirdropProof>>('/pge-game/rank/mdbl-proof', { params: { evmAddress: address } });
 
+export const fetchRankMerlProof = (address?: string) =>
+  request.get<any, Response<AirdropProof>>('/pge-game/rank/merl-proof', { params: { evmAddress: address } });
+
 export const fetchPgeGameId = () => request.get<any, Response<PGEGameId>>('/pge-game/game-id');
 
 export const fetchRankMoboxProof = (address?: string) =>
@@ -256,3 +260,17 @@ export const fetchGameAssetLog = (params: FetchGameAssetLog) => request.get<any,
 export const fetchIsWhitelist = () => request.get('/pge-game/stamina/whitelist-web');
 
 export const fetchTotalActiveEmdbl = () => request.get('/merlin/stake/total-active-emdbl');
+
+export const fetchMyRewards = (evmAddress: string) =>
+  request.get<any, Response<FetchRankRewards>>('/pge-game/rank/fund-reward-balance', {
+    params: {
+      evmAddress,
+    },
+  });
+
+export const fetchFundRewardClaim = (tokenName: string) => request.post('pge-game/rank/claim/fund-reward', null, {
+  params: {
+    tokenName,
+  },
+})
+

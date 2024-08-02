@@ -10,7 +10,6 @@ import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
 import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
 import { formatNumber } from '@/utils';
-import { computeTimeDifference } from '@/utils/date';
 import { GAME_ASSETS_ID } from '@/constants/gameAssets';
 import Tooltip from '@/components/ui/tooltip';
 

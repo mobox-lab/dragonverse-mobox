@@ -31,7 +31,9 @@ export const useLogsHistoryColumns = () => {
         cell: ({ getValue }) => {
           const value = getValue();
           const action =
-            value === 'WITHDRAW-REVERSED' ? 'Reversed' : value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+            value === 'WITHDRAW-REVERSED'
+              ? 'Reversed'
+              : value.replace(/\b\w+/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
 
           return (
             <p className="w-[3.84vw] flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-12 xl:text-xs/4.5">
@@ -61,9 +63,9 @@ export const useLogsHistoryColumns = () => {
         header: () => <p className="w-[3.84vw] flex-grow-[5] pr-[1.28vw] xl:w-12 xl:pr-4">Amount</p>,
         cell: ({ getValue }) => {
           return (
-            <p className="w-[3.84vw] flex-grow-[5] pr-[1.28vw] flex items-center justify-end text-right text-[1.12vw]/[1.44vw] font-medium text-yellow xl:w-12 xl:pr-4 xl:text-sm/4.5">
+            <p className="flex w-[3.84vw] flex-grow-[5] items-center justify-end pr-[1.28vw] text-right text-[1.12vw]/[1.44vw] font-medium text-yellow xl:w-12 xl:pr-4 xl:text-sm/4.5">
               {formatNumber(BigInt(getValue()))}
-              <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="h-[1.5vw] xl:h-5 ml-1" />
+              <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="ml-1 h-[1.5vw] xl:h-5" />
             </p>
           );
         },

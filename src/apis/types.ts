@@ -719,3 +719,16 @@ export type GameAssetLogItem = {
   dragonPalId: number;
   time: number;
 }
+
+export interface RankReward {
+  tokenName: string;
+  balance: string;
+  total: string;
+}
+
+export type FetchRankRewards = RankReward[];
+
+export enum VaultRewardToken {
+  EMdbl = 'emdbl',
+  Merl = 'merl',
+}

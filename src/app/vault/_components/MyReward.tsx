@@ -12,12 +12,9 @@ import { useEMDBLClaimSignature } from '@/hooks/stake/useEMDBLClaimSignature';
 import { useMainAccount, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { formatNumber } from '@/utils';
 import { useSetAtom } from 'jotai';
-import { useMemo } from 'react';
 import ReactGA from 'react-ga4';
 import { toast } from 'react-toastify';
 import RewardCountdown from './RewardCountdown';
-import { useFetchBuffData } from '@/hooks/rank/useFetchBuffData';
-import { groupBy } from 'lodash-es';
 import { DragonPalConfigList } from '@/apis/types';
 import { ALLOW_CHAINS } from '@/constants';
 
@@ -74,16 +71,16 @@ export default function MyReward() {
     },
   });
 
-  const { data } = useFetchBuffData();
+  // const { data } = useFetchBuffData();
 
-  const groupConfig = useMemo(() => {
-    if (data && data.dragonPalConfigList) {
-      const groupByCategory = groupBy(data.dragonPalConfigList, 'category_id');
-      return groupByCategory;
-    } else {
-      return {};
-    }
-  }, [data]);
+  // const groupConfig = useMemo(() => {
+  //   if (data && data.dragonPalConfigList) {
+  //     const groupByCategory = groupBy(data.dragonPalConfigList, 'category_id');
+  //     return groupByCategory;
+  //   } else {
+  //     return {};
+  //   }
+  // }, [data]);
 
   const claimAccrued = async () => {
     if (!evmAddress || !accruedBalance) return;
@@ -186,16 +183,6 @@ export default function MyReward() {
             </p>
           </div>
         </div>
-        {/* <div className="flex-center relative h-full border border-gray-600 bg-black/60 text-[0.96vw]/[1.6vw] font-medium text-gray-300 backdrop-blur-sm xl:text-xs/5">
-          <PatternWithoutLine />
-          <img
-            draggable={false}
-            src="/img/reward-more-bg.webp"
-            alt="more-reward"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          More rewards revealing soon
-        </div> */}
       </div>
       {/*<p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Inventory</p>*/}
       {/*<div className="mt-[0.96vw] grid grid-cols-3 gap-[1.6vw] xl:mt-3 xl:gap-5">*/}
