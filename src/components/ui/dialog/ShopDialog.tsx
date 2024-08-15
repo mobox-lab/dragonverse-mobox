@@ -22,7 +22,7 @@ const commoditys = [
     id: 3,
     icon: '/svg/senzu-bean.svg',
     name: 'Senzu Potion',
-    describe: 'Recover 30% Stamina instantly',
+    describe: 'Revover 200 Stamina instantly',
     price: 1690,
   },
   {
@@ -30,7 +30,7 @@ const commoditys = [
     icon: '/svg/capture-ball.svg',
     name: 'Blue Snitch',
     describe: 'Capture DragonPal',
-    price: 420,
+    price: 210,
   },
 ] as const;
 

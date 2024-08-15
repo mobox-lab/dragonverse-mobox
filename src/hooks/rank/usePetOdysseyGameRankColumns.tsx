@@ -80,7 +80,7 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
               'flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center font-semibold xl:gap-1',
             )}
           >
-            Pet Score
+            Pet ATK
           </p>
         ),
         cell: ({ getValue, row }) => {
@@ -92,25 +92,25 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
           );
         },
       }),
-      // moGamePetRankHelper.accessor('petEnchantScore', {
-      //   header: () => (
-      //     <p
-      //       className={clsxm(
-      //         'flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center font-semibold xl:gap-1',
-      //       )}
-      //     >
-      //       Enchant Score
-      //     </p>
-      //   ),
-      //   cell: ({ getValue, row }) => {
-      //     const { rank } = row.original;
-      //     return (
-      //       <p className={clsxm('w-20 flex-grow-[2] text-center')}>
-      //         {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
-      //       </p>
-      //     );
-      //   },
-      // }),
+      moGamePetRankHelper.accessor('petEnchantScore', {
+        header: () => (
+          <p
+            className={clsxm(
+              'flex w-20 flex-grow-[2] items-center justify-center gap-[0.32vw] text-center font-semibold xl:gap-1',
+            )}
+          >
+            Enchant Score
+          </p>
+        ),
+        cell: ({ getValue, row }) => {
+          const { rank } = row.original;
+          return (
+            <p className={clsxm('w-20 flex-grow-[2] text-center')}>
+              {rank === -1 ? '--' : formatNumber(parseEther((getValue() || 0).toString()), false)}
+            </p>
+          );
+        },
+      }),
       moGamePetRankHelper.accessor('petAttack', {
         header: () => (
           <div className={clsxm('relative w-24 flex-grow-[5] overflow-visible whitespace-nowrap')}>
@@ -120,7 +120,8 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
               <Tooltip
                 title={
                   <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
-                    <li>At least 1 pet with Pet Score ≥ 1 required to enter the leaderboard</li>
+                    <li>At least 1 pet with Pet ATK ≥ 1 required to enter the leaderboard</li>
+                    <li>Pet Score = Pet ATK + Enchant Score</li>
                     <li>Dragonpal buffs can boost Pet Score by percentage</li>
                     <li>Leaderboard rankings are determined by Boosted Pet Score</li>
                   </ul>
