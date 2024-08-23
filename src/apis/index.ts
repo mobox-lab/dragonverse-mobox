@@ -44,6 +44,7 @@ import {
   FetchGameAssetLog,
   FetchGameAssetLogResult,
   FetchRankRewards,
+  VaultRewardToken,
 } from './types';
 import { GameAssetID } from '@/constants/gameAssets';
 
@@ -140,15 +141,19 @@ export const fetchAirdropSnap = () => request.get<any, Response<SnapShotData>>('
 export const fetchStakeBuff = (address?: string) =>
   request.get<any, Response<StakeBuff>>('/merlin/stake/buff', { params: { address } });
 
-export const fetchTotalReward = (address?: string) =>
+export const fetchTotalReward = (tokenName: VaultRewardToken = VaultRewardToken.EMdbl, address?: string) =>
   request.get<
     any,
     Response<{
       rewardBalance: string;
     }>
-  >('/merlin/stake/reward-balance', { params: { evmAddress: address } });
+  >('/merlin/stake/reward-balance', { params: { evmAddress: address, tokenName } });
 
-export const fetchStakeReward = () => request.post<any, Response<{ id: string }>>('/merlin/stake/claim/reward');
+export const fetchStakeReward = (tokenName: VaultRewardToken = VaultRewardToken.EMdbl) => request.post<any, Response<{ id: string }>>('/merlin/stake/claim/reward', null, {
+  params: {
+    tokenName,
+  },
+});
 export const fetchStakeRewardSig = (id?: string) =>
   request.get<any, Response<StakeRewardSignature>>('/merlin/stake/claim/reward/signature', { params: { id } });
 
@@ -207,11 +212,12 @@ export const fetchFightRank = ({ page = 1, size = 20, round, address, gameId }: 
 
 export const fetchBurnRank = () => request.get<any, Response<DragonBallBurnRank[]>>('/merlin/burn/dragonball-rank');
 
-export const fetchStakeRewardHistory = ({ page = 1, size = 5 }) =>
+export const fetchStakeRewardHistory = ({ page = 1, size = 5, tokenName = VaultRewardToken.EMdbl }) =>
   request.get<any, Response<StakeRewardHistory>>('/merlin/stake/reward-history', {
     params: {
       page,
       size,
+      tokenName,
     },
   });
 

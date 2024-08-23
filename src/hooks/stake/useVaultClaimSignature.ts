@@ -1,17 +1,18 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { fetchStakeReward, fetchStakeRewardSig } from '@/apis';
+import { VaultRewardToken } from '@/apis/types';
 
-function useFetchStakeReward() {
-  return useMutation({ mutationFn: () => fetchStakeReward() });
+function useFetchStakeReward(tokenName: VaultRewardToken) {
+  return useMutation({ mutationFn: () => fetchStakeReward(tokenName) });
 }
 
 function useFetchStakeRewardSig() {
   return useMutation({ mutationFn: (id?: string) => fetchStakeRewardSig(id) });
 }
 
-export function useEMDBLClaimSignature() {
-  const { mutateAsync: mutateStakeReward } = useFetchStakeReward();
+export function useVaultClaimSignature(tokenName: VaultRewardToken) {
+  const { mutateAsync: mutateStakeReward } = useFetchStakeReward(tokenName);
 
   const { mutateAsync: mutateStakeRewardSig } = useFetchStakeRewardSig();
   const [isLoading, setIsLoading] = useState(false);

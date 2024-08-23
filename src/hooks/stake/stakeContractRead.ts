@@ -113,7 +113,7 @@ export function useStakeContractRead() {
   const { data: inactiveEMDBL, refetch: inactiveRefetch } = useFetchInactiveEMDL();
 
   const [chainId] = ALLOW_CHAINS;
-  const { mdbl, emdbl } = CONTRACT_ADDRESSES;
+  const { mdbl, emdbl, tokenRewardDistribution } = CONTRACT_ADDRESSES;
   const { evmAddress } = useMainAccount();
   const setEmdblTotalSupply = useSetAtom(emdblTotalSupplyAtom);
   const { data } = useReadContracts({

@@ -2,13 +2,13 @@ import { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useMe
 import Dialog from '.';
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
-import { RewardHistoryItem } from '@/apis/types';
+import { RewardHistoryItem, VaultRewardToken } from '@/apis/types';
 import RankTable from '@/components/ui/table/RankTable';
 import { rewardHistoryDialogAtom } from '@/atoms/stake';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useFetchRewardHistory } from '@/hooks/stake/useFetchRewardHistory';
 import Button from '@/components/ui/button';
-import { clsxm } from '@/utils';
+import { clsxm, formatNumber } from '@/utils';
 import ArrowSvg from '@/../public/svg/arrow.svg?component';
 import { formatEther } from 'viem';
 
@@ -18,8 +18,9 @@ const rewardHistoryHelper = createColumnHelper<RewardHistoryItem>();
 export default function RewardHistoryDialog() {
   const [isOpen, setIsOpen] = useAtom(rewardHistoryDialogAtom);
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useFetchRewardHistory({ page, size });
+  const { data, isLoading } = useFetchRewardHistory({ page, size, tokenName: isOpen });
   const [inputValue, setInputValue] = useState<string>('1');
+  const isEmdbl = isOpen === VaultRewardToken.EMdbl;
 
   const columns = useMemo(
     () => [
@@ -39,15 +40,24 @@ export default function RewardHistoryDialog() {
       }),
       rewardHistoryHelper.accessor('rewardAmount', {
         header: () => <div className="flex-1 pr-4">Reward</div>,
-        cell: ({ getValue }) => (
+        cell: ({ getValue, row }) => (
           <div className="flex flex-1 items-center justify-end gap-1 pr-4 text-sm/4.5 font-semibold text-yellow">
-            {formatEther(BigInt(getValue()))}
-            <img src="/svg/emdbl.svg" alt="mdbl" className="h-[1.6vw] xl:h-5" />
+            {isEmdbl ? (
+              <>
+                {formatEther(BigInt(row.original.rewardAmount))}
+                <img src="/svg/emdbl.svg" alt="mdbl" className="h-[1.6vw] xl:h-5" />
+              </>
+            ) : (
+              <>
+                <span>{formatNumber(BigInt(row.original.merlRewardAmount), true)}</span>
+                <img src="/svg/MERL.svg" alt="MERL" className="h-[1.6vw] xl:h-5" />
+              </>
+            )}
           </div>
         ),
       }),
     ],
-    [],
+    [isOpen],
   );
 
   const hasMore = useMemo(() => {
@@ -93,10 +103,10 @@ export default function RewardHistoryDialog() {
 
   return (
     <Dialog
-      open={isOpen}
+      open={!!isOpen}
       contentClassName="p-0 xl:p-0"
       className="w-[62.4vw] xl:w-[780px]"
-      onOpenChange={(value) => setIsOpen(value)}
+      onOpenChange={() => setIsOpen(undefined)}
       render={() => (
         <div className="flex flex-col">
           <div className="p-[2.88vw] pb-[3.2vw] text-center xl:p-6 xl:pb-10">

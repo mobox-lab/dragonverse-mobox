@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatEther } from 'viem';
 import ReactGA from 'react-ga4';
 import { useFetchTotalActiveEmdbl } from '@/hooks/stake/useFetchTotalActiveEmdbl';
+import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 
 export default function Summary() {
   const [blocks, setBlocks] = useState<number>(0);
@@ -20,11 +21,13 @@ export default function Summary() {
 
   const [nextReward, setNextReward] = useState<RewardConfig>({
     dailyReward: '0',
+    dailyMerlReward: '0',
     max: '0',
     min: '0',
   });
   const [currentReward, setCurrentReward] = useState<RewardConfig>({
     dailyReward: '0',
+    dailyMerlReward: '0',
     max: '0',
     min: '0',
   });
@@ -102,9 +105,10 @@ export default function Summary() {
 
       <div className="mt-[3.84vw] xl:mt-12">
         <div className="flex items-center justify-between">
-          <div>
-            <div className="black-outline text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">Current Level</div>
-            <div className="mt-[0.8vw] flex items-center gap-[1.28vw] xl:mt-2.5 xl:gap-4">
+          <div className='relative px-[2vw] py-[2vw] xl:px-6.5 xl:py-5.5 border border-yellow/50 backdrop-blur'>
+            <PatternWithoutLine className="stroke-yellow" />
+            <div className="black-outline text-center text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">Current Level</div>
+            <div className="mt-[0.8vw] flex gap-[1.28vw] xl:mt-2.5 xl:gap-4">
               <div>
                 <div className="black-outline w-[10.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[130px] xl:text-sm/6">
                   Daily Reward
@@ -112,6 +116,10 @@ export default function Summary() {
                 <div className="mt-[0.32vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-1 xl:text-2xl/6">
                   {formatNumber(BigInt(currentReward?.dailyReward || 0), false)}
                   <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">eMDBL</span>
+                </div>
+                <div className="mt-[0.45vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-2 xl:text-2xl/6">
+                  {formatNumber(BigInt(currentReward?.dailyMerlReward || 0), false)}
+                  <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">$MERL</span>
                 </div>
               </div>
               <div>
@@ -125,10 +133,20 @@ export default function Summary() {
               </div>
             </div>
           </div>
-          <div>
-            <div className="black-outline text-right text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">Next Level</div>
-            <div className="mt-[0.8vw] flex items-center gap-[1.28vw] xl:mt-2.5 xl:gap-4">
-              <div className="flex flex-col items-end text-right">
+          <div className='relative px-[2vw] py-[2vw] xl:px-6.5 xl:py-5.5 border border-yellow/50 backdrop-blur'>
+            <PatternWithoutLine className="stroke-yellow" />
+            <div className="black-outline text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5 text-center">Next Level</div>
+            <div className="mt-[0.8vw] flex gap-[1.28vw] xl:mt-2.5 xl:gap-4">
+              <div className="flex flex-col items-start text-left">
+                <div className="black-outline w-[12.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[140px] xl:text-sm/6">
+                  Total Active eMDBL
+                </div>
+                <div className="mt-[0.32vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-1 xl:text-2xl/6">
+                  {formatNumber(BigInt(nextReward?.min || 0), false)}
+                  <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">eMDBL</span>
+                </div>
+              </div>
+              <div className="flex flex-col items-start text-left">
                 <div className="black-outline w-[10.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[130px] xl:text-sm/6">
                   Daily Reward
                 </div>
@@ -136,14 +154,9 @@ export default function Summary() {
                   {formatNumber(BigInt(nextReward?.dailyReward || 0), false)}
                   <span className="ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">eMDBL</span>
                 </div>
-              </div>
-              <div className="flex flex-col items-end text-right">
-                <div className="black-outline w-[12.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[140px] xl:text-sm/6">
-                  Total Active eMDBL
-                </div>
-                <div className="mt-[0.32vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-1 xl:text-2xl/6">
-                  {formatNumber(BigInt(nextReward?.min || 0), false)}
-                  <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">eMDBL</span>
+                <div className="mt-[0.5vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-2 xl:text-2xl/6">
+                  {formatNumber(BigInt(nextReward?.dailyMerlReward || 0), false)}
+                  <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">$MERL</span>
                 </div>
               </div>
             </div>

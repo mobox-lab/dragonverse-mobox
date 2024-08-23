@@ -383,6 +383,7 @@ export type RewardConfig = {
   min: number | string;
   max?: number | string;
   dailyReward: number | string;
+  dailyMerlReward: number | string;
 };
 
 export type MoGamePetRankItem = {
@@ -632,6 +633,7 @@ export type DragonBallBurnRank = {
 export type RewardHistoryItem = {
   evmAddress: string;
   emdblRealBalance: string;
+  merlRewardAmount: string;
   totalBuff: number;
   creatAt: string;
   rewardAmount: string;

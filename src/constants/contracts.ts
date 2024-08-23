@@ -11,6 +11,8 @@ type ContractAddresses = {
   mDragonBall: Address;
   leaderboardRewards: Address;
   claimMerl: Address;
+  tokenRewardDistribution: Address;
+  merl: Address;
 };
 export const CONTRACT_ADDRESSES: ContractAddresses =
   process.env.NEXT_PUBLIC_CHAIN_ENV === 'production'
@@ -26,6 +28,8 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         mDragonBall: '0x7c09e01c9257a404d5caf5c3dfa79bc00281734e',
         leaderboardRewards: '0xA40748E0caCfbF986ac68b884644b3B9011D0394',
         claimMerl: '0x484Ac4edC23d8b435D1DEe5e9221d428E507f3c8',
+        tokenRewardDistribution: '0xc64d8C284B938feD38E0ebc663589a655f434C07',
+        merl: '0x5c46bff4b38dc1eae09c5bac65872a1d8bc87378',
       }
     : {
         // test
@@ -39,4 +43,6 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         mDragonBall: '0x9Da60078e7B225820D7781D942E9f222c30Ed216',
         leaderboardRewards: '0x81bdd98Bce37FB7C45a636bcE781DD17fBC46afE',
         claimMerl: '0xFd9Ff70045914a4A258339c8d0E1fBA95a248330',
+        tokenRewardDistribution: '0x1F514a6937eE9037A95A979eA9BedBB8b00bC8D7',
+        merl: '0x817321a6E8F52b893FF6f70972529859f82BCB38',
       };

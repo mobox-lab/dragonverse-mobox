@@ -21,8 +21,8 @@ export default function RewardCountdown() {
   }, [countdown, getTargetTime]);
 
   return (
-    <div className="text-[0.96vw]/[1.6vw] font-medium text-yellow xl:text-xs/5">
-      Distributed in {countdown === 'end' ? countdown : countdown.slice(2)}
+    <div className="text-sm font-medium ml-2">
+      (Distributed in {countdown === 'end' ? countdown : countdown.slice(2)})
     </div>
   );
 }

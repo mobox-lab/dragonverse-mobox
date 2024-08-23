@@ -1,57 +1,34 @@
 'use client';
 
-import ArrowSvg from '@/../public/svg/arrow.svg?component';
-import { EMDBLABI } from '@/abis';
-import { rewardDetailDialogAtom, rewardHistoryDialogAtom } from '@/atoms/stake';
+import ReactGA from 'react-ga4';
+import { useCallback } from 'react';
+import { useSetAtom } from 'jotai';
+import { toast } from 'react-toastify';
+import { rewardDetailDialogAtom } from '@/atoms/stake';
+import { VaultRewardToken } from '@/apis/types';
+import { EMDBLABI, TokenRewardDistribution } from '@/abis';
 import { ClientOnly } from '@/components/common/ClientOnly';
-import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
-import Button from '@/components/ui/button';
+import RewardCountdown from './RewardCountdown';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { useEMDBLClaimSignature } from '@/hooks/stake/useEMDBLClaimSignature';
+import { useVaultClaimSignature } from '@/hooks/stake/useVaultClaimSignature';
 import { useMainAccount, useMainChain, useMainWriteContract, useSelectedChain } from '@/hooks/wallet';
 import { formatNumber } from '@/utils';
-import { useSetAtom } from 'jotai';
-import ReactGA from 'react-ga4';
-import { toast } from 'react-toastify';
-import RewardCountdown from './RewardCountdown';
-import { DragonPalConfigList } from '@/apis/types';
 import { ALLOW_CHAINS } from '@/constants';
-
-const DragonBuffItem = ({
-  type,
-  info,
-  groupByAttr,
-}: {
-  type: 'dreamPetBuff' | 'infinityRambleBuff';
-  info: DragonPalConfigList;
-  groupByAttr: any;
-}) => {
-  return (
-    <div key={info.id} className="flex flex-col items-center">
-      <div className="relative">
-        <img src={info.avatarUrl} alt="icon" className="size-[3.84vw] xl:size-12" />
-        {groupByAttr[info.attributeType] ? (
-          <div className="black-outline absolute bottom-0 right-0 text-[1.12vw]/[1.12vw] font-medium xl:text-sm/3.5">
-            x{groupByAttr[info.attributeType]?.length || 0}
-          </div>
-        ) : (
-          <div className="absolute left-0 top-0 h-full w-full bg-black/60"></div>
-        )}
-      </div>
-    </div>
-  );
-};
+import Reward from './Reward';
+import ArrowSvg from '@/../public/svg/arrow.svg?component';
+import { useVaultMerlReward } from '@/hooks/useVaultMerlReward';
 
 export default function MyReward() {
   const setRewardDetailDialog = useSetAtom(rewardDetailDialogAtom);
-  const setRewardHistoryDialog = useSetAtom(rewardHistoryDialogAtom);
   const { switchMainChain } = useMainChain();
   const { isMerlinChain } = useSelectedChain();
   const { evmAddress } = useMainAccount();
   const { totalAccruedBalance, accruedBalance, refetch } = useStakeContractRead();
+  const { balance: merlBalance, total: totalMerlBalance, refetch: refetchMerlReward } = useVaultMerlReward();
 
-  const { mutateAsync, isLoading } = useEMDBLClaimSignature();
+  const { mutateAsync, isLoading } = useVaultClaimSignature(VaultRewardToken.EMdbl);
+  const { mutateAsync: mutateMerlClaim, isLoading: merlClaimLoading } = useVaultClaimSignature(VaultRewardToken.Merl);
   const { writeContract, isLoading: writeLoading } = useMainWriteContract({
     onError: (error) => {
       if (error?.name === 'UserRejected') {
@@ -71,16 +48,26 @@ export default function MyReward() {
     },
   });
 
-  // const { data } = useFetchBuffData();
+  const { writeContract: writeClaimMerlContract, isLoading: claimMerlContractLoading } = useMainWriteContract({
+    onError: (error) => {
+      if (error?.name === 'UserRejected') {
+        return;
+      }
 
-  // const groupConfig = useMemo(() => {
-  //   if (data && data.dragonPalConfigList) {
-  //     const groupByCategory = groupBy(data.dragonPalConfigList, 'category_id');
-  //     return groupByCategory;
-  //   } else {
-  //     return {};
-  //   }
-  // }, [data]);
+      if (error?.name === 'EstimateGasExecutionError') {
+        toast.error(error.message);
+        return;
+      }
+
+      toast.error('Network error, please try again later');
+    },
+    onSuccess: (data) => {
+      if (!data) return;
+      const log = data[0];
+      toast.success(`Claim ${formatNumber(log.args.value)} eMDBL succeeded`);
+      refetchMerlReward();
+    },
+  });
 
   const claimAccrued = async () => {
     if (!evmAddress || !accruedBalance) return;
@@ -92,7 +79,7 @@ export default function MyReward() {
     const res = await mutateAsync();
     if (res?.code === 200) {
       const data = res.data;
-      const hash = await writeContract({
+      await writeContract({
         abi: EMDBLABI,
         functionName: 'permitMint',
         args: [evmAddress, BigInt(data?.balance || '0'), data?.deadline, data?.v, data?.r, data?.s],
@@ -102,6 +89,42 @@ export default function MyReward() {
       toast.error('Error request.');
     }
   };
+
+  const onClaimMerl = useCallback(async () => {
+    if (!evmAddress || !merlBalance) return;
+
+    if (!isMerlinChain) {
+      switchMainChain(ALLOW_CHAINS[0]).then();
+      return;
+    }
+
+    ReactGA.event({ category: 'merlin', action: 'claim_merl' });
+
+    const res = await mutateMerlClaim();
+
+    if (res?.code === 200) {
+      const data = res.data;
+
+      await writeClaimMerlContract({
+        abi: TokenRewardDistribution,
+        functionName: 'permitTransfer',
+        args: [CONTRACT_ADDRESSES.merl, evmAddress, data?.balance, data?.deadline, data?.v, data?.r, data?.s],
+        address: CONTRACT_ADDRESSES.tokenRewardDistribution,
+      });
+    } else {
+      toast.error('Error request.');
+    }
+  }, [mutateMerlClaim, merlClaimLoading, merlBalance]);
+  // const { data } = useFetchBuffData();
+
+  // const groupConfig = useMemo(() => {
+  //   if (data && data.dragonPalConfigList) {
+  //     const groupByCategory = groupBy(data.dragonPalConfigList, 'category_id');
+  //     return groupByCategory;
+  //   } else {
+  //     return {};
+  //   }
+  // }, [data]);
 
   // const claimAsset = async (id: GameAssetIds) => {
   //   try {
@@ -128,61 +151,39 @@ export default function MyReward() {
   // };
   return (
     <div className="mt-[2.88vw] xl:mt-9">
-      <div className="grid grid-cols-2 gap-[1.92vw] xl:gap-6">
-        <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <p className="text-[1.28vw]/[1.76vw] font-semibold xl:text-base/5.5">My Reward</p>
-          <p
-            className="flex cursor-pointer items-center text-[1.28vw]/[1.76vw] font-semibold text-blue xl:text-base/5.5"
-            onClick={() => {
-              ReactGA.event({ category: 'merlin', action: 'reward_detail' });
-              setRewardDetailDialog(true);
-            }}
-          >
-            Reward Detail <ArrowSvg className="h-[1.12vw] rotate-90 gap-[0.16vw] fill-blue xl:h-3.5 xl:gap-0.5" />
-          </p>
+          <ClientOnly>
+            <RewardCountdown />
+          </ClientOnly>
         </div>
+        <p
+          className="flex cursor-pointer items-center text-[1.28vw]/[1.76vw] font-semibold text-blue xl:text-base/5.5"
+          onClick={() => {
+            ReactGA.event({ category: 'merlin', action: 'reward_detail' });
+            setRewardDetailDialog(true);
+          }}
+        >
+          Reward Detail <ArrowSvg className="h-[1.12vw] rotate-90 gap-[0.16vw] fill-blue xl:h-3.5 xl:gap-0.5" />
+        </p>
       </div>
       <div className="mt-[0.96vw] grid h-[14.24vw] grid-cols-2 gap-[1.92vw] xl:mt-3 xl:h-[178px] xl:gap-6">
-        <div className="relative flex h-full items-center border border-gray-600 bg-black/60 backdrop-blur-sm">
-          <PatternWithoutLine />
-          <img draggable={false} src="/img/reward-bg-01_2.webp" alt="mdbl" className="absolute inset-0 -z-10 -mb-1 h-full object-cover object-center" />
-          <div className="relative flex flex-grow flex-col items-center">
-            <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">Accrued eMDBL</div>
-            <div className="flex-center mt-[0.96vw] xl:mt-3">
-              <img src="/svg/emdbl.svg" alt="emdbl" className="h-[2.24vw] xl:h-7" />
-              <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-medium text-yellow xl:ml-2 xl:text-3xl/11">
-                {formatNumber(accruedBalance, false)}
-              </div>
-            </div>
-            <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium text-gray-300 xl:mt-1 xl:text-xs/5">
-              Total: {formatNumber(totalAccruedBalance, false)}
-            </div>
-          </div>
-          <div className="flex flex-grow flex-col items-center">
-            <ClientOnly>
-              <RewardCountdown />
-            </ClientOnly>
-            <Button
-              className="mt-[0.64vw] h-[3.52vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-bold text-yellow xl:mt-2 xl:h-11 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
-              type="yellow-shallow"
-              onClick={claimAccrued}
-              loading={isLoading || writeLoading}
-              loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
-              disabled={accruedBalance === 0n}
-            >
-              Claim
-            </Button>
-            <p
-              className="mt-2 cursor-pointer text-[1.28vw]/[1.76vw] font-semibold text-blue xl:text-base/5.5"
-              onClick={() => {
-                ReactGA.event({ category: 'merlin', action: 'reward_history' });
-                setRewardHistoryDialog(true);
-              }}
-            >
-              Reward History
-            </p>
-          </div>
-        </div>
+        <Reward
+          token={VaultRewardToken.EMdbl}
+          balance={accruedBalance}
+          total={totalAccruedBalance}
+          onClaim={claimAccrued}
+          loading={isLoading || writeLoading}
+        />
+        <Reward
+          token={VaultRewardToken.Merl}
+          balance={merlBalance}
+          total={totalMerlBalance}
+          onClaim={onClaimMerl}
+          loading={merlClaimLoading || claimMerlContractLoading}
+        />
+        {/* <Reward token={VaultRewardToken.Merl}  /> */}
       </div>
       {/*<p className="mt-[2.88vw] text-[1.28vw]/[1.76vw] font-semibold xl:mt-9 xl:text-base/5.5">My Inventory</p>*/}
       {/*<div className="mt-[0.96vw] grid grid-cols-3 gap-[1.6vw] xl:mt-3 xl:gap-5">*/}
