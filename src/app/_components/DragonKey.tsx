@@ -18,8 +18,8 @@ import { useAccount } from 'wagmi';
 
 interface DragonKeyProps {}
 
-const md5Value = '27274c2a5b337298e05c7283662fdb00';
-const sha1Value = '13443058a32df4bd5a2c1b734107853b133fccb9';
+const md5Value = '5a974c911aa47f465620acc6d747380a';
+const sha1Value = '541472b5d19d426b8ec63c072290cd367d028b7d';
 const downloadDisabled = false;
 
 const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
@@ -99,7 +99,7 @@ const DragonKey: React.FunctionComponent<DragonKeyProps> = (props) => {
                   <div className="flex flex-col items-center">
                     <img src="/img/download.webp" alt="download" className="w-[23.68vw] xl:w-[296px]" />
                     <p className="shadow-text-unbox text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">
-                      Current Version: 1.1.0 Update on: 2024.05.23
+                      Current Version: 1.2.1 Update on: 2024.09.06
                     </p>
                   </div>
                 )}
