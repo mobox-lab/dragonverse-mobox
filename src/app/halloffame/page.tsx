@@ -12,11 +12,55 @@ import Buff from './_components/Buff';
 import GameRank from './_components/GameRank';
 import GameRankTab from './_components/GameRankTab';
 import SeasonCountDown from '@/app/halloffame/_components/SeasonCountDown';
+import { useMemo } from 'react';
 
 interface HallOfFameProps {}
 
 const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
-  const { data } = useFetchRankCurrentRound();
+  // const { data } = useFetchRankCurrentRound();
+  const data = useMemo<any>(
+    () => ({
+      gameRoundInfo: {
+        game: 'merlin',
+        round: 4,
+        startTime: 1726041600,
+        endTime: 1727078400,
+        petTopReward: {
+          mdbl: 0,
+          emdbl: 0,
+          merl: 5600,
+        },
+        petBasicReward: {
+          mdbl: 0,
+          emdbl: 0,
+          merl: 2400,
+        },
+        fightTopReward: {
+          mdbl: 0,
+          emdbl: 0,
+          merl: 1400,
+        },
+        fightBasicReward: {
+          mdbl: 0,
+          emdbl: 0,
+          merl: 600,
+        },
+        bscPetTopReward: {
+          mbox: 0,
+        },
+        bscPetBasicReward: {
+          mbox: 15000,
+        },
+        bscFightTopReward: {
+          mbox: 0,
+        },
+        bscFightBasicReward: {
+          mbox: 15000,
+        },
+      },
+    }),
+    [],
+  );
 
   return (
     <div className={clsx('px-[5vw] pb-12 sm:px-[20px]')}>
