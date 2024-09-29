@@ -37,7 +37,7 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
           alt="Guide"
           onClick={() => {
             ReactGA.event({ category: 'merlin', action: 'hof_guide' });
-            openLink('https://mbox.medium.com/dragonverse-neo-season-4-forge-your-legend-with-upgraded-fun-7acb542fb357');
+            openLink('https://mbox.medium.com/dragonverse-neo-season-5-your-legend-continues-d2302341a791');
           }}
         />
       </motion.div>
