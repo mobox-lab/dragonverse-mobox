@@ -14,34 +14,7 @@ import ChangeRoundButton from './ChangeRoundButton';
 
 export default function InfinityRumbleGameRank({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
   const { evmAddress } = useMainAccount();
-  // const { data: roundList } = useFetchGameRoundList();
-  const roundList = useMemo(
-    () => ({
-      list: [
-        {
-          round: 1,
-          startTime: 1716534000,
-          endTime: 1717142400,
-        },
-        {
-          round: 2,
-          startTime: 1721894400,
-          endTime: 1722758400,
-        },
-        {
-          round: 3,
-          startTime: 1723708800,
-          endTime: 1724745600,
-        },
-        {
-          round: 4,
-          startTime: 1726041600,
-          endTime: 1727078400,
-        },
-      ],
-    }),
-    [],
-  );
+  const { data: roundList } = useFetchGameRoundList();
   const [currentRound, setCurrentRound] = useState<GameRound | undefined>(undefined);
   const columns = useInfinityRumbleGameRankColumns(currentRound?.round);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
