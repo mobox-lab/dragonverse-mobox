@@ -249,7 +249,10 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
                   <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
                     {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
                   </span>
-                  <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
+                  {
+                    round! >= 26 ? <img src="/svg/mdbl-in-game.svg" alt="merl" className="h-[1.6vw] xl:h-5" /> : <img src="/img/merlin-chain.png" alt="merl" className="h-[1.6vw] xl:h-5" />
+                  }
+                  
                 </>
               )}
             </p>
