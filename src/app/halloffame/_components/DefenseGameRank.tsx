@@ -7,7 +7,7 @@ import { useFetchMoboxGameRank } from '@/hooks/rank/useFetchMoboxGameRank';
 export default function DefenseGameRank({ className, round }: { className?: string; round?: GameRound }) {
   const { ref, inView } = useInView();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
-    type: GameRankType.Defense,
+    // type: GameRankType.Defense,
     round: round?.round,
   });
 
