@@ -280,3 +280,13 @@ export const fetchFundRewardClaim = (tokenName: string) => request.post('pge-gam
   },
 })
 
+export const fetchDefenseRank = ({ page = 1, size = 20, round, address, gameId }: FetchGameRankParams) =>
+  request.get<any, Response<PetRankRes>>('/pge-game/rank/defense/list', {
+    params: {
+      page,
+      size,
+      round,
+      address,
+      gameId,
+    },
+  });
