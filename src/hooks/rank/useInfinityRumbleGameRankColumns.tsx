@@ -163,8 +163,9 @@ export const useInfinityRumbleGameRankColumns = (round?: number) => {
         id: 'merlReward',
         header: () => <p className={clsxm('flex-center w-17 flex-grow-[3] pr-[1.28vw] font-semibold xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
-          const { merlReward, emdblReward, rank } = row.original;
-          const reward = (round == 1 ? emdblReward : merlReward) || 0;
+          const icon = round == 1 ? '/svg/emdbl.svg' : (round! >= 6 ? '/svg/mdbl-in-game.svg' : '/img/merlin-chain.png');
+          const { merlReward, emdblReward, mdblReward, rank } = row.original;
+          const reward = (round == 1 ? emdblReward : (round! >= 6 ? mdblReward : merlReward)) || 0;
 
           return (
             <p
@@ -175,7 +176,7 @@ export const useInfinityRumbleGameRankColumns = (round?: number) => {
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
                 {rank <= 0 ? '--' : formatNumber(parseEther(reward.toString()), false)}
               </span>
-              <img src={round == 1 ? '/svg/emdbl.svg' : '/img/merlin-chain.png'} alt="merl" className="h-[1.6vw] xl:h-5" />
+              <img src={icon} alt="icon" className="h-[1.6vw] xl:h-5" />
             </p>
           );
         },

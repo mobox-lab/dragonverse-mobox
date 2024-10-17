@@ -231,6 +231,7 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
         cell: ({ row }) => {
           const { merlReward, emdblReward, rank, mdblReward } = row.original;
           const reward = merlReward || emdblReward || 0;
+
           return (
             <p
               className={clsxm(
@@ -243,6 +244,13 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
                     {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
                   </span>
                   <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
+                </>
+              ) : round! >= 6 ? (
+                <>
+                  <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
+                    {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
+                  </span>
+                  <img src="/svg/mdbl-in-game.svg" alt="merl" className="h-[1.6vw] xl:h-5" />
                 </>
               ) : (
                 <>

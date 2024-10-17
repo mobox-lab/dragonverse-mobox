@@ -41,8 +41,8 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
       {tabs.map(({ value, label, icon, rewardKey, top30Key, allKey }, index) => {
         const isActive = value === rankType;
         const sumAllReward =
-          (roundInfo?.gameRoundInfo?.[top30Key]?.merl || 0) +
-          (roundInfo?.gameRoundInfo?.[allKey]?.merl || 0);
+          (roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) +
+          (roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0);
         return (
           <div
             key={value}
@@ -83,10 +83,10 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
               <div className="flex flex-col items-center gap-[0.64vw] xl:gap-2">
                 <p className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For Top30</p>
                 <div className="flex items-center justify-center gap-4">
-                  {(roundInfo?.gameRoundInfo?.[top30Key]?.merl || 0) === 0 ? null : (
+                  {(roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
-                      {roundInfo?.gameRoundInfo[top30Key].merl.toLocaleString()}
-                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MERL</span>
+                      {roundInfo?.gameRoundInfo[top30Key].mdbl.toLocaleString()}
+                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MDBL</span>
                     </p>
                   )}
                 </div>
@@ -111,10 +111,10 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
               <div className="flex flex-col items-center gap-[0.64vw] xl:gap-2">
                 <p className="whitespace-nowrap text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For all including Top30</p>
                 <div className="flex items-center justify-center gap-4">
-                  {(roundInfo?.gameRoundInfo?.[allKey]?.merl || 0) === 0 ? null : (
+                  {(roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
-                      {roundInfo?.gameRoundInfo[allKey].merl.toLocaleString()}
-                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MERL</span>
+                      {roundInfo?.gameRoundInfo[allKey].mdbl.toLocaleString()}
+                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MDBL</span>
                     </p>
                   )}
                 </div>

@@ -85,7 +85,7 @@ export default function GameAssetsLog() {
       title="Asset History"
       className="flex flex-col"
       render={() => (
-        <div className="flex w-[45.4vw] flex-grow flex-col xl:w-[550px]">
+        <div className="flex w-[45.4vw] flex-grow flex-col xl:w-[550px] overflow-auto">
           <ul className='flex items-center w-full bg-white/[0.06] mb-[1.8vw] p-[0.4vw]'>
             {
               tabs.map(item => (
@@ -103,13 +103,13 @@ export default function GameAssetsLog() {
           </ul>
           <RankTable
             loading={isFetching}
-            className="max-h-[50.08vw] overflow-x-auto overflow-y-auto xl:max-h-[530px]"
+            className="overflow-auto"
             gapClass="gap-[1.92vw] xl:gap-2"
             bodyClass="xl:pb-0 pb-0"
             dataSource={data?.data ?? []}
             columns={columns}
           />
-          <div className="flex-center mt-2 gap-[0.64vw] justify-self-end text-[0.96vw]/[1.44vw] xl:gap-2 xl:text-xs/4.5">
+          <div className="flex-center mt-8 gap-[0.64vw] justify-self-end text-[0.96vw]/[1.44vw] xl:gap-2 xl:text-xs/4.5">
             <Button
               className="flex-center h-[1.92vw] w-[1.92vw] border border-gray-300/50 bg-white/10 disabled:bg-white/10 xl:h-6 xl:w-6"
               onClick={() => changePage(page - 1)}
