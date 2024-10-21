@@ -67,7 +67,7 @@ export function useDefenseGameRankColumns() {
                   <div className="w-[22vw]">
                     <h5 className='text-center font-bold text-[1rem] mb-4'>Endless Realm Lineup</h5>
                     <ul className='grid grid-cols-4 gap-y-2'>
-                      {row.original.details.map((item) => {
+                      {row.original?.details?.map((item) => {
                         const tower = towers[item as (keyof typeof towers)];
                         return (
                           <li key={item} className='flex items-center gap-2'>
