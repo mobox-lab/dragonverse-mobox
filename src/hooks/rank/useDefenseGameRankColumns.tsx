@@ -6,8 +6,8 @@ import { formatNumber, shortenAddress } from '@/utils';
 import { DefenseRankItem } from '@/apis/types';
 import { useMainAccount } from '../wallet';
 import Tooltip from '@/components/ui/tooltip';
-import InfoSvg from '@/../public/svg/info.svg?component';
 import { towers } from '@/utils/towers';
+import InfoSvg from '@/../public/svg/info.svg?component';
 
 const columnHelper = createColumnHelper<DefenseRankItem>();
 
@@ -118,7 +118,7 @@ export function useDefenseGameRankColumns() {
         cell: ({ row }) => {
           return (
             <div className="flex-center w-17 flex-grow-[1] text-center font-semibold">
-              {row.original.roundId}({row.original.finish}%)
+              {row.original.roundId ?? 0}({row.original.finish ?? 0}s)
             </div>
           );
         },
