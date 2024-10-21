@@ -1,13 +1,14 @@
 import InfoSvg from '@/../public/svg/info.svg?component';
 import { PetRankItem } from '@/apis/types';
 import Tooltip from '@/components/ui/tooltip';
-import { PetRarity, Rarity, petRarityStyles, rarityStyles } from '@/constants/enum';
+import { PetRarity, petRarityStyles } from '@/constants/enum';
 import { clsxm, formatNumber, shortenAddress } from '@/utils';
 import { createColumnHelper } from '@tanstack/react-table';
 import Decimal from 'decimal.js-light';
 import { useMemo } from 'react';
 import { parseEther } from 'viem';
 import { useMainAccount } from '../wallet';
+import { TDStartSeason } from '@/constants';
 
 const moGamePetRankHelper = createColumnHelper<PetRankItem>();
 
@@ -245,7 +246,7 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
                   </span>
                   <img src="/img/mdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
                 </>
-              ) : round! >= 26 ? (
+              ) : round! >= TDStartSeason ? (
                 <>
                   <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
                     {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}

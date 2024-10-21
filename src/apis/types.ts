@@ -705,12 +705,12 @@ export type FetchGameAssetLog = {
   pageSize: number;
   resId: GameAssetID;
   gameId: string;
-}
+};
 
 export type FetchGameAssetLogResult = {
   total: number;
   data: GameAssetLogItem[];
-}
+};
 
 export type GameAssetLogItem = {
   id: number;
@@ -720,7 +720,7 @@ export type GameAssetLogItem = {
   sourceId: number;
   dragonPalId: number;
   time: number;
-}
+};
 
 export interface RankReward {
   tokenName: string;
@@ -733,4 +733,22 @@ export type FetchRankRewards = RankReward[];
 export enum VaultRewardToken {
   EMdbl = 'emdbl',
   Merl = 'merl',
+}
+
+export interface DefenseRankItem {
+  game: string;
+  rank: number;
+  round: number;
+  gparkUid: string;
+  gparkUserAddress: string;
+  gparkUserName: string;
+  gparkUserAvatar: string;
+  roundId: number;
+  finish: string;
+  details: number[];
+  recordTime: number;
+  mdblReward: number;
+  emdblReward: number;
+  mboxReward: number;
+  merlReward: number;
 }

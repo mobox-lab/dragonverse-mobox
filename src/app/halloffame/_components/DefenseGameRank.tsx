@@ -5,21 +5,21 @@ import { GameRankType } from '@/constants/enum';
 import LoadingSvg from '@/../public/svg/loading.svg?component';
 import { useFetchMoboxGameRank } from '@/hooks/rank/useFetchMoboxGameRank';
 import { useMainAccount } from '@/hooks/wallet';
-import { usePetOdysseyGameRankColumns } from '@/hooks/rank/usePetOdysseyGameRankColumns';
 import { clsxm } from '@/utils';
+import { useDefenseGameRankColumns } from '@/hooks/rank/useDefenseGameRankColumns';
 
 export default function DefenseGameRank({ className, round }: { className?: string; round?: number }) {
   const { evmAddress } = useMainAccount();
-  const columns = usePetOdysseyGameRankColumns(round);
+  const columns = useDefenseGameRankColumns();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
     type: GameRankType.Defense,
     round,
   });
   const { ref, inView } = useInView();
-
-  const rankItems = useMemo(() => {
+  const items = useMemo(() => {
     if (data?.pages?.length && data.pages[0]?.list) {
       const res = data.pages.map((page) => page?.list).flat(1);
+
       if (evmAddress) {
         if (data.pages[0]?.myself) {
           return [data.pages[0]?.myself, ...res];
@@ -34,6 +34,12 @@ export default function DefenseGameRank({ className, round }: { className?: stri
             gparkUserName: '',
             gparkUserAvatar: '',
             petName: '',
+            petOriginalAttack: 0,
+            petAttack: 0,
+            recordTime: 0,
+            mdblReward: '0',
+            emdblReward: '0',
+            mboxReward: '0',
           },
           ...res,
         ];
@@ -55,14 +61,13 @@ export default function DefenseGameRank({ className, round }: { className?: stri
     }
   }, [round]);
 
-
   return (
     <RankTable
       firstLineHighLight={!!evmAddress}
       loading={isLoading}
       className={clsxm('mt-[0.8vw] max-h-[35.68vw] overflow-x-auto xl:mt-2.5 xl:max-h-[446px]', className)}
       bodyClass="!pb-0"
-      dataSource={rankItems ?? []}
+      dataSource={items ?? []}
       columns={columns}
       renderBottom={() => (
         <>

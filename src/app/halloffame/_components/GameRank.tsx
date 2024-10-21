@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { GameRound, RankCurrentRound } from '@/apis/types';
-import { gameRankTypeAtom } from '@/atoms/rank';
+import { gameRankTypeAtom, rankAtom } from '@/atoms/rank';
 import { GameRankType } from '@/constants/enum';
 import { clsxm } from '@/utils';
 import { useFetchGameRoundList } from '@/hooks/rank/useFetchGameRoundList';
@@ -16,7 +16,7 @@ import DefenseGameRank from './DefenseGameRank';
 export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }) {
   const rankType = useAtomValue(gameRankTypeAtom);
   const { data: roundList } = useFetchGameRoundList();
-  const [currentRound, setCurrentRound] = useState<GameRound | undefined>(undefined);
+  const [currentRound, setCurrentRound] = useAtom(rankAtom);
 
   const roundChange = (round: GameRound) => {
     setCurrentRound(round);
