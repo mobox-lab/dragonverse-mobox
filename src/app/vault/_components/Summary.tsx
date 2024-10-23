@@ -98,7 +98,7 @@ export default function Summary() {
           alt="Guide"
           onClick={() => {
             ReactGA.event({ category: 'merlin', action: 'vault_guide' });
-            openLink('https://mbox.medium.com/mdbl-liquidity-yield-program-update-august-2024-5fd16698f8a6');
+            openLink('https://mbox.medium.com/mdbl-liquidity-yield-program-update-october-2024-b7c843a5b2b6');
           }}
         />
       </motion.div>
