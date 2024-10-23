@@ -117,10 +117,6 @@ export default function Summary() {
                   {formatNumber(BigInt(currentReward?.dailyReward || 0), false)}
                   <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">eMDBL</span>
                 </div>
-                <div className="mt-[0.45vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-2 xl:text-2xl/6">
-                  {formatNumber(BigInt(currentReward?.dailyMerlReward || 0), false)}
-                  <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">$MERL</span>
-                </div>
               </div>
               <div>
                 <div className="black-outline w-[12.4vw] text-[1.12vw]/[1.92vw] font-medium text-gray-300 xl:w-[140px] xl:text-sm/6">
@@ -153,10 +149,6 @@ export default function Summary() {
                 <div className="mt-[0.32vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-1 xl:text-2xl/6">
                   {formatNumber(BigInt(nextReward?.dailyReward || 0), false)}
                   <span className="ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">eMDBL</span>
-                </div>
-                <div className="mt-[0.5vw] flex items-center bg-gradient-text bg-clip-text text-[1.924vw]/[1.92vw] font-bold text-transparent xl:mt-2 xl:text-2xl/6">
-                  {formatNumber(BigInt(nextReward?.dailyMerlReward || 0), false)}
-                  <span className="text ml-[0.48vw] text-[1.28vw]/[1.6vw] xl:ml-1.5 xl:text-base/5">$MERL</span>
                 </div>
               </div>
             </div>
