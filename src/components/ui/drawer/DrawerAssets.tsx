@@ -27,6 +27,7 @@ import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
 import { GAME_ASSETS_ID, GameAssetID } from '@/constants/gameAssets';
 import GameAssetsLog from './GameAssetsLog';
 import ShopDialog from '../dialog/ShopDialog';
+import CopySVG from '@/../public/svg/copy.svg?component';
 
 const assets = [
   {
@@ -242,17 +243,45 @@ export default function DrawerAssets() {
           </Button>
           {/* My Referral */}
           <div className="mt-[3.84vw] flex items-center justify-between xl:mt-12">
-            <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">My Referral</div>
+            <div className="w-[8.16vw] text-[1.28vw]/[1.92vw] font-semibold xl:w-[6.375rem] xl:text-base/6">My Referral</div>
             <div
-              className="flex cursor-pointer select-none items-center gap-1 text-[1.12vw]/[1.12vw] font-semibold text-blue xl:text-sm/3.5"
+              className="flex cursor-pointer select-none items-center gap-[0.32vw] text-[1.12vw]/[1.12vw] font-semibold text-blue xl:gap-1 xl:text-sm/3.5"
               onClick={onOpenGameAssetLog}
             >
               History
               <HistorySVG className="w-[1.28vw] xl:w-4" />
             </div>
           </div>
-          <div className="mb-[2.4vw] mt-[0.96vw] h-[1px] w-full bg-white/25 xl:mb-7.5 xl:mt-3">
-            <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Referral Link</p>
+          <div className="mb-[2.4vw] mt-[0.96vw] h-[1px] w-full bg-white/25 xl:mb-7.5 xl:mt-3"></div>
+          <div className="mt-[2.4vw] flex flex-col xl:mt-7.5">
+            <div className="flex items-center gap-[1.92vw] xl:gap-6">
+              <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Referral Link</p>
+              <div className="flex flex-grow items-center justify-between rounded-sm bg-white/10 px-[1.12vw] py-[0.96vw] xl:px-3.5 xl:py-3">
+                {/* TODO: 邀请链接 */}
+                <p className="w-[15.6vw] truncate text-[1.12vw]/[1.6vw] font-semibold text-yellow xl:w-[12.1875rem] xl:text-sm/5">
+                  dragonverseneo.mobox/txxxxxxxxxxx
+                </p>
+                <CopySVG className="w-[1.28vw] cursor-pointer xl:w-4" />
+              </div>
+            </div>
+            <div className="mt-[1.92vw] flex items-center gap-[1.6vw] xl:mt-6 xl:gap-5">
+              <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Commission</p>
+              <Button
+                type="yellow-shallow-2"
+                className="relative h-[2.56vw] w-[9.6vw] overflow-visible text-[1.12vw]/[1.12vw] font-medium text-yellow xl:h-8 xl:w-30 xl:text-sm/3.5"
+              >
+                Claim 21719
+              </Button>
+              <div className="flex items-center gap-[0.32vw] xl:gap-1">
+                <div className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">1,829,149</div>
+                <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="size-[1.6vw] xl:size-5" />
+              </div>
+            </div>
+            <div className="mt-[2.88vw] flex items-center gap-[1.6vw] xl:mt-9 xl:gap-5">
+              <p className="w-[8.16vw] text-[1.28vw]/[1.6vw] font-medium xl:w-[6.375rem] xl:text-base/5">My Referrer</p>
+              {/* TODO: 邀请人地址 */}
+              <p className="flex-grow truncate text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">{shortenAddress(address)}</p>
+            </div>
           </div>
 
           <DrawerDepositWithdraw />
