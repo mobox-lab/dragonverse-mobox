@@ -5,4 +5,5 @@ export const STORAGE_KEY = {
   DOWNLOAD_TIP_OPENED: 'download_tip_opened',
   WALLET_ASSET_OPENED: 'wallet_asset_opened',
   ASSETS_NEW_CORNER: 'assets_new_corner',
+  REFERRAL_USER: 'referral_user',
 };

@@ -6,6 +6,7 @@ import {
   depositWithdrawDrawerAtom,
   depositWithdrawType,
   gameAssetsLogDrawerAtom,
+  gameReferralHistoryDrawerAtom,
   shopDialogAtom,
   walletAssetsDrawerAtom,
 } from '@/atoms/assets';
@@ -28,6 +29,7 @@ import { GAME_ASSETS_ID, GameAssetID } from '@/constants/gameAssets';
 import GameAssetsLog from './GameAssetsLog';
 import ShopDialog from '../dialog/ShopDialog';
 import CopySVG from '@/../public/svg/copy.svg?component';
+import GameReferralHistory from './GameReferralHistory';
 
 const assets = [
   {
@@ -50,6 +52,7 @@ export default function DrawerAssets() {
   const setDWOpen = useSetAtom(depositWithdrawDrawerAtom);
   const setDWType = useSetAtom(depositWithdrawType);
   const setGameAssetsLogDrawer = useSetAtom(gameAssetsLogDrawerAtom);
+  const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
   const userGameInfo = useAtomValue(userGameInfoAtom);
   const setShowShopDialog = useSetAtom(shopDialogAtom);
   const [isOpenTradeLogs, setOpenTradeLogs] = useState(false);
@@ -58,14 +61,19 @@ export default function DrawerAssets() {
   const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
   const { emdblBalance, mdblBalance } = useStakeContractRead();
   const balances = useAtomValue(balancesAtom);
+
   const onOpenShop = useCallback(() => {
     setShowShopDialog(true);
-  }, []);
+  }, [setShowShopDialog]);
   const refetchBalance = useQueryBalance();
 
   const onOpenGameAssetLog = useCallback(() => {
     setGameAssetsLogDrawer(true);
-  }, []);
+  }, [setGameAssetsLogDrawer]);
+
+  const onOpenReferralHistory = useCallback(() => {
+    setGameReferralHistoryDrawer(true);
+  }, [setGameReferralHistoryDrawer]);
 
   const onClaimGameAsset = useCallback(
     async (id: GameAssetID) => {
@@ -103,7 +111,7 @@ export default function DrawerAssets() {
       title={
         <div className="flex items-center gap-3">
           <div className="size-15 overflow-hidden rounded-full bg-gray">
-            <img className="h-full w-full" src={userGameInfo?.gparkUserAvatar} />
+            <img className="h-full w-full" src={userGameInfo?.gparkUserAvatar} alt="gparkUserAvatar" />
           </div>
           <div>
             <p className="max-w-[10vw] truncate text-[1.6vw]/[1.92vw] font-semibold xl:text-xl/6">
@@ -246,7 +254,7 @@ export default function DrawerAssets() {
             <div className="w-[8.16vw] text-[1.28vw]/[1.92vw] font-semibold xl:w-[6.375rem] xl:text-base/6">My Referral</div>
             <div
               className="flex cursor-pointer select-none items-center gap-[0.32vw] text-[1.12vw]/[1.12vw] font-semibold text-blue xl:gap-1 xl:text-sm/3.5"
-              onClick={onOpenGameAssetLog}
+              onClick={onOpenReferralHistory}
             >
               History
               <HistorySVG className="w-[1.28vw] xl:w-4" />
@@ -286,6 +294,7 @@ export default function DrawerAssets() {
 
           <DrawerDepositWithdraw />
           <DrawerTradeLogs isOpen={isOpenTradeLogs} onOpenChange={setOpenTradeLogs} />
+          <GameReferralHistory />
           <GameAssetsLog />
           <ShopDialog />
         </div>
