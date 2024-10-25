@@ -315,12 +315,12 @@ function MyReferral() {
           {unClaimedReward ? (
             <Button
               type="yellow-shallow-2"
-              className="relative h-[2.56vw] w-[9.6vw] overflow-visible text-[1.12vw]/[1.12vw] font-medium text-yellow xl:h-8 xl:w-30 xl:text-sm/3.5"
+              className="relative h-[2.56vw] w-[9.6vw] flex-grow overflow-visible text-[1.12vw]/[1.12vw] font-medium text-yellow xl:h-8 xl:w-30 xl:text-sm/3.5"
             >
               Claim {unClaimedReward}
             </Button>
           ) : null}
-          <div className="flex items-center gap-[0.32vw] xl:gap-1">
+          <div className="flex flex-grow items-center justify-end gap-[0.32vw] xl:gap-1">
             <div className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
               {shortenDigits(Number(formatEther(BigInt(invitationInfo?.reward ?? 0))))}
             </div>

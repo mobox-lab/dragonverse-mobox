@@ -1,26 +1,28 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { clsxm } from '@/utils';
+import { clsxm, isSameAddress } from '@/utils';
 import { useIsHome } from '@/hooks/useIsHome';
 import { useFetchGameId } from '@/hooks/rank/useFetchGameId';
 import { useLocalforage } from '@/hooks/useLocalforage';
 import { STORAGE_KEY } from '@/constants/storage';
 import { inviteConfirmDialogOpen } from '@/atoms/user';
 import { useSetAtom } from 'jotai';
+import { useAccount } from 'wagmi';
+import { useFetchInvitationInfo, useFetchInviterAddressByCode } from '@/hooks/invite';
 
 export default function Container({ children }: { children: ReactNode }) {
   const { isHome } = useIsHome();
-
-  const { value: inviter } = useLocalforage<{ code: string }>(STORAGE_KEY.REFERRAL_USER);
+  const { address } = useAccount();
+  const { data: invitationInfo } = useFetchInvitationInfo();
+  const { data: inviterData } = useFetchInviterAddressByCode();
+  const { value: inviter } = useLocalforage<string>(STORAGE_KEY.REFERRAL_USER);
   const setInviteDialogOpen = useSetAtom(inviteConfirmDialogOpen);
 
   useEffect(() => {
-    // if (!inviter || isSameAddress(address, inviter?.walletAddress) || invitationInfo?.referralBy) return;
-    if (!inviter?.code) return;
-    console.log('inviter:', { inviter });
+    if (!address || !inviter || invitationInfo?.referrer || isSameAddress(address, inviterData?.walletAddress)) return;
     setInviteDialogOpen(true);
-  }, [inviter, setInviteDialogOpen]);
+  }, [address, invitationInfo?.referrer, inviter, inviterData?.walletAddress, setInviteDialogOpen]);
 
   useFetchGameId();
 

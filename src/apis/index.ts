@@ -270,6 +270,12 @@ export const fetchInviteHistory = () => request.get<any, Response<InviteHistoryI
 
 export const fetchInvitationInfo = () => request.get<any, Response<InvitationInfo>>('/pge-game/referral/info');
 
+export const fetchInviterAddressByCode = (code: string) =>
+  request.get<any, Response<{ walletAddress: string }>>('/pge-game/referral/code/' + code);
+
+export const bindInvitationCode = (referralCode: string) =>
+  request.post<any, Response<boolean>>('/pge-game/referral/bind', { referralCode });
+
 export const fetchIsWhitelist = () => request.get('/pge-game/stamina/whitelist-web');
 
 export const fetchTotalActiveEmdbl = () => request.get('/merlin/stake/total-active-emdbl');
