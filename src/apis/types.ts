@@ -752,3 +752,17 @@ export interface DefenseRankItem {
   mboxReward: number;
   merlReward: number;
 }
+
+export type InvitationInfo = {
+  walletAddress: string; //  
+  referralCode: string; //  
+  referrer?: string; //  
+  reward?: string; //  
+  claimedReward?: string; //  
+};
+
+export type InviteHistoryItem = {
+  referred?: string;
+  timestamp?: string;
+  commission?: string;
+};

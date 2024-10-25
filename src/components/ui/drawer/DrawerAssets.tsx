@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/button';
 import {
@@ -13,7 +13,7 @@ import {
 import DrawerDepositWithdraw from '@/components/ui/drawer/DrawerDepositWithdraw';
 import Drawer from '@/components/ui/drawer/index';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { formatNumber, shortenAddress } from '@/utils';
+import { formatNumber, shortenAddress, shortenDigits } from '@/utils';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import DrawerTradeLogs from './DrawerTradeLogs';
 import { useAccount } from 'wagmi';
@@ -30,6 +30,10 @@ import GameAssetsLog from './GameAssetsLog';
 import ShopDialog from '../dialog/ShopDialog';
 import CopySVG from '@/../public/svg/copy.svg?component';
 import GameReferralHistory from './GameReferralHistory';
+import { useFetchDrawerInvitationInfo } from '@/hooks/invite';
+import { useCopyToClipboard } from 'react-use';
+import { toast } from 'react-toastify';
+import { formatEther } from 'viem';
 
 const assets = [
   {
@@ -52,7 +56,6 @@ export default function DrawerAssets() {
   const setDWOpen = useSetAtom(depositWithdrawDrawerAtom);
   const setDWType = useSetAtom(depositWithdrawType);
   const setGameAssetsLogDrawer = useSetAtom(gameAssetsLogDrawerAtom);
-  const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
   const userGameInfo = useAtomValue(userGameInfoAtom);
   const setShowShopDialog = useSetAtom(shopDialogAtom);
   const [isOpenTradeLogs, setOpenTradeLogs] = useState(false);
@@ -70,10 +73,6 @@ export default function DrawerAssets() {
   const onOpenGameAssetLog = useCallback(() => {
     setGameAssetsLogDrawer(true);
   }, [setGameAssetsLogDrawer]);
-
-  const onOpenReferralHistory = useCallback(() => {
-    setGameReferralHistoryDrawer(true);
-  }, [setGameReferralHistoryDrawer]);
 
   const onClaimGameAsset = useCallback(
     async (id: GameAssetID) => {
@@ -249,48 +248,7 @@ export default function DrawerAssets() {
             <img src="/svg/shop.svg" className="mr-1 w-[2vw] xl:w-[1.5vw]" />
             <span>Dragonverse Market</span>
           </Button>
-          {/* My Referral */}
-          <div className="mt-[3.84vw] flex items-center justify-between xl:mt-12">
-            <div className="w-[8.16vw] text-[1.28vw]/[1.92vw] font-semibold xl:w-[6.375rem] xl:text-base/6">My Referral</div>
-            <div
-              className="flex cursor-pointer select-none items-center gap-[0.32vw] text-[1.12vw]/[1.12vw] font-semibold text-blue xl:gap-1 xl:text-sm/3.5"
-              onClick={onOpenReferralHistory}
-            >
-              History
-              <HistorySVG className="w-[1.28vw] xl:w-4" />
-            </div>
-          </div>
-          <div className="mb-[2.4vw] mt-[0.96vw] h-[1px] w-full bg-white/25 xl:mb-7.5 xl:mt-3"></div>
-          <div className="mt-[2.4vw] flex flex-col xl:mt-7.5">
-            <div className="flex items-center gap-[1.92vw] xl:gap-6">
-              <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Referral Link</p>
-              <div className="flex flex-grow items-center justify-between rounded-sm bg-white/10 px-[1.12vw] py-[0.96vw] xl:px-3.5 xl:py-3">
-                {/* TODO: 邀请链接 */}
-                <p className="w-[15.6vw] truncate text-[1.12vw]/[1.6vw] font-semibold text-yellow xl:w-[12.1875rem] xl:text-sm/5">
-                  dragonverseneo.mobox/txxxxxxxxxxx
-                </p>
-                <CopySVG className="w-[1.28vw] cursor-pointer xl:w-4" />
-              </div>
-            </div>
-            <div className="mt-[1.92vw] flex items-center gap-[1.6vw] xl:mt-6 xl:gap-5">
-              <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Commission</p>
-              <Button
-                type="yellow-shallow-2"
-                className="relative h-[2.56vw] w-[9.6vw] overflow-visible text-[1.12vw]/[1.12vw] font-medium text-yellow xl:h-8 xl:w-30 xl:text-sm/3.5"
-              >
-                Claim 21719
-              </Button>
-              <div className="flex items-center gap-[0.32vw] xl:gap-1">
-                <div className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">1,829,149</div>
-                <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="size-[1.6vw] xl:size-5" />
-              </div>
-            </div>
-            <div className="mt-[2.88vw] flex items-center gap-[1.6vw] xl:mt-9 xl:gap-5">
-              <p className="w-[8.16vw] text-[1.28vw]/[1.6vw] font-medium xl:w-[6.375rem] xl:text-base/5">My Referrer</p>
-              {/* TODO: 邀请人地址 */}
-              <p className="flex-grow truncate text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">{shortenAddress(address)}</p>
-            </div>
-          </div>
+          <MyReferral />
 
           <DrawerDepositWithdraw />
           <DrawerTradeLogs isOpen={isOpenTradeLogs} onOpenChange={setOpenTradeLogs} />
@@ -300,5 +258,84 @@ export default function DrawerAssets() {
         </div>
       )}
     />
+  );
+}
+
+function MyReferral() {
+  const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
+  const onOpenReferralHistory = useCallback(() => {
+    setGameReferralHistoryDrawer(true);
+  }, [setGameReferralHistoryDrawer]);
+  const { data: invitationInfo } = useFetchDrawerInvitationInfo();
+  const referralLink = useMemo(
+    () => (window?.location?.origin ?? '') + '/referral?code=' + invitationInfo?.referralCode,
+    [invitationInfo?.referralCode],
+  );
+  const [_, copy] = useCopyToClipboard();
+
+  const unClaimedReward = useMemo(
+    () =>
+      Number(formatEther(BigInt(invitationInfo?.reward ?? 0))) -
+      Number(formatEther(BigInt(invitationInfo?.claimedReward ?? 0))),
+    [invitationInfo?.claimedReward, invitationInfo?.reward],
+  );
+
+  return (
+    <>
+      {/* My Referral */}
+      <div className="mt-[3.84vw] flex items-center justify-between xl:mt-12">
+        <div className="w-[8.16vw] text-[1.28vw]/[1.92vw] font-semibold xl:w-[6.375rem] xl:text-base/6">My Referral</div>
+        <div
+          className="flex cursor-pointer select-none items-center gap-[0.32vw] text-[1.12vw]/[1.12vw] font-semibold text-blue xl:gap-1 xl:text-sm/3.5"
+          onClick={onOpenReferralHistory}
+        >
+          History
+          <HistorySVG className="w-[1.28vw] xl:w-4" />
+        </div>
+      </div>
+      <div className="mb-[2.4vw] mt-[0.96vw] h-[1px] w-full bg-white/25 xl:mb-7.5 xl:mt-3"></div>
+      <div className="mt-[2.4vw] flex flex-col xl:mt-7.5">
+        <div className="flex items-center gap-[1.92vw] xl:gap-6">
+          <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Referral Link</p>
+          <div className="flex flex-grow items-center justify-between rounded-sm bg-white/10 px-[1.12vw] py-[0.96vw] xl:px-3.5 xl:py-3">
+            <p className="w-[15.6vw] truncate text-[1.12vw]/[1.6vw] font-semibold text-yellow xl:w-[12.1875rem] xl:text-sm/5">
+              {referralLink}
+            </p>
+            <CopySVG
+              onClick={() => {
+                copy(referralLink);
+                toast.success('Copied');
+              }}
+              className="w-[1.28vw] cursor-pointer xl:w-4"
+            />
+          </div>
+        </div>
+        <div className="mt-[1.92vw] flex items-center gap-[1.6vw] xl:mt-6 xl:gap-5">
+          <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Commission</p>
+          {unClaimedReward ? (
+            <Button
+              type="yellow-shallow-2"
+              className="relative h-[2.56vw] w-[9.6vw] overflow-visible text-[1.12vw]/[1.12vw] font-medium text-yellow xl:h-8 xl:w-30 xl:text-sm/3.5"
+            >
+              Claim {unClaimedReward}
+            </Button>
+          ) : null}
+          <div className="flex items-center gap-[0.32vw] xl:gap-1">
+            <div className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
+              {shortenDigits(Number(formatEther(BigInt(invitationInfo?.reward ?? 0))))}
+            </div>
+            <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="size-[1.6vw] xl:size-5" />
+          </div>
+        </div>
+        {invitationInfo?.referrer ? (
+          <div className="mt-[2.88vw] flex items-center gap-[1.6vw] xl:mt-9 xl:gap-5">
+            <p className="w-[8.16vw] text-[1.28vw]/[1.6vw] font-medium xl:w-[6.375rem] xl:text-base/5">My Referrer</p>
+            <p className="flex-grow truncate text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">
+              {shortenAddress(invitationInfo?.referrer)}
+            </p>
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 }
