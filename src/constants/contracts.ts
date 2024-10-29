@@ -13,6 +13,7 @@ type ContractAddresses = {
   claimMerl: Address;
   tokenRewardDistribution: Address;
   merl: Address;
+  veMobox: Address;
 };
 export const CONTRACT_ADDRESSES: ContractAddresses =
   process.env.NEXT_PUBLIC_CHAIN_ENV === 'production'
@@ -30,6 +31,7 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         claimMerl: '0x484Ac4edC23d8b435D1DEe5e9221d428E507f3c8',
         tokenRewardDistribution: '0xc64d8C284B938feD38E0ebc663589a655f434C07',
         merl: '0x5c46bff4b38dc1eae09c5bac65872a1d8bc87378',
+        veMobox: '0x5E7Eb57B163b78e93608E773e0F4a88A55d7C28F',
       }
     : {
         // test
@@ -45,4 +47,5 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         claimMerl: '0xFd9Ff70045914a4A258339c8d0E1fBA95a248330',
         tokenRewardDistribution: '0x1F514a6937eE9037A95A979eA9BedBB8b00bC8D7',
         merl: '0x817321a6E8F52b893FF6f70972529859f82BCB38',
+        veMobox: '0x12fB90d451f5Ef7e9D12a9B5e734684ef096d04D',
       };
