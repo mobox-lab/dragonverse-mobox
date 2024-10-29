@@ -1,6 +1,6 @@
 import { bindInvitationCode, fetchInvitationInfo, fetchInviteHistory, fetchInviterAddressByCode } from '@/apis';
 import { InviteHistoryItem } from '@/apis/types';
-import { gameReferralHistoryDrawerAtom } from '@/atoms/assets';
+import { gameReferralHistoryDrawerAtom, walletAssetsDrawerAtom } from '@/atoms/assets';
 import { invitationInfoAtom } from '@/atoms/user';
 import { shortenAddress } from '@/utils/shorten';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -16,30 +16,30 @@ export const useInviteHistoryColumns = () => {
   return useMemo(
     () => [
       inviteHelper.accessor('timestamp', {
-        header: () => <p className="w-[7.68vw] flex-grow-[3] pl-[1.28vw] text-left xl:w-24 xl:pl-4">Time</p>,
+        header: () => <p className="w-[3.84vw] flex-grow pl-[1.28vw] text-left xl:w-12 xl:pl-4">Time</p>,
         cell: ({ getValue }) => {
           return (
-            <p className="w-[7.68vw] flex-grow-[3] pl-[1.28vw] text-left align-middle text-[0.96vw]/[1.44vw] font-normal xl:w-24 xl:pl-4 xl:text-xs/4.5">
-              {dayjs(getValue()).format('YYYY-MM-DD HH:mm:ss')}
+            <p className="w-[3.84vw] flex-grow pl-[1.28vw] text-left align-middle text-[0.96vw]/[1.44vw] font-normal xl:w-12 xl:pl-4 xl:text-xs/4.5">
+              {dayjs.unix(getValue() ?? 0).format('YYYY-MM-DD HH:mm:ss')}
             </p>
           );
         },
       }),
       inviteHelper.accessor('referred', {
-        header: () => <p className="w-[3.84vw] flex-grow text-center xl:w-12">Referred</p>,
+        header: () => <p className="w-[3.84vw] flex-grow text-left xl:w-12">Referred</p>,
         cell: ({ getValue }) => {
           return (
-            <p className="w-[3.84vw] flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-12 xl:text-xs/4.5">
+            <p className="w-[3.84vw] flex-grow text-left text-[0.96vw]/[1.44vw] font-normal xl:w-12 xl:text-xs/4.5">
               {shortenAddress(getValue())}
             </p>
           );
         },
       }),
       inviteHelper.accessor('commission', {
-        header: () => <p className="w-[3.84vw] flex-grow-[1] pr-[1.28vw] xl:w-12 xl:pr-4">Commission</p>,
+        header: () => <p className="w-[3.84vw] flex-grow pr-[1.28vw] xl:w-12 xl:pr-4">Commission</p>,
         cell: ({ getValue }) => {
           return (
-            <p className="flex w-[3.84vw] flex-grow-[1] items-center justify-end pr-[1.28vw] text-right text-[1.12vw]/[1.44vw] font-medium xl:w-12 xl:pr-4 xl:text-sm/4.5">
+            <p className="flex w-[3.84vw] flex-grow items-center justify-end pr-[1.28vw] text-right text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:w-12 xl:pr-4 xl:text-sm/6">
               {getValue()} $MDBL
             </p>
           );
@@ -76,7 +76,7 @@ export const useFetchInviteHistory = () => {
 };
 
 export const useFetchDrawerInvitationInfo = () => {
-  const isOpen = useAtomValue(gameReferralHistoryDrawerAtom);
+  const isOpen = useAtomValue(walletAssetsDrawerAtom);
 
   const result = useQuery({
     queryKey: ['fetch_invitation_code'],

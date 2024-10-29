@@ -763,6 +763,6 @@ export type InvitationInfo = {
 
 export type InviteHistoryItem = {
   referred?: string;
-  timestamp?: string;
+  timestamp?: number;
   commission?: string;
 };

@@ -262,7 +262,7 @@ export default function DrawerAssets() {
 }
 
 function MyReferral() {
-  const setGameReferralHistoryDrawer = useSetAtom(walletAssetsDrawerAtom);
+  const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
   const onOpenReferralHistory = useCallback(() => {
     setGameReferralHistoryDrawer(true);
   }, [setGameReferralHistoryDrawer]);

@@ -29,6 +29,7 @@ export default function Container({ children }: { children: ReactNode }) {
       isSameAddress(address, inviterData?.walletAddress)
     )
       return;
+
     setInviteDialogOpen(true);
   }, [
     address,

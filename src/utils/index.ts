@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
-import { isAddress } from 'viem';
+import { getAddress, isAddress } from 'viem';
 
 export * from './shorten';
 
@@ -14,10 +14,11 @@ export const openLink = (url: string) => {
 };
 
 export const isSameAddress = (address1: any, address2: any) => {
-  const parsedAddr1 = isAddress(address1);
-  const parsedAddr2 = isAddress(address2);
+  if (!isAddress(address1) || !isAddress(address2)) return false;
+  const parsedAddr1 = getAddress(address1);
+  const parsedAddr2 = getAddress(address2);
   if (!parsedAddr1 || !parsedAddr2) return false;
-  return parsedAddr1 === parsedAddr2;
+  return address1 === parsedAddr2;
 };
 
 /**
