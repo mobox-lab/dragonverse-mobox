@@ -38,7 +38,9 @@ export default function WalletAssets() {
         )}
       >
         <WalletSVG className="w-6.5" />
-        <p className="ml-[6px] text-[1.12vw]/[1.12vw] text-yellow xl:text-sm/3.5">My Assets</p>
+        <p className="ml-[6px] text-[1.12vw]/[1.12vw] text-yellow xl:text-sm/3.5">
+          {!assetNewCorner ? 'Referral' : 'My Assets'}
+        </p>
         {!!count ? (
           <div className="absolute right-0 top-0 flex h-5 min-w-4 translate-x-[50%] translate-y-[-50%] items-center justify-center rounded-full bg-[#F13361] px-1.5 text-[12px] text-white">
             {count}

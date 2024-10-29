@@ -6,8 +6,10 @@ import GameRankTabActiveBorder from './GameRankTabActiveBorder';
 import { RankCurrentRound } from '@/apis/types';
 import ReactGA from 'react-ga4';
 import { parseEther } from 'viem';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { TDStartSeason } from '@/constants';
+import { round } from 'lodash-es';
+import { useIsMounted } from '@/hooks/useIsMounted';
 
 interface TabItem {
   label: string;
@@ -21,17 +23,9 @@ interface TabItem {
 export default function GameRankTab({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
   const [rankType, setRankType] = useAtom(gameRankTypeAtom);
   const rank = useAtomValue(rankAtom);
-
+  const isMounted = useIsMounted();
   const tabs = useMemo(() => {
     return [
-      {
-        label: 'Dream Pet',
-        value: GameRankType.PetOdyssey,
-        icon: '/img/game-pet-simulate-icon.png',
-        rewardKey: 'PetReward',
-        top30Key: 'petTopReward',
-        allKey: 'petBasicReward',
-      },
       rank && rank?.round >= TDStartSeason
         ? {
             label: 'Dragon Defense',
@@ -49,8 +43,21 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
             top30Key: 'fightTopReward',
             allKey: 'fightBasicReward',
           },
+      {
+        label: 'Dream Pet',
+        value: GameRankType.PetOdyssey,
+        icon: '/img/game-pet-simulate-icon.png',
+        rewardKey: 'PetReward',
+        top30Key: 'petTopReward',
+        allKey: 'petBasicReward',
+      },
     ] as TabItem[];
   }, [rank]);
+
+  useEffect(() => {
+    if (!rank || !isMounted) return;
+    setRankType(rank && rank?.round >= TDStartSeason ? GameRankType.Defense : GameRankType.Rumble);
+  }, [isMounted, rank, setRankType]);
 
   useEffect(() => {
     if (rankType !== GameRankType.PetOdyssey) {
