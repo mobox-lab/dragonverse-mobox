@@ -268,10 +268,10 @@ export const fetchGameAssetLog = (params: FetchGameAssetLog) =>
 
 export const fetchInviteHistory = () => request.get<any, Response<InviteHistoryItem[]>>('/pge-game/referral/history');
 
-export const fetchInvitationInfo = () => request.get<any, Response<InvitationInfo>>('/pge-game/referral/info');
+export const fetchInvitationInfo = () => request.post<any, Response<InvitationInfo>>('/pge-game/referral/info');
 
 export const fetchInviterAddressByCode = (code: string) =>
-  request.get<any, Response<{ walletAddress: string }>>('/pge-game/referral/code/' + code);
+  request.get<any, Response<{ walletAddress: string }>>(`/pge-game/referral/code/${code}`);
 
 export const bindInvitationCode = (referralCode: string) =>
   request.post<any, Response<boolean>>('/pge-game/referral/bind', { referralCode });

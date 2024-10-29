@@ -13,15 +13,15 @@ import { toast } from 'react-toastify';
 export default function InviteConfirmDialog() {
   const [isOpen, setIsOpen] = useAtom(inviteConfirmDialogOpen);
 
-  const { value: code, removeLocalValue } = useLocalforage<string>(STORAGE_KEY.REFERRAL_USER);
+  const { value: inviter, removeLocalValue } = useLocalforage<{ code: string }>(STORAGE_KEY.REFERRAL_USER);
 
-  const { data } = useFetchInviterAddressByCode(code ?? '');
+  const { data } = useFetchInviterAddressByCode(inviter?.code ?? '');
   const { mutateAsync: bindInviteCode } = useMutationBindInviteCode();
 
   const confirm = useCallback(async () => {
-    if (!code) return;
+    if (!inviter?.code) return;
     try {
-      const res = await bindInviteCode(code ?? '');
+      const res = await bindInviteCode(inviter?.code ?? '');
       if (res?.data) {
         removeLocalValue();
         toast.success('Accepted invitation successfully!');
@@ -35,7 +35,7 @@ export default function InviteConfirmDialog() {
       console.error('Failed to accept, an error occurred', error);
       toast.error('Failed to accept, an error occurred!');
     }
-  }, [bindInviteCode, code, removeLocalValue, setIsOpen]);
+  }, [bindInviteCode, inviter?.code, removeLocalValue, setIsOpen]);
 
   return (
     <Dialog

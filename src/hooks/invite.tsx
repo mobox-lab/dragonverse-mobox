@@ -71,7 +71,7 @@ export const useFetchInviteHistory = () => {
     if (isOpen) {
       result.refetch();
     }
-  }, [isOpen, result]);
+  }, [isOpen]);
   return result;
 };
 
@@ -79,11 +79,13 @@ export const useFetchDrawerInvitationInfo = () => {
   const isOpen = useAtomValue(gameReferralHistoryDrawerAtom);
 
   const result = useQuery({
-    queryKey: ['fetch_drawer_invitation_code'],
+    queryKey: ['fetch_invitation_code'],
     queryFn() {
       return fetchInvitationInfo();
     },
-    select: (res) => (res?.code === 200 ? res?.data : null),
+    select: (res) => {
+      return res?.code === 200 ? res?.data : null;
+    },
     enabled: isOpen,
   });
 
@@ -91,7 +93,7 @@ export const useFetchDrawerInvitationInfo = () => {
     if (isOpen) {
       result.refetch();
     }
-  }, [isOpen, result]);
+  }, [isOpen]);
 
   return result;
 };
@@ -108,14 +110,14 @@ export const useFetchInvitationInfo = () => {
   return result;
 };
 
-export const useFetchInviterAddressByCode = (code?: string | string[]) => {
+export const useFetchInviterAddressByCode = (code?: string) => {
   const result = useQuery({
     queryKey: ['fetch_inviter_address_by_code', code],
     queryFn() {
       return fetchInviterAddressByCode(code as string);
     },
     select: (res) => (res?.code === 200 ? res?.data : null),
-    enabled: !!code && typeof code === 'string',
+    enabled: !!code,
   });
 
   return result;

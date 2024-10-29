@@ -14,15 +14,32 @@ import { useFetchInvitationInfo, useFetchInviterAddressByCode } from '@/hooks/in
 export default function Container({ children }: { children: ReactNode }) {
   const { isHome } = useIsHome();
   const { address } = useAccount();
-  const { data: invitationInfo } = useFetchInvitationInfo();
-  const { data: inviterData } = useFetchInviterAddressByCode();
-  const { value: inviter } = useLocalforage<string>(STORAGE_KEY.REFERRAL_USER);
+  const { data: invitationInfo, isFetching: isFetchingInvitationInfo } = useFetchInvitationInfo();
+  const { value: inviter } = useLocalforage<{ code: string }>(STORAGE_KEY.REFERRAL_USER);
+  const { data: inviterData, isFetching: isFetchingInviterData } = useFetchInviterAddressByCode(inviter?.code ?? '');
   const setInviteDialogOpen = useSetAtom(inviteConfirmDialogOpen);
 
   useEffect(() => {
-    if (!address || !inviter || invitationInfo?.referrer || isSameAddress(address, inviterData?.walletAddress)) return;
+    if (
+      isFetchingInvitationInfo ||
+      isFetchingInviterData ||
+      !address ||
+      !inviter?.code ||
+      invitationInfo?.referrer ||
+      isSameAddress(address, inviterData?.walletAddress)
+    )
+      return;
     setInviteDialogOpen(true);
-  }, [address, invitationInfo?.referrer, inviter, inviterData?.walletAddress, setInviteDialogOpen]);
+  }, [
+    address,
+    invitationInfo,
+    inviter,
+    inviterData,
+    inviterData?.walletAddress,
+    isFetchingInvitationInfo,
+    isFetchingInviterData,
+    setInviteDialogOpen,
+  ]);
 
   useFetchGameId();
 

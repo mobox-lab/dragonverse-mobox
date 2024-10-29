@@ -245,7 +245,7 @@ export default function DrawerAssets() {
             </div>
           ))}
           <Button type="yellow-dark" className="mt-10 flex w-full items-center justify-center" onClick={onOpenShop}>
-            <img src="/svg/shop.svg" className="mr-1 w-[2vw] xl:w-[1.5vw]" />
+            <img src="/svg/shop.svg" className="mr-1 w-[2vw] xl:w-[1.5vw]" alt="" />
             <span>Dragonverse Market</span>
           </Button>
           <MyReferral />
@@ -262,11 +262,12 @@ export default function DrawerAssets() {
 }
 
 function MyReferral() {
-  const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
+  const setGameReferralHistoryDrawer = useSetAtom(walletAssetsDrawerAtom);
   const onOpenReferralHistory = useCallback(() => {
     setGameReferralHistoryDrawer(true);
   }, [setGameReferralHistoryDrawer]);
   const { data: invitationInfo } = useFetchDrawerInvitationInfo();
+
   const referralLink = useMemo(
     () => (window?.location?.origin ?? '') + '/referral?code=' + invitationInfo?.referralCode,
     [invitationInfo?.referralCode],
