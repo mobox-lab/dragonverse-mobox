@@ -1,4 +1,10 @@
-import { bindInvitationCode, fetchInvitationInfo, fetchInviteHistory, fetchInviterAddressByCode } from '@/apis';
+import {
+  bindInvitationCode,
+  claimReferralReward,
+  fetchInvitationInfo,
+  fetchInviteHistory,
+  fetchInviterAddressByCode,
+} from '@/apis';
 import { InviteHistoryItem } from '@/apis/types';
 import { gameReferralHistoryDrawerAtom, walletAssetsDrawerAtom } from '@/atoms/assets';
 import { invitationInfoAtom } from '@/atoms/user';
@@ -129,6 +135,14 @@ export const useMutationBindInviteCode = () => {
     mutationFn: (code: string) => bindInvitationCode(code),
   });
 };
+
+export const useMutationClaimReferralReward = () => {
+  return useMutation({
+    mutationKey: ['claim_referral_reward'],
+    mutationFn: () => claimReferralReward(),
+  });
+};
+
 // export const useFetchUserByInviteCode = (code?: string | string[]) => {
 //   return useQuery(['fetch_user_info_by_invite_code', code], () => fetchUserByInviteCode(code as string), {
 //     enabled: !!code && typeof code === 'string',

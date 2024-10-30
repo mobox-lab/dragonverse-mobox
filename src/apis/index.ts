@@ -287,6 +287,8 @@ export const fetchMyRewards = (evmAddress: string) =>
     },
   });
 
+export const claimReferralReward = () => request.post<any, Response<boolean>>('/pge-game/referral/claim');
+
 export const fetchFundRewardClaim = (tokenName: string) =>
   request.post('pge-game/rank/claim/fund-reward', null, {
     params: {

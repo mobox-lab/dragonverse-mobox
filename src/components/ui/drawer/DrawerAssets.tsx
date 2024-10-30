@@ -22,7 +22,7 @@ import DepositSVG from '@/../public/svg/deposit.svg?component';
 import WithdrawSVG from '@/../public/svg/withdraw.svg?component';
 import StakeSVG from '@/../public/svg/stake-2.svg?component';
 import { userGameInfoAtom } from '@/atoms/user';
-import { useQueryBalance } from '@/hooks/user';
+import { useMutateWithdraw, useQueryBalance } from '@/hooks/user';
 import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
 import { GAME_ASSETS_ID, GameAssetID } from '@/constants/gameAssets';
@@ -30,7 +30,7 @@ import GameAssetsLog from './GameAssetsLog';
 import ShopDialog from '../dialog/ShopDialog';
 import CopySVG from '@/../public/svg/copy.svg?component';
 import GameReferralHistory from './GameReferralHistory';
-import { useFetchDrawerInvitationInfo } from '@/hooks/invite';
+import { useFetchDrawerInvitationInfo, useMutationClaimReferralReward } from '@/hooks/invite';
 import { useCopyToClipboard } from 'react-use';
 import { toast } from 'react-toastify';
 import { formatEther } from 'viem';
@@ -238,7 +238,7 @@ export default function DrawerAssets() {
                     </Button>
                   ) : null}
                 </div>
-                <div className="text-[1.6vw]/[1.6vw]  font-semibold text-yellow xl:text-xl/5">
+                <div className="text-[1.6vw]/[1.6vw] font-semibold text-yellow xl:text-xl/5">
                   {gameAsset?.assets?.[item.id]?.unuse?.toLocaleString() ?? 0}
                 </div>
               </div>
@@ -281,6 +281,18 @@ function MyReferral() {
     [invitationInfo?.claimedReward, invitationInfo?.reward],
   );
 
+  const { mutateAsync: claimReferralReward, isPending: isClaimReferralRewardPending } = useMutationClaimReferralReward();
+
+  const onClaimReferralReward = useCallback(async () => {
+    try {
+      const res = await claimReferralReward();
+      if (res?.data) toast.success('Claimed');
+      else toast.error('Claim failed');
+    } catch (error) {
+      toast.error('Claim failed');
+    }
+  }, [claimReferralReward]);
+
   return (
     <>
       {/* My Referral */}
@@ -317,8 +329,10 @@ function MyReferral() {
             <Button
               type="yellow-shallow-2"
               className="relative h-[2.56vw] w-[9.6vw] flex-grow overflow-visible text-[1.12vw]/[1.12vw] font-medium text-yellow xl:h-8 xl:w-30 xl:text-sm/3.5"
+              onClick={onClaimReferralReward}
+              loading={isClaimReferralRewardPending}
             >
-              Claim {unClaimedReward}
+              {isClaimReferralRewardPending ? 'Claiming...' : `Claim ${unClaimedReward}`}
             </Button>
           ) : null}
           <div className="flex flex-grow items-center justify-end gap-[0.32vw] xl:gap-1">
