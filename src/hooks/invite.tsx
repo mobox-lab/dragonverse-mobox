@@ -7,14 +7,13 @@ import {
 } from '@/apis';
 import { InviteHistoryItem } from '@/apis/types';
 import { gameReferralHistoryDrawerAtom, walletAssetsDrawerAtom } from '@/atoms/assets';
-import { invitationInfoAtom } from '@/atoms/user';
 import { shortenAddress } from '@/utils/shorten';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createColumnHelper } from '@tanstack/react-table';
 import dayjs from 'dayjs';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { useEffect, useMemo } from 'react';
-import { toast } from 'react-toastify';
+import { formatEther } from 'viem';
 
 const inviteHelper = createColumnHelper<InviteHistoryItem>();
 
@@ -46,7 +45,7 @@ export const useInviteHistoryColumns = () => {
         cell: ({ getValue }) => {
           return (
             <p className="flex w-[3.84vw] flex-grow items-center justify-end pr-[1.28vw] text-right text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:w-12 xl:pr-4 xl:text-sm/6">
-              {getValue()} $MDBL
+              {Number(formatEther(BigInt(getValue() ?? 0)))} $MDBL
             </p>
           );
         },
