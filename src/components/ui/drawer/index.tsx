@@ -73,7 +73,7 @@ function Drawer({
                 <FloatingFocusManager context={context}>
                   <motion.aside
                     className={clsx(
-                      'absolute right-0 h-full flex flex-col bg-gray-850 p-[1.92vw] backdrop-blur-lg xl:p-6',
+                      'absolute right-0 flex h-full flex-col bg-gray-850 p-[1.92vw] backdrop-blur-lg xl:p-6',
                       ...fontVariants,
                       className,
                     )}

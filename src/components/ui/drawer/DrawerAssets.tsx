@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Button from '@/components/ui/button';
+import CopySVG from '@/../public/svg/copy.svg?component';
+import DepositSVG from '@/../public/svg/deposit.svg?component';
+import HistorySVG from '@/../public/svg/history-2.svg?component';
+import StakeSVG from '@/../public/svg/stake-2.svg?component';
+import WithdrawSVG from '@/../public/svg/withdraw.svg?component';
 import {
   balancesAtom,
   depositWithdrawDrawerAtom,
@@ -10,30 +12,29 @@ import {
   shopDialogAtom,
   walletAssetsDrawerAtom,
 } from '@/atoms/assets';
+import { userGameInfoAtom } from '@/atoms/user';
+import Button from '@/components/ui/button';
 import DrawerDepositWithdraw from '@/components/ui/drawer/DrawerDepositWithdraw';
 import Drawer from '@/components/ui/drawer/index';
+import { GAME_ASSETS_ID, GameAssetID } from '@/constants/gameAssets';
+import { STORAGE_KEY } from '@/constants/storage';
+import { useFetchDrawerInvitationInfo, useMutationClaimReferralReward } from '@/hooks/invite';
 import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
-import { formatNumber, shortenAddress, shortenDigits } from '@/utils';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import DrawerTradeLogs from './DrawerTradeLogs';
-import { useAccount } from 'wagmi';
-import HistorySVG from '@/../public/svg/history-2.svg?component';
-import DepositSVG from '@/../public/svg/deposit.svg?component';
-import WithdrawSVG from '@/../public/svg/withdraw.svg?component';
-import StakeSVG from '@/../public/svg/stake-2.svg?component';
-import { userGameInfoAtom } from '@/atoms/user';
-import { useMutateWithdraw, useQueryBalance } from '@/hooks/user';
 import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
-import { GAME_ASSETS_ID, GameAssetID } from '@/constants/gameAssets';
-import GameAssetsLog from './GameAssetsLog';
-import ShopDialog from '../dialog/ShopDialog';
-import CopySVG from '@/../public/svg/copy.svg?component';
-import GameReferralHistory from './GameReferralHistory';
-import { useFetchDrawerInvitationInfo, useMutationClaimReferralReward } from '@/hooks/invite';
-import { useCopyToClipboard } from 'react-use';
+import { useQueryBalance } from '@/hooks/user';
+import { formatNumber, shortenAddress, shortenDigits } from '@/utils';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useCopyToClipboard, useLocalStorage } from 'react-use';
 import { formatEther } from 'viem';
+import { useAccount } from 'wagmi';
+import ShopDialog from '../dialog/ShopDialog';
+import DrawerTradeLogs from './DrawerTradeLogs';
+import GameAssetsLog from './GameAssetsLog';
+import GameReferralHistory from './GameReferralHistory';
 
 const assets = [
   {
@@ -64,6 +65,9 @@ export default function DrawerAssets() {
   const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
   const { emdblBalance, mdblBalance } = useStakeContractRead();
   const balances = useAtomValue(balancesAtom);
+
+  const myReferralRef = useRef<HTMLDivElement>(null);
+  const [assetNewCorner, setAssetNewCorner] = useLocalStorage(STORAGE_KEY.ASSETS_NEW_CORNER, false);
 
   const onOpenShop = useCallback(() => {
     setShowShopDialog(true);
@@ -102,11 +106,26 @@ export default function DrawerAssets() {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen && !assetNewCorner) {
+      //  
+      setTimeout(() => {
+        if (myReferralRef.current) {
+          myReferralRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+        setAssetNewCorner(true);
+      }, 10);
+    }
+  }, [isOpen, myReferralRef, assetNewCorner]);
+
   return (
     <Drawer
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="xl:p-[30px]"
+      className="overflow-auto xl:p-[30px]"
       title={
         <div className="flex items-center gap-3">
           <div className="size-15 overflow-hidden rounded-full bg-gray">
@@ -248,7 +267,9 @@ export default function DrawerAssets() {
             <img src="/svg/shop.svg" className="mr-1 w-[2vw] xl:w-[1.5vw]" alt="" />
             <span>Dragonverse Market</span>
           </Button>
-          <MyReferral />
+          <div ref={myReferralRef}>
+            <MyReferral />
+          </div>
 
           <DrawerDepositWithdraw />
           <DrawerTradeLogs isOpen={isOpenTradeLogs} onOpenChange={setOpenTradeLogs} />
@@ -307,7 +328,7 @@ function MyReferral() {
         </div>
       </div>
       <div className="mb-[2.4vw] mt-[0.96vw] h-[1px] w-full bg-white/25 xl:mb-7.5 xl:mt-3"></div>
-      <div className="mt-[2.4vw] flex flex-col xl:mt-7.5">
+      <div className="my-[2.4vw] flex flex-col xl:my-7.5">
         <div className="flex items-center gap-[1.92vw] xl:gap-6">
           <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">Referral Link</p>
           <div className="flex flex-grow items-center justify-between rounded-sm bg-white/10 px-[1.12vw] py-[0.96vw] xl:px-3.5 xl:py-3">
