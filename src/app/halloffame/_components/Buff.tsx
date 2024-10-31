@@ -209,10 +209,12 @@ const Buff: React.FunctionComponent<BuffProps> = (props) => {
                 </div>
                 <div className="mt-[2.88vw] flex items-center justify-center gap-[2.88vw] xl:mt-9 xl:gap-9">
                   <div className="flex items-center gap-[2.4vw] xl:gap-7.5">
-                      <div className="flex cursor-pointer flex-col items-center">
-                        <img src="/img/attribute -occupancy.png" alt="mountain" className="size-7 xl:size-[36px]" />
-                        <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold xl:mt-1 xl:text-sm/6">Please checke DragonPal&apos;s blessing in the game.</div>
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/img/attribute -occupancy.png" alt="mountain" className="size-7 xl:size-[36px]" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold xl:mt-1 xl:text-sm/6">
+                        Please checke DragonPal&apos;s blessing in the game.
                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -364,7 +366,7 @@ const Buff: React.FunctionComponent<BuffProps> = (props) => {
       )}
       {/*   */}
       <div className="mt-[2.88vw] text-[1.28vw]/[1.6vw] font-semibold xl:mt-9 xl:text-base/5">My Rewards</div>
-      <div className="mt-[0.96vw] grid grid-cols-2 gap-[1.76vw] xl:mt-3 xl:grid-cols-4 xl:gap-5.5">
+      <div className="mt-[0.96vw] grid grid-cols-2 items-center justify-center gap-[1.76vw] xl:mt-3 xl:grid-cols-3 xl:gap-5.5">
         <MyRewards />
         <RankReward />
       </div>
