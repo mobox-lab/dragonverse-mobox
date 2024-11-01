@@ -47,5 +47,5 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         claimMerl: '0xFd9Ff70045914a4A258339c8d0E1fBA95a248330',
         tokenRewardDistribution: '0x1F514a6937eE9037A95A979eA9BedBB8b00bC8D7',
         merl: '0x817321a6E8F52b893FF6f70972529859f82BCB38',
-        veMobox: '0x12fB90d451f5Ef7e9D12a9B5e734684ef096d04D',
+        veMobox: '0xa26fae848bc8effe7f45120b41a08c84004dbf38',
       };
