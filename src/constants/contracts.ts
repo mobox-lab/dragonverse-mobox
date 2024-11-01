@@ -43,7 +43,7 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         airdrop: '0xda42E394efC1efFA45d1DBc4f94bbC76cF8c4D33',
         batchBurn: '0x0786F335A0b0DF05D0224aF0c99B464b39078dF0',
         mDragonBall: '0x9Da60078e7B225820D7781D942E9f222c30Ed216',
-        leaderboardRewards: '0x81bdd98Bce37FB7C45a636bcE781DD17fBC46afE',
+        leaderboardRewards: '0x6169F7b1838a0D38F16b65D57Dae3977bCC33519',
         claimMerl: '0xFd9Ff70045914a4A258339c8d0E1fBA95a248330',
         tokenRewardDistribution: '0x1F514a6937eE9037A95A979eA9BedBB8b00bC8D7',
         merl: '0x817321a6E8F52b893FF6f70972529859f82BCB38',
