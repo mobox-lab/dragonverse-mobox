@@ -64,7 +64,7 @@ export function useRankMoboxRewardClaim() {
     onSuccess: (data) => {
       if (!data) return;
       const log = data[0];
-      toast.success(`Claim ${formatNumber(log.args.amount)} MDBL succeeded`);
+      toast.success(`Claim ${formatNumber(log.args.amount)} Mobox succeeded`);
     },
   });
 

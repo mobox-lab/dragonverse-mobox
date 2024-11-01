@@ -8,6 +8,11 @@ import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useFetchFundRewardClaim, useFetchMyRewards, useFetchRankMerlProof } from '@/hooks/rank/useFetchRankReward';
 import { useMainWriteContract } from '@/hooks/wallet';
 import { formatNumber } from '@/utils';
+import {
+  useFetchRankMoboxProof,
+  useRankMoboxRewardClaim,
+  useReadBscLeaderboardRewards,
+} from '@/hooks/rank/useFetchBscRankReward';
 
 export default function MyRewards() {
   const [chainId] = ALLOW_CHAINS;
@@ -15,7 +20,17 @@ export default function MyRewards() {
   const { address } = useAccount();
   const { data: rewards, refetch: refetchRewards } = useFetchMyRewards(address);
   const { data: merl, refetch: refetchMerl } = useFetchRankMerlProof(address);
+  const { data: moboxRes } = useFetchRankMoboxProof(address);
   const { mutateAsync: mutateMdbl, isPaused: claimMdblLoading } = useFetchFundRewardClaim();
+
+  const totalMobox = useMemo(() => BigInt(moboxRes?.amount ?? 0n), [moboxRes]);
+  const { claimedMobox, isClaimPaused } = useReadBscLeaderboardRewards(address);
+  const { onClaimClick: onClaimMoboxClick, isLoading: isClaimMoboxLoading } = useRankMoboxRewardClaim();
+  const allowClaimMoBox = useMemo(
+    () => (totalMobox > claimedMobox ? totalMobox - claimedMobox : 0n),
+    [claimedMobox, totalMobox],
+  );
+
   const { data: rewardsReceived, refetch: refetchRewardsReceived } = useReadContracts({
     contracts: [
       {
@@ -80,24 +95,6 @@ export default function MyRewards() {
     };
   }, [merl, rewardsReceived]);
 
-  const moboxData = useMemo(() => {
-    // TODO: add mobox reward
-    // if (merl && rewardsReceived) {
-    //   const total = BigInt(merl!.amount || '0');
-    //   const received = BigInt(rewardsReceived[0]?.result?.[0] || '0');
-
-    //   return {
-    //     amount: formatNumber(total - received),
-    //     total: formatNumber(total),
-    //   };
-    // }
-
-    return {
-      amount: '0',
-      total: '0',
-    };
-  }, []);
-
   const onClaimMdbl = useCallback(async () => {
     if (mdblData.amount == '0' || claimMdblLoading) {
       return;
@@ -124,19 +121,6 @@ export default function MyRewards() {
       address: CONTRACT_ADDRESSES.claimMerl!,
     }).then();
   }, [address, writeContract, merl, merlClaimIsLoading]);
-
-  const onClaimMobox = useCallback(() => {
-    // TODO: add mobox reward
-    // if (moboxData.amount == '0' || moboxClaimIsLoading) {
-    //   return;
-    // }
-    // writeContract({
-    //   abi: LeaderboardRewardsABI,
-    //   functionName: 'usersReceiveMERLRewards',
-    //   args: [merl!.index + 1, merl!.amount, merl!.proof],
-    //   address: CONTRACT_ADDRESSES.claimMerl!,
-    // }).then();
-  }, []);
 
   return (
     <>
@@ -199,21 +183,40 @@ export default function MyRewards() {
           <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
             <img src="/img/mobox.png" className="h-[2.24vw] xl:h-7" alt="mobox" />
             <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
-              {moboxData.amount}
+              {formatNumber(allowClaimMoBox, false)}
             </div>
           </div>
-          <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {moboxData.total}</p>
-          {/* TODO:  moboxClaimIsLoading */}
-          <Button
-            className="mt-[1.28vw] h-[2.56vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mt-4 xl:h-8 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
-            type="yellow-shallow"
-            loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
-            disabled={moboxData.amount == '0'}
-            // loading={moboxClaimIsLoading}
-            onClick={onClaimMobox}
-          >
-            Claim
-          </Button>
+          <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {formatNumber(totalMobox, false)}</p>
+          {isClaimPaused ? (
+            <div className="flex-center flex-1 text-center text-[1.12vw]/[1.6vw] text-gray-300 xl:text-sm/5">
+              Revealing at the end of season
+            </div>
+          ) : (
+            <>
+              <div className="mt-[0.96vw] flex items-center justify-center xl:mt-3">
+                <img src="/img/mobox.png" alt="mobox" className="h-[2.24vw] xl:h-7" />
+                <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
+                  {formatNumber(allowClaimMoBox, false)}
+                </div>
+              </div>
+              <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-1 xl:text-xs/5">
+                Total: {formatNumber(totalMobox, false)}
+              </div>
+              <Button
+                className="mt-[1.28vw] h-[2.56vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mt-4 xl:h-8 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
+                type="yellow-shallow"
+                loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
+                loading={isClaimMoboxLoading}
+                disabled={!allowClaimMoBox}
+                onClick={() => {
+                  if (!allowClaimMoBox || !moboxRes) return;
+                  onClaimMoboxClick(moboxRes).then();
+                }}
+              >
+                {allowClaimMoBox === 0n && totalMobox > 0n ? 'Claimed' : 'Claim'}
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </>
