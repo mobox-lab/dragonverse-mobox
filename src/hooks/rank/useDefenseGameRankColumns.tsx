@@ -27,10 +27,12 @@ export function useDefenseGameRankColumns() {
     return [
       columnHelper.display({
         id: 'Rank',
-        header: () => <p className="flex-center max-w-14 flex-grow-[1] pl-[1.28vw] text-center font-semibold xl:pl-4">Rank</p>,
+        header: () => (
+          <p className="flex-center max-w-16 flex-grow-[1.5] pl-[1.28vw] text-center font-semibold xl:pl-4">Rank</p>
+        ),
         cell: ({ row }) => {
           return (
-            <p className="max-w-14 flex-grow-[1] pl-[1.28vw] text-center xl:pl-4">
+            <p className="max-w-16 flex-grow-[1.5] whitespace-nowrap pl-[1.28vw] text-center xl:pl-4">
               {row.original.rank <= 0 ? '--' : row.original.rank}
               {row.original.gparkUserAddress === evmAddress && (
                 <span className="ml-[0.64vw] font-semibold text-yellow xl:ml-2">You</span>
@@ -65,14 +67,18 @@ export function useDefenseGameRankColumns() {
               <Tooltip
                 title={
                   <div className="w-[22vw]">
-                    <h5 className='text-center font-bold text-[1rem] mb-4'>Endless Realm Lineup</h5>
-                    <ul className='grid grid-cols-4 gap-y-2'>
+                    <h5 className="mb-4 text-center text-[1rem] font-bold">Endless Realm Lineup</h5>
+                    <ul className="grid grid-cols-4 gap-y-2">
                       {row.original?.details?.map((item) => {
-                        const tower = towers[item as (keyof typeof towers)];
+                        const tower = towers[item as keyof typeof towers];
                         return (
-                          <li key={item} className='flex items-center gap-2'>
-                            <img src={`/svg/${attributeIcons[tower.attribute - 1]}`} alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
-                            <span className='font-semibold'>{tower.name}</span>
+                          <li key={item} className="flex items-center gap-2">
+                            <img
+                              src={`/svg/${attributeIcons[tower.attribute - 1]}`}
+                              alt="mountain"
+                              className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7"
+                            />
+                            <span className="font-semibold">{tower.name}</span>
                           </li>
                         );
                       })}
