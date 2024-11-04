@@ -180,13 +180,13 @@ export default function MyRewards() {
             alt=""
           />
           <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">MBOX</div>
-          <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
+          {/* <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
             <img src="/img/mobox.png" className="h-[2.24vw] xl:h-7" alt="mobox" />
             <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
               {formatNumber(allowClaimMoBox, false)}
             </div>
-          </div>
-          <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {formatNumber(totalMobox, false)}</p>
+          </div> 
+          <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {formatNumber(totalMobox, false)}</p>*/}
           {isClaimPaused ? (
             <div className="flex-center flex-1 text-center text-[1.12vw]/[1.6vw] text-gray-300 xl:text-sm/5">
               Revealing at the end of season

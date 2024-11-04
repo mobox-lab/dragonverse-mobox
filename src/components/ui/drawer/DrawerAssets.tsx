@@ -296,9 +296,7 @@ function MyReferral() {
   const [_, copy] = useCopyToClipboard();
 
   const unClaimedReward = useMemo(
-    () =>
-      Number(formatEther(BigInt(invitationInfo?.reward ?? 0))) -
-      Number(formatEther(BigInt(invitationInfo?.claimedReward ?? 0))),
+    () => Number(formatEther(BigInt(invitationInfo?.reward ?? 0))),
     [invitationInfo?.claimedReward, invitationInfo?.reward],
   );
 
@@ -358,7 +356,7 @@ function MyReferral() {
           ) : null}
           <div className="flex flex-grow items-center justify-end gap-[0.32vw] xl:gap-1">
             <div className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
-              {shortenDigits(Number(formatEther(BigInt(invitationInfo?.reward ?? 0))))}
+              {shortenDigits(Number(formatEther(BigInt(invitationInfo?.claimedReward ?? 0))))}
             </div>
             <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="size-[1.6vw] xl:size-5" />
           </div>
