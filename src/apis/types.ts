@@ -460,6 +460,17 @@ export type RankCurrentRound = {
     bscFightBasicReward: {
       mbox: number;
     };
+    defenseBasicReward: {
+      mdbl: number;
+      emdbl: number;
+      merl: number;
+    };
+    defenseTopReward: {
+      mdbl: number;
+      emdbl: number;
+      merl: number;
+      mbox: number;
+    };
   };
 };
 

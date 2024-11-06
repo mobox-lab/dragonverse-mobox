@@ -16,8 +16,8 @@ interface TabItem {
   value: GameRankType;
   icon: string;
   rewardKey: 'PetReward' | 'FightReward';
-  top30Key: 'petTopReward' | 'fightTopReward';
-  allKey: 'petBasicReward' | 'fightBasicReward';
+  top30Key: 'petTopReward' | 'fightTopReward' | 'defenseTopReward';
+  allKey: 'petBasicReward' | 'fightBasicReward' | 'defenseBasicReward';
 }
 
 export default function GameRankTab({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
@@ -69,8 +69,8 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
     <div className={clsxm('grid grid-cols-2', className)}>
       {tabs.map(({ value, label, icon, rewardKey, top30Key, allKey }, index) => {
         const isActive = value === rankType;
-        const sumAllReward =
-          (roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) + (roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0);
+        // const sumAllReward =
+        //   (roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) + (roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0);
         return (
           <div
             key={value}
@@ -92,10 +92,10 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
               )}
             >
               <img src={icon} className="size-[2.4vw] xl:size-7.5" alt="" />
-              {label}{' '}
-              <span className="text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
+              {label}
+              {/* <span className="text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
                 {formatNumber(parseEther(sumAllReward.toString()))}
-              </span>
+              </span> */}
             </h2>
             <div
               className={clsxm('flex items-center justify-center px-[1.28vw] py-[1.6vw] xl:px-5 xl:py-4', {
@@ -115,6 +115,12 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
                       {roundInfo?.gameRoundInfo[top30Key].mdbl.toLocaleString()}
                       <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MDBL</span>
+                    </p>
+                  )}
+                  {(roundInfo?.gameRoundInfo?.[top30Key as 'defenseTopReward']?.mbox || 0) === 0 ? null : (
+                    <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
+                      {roundInfo?.gameRoundInfo[top30Key as 'defenseTopReward']?.mbox.toLocaleString()}
+                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MBOX</span>
                     </p>
                   )}
                 </div>
