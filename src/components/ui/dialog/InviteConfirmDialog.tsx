@@ -9,7 +9,30 @@ import Button from '../button';
 import { useFetchInviterAddressByCode, useMutationBindInviteCode } from '@/hooks/invite';
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
+import Error from 'next/error';
 
+const getErrorMsg = (errorCode: string) => {
+  switch (errorCode) {
+    case 'InvalidAddress':
+      return 'Please connect and login first.';
+    case 'InvalidInvitationCode':
+      return 'Invalid referral code.';
+    case 'AlreadyBinded':
+      return 'This address is already bound.';
+    case 'CannotBindSelf':
+      return 'Cannot use your own referral code.';
+    case 'RankedBefore':
+      return 'Ranked in last season. Cannot be invited.';
+    case 'InviteeNoStamina':
+      return 'You have no stamina.';
+    case 'InviterNoStamina':
+      return 'The referrer has no stamina.';
+    case 'RoundEnd':
+      return 'Season has ended.';
+    default:
+      return 'Failed to accept, an unknown error occurred.';
+  }
+};
 export default function InviteConfirmDialog() {
   const [isOpen, setIsOpen] = useAtom(inviteConfirmDialogOpen);
 
@@ -20,20 +43,22 @@ export default function InviteConfirmDialog() {
 
   const confirm = useCallback(async () => {
     if (!inviter?.code) return;
+    removeLocalValue();
     try {
       const res = await bindInviteCode(inviter?.code ?? '');
       if (res?.data) {
-        removeLocalValue();
         toast.success('Accepted invitation successfully!');
         setTimeout(() => {
           setIsOpen(false);
         }, 1000);
-        return;
       }
-      throw new Error(res?.message);
-    } catch (error) {
-      console.error('Failed to accept, an error occurred', error);
-      toast.error('Failed to accept, an error occurred!');
+    } catch (error: any) {
+      const errorMsg = error?.data?.length ? getErrorMsg(error.data[0]) : 'Failed to accept, an unknown error occurred.';
+      toast.error(errorMsg);
+      console.error('errorMsg:', errorMsg);
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 1000);
     }
   }, [bindInviteCode, inviter?.code, removeLocalValue, setIsOpen]);
 

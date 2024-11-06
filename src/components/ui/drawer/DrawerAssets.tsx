@@ -282,6 +282,14 @@ export default function DrawerAssets() {
   );
 }
 
+const getErrorMsg = (errorCode: string) => {
+  switch (errorCode) {
+    case 'RoundRunning':
+      return 'Cannot claim before sesaon ending.';
+    default:
+      return 'Failed to claim, an unknown error occurred.';
+  }
+};
 function MyReferral() {
   const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
   const onOpenReferralHistory = useCallback(() => {
@@ -307,8 +315,10 @@ function MyReferral() {
       const res = await claimReferralReward();
       if (res?.data) toast.success('Claimed');
       else toast.error('Claim failed');
-    } catch (error) {
-      toast.error('Claim failed');
+    } catch (error: any) {
+      const errorMsg = error?.data?.length ? getErrorMsg(error.data[0]) : 'Failed to claim, an unknown error occurred.';
+      toast.error(errorMsg);
+      console.error('errorMsg:', errorMsg);
     }
   }, [claimReferralReward]);
 
