@@ -67,8 +67,8 @@ export default function MyRewards() {
   const mdblData = useMemo(() => {
     if (rewards?.mdbl) {
       return {
-        amount: formatNumber(BigInt(rewards!.mdbl!.balance)),
-        total: formatNumber(BigInt(rewards!.mdbl!.total)),
+        amount: formatNumber(BigInt(rewards!.mdbl!.balance), false),
+        total: formatNumber(BigInt(rewards!.mdbl!.total), false),
       };
     }
 
@@ -84,8 +84,8 @@ export default function MyRewards() {
       const received = BigInt(rewardsReceived[0]?.result?.[0] || '0');
 
       return {
-        amount: formatNumber(total - received),
-        total: formatNumber(total),
+        amount: formatNumber(total - received, false),
+        total: formatNumber(total, false),
       };
     }
 
