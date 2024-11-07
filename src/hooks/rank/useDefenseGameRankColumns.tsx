@@ -124,7 +124,7 @@ export function useDefenseGameRankColumns() {
         cell: ({ row }) => {
           return (
             <div className="flex-center w-17 flex-grow-[1] text-center font-semibold">
-              {row.original.roundId ?? 0}({row.original.finish ?? 0}s)
+              {row.original.roundId ?? 0}({(Number(row.original.finish) ?? 0).toFixed(2)}s)
             </div>
           );
         },
