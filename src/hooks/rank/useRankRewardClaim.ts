@@ -44,7 +44,7 @@ export function useRankEmdblRewardClaim() {
         abi: LeaderboardRewardsABI,
         functionName: 'permitClaim',
         args: [CONTRACT_ADDRESSES.emdbl, address, BigInt(data?.balance || '0'), data?.deadline, data?.v, data?.r, data?.s],
-        address: CONTRACT_ADDRESSES.leaderboardRewards,
+        address: CONTRACT_ADDRESSES?.testLeaderboardMDBLRewards ?? CONTRACT_ADDRESSES.leaderboardRewards,
       });
     } else {
       toast.error('Error request.');
@@ -93,7 +93,7 @@ export function useRankMdblRewardClaim() {
         abi: LeaderboardRewardsABI,
         functionName: 'usersReceiveMERLRewards',
         args: [data.index + 1, data.amount, data.proof],
-        address: CONTRACT_ADDRESSES.leaderboardRewards,
+        address: CONTRACT_ADDRESSES?.testLeaderboardMDBLRewards ?? CONTRACT_ADDRESSES.leaderboardRewards,
       }).then();
     },
     [address, isMerlinChain, switchMainChain, writeContract],
