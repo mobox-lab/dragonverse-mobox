@@ -212,7 +212,7 @@ const Buff: React.FunctionComponent<BuffProps> = (props) => {
                     <div className="flex cursor-pointer flex-col items-center">
                       <img src="/img/attribute -occupancy.png" alt="mountain" className="size-7 xl:size-[36px]" />
                       <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold xl:mt-1 xl:text-sm/6">
-                        Please checke DragonPal&apos;s blessing in the game.
+                        Please check DragonPal&apos;s blessing in the game.
                       </div>
                     </div>
                   </div>
