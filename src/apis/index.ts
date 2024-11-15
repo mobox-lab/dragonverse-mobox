@@ -45,6 +45,8 @@ import {
   FetchGameAssetLogResult,
   FetchRankRewards,
   VaultRewardToken,
+  InviteHistoryItem,
+  InvitationInfo,
 } from './types';
 import { GameAssetID } from '@/constants/gameAssets';
 
@@ -149,11 +151,12 @@ export const fetchTotalReward = (tokenName: VaultRewardToken = VaultRewardToken.
     }>
   >('/merlin/stake/reward-balance', { params: { evmAddress: address, tokenName } });
 
-export const fetchStakeReward = (tokenName: VaultRewardToken = VaultRewardToken.EMdbl) => request.post<any, Response<{ id: string }>>('/merlin/stake/claim/reward', null, {
-  params: {
-    tokenName,
-  },
-});
+export const fetchStakeReward = (tokenName: VaultRewardToken = VaultRewardToken.EMdbl) =>
+  request.post<any, Response<{ id: string }>>('/merlin/stake/claim/reward', null, {
+    params: {
+      tokenName,
+    },
+  });
 export const fetchStakeRewardSig = (id?: string) =>
   request.get<any, Response<StakeRewardSignature>>('/merlin/stake/claim/reward/signature', { params: { id } });
 
@@ -254,14 +257,24 @@ export const fetchTradeHistory = (page: number, size: number = 20) =>
     },
   });
 
-export const fetchWithdraw = (data: FetchWithdraw) =>
-  request.post('/user-fund/withdraw', data);
+export const fetchWithdraw = (data: FetchWithdraw) => request.post('/user-fund/withdraw', data);
 
-export const fetchBuyGameAsset = (data: FetchBuyGameAsset) => request.post('/user-fund/consume', data)
+export const fetchBuyGameAsset = (data: FetchBuyGameAsset) => request.post('/user-fund/consume', data);
 
-export const fetchGameAssetLog = (params: FetchGameAssetLog) => request.get<any, Response<FetchGameAssetLogResult>>('/pge-game/dragon-verse-assets/get-asset-logs', {
-  params,
-});
+export const fetchGameAssetLog = (params: FetchGameAssetLog) =>
+  request.get<any, Response<FetchGameAssetLogResult>>('/pge-game/dragon-verse-assets/get-asset-logs', {
+    params,
+  });
+
+export const fetchInviteHistory = () => request.get<any, Response<InviteHistoryItem[]>>('/pge-game/referral/history');
+
+export const fetchInvitationInfo = () => request.post<any, Response<InvitationInfo>>('/pge-game/referral/info');
+
+export const fetchInviterAddressByCode = (code: string) =>
+  request.get<any, Response<{ walletAddress: string }>>(`/pge-game/referral/code/${code}`);
+
+export const bindInvitationCode = (referralCode: string) =>
+  request.post<any, Response<boolean>>('/pge-game/referral/bind', { referralCode });
 
 export const fetchIsWhitelist = () => request.get('/pge-game/stamina/whitelist-web');
 
@@ -274,9 +287,22 @@ export const fetchMyRewards = (evmAddress: string) =>
     },
   });
 
-export const fetchFundRewardClaim = (tokenName: string) => request.post('pge-game/rank/claim/fund-reward', null, {
-  params: {
-    tokenName,
-  },
-})
+export const claimReferralReward = () => request.post<any, Response<boolean>>('/pge-game/referral/claim');
 
+export const fetchFundRewardClaim = (tokenName: string) =>
+  request.post('pge-game/rank/claim/fund-reward', null, {
+    params: {
+      tokenName,
+    },
+  });
+
+export const fetchDefenseRank = ({ page = 1, size = 20, round, address, gameId }: FetchGameRankParams) =>
+  request.get<any, Response<PetRankRes>>('/pge-game/rank/defense/list', {
+    params: {
+      page,
+      size,
+      round,
+      address,
+      gameId,
+    },
+  });

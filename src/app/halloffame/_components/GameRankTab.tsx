@@ -1,48 +1,76 @@
-import { gameRankTypeAtom } from '@/atoms/rank';
+import { gameRankTypeAtom, rankAtom } from '@/atoms/rank';
 import { GameRankType } from '@/constants/enum';
 import { clsxm, formatNumber } from '@/utils';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import GameRankTabActiveBorder from './GameRankTabActiveBorder';
 import { RankCurrentRound } from '@/apis/types';
 import ReactGA from 'react-ga4';
 import { parseEther } from 'viem';
+import { useEffect, useMemo, useState } from 'react';
+import { TDStartSeason } from '@/constants';
+import { round } from 'lodash-es';
+import { useIsMounted } from '@/hooks/useIsMounted';
+
+interface TabItem {
+  label: string;
+  value: GameRankType;
+  icon: string;
+  rewardKey: 'PetReward' | 'FightReward';
+  top30Key: 'petTopReward' | 'fightTopReward' | 'defenseTopReward';
+  allKey: 'petBasicReward' | 'fightBasicReward' | 'defenseBasicReward';
+}
 
 export default function GameRankTab({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
   const [rankType, setRankType] = useAtom(gameRankTypeAtom);
+  const rank = useAtomValue(rankAtom);
+  const isMounted = useIsMounted();
+  const tabs = useMemo(() => {
+    return [
+      rank && rank?.round >= TDStartSeason
+        ? {
+            label: 'Dragon Defense',
+            value: GameRankType.Defense,
+            icon: '/img/game-dragon-defense-icon.png',
+            rewardKey: 'FightReward',
+            top30Key: 'defenseTopReward',
+            allKey: 'defenseBasicReward',
+          }
+        : {
+            label: 'Infinite Rumble',
+            value: GameRankType.Rumble,
+            icon: '/img/game-infinite-ramble-icon.png',
+            rewardKey: 'FightReward',
+            top30Key: 'fightTopReward',
+            allKey: 'fightBasicReward',
+          },
+      {
+        label: 'Dream Pet',
+        value: GameRankType.PetOdyssey,
+        icon: '/img/game-pet-simulate-icon.png',
+        rewardKey: 'PetReward',
+        top30Key: 'petTopReward',
+        allKey: 'petBasicReward',
+      },
+    ] as TabItem[];
+  }, [rank]);
 
-  const tabs: {
-    label: string;
-    value: GameRankType;
-    icon: string;
-    rewardKey: 'PetReward' | 'FightReward';
-    top30Key: 'petTopReward' | 'fightTopReward';
-    allKey: 'petBasicReward' | 'fightBasicReward';
-  }[] = [
-    {
-      label: 'Dream Pet',
-      value: GameRankType.PetOdyssey,
-      icon: '/img/game-pet-simulate-icon.png',
-      rewardKey: 'PetReward',
-      top30Key: 'petTopReward',
-      allKey: 'petBasicReward',
-    },
-    {
-      label: 'Infinite Rumble',
-      value: GameRankType.Rumble,
-      icon: '/img/game-infinite-ramble-icon.png',
-      rewardKey: 'FightReward',
-      top30Key: 'fightTopReward',
-      allKey: 'fightBasicReward',
-    },
-  ];
+  useEffect(() => {
+    if (!rank || !isMounted) return;
+    setRankType(rank && rank?.round >= TDStartSeason ? GameRankType.Defense : GameRankType.Rumble);
+  }, [isMounted, rank, setRankType]);
+
+  useEffect(() => {
+    if (rankType !== GameRankType.PetOdyssey) {
+      setRankType(rank && rank?.round >= TDStartSeason ? GameRankType.Defense : GameRankType.Rumble);
+    }
+  }, [rank]);
 
   return (
     <div className={clsxm('grid grid-cols-2', className)}>
       {tabs.map(({ value, label, icon, rewardKey, top30Key, allKey }, index) => {
         const isActive = value === rankType;
-        const sumAllReward =
-          (roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) +
-          (roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0);
+        // const sumAllReward =
+        //   (roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) + (roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0);
         return (
           <div
             key={value}
@@ -64,10 +92,10 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
               )}
             >
               <img src={icon} className="size-[2.4vw] xl:size-7.5" alt="" />
-              {label}{' '}
-              <span className="text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
+              {label}
+              {/* <span className="text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
                 {formatNumber(parseEther(sumAllReward.toString()))}
-              </span>
+              </span> */}
             </h2>
             <div
               className={clsxm('flex items-center justify-center px-[1.28vw] py-[1.6vw] xl:px-5 xl:py-4', {
@@ -87,6 +115,12 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
                       {roundInfo?.gameRoundInfo[top30Key].mdbl.toLocaleString()}
                       <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MDBL</span>
+                    </p>
+                  )}
+                  {(roundInfo?.gameRoundInfo?.[top30Key as 'defenseTopReward']?.mbox || 0) === 0 ? null : (
+                    <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
+                      {roundInfo?.gameRoundInfo[top30Key as 'defenseTopReward']?.mbox.toLocaleString()}
+                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$MBOX</span>
                     </p>
                   )}
                 </div>

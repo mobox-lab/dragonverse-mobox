@@ -2,13 +2,14 @@ import { EMDBLABI, MDBLABI } from '@/abis';
 import { ALLOW_CHAINS } from '@/constants';
 import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useEffect, useMemo } from 'react';
-import { Address } from 'viem';
+import { Address, erc20Abi } from 'viem';
 import { useReadContract, useReadContracts } from 'wagmi';
 import { useMainAccount } from '../wallet';
 import { useFetchTotalReward } from './useFetchTotalReward';
 import { emdblTotalSupplyAtom } from '@/atoms/stake';
 import { useSetAtom } from 'jotai';
 import { useFetchInactiveEMDL } from './useFetchInactiveEMDL';
+import { mainnet } from 'wagmi/chains';
 
 export function useTotalSupply() {
   const { data } = useReadContract({
@@ -107,13 +108,27 @@ export function useAccruedBalance() {
   }, [data, reward, refetch]);
 }
 
+export function useVeMoboxBalance() {
+  const { evmAddress } = useMainAccount();
+  return useReadContract({
+    address: CONTRACT_ADDRESSES.veMobox,
+    abi: erc20Abi,
+    functionName: 'balanceOf',
+    args: evmAddress ? [evmAddress as Address] : undefined,
+    chainId: ALLOW_CHAINS[1],
+    query: {
+      enabled: !!evmAddress,
+      refetchInterval: 6_000,
+    },
+  });
+}
 //  
 export function useStakeContractRead() {
   const { data: reward, refetch } = useFetchTotalReward();
   const { data: inactiveEMDBL, refetch: inactiveRefetch } = useFetchInactiveEMDL();
 
   const [chainId] = ALLOW_CHAINS;
-  const { mdbl, emdbl, tokenRewardDistribution } = CONTRACT_ADDRESSES;
+  const { mdbl, emdbl } = CONTRACT_ADDRESSES;
   const { evmAddress } = useMainAccount();
   const setEmdblTotalSupply = useSetAtom(emdblTotalSupplyAtom);
   const { data } = useReadContracts({

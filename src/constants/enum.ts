@@ -108,6 +108,7 @@ export enum TradeType {
 export enum GameRankType {
   PetOdyssey = 'dreampet',
   Rumble = 'battleworld',
+  Defense = 'dragon_defense',
   RainbowLeap = 'rainbow_leap',
   Dragon = 'dash_of_dawn',
 }

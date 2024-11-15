@@ -18,17 +18,18 @@ import { RankReward } from '@/apis/types';
 
 export function useReadLeaderboardRewards(address?: Address) {
   const [chainId] = ALLOW_CHAINS;
-  const { leaderboardRewards } = CONTRACT_ADDRESSES;
+  const { leaderboardRewards, testLeaderboardMDBLRewards } = CONTRACT_ADDRESSES; //  
+  const contractAddress = testLeaderboardMDBLRewards ?? leaderboardRewards;
   const { data } = useReadContracts({
     contracts: [
       {
         chainId,
-        address: leaderboardRewards,
+        address: contractAddress,
         abi: LeaderboardRewardsABI,
         functionName: 'getUserRewardsReceived',
         args: address ? [address] : undefined,
       },
-      { chainId, address: leaderboardRewards, abi: LeaderboardRewardsABI, functionName: 'paused' },
+      { chainId, address: contractAddress, abi: LeaderboardRewardsABI, functionName: 'paused' },
     ],
     query: { refetchInterval: 6_000, enabled: !!address },
   });

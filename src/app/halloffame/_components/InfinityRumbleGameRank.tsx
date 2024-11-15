@@ -1,25 +1,21 @@
+import { useEffect, useMemo } from 'react';
+import dayjs from 'dayjs';
+import { useInView } from 'react-intersection-observer';
 import LoadingSvg from '@/../public/svg/loading.svg?component';
-import { GameRound, RankCurrentRound } from '@/apis/types';
 import RankTable from '@/components/ui/table/RankTable';
 import { GameRankType } from '@/constants/enum';
-import { useFetchGameRoundList } from '@/hooks/rank/useFetchGameRoundList';
 import { useFetchMoboxGameRank } from '@/hooks/rank/useFetchMoboxGameRank';
 import { useInfinityRumbleGameRankColumns } from '@/hooks/rank/useInfinityRumbleGameRankColumns';
 import { useMainAccount } from '@/hooks/wallet';
 import { clsxm } from '@/utils';
-import dayjs from 'dayjs';
-import { useEffect, useMemo, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import ChangeRoundButton from './ChangeRoundButton';
 
-export default function InfinityRumbleGameRank({ className, roundInfo }: { className?: string; roundInfo?: RankCurrentRound }) {
+export default function InfinityRumbleGameRank({ className, round }: { className?: string; round?: number }) {
   const { evmAddress } = useMainAccount();
-  const { data: roundList } = useFetchGameRoundList();
-  const [currentRound, setCurrentRound] = useState<GameRound | undefined>(undefined);
-  const columns = useInfinityRumbleGameRankColumns(currentRound?.round);
+  const columns = useInfinityRumbleGameRankColumns(round);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useFetchMoboxGameRank({
     type: GameRankType.Rumble,
-    round: currentRound?.round,
+    round,
   });
   const { ref, inView } = useInView();
   const rankItems = useMemo(() => {
@@ -60,55 +56,33 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
   }, [fetchNextPage, hasNextPage, inView]);
 
   useEffect(() => {
-    if (roundList?.list && roundList?.list.length) {
-      setCurrentRound(roundList.list[roundList.list.length - 1]);
-    }
-  }, [roundList]);
-
-  const roundChange = (round: GameRound) => {
-    setCurrentRound(round);
-  };
-
-  useEffect(() => {
-    if (currentRound) {
+    if (round) {
       refetch();
     }
-  }, [currentRound]);
+  }, [round]);
 
   return (
-    <div className={clsxm('flex w-full flex-col', className)}>
-      <div className="flex items-center justify-between">
-        <div className="flex select-none items-center gap-[0.96vw] text-[1.28vw]/[1.44vw] xl:gap-3 xl:text-base/4.5">
-          Season {currentRound?.round} :{' '}
-          {currentRound
-            ? `${dayjs(currentRound.startTime * 1000).format('MMM DD')} - ${dayjs(currentRound.endTime * 1000).format('MMM DD')}`
-            : null}
-          <ChangeRoundButton roundList={roundList?.list ?? []} currentRound={currentRound} onChange={roundChange} />
-        </div>
-        <p className="text-[0.96vw]/[1.6vw] font-medium xl:text-xs/5">Updated every 5 minutes</p>
-      </div>
-      <RankTable
-        firstLineHighLight={!!evmAddress}
-        loading={isLoading}
-        className="mt-[0.8vw] max-h-[35.68vw] overflow-x-auto xl:mt-2.5 xl:max-h-[446px]"
-        bodyClass="!pb-0"
-        dataSource={rankItems ?? []}
-        columns={columns}
-        renderBottom={() => (
-          <>
-            {hasNextPage && (
-              <div ref={ref} className="h-px text-transparent">
-                {'Load More'}
-              </div>
-            )}
-            {isFetchingNextPage && (
-              <div className="flex-center mb-[3.84vw] pt-[1.28vw] xl:mb-12 xl:pt-4">
-                <LoadingSvg className="h-[3.2vw] w-[3.2vw] animate-spin fill-gray-300 xl:h-10 xl:w-10" />
-              </div>
-            )}
-          </>
-        )}
-      />
-    </div>
+    <RankTable
+      firstLineHighLight={!!evmAddress}
+      loading={isLoading}
+      className={clsxm('mt-[0.8vw] max-h-[35.68vw] overflow-x-auto xl:mt-2.5 xl:max-h-[446px]', className)}
+      bodyClass="!pb-0"
+      dataSource={rankItems ?? []}
+      columns={columns}
+      renderBottom={() => (
+        <>
+          {hasNextPage && (
+            <div ref={ref} className="h-px text-transparent">
+              {'Load More'}
+            </div>
+          )}
+          {isFetchingNextPage && (
+            <div className="flex-center mb-[3.84vw] pt-[1.28vw] xl:mb-12 xl:pt-4">
+              <LoadingSvg className="h-[3.2vw] w-[3.2vw] animate-spin fill-gray-300 xl:h-10 xl:w-10" />
+            </div>
+          )}
+        </>
+      )}
+    />
   );
 }

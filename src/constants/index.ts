@@ -46,3 +46,6 @@ export const periodData = [
     days: 120,
   },
 ];
+
+//  
+export const TDStartSeason = process.env.NEXT_PUBLIC_CHAIN_ENV === 'production' ? 7 : 27;
