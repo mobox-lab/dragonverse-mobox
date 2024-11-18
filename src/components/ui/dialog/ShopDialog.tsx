@@ -22,7 +22,7 @@ const commoditys = [
     id: 3,
     icon: '/svg/senzu-bean.svg',
     name: 'Senzu Potion',
-    describe: 'Revover 200 Stamina instantly',
+    describe: 'Instantly recover 200 Stamina',
     price: 1690,
   },
   {
@@ -56,7 +56,7 @@ export default function ShopDialog() {
     },
     onError(error) {
       toast.error(error.message || 'Purchase failed');
-    }
+    },
   });
 
   const onCountChange = useCallback(
@@ -82,12 +82,15 @@ export default function ShopDialog() {
     setCount(0);
   }, [activeCommodity, count, gameId]);
 
-  const onToggleCommodity = useCallback((id: CommodityId) => {
-    if (activeCommodity != id) {
-      setCount(0);
-      setActiveCommodity(id);
-    }
-  }, [activeCommodity]);
+  const onToggleCommodity = useCallback(
+    (id: CommodityId) => {
+      if (activeCommodity != id) {
+        setCount(0);
+        setActiveCommodity(id);
+      }
+    },
+    [activeCommodity],
+  );
 
   const totalAmount = useMemo(() => {
     if (activeCommodity) {
@@ -131,7 +134,7 @@ export default function ShopDialog() {
       overlayClassName="z-[1111]"
       onOpenChange={onClose}
       render={() => (
-        <div className='px-5'>
+        <div className="px-5">
           <div className="text-center text-[1.6vw]/[1.92vw] font-medium xl:text-xl/6">DragonVerse Shop</div>
           <ul className="mt-[2vw] grid grid-cols-2 gap-x-[1.5vw]">
             {commoditys.map((item) => {
@@ -149,7 +152,7 @@ export default function ShopDialog() {
                   {isActive ? <TriangleLeftSvg className="absolute left-0 top-0" /> : null}
                   <div className="absolute right-[0.5vw] top-[0.5vw] flex items-center">
                     <span className="text-[0.9vw] font-semibold text-yellow">{item.price}</span>
-                    <img src='/svg/mdbl-in-game.svg' className="ml-1 w-[1.2vw]" />
+                    <img src="/svg/mdbl-in-game.svg" className="ml-1 w-[1.2vw]" />
                   </div>
                   <img src={item.icon} className="h-[3.5vw]" />
                   <div className="mt-1 text-center text-[0.9vw] font-medium">{item.name}</div>
@@ -178,7 +181,13 @@ export default function ShopDialog() {
                 <span className="text-sm font-medium text-yellow">{mdblBalance.toLocaleString()}</span>
               </div>
             </div>
-            <Button type="yellow-dark" className="w-[11vw] xl:w-[10vw]" onClick={onBuy} loading={isBuyPending} disabled={!count}>
+            <Button
+              type="yellow-dark"
+              className="w-[11vw] xl:w-[10vw]"
+              onClick={onBuy}
+              loading={isBuyPending}
+              disabled={!count}
+            >
               BUY
             </Button>
           </div>
