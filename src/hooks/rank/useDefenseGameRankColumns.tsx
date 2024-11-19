@@ -1,13 +1,16 @@
+import InfoSvg from '@/../public/svg/info.svg?component';
+import { DefenseRankItem } from '@/apis/types';
+import Tooltip from '@/components/ui/tooltip';
+import { formatNumber, shortenAddress } from '@/utils';
+import { towers } from '@/utils/towers';
+import { createColumnHelper } from '@tanstack/react-table';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { useMemo } from 'react';
 import { parseEther } from 'viem';
-import dayjs from 'dayjs';
-import { createColumnHelper } from '@tanstack/react-table';
-import { formatNumber, shortenAddress } from '@/utils';
-import { DefenseRankItem } from '@/apis/types';
 import { useMainAccount } from '../wallet';
-import Tooltip from '@/components/ui/tooltip';
-import { towers } from '@/utils/towers';
-import InfoSvg from '@/../public/svg/info.svg?component';
+
+dayjs.extend(utc);
 
 const columnHelper = createColumnHelper<DefenseRankItem>();
 
@@ -53,7 +56,7 @@ export function useDefenseGameRankColumns() {
                   src={row.original.gparkUserAvatar}
                 />
               )}
-              <span>{row.original.gparkUserName}</span>
+              <span>{row.original.gparkUserName || '--'}</span>
             </div>
           );
         },
@@ -124,7 +127,7 @@ export function useDefenseGameRankColumns() {
         cell: ({ row }) => {
           return (
             <div className="flex-center w-17 flex-grow-[1] text-center font-semibold">
-              {row.original.roundId ?? 0}({(Number(row.original.finish) ?? 0).toFixed(2)}s)
+              {row.original.roundId ?? 0}({Number(row.original.finish ?? 0).toFixed(2)}s)
             </div>
           );
         },
@@ -135,7 +138,7 @@ export function useDefenseGameRankColumns() {
         cell: ({ row }) => {
           return (
             <div className="flex-center w-17 flex-grow-[1] text-center font-semibold">
-              {dayjs(row.original.recordTime * 1000).format('YYYY/MM/DD HH:mm')} UTC
+              {row.original?.recordTime ? dayjs.utc(row.original.recordTime * 1000).format('YYYY/MM/DD HH:mm') + ' UTC' : '--'}
             </div>
           );
         },
