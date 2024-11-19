@@ -690,13 +690,13 @@ export default function Swap({ className }: { className?: string }) {
                 <div className="flex items-center justify-end gap-[0.64vw] xl:gap-1.5">
                   <div className="text-nowrap text-[1.08vw]/[1.6vw] text-gray-300 xl:text-sm/5">$M-BTC</div>
                   <img src="/svg/mbtc.svg" alt="mBtc" className="w-[1.92vw] xl:w-6" />
-                  <CopySVG className="w-[1.92vw] cursor-pointer xl:w-6" onClick={() => addToken('M-BTC')} />
+                  <CopySVG className="w-[1.92vw] cursor-pointer stroke-yellow xl:w-6" onClick={() => addToken('M-BTC')} />
                 </div>
               ) : (
                 <div className="flex items-center justify-end gap-[0.64vw] xl:gap-1.5">
                   <div className="text-[1.28vw]/[1.6vw] text-gray-300 xl:text-base/5">$MDBL</div>
                   <img src="/img/mdbl.webp" alt="mdbl" className="w-[1.92vw] xl:w-6" />
-                  <CopySVG className="w-[1.92vw] cursor-pointer xl:w-6" onClick={() => addToken('MDBL')} />
+                  <CopySVG className="w-[1.92vw] cursor-pointer stroke-yellow xl:w-6" onClick={() => addToken('MDBL')} />
                 </div>
               )}
             </div>
@@ -743,13 +743,13 @@ export default function Swap({ className }: { className?: string }) {
                 <div className="flex items-center justify-end gap-[0.64vw] xl:gap-1.5">
                   <div className="text-nowrap text-[1.08vw]/[1.6vw] text-gray-300 xl:text-sm/5">$M-BTC</div>
                   <img src="/svg/mbtc.svg" alt="mBtc" className="w-[1.92vw] xl:w-6" />
-                  <CopySVG className="w-[1.92vw] cursor-pointer xl:w-6" onClick={() => addToken('M-BTC')} />
+                  <CopySVG className="w-[1.92vw] cursor-pointer stroke-yellow xl:w-6" onClick={() => addToken('M-BTC')} />
                 </div>
               ) : (
                 <div className="flex items-center justify-end gap-[0.64vw] xl:gap-1.5">
                   <div className="text-[1.28vw]/[1.6vw] text-gray-300 xl:text-base/5">$MDBL</div>
                   <img src="/img/mdbl.webp" alt="mdbl" className="w-[1.92vw] xl:w-6" />
-                  <CopySVG className="w-[1.92vw] cursor-pointer xl:w-6" onClick={() => addToken('MDBL')} />
+                  <CopySVG className="w-[1.92vw] cursor-pointer stroke-yellow xl:w-6" onClick={() => addToken('MDBL')} />
                 </div>
               )}
             </div>

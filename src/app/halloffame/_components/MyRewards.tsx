@@ -8,6 +8,11 @@ import { CONTRACT_ADDRESSES } from '@/constants/contracts';
 import { useFetchFundRewardClaim, useFetchMyRewards, useFetchRankMerlProof } from '@/hooks/rank/useFetchRankReward';
 import { useMainWriteContract } from '@/hooks/wallet';
 import { formatNumber } from '@/utils';
+import {
+  useFetchRankMoboxProof,
+  useRankMoboxRewardClaim,
+  useReadBscLeaderboardRewards,
+} from '@/hooks/rank/useFetchBscRankReward';
 
 export default function MyRewards() {
   const [chainId] = ALLOW_CHAINS;
@@ -15,7 +20,17 @@ export default function MyRewards() {
   const { address } = useAccount();
   const { data: rewards, refetch: refetchRewards } = useFetchMyRewards(address);
   const { data: merl, refetch: refetchMerl } = useFetchRankMerlProof(address);
+  const { data: moboxRes } = useFetchRankMoboxProof(address);
   const { mutateAsync: mutateMdbl, isPaused: claimMdblLoading } = useFetchFundRewardClaim();
+
+  const totalMobox = useMemo(() => BigInt(moboxRes?.amount ?? 0n), [moboxRes]);
+  const { claimedMobox, isClaimPaused } = useReadBscLeaderboardRewards(address);
+  const { onClaimClick: onClaimMoboxClick, isLoading: isClaimMoboxLoading } = useRankMoboxRewardClaim();
+  const allowClaimMoBox = useMemo(
+    () => (totalMobox > claimedMobox ? totalMobox - claimedMobox : 0n),
+    [claimedMobox, totalMobox],
+  );
+
   const { data: rewardsReceived, refetch: refetchRewardsReceived } = useReadContracts({
     contracts: [
       {
@@ -52,8 +67,8 @@ export default function MyRewards() {
   const mdblData = useMemo(() => {
     if (rewards?.mdbl) {
       return {
-        amount: formatNumber(BigInt(rewards!.mdbl!.balance)),
-        total: formatNumber(BigInt(rewards!.mdbl!.total)),
+        amount: formatNumber(BigInt(rewards!.mdbl!.balance), false),
+        total: formatNumber(BigInt(rewards!.mdbl!.total), false),
       };
     }
 
@@ -69,8 +84,8 @@ export default function MyRewards() {
       const received = BigInt(rewardsReceived[0]?.result?.[0] || '0');
 
       return {
-        amount: formatNumber(total - received),
-        total: formatNumber(total),
+        amount: formatNumber(total - received, false),
+        total: formatNumber(total, false),
       };
     }
 
@@ -109,10 +124,10 @@ export default function MyRewards() {
 
   return (
     <>
-      <div className="relative flex h-[15.04vw] flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:pt-5 order-2">
+      <div className="relative order-2 flex h-[15.04vw] flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:pt-5">
         <img
           src="/img/reward-bg-04.png"
-          className="absolute bottom-0 left-0 right-0 -z-10 w-full h-[75%] object-cover object-center"
+          className="absolute bottom-0 left-0 right-0 -z-10 h-[75%] w-full object-cover object-center"
         />
         <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">$MDBL</div>
         <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
@@ -133,29 +148,76 @@ export default function MyRewards() {
           Claim
         </Button>
       </div>
-      <div className="relative flex h-[15.04vw] flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:pt-5 order-4">
-        <img
-          src="/img/reward-bg-05.png"
-          className="absolute bottom-0 left-0 right-0 -z-10 w-full h-[75%] object-cover object-center"
-        />
-        <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">$MERL</div>
-        <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
-          <img src="/svg/MERL.svg" className="h-[2.24vw] xl:h-7" />
-          <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
-            {merlData.amount}
+      <div className="flex-center order-4 col-start-1 col-end-3 gap-[1.76vw] xl:col-end-4 xl:gap-5.5">
+        <div className="relative flex h-[15.04vw] w-1/2 flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:w-1/3 xl:pt-5">
+          <img
+            src="/img/reward-bg-05.png"
+            className="absolute bottom-0 left-0 right-0 -z-10 h-[75%] w-full object-cover object-center"
+          />
+          <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">$MERL</div>
+          <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
+            <img src="/svg/MERL.svg" className="h-[2.24vw] xl:h-7" />
+            <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
+              {merlData.amount}
+            </div>
           </div>
+          <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {merlData.total}</p>
+          <Button
+            className="mt-[1.28vw] h-[2.56vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mt-4 xl:h-8 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
+            type="yellow-shallow"
+            loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
+            disabled={merlData.amount == '0'}
+            loading={merlClaimIsLoading}
+            onClick={onClaimMerl}
+          >
+            Claim
+          </Button>
         </div>
-        <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {merlData.total}</p>
-        <Button
-          className="mt-[1.28vw] h-[2.56vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mt-4 xl:h-8 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
-          type="yellow-shallow"
-          loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
-          disabled={merlData.amount == '0'}
-          loading={merlClaimIsLoading}
-          onClick={onClaimMerl}
-        >
-          Claim
-        </Button>
+        <div className="relative flex h-[15.04vw] w-1/2 flex-col items-center border border-gray-600 bg-black/60 pt-[1.6vw] backdrop-blur-sm xl:h-[188px] xl:w-1/3 xl:pt-5">
+          <img
+            src="/img/reward-bg-06.png"
+            className="absolute bottom-0 left-0 -z-10 h-full object-cover object-center"
+            alt=""
+          />
+          <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">MBOX</div>
+          {/* <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
+            <img src="/img/mobox.png" className="h-[2.24vw] xl:h-7" alt="mobox" />
+            <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
+              {formatNumber(allowClaimMoBox, false)}
+            </div>
+          </div> 
+          <p className="mt-0.5 text-xs/5 font-medium text-gray-300">Total: {formatNumber(totalMobox, false)}</p>*/}
+          {isClaimPaused ? (
+            <div className="flex-center flex-1 text-center text-[1.12vw]/[1.6vw] text-gray-300 xl:text-sm/5">
+              Revealing at the end of season
+            </div>
+          ) : (
+            <>
+              <div className="mt-[0.96vw] flex items-center justify-center xl:mt-3">
+                <img src="/img/mobox.png" alt="mobox" className="h-[2.24vw] xl:h-7" />
+                <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
+                  {formatNumber(allowClaimMoBox, false)}
+                </div>
+              </div>
+              <div className="mt-[0.32vw] text-center text-[0.96vw]/[1.6vw] font-medium xl:mt-1 xl:text-xs/5">
+                Total: {formatNumber(totalMobox, false)}
+              </div>
+              <Button
+                className="mt-[1.28vw] h-[2.56vw] w-[12.8vw] rounded-[0.16vw] py-0 text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mt-4 xl:h-8 xl:w-[160px] xl:rounded-sm xl:text-sm/4"
+                type="yellow-shallow"
+                loadingClassName="fill-yellow xl:w-3 xl:h-3 w-[0.96vw] h-[0.96vw]"
+                loading={isClaimMoboxLoading}
+                disabled={!allowClaimMoBox}
+                onClick={() => {
+                  if (!allowClaimMoBox || !moboxRes) return;
+                  onClaimMoboxClick(moboxRes).then();
+                }}
+              >
+                {allowClaimMoBox === 0n && totalMobox > 0n ? 'Claimed' : 'Claim'}
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </>
   );

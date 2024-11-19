@@ -42,24 +42,26 @@ const navList: NavItemProps[] = [
     pointLabel: 'vault',
   },
   {
-    key: '/halloffame-bsc',
-    isGroup: true,
+    key: '/halloffame',
+    to: '/halloffame',
+    // isGroup: true,
     label: 'Hall of Fame',
     icon: <Rank />,
-    children: [
-      {
-        key: '/halloffame',
-        to: '/halloffame',
-        label: 'Merlin',
-        pointLabel: 'hof-merlin',
-      },
-      {
-        key: '/halloffame-bsc',
-        to: '/halloffame-bsc',
-        label: 'BSC',
-        pointLabel: 'hof-bsc',
-      },
-    ],
+
+    // children: [
+    //   {
+    //     key: '/halloffame',
+    //     to: '/halloffame',
+    //     label: 'Merlin',
+    //     pointLabel: 'hof-merlin',
+    //   },
+    //   {
+    //     key: '/halloffame-bsc',
+    //     to: '/halloffame-bsc',
+    //     label: 'BSC',
+    //     pointLabel: 'hof-bsc',
+    //   },
+    // ],
   },
   {
     key: 'events',

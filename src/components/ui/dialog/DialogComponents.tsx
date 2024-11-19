@@ -14,6 +14,7 @@ import WithdrawDialog from './WithdrawDialog';
 import BurnDragonBallDialog from './BurnDragonBallDialog';
 import FirstStakeGuideDialog from './stake/FirstStakeGuideDialog';
 import RewardHistoryDialog from '@/components/ui/dialog/RewardHistoryDialog';
+import InviteConfirmDialog from './InviteConfirmDialog';
 
 export default function DialogComponents() {
   return (
@@ -31,6 +32,7 @@ export default function DialogComponents() {
       <UnbindWalletDialog />
       <RewardDetailDialog />
       <RewardHistoryDialog />
+      <InviteConfirmDialog />
     </ClientOnly>
   );
 }

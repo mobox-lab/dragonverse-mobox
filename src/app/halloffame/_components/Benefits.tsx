@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { dvGameIdAtom } from '@/atoms/rank';
 import PatternWithoutLine from '@/components/pattern/PatternWithoutLine';
 import Button from '@/components/ui/button';
-import { useStakeContractRead } from '@/hooks/stake/stakeContractRead';
+import { useStakeContractRead, useVeMoboxBalance } from '@/hooks/stake/stakeContractRead';
 import { useClaimGameAsset } from '@/hooks/stake/useClaimGameAsset';
 import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
 import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
@@ -17,10 +17,11 @@ export default function Benefits() {
   const gameId = useAtomValue(dvGameIdAtom);
   const { data } = useFetchObtain(gameId?.MerlinGameId);
   const { activeEmdblBalance } = useStakeContractRead();
+  const { data: veMoboxBalance } = useVeMoboxBalance();
   const { mutateAsync: claimBlueSnitch } = useClaimGameAsset();
   const { data: gameAsset, refetch: refetchGameAsset } = useFetchGameAsset();
   const captureBall = gameAsset?.assets?.[GAME_ASSETS_ID.CaptureBall];
-
+  console.log('veMoboxBalance', veMoboxBalance);
   const onClaimBlueSnitch = useCallback(async () => {
     try {
       await claimBlueSnitch({
@@ -55,10 +56,18 @@ export default function Benefits() {
     <>
       <div className="flex text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">
         <div className="flex-1">My Benefits</div>
-        <div className="flex items-center text-yellow">
-          <span className="mr-2">Active eMDBL: {formatNumber(activeEmdblBalance, false)}</span>
-          <img src="/svg/emdbl.svg" alt="emdbl" />
-        </div>
+        {activeEmdblBalance ? (
+          <div className="flex items-center text-yellow">
+            <span className="mr-2">Active eMDBL: {formatNumber(activeEmdblBalance, false)}</span>
+            <img src="/svg/emdbl.svg" className="h-[1.92vw] xl:h-6" alt="emdbl" />
+          </div>
+        ) : null}
+        {veMoboxBalance ? (
+          <div className="ml-3.5 flex items-center text-yellow">
+            <span className="mr-2">Active veMBOX: {formatNumber(veMoboxBalance, false)}</span>
+            <img src="/svg/vemobox.svg" className="-mt-0.5 h-[1.92vw] xl:h-6" alt="vemobox" />
+          </div>
+        ) : null}
         <div className="ml-5 flex items-center text-yellow">
           <span className="mr-2">MoDragon Power: {gameAsset?.totalDragonPower ?? 0}</span>
           <img src="/svg/modragon-power.svg" alt="power" />

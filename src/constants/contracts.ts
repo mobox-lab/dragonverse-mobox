@@ -13,6 +13,8 @@ type ContractAddresses = {
   claimMerl: Address;
   tokenRewardDistribution: Address;
   merl: Address;
+  veMobox: Address;
+  testLeaderboardMDBLRewards?: Address; //  
 };
 export const CONTRACT_ADDRESSES: ContractAddresses =
   process.env.NEXT_PUBLIC_CHAIN_ENV === 'production'
@@ -30,6 +32,7 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         claimMerl: '0x484Ac4edC23d8b435D1DEe5e9221d428E507f3c8',
         tokenRewardDistribution: '0xc64d8C284B938feD38E0ebc663589a655f434C07',
         merl: '0x5c46bff4b38dc1eae09c5bac65872a1d8bc87378',
+        veMobox: '0x5E7Eb57B163b78e93608E773e0F4a88A55d7C28F',
       }
     : {
         // test
@@ -41,8 +44,10 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         airdrop: '0xda42E394efC1efFA45d1DBc4f94bbC76cF8c4D33',
         batchBurn: '0x0786F335A0b0DF05D0224aF0c99B464b39078dF0',
         mDragonBall: '0x9Da60078e7B225820D7781D942E9f222c30Ed216',
-        leaderboardRewards: '0x81bdd98Bce37FB7C45a636bcE781DD17fBC46afE',
+        leaderboardRewards: '0x6169F7b1838a0D38F16b65D57Dae3977bCC33519',
         claimMerl: '0xFd9Ff70045914a4A258339c8d0E1fBA95a248330',
         tokenRewardDistribution: '0x1F514a6937eE9037A95A979eA9BedBB8b00bC8D7',
         merl: '0x817321a6E8F52b893FF6f70972529859f82BCB38',
+        veMobox: '0xa26fae848bc8effe7f45120b41a08c84004dbf38',
+        testLeaderboardMDBLRewards: '0x81bdd98Bce37FB7C45a636bcE781DD17fBC46afE',
       };

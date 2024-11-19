@@ -1,5 +1,5 @@
-import { fetchFightRank, fetchPetRank } from '@/apis';
-import { fetchMoFightRank, fetchMoPetGameRank } from '@/apis/mobox';
+import { fetchFightRank, fetchPetRank, fetchDefenseRank } from '@/apis';
+import { fetchMoFightRank } from '@/apis/mobox';
 import { GameRankType } from '@/constants/enum';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -19,6 +19,10 @@ const config = {
     fn: fetchMoFightRank,
   },
   [GameRankType.Dragon]: {},
+  [GameRankType.Defense]: {
+    key: 'fetch_defense_rank',
+    fn: fetchDefenseRank,
+  },
 };
 
 type MoboxGameRankProps = {

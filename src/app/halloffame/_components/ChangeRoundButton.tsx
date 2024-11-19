@@ -21,7 +21,7 @@ export default function ChangeRoundButton({
       onOpenChange={setIsOpen}
       placement="bottom-start"
       render={() => (
-        <div className="flex flex-col items-center gap-[0.32vw] border border-gray-600 bg-gray-750 p-[0.48vw] xl:gap-1 xl:p-1.5">
+        <div className="flex max-h-[80vh] flex-col items-center gap-[0.32vw] overflow-auto border border-gray-600 bg-gray-750 p-[0.48vw] xl:gap-1 xl:p-1.5">
           {roundList.map((item) => {
             return (
               <div

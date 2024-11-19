@@ -19,3 +19,6 @@ export const shopDialogAtom = atom<boolean>(false);
 
 //  
 export const gameAssetsLogDrawerAtom = atom<boolean>(false);
+
+//  
+export const gameReferralHistoryDrawerAtom = atom<boolean>(false);
