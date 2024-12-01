@@ -304,7 +304,9 @@ function MyReferral() {
   const [_, copy] = useCopyToClipboard();
 
   const unClaimedReward = useMemo(
-    () => Number(formatEther(BigInt(invitationInfo?.reward ?? 0))),
+    () =>
+      Number(formatEther(BigInt(invitationInfo?.reward ?? 0))) -
+      Number(formatEther(BigInt(invitationInfo?.claimedReward ?? 0))),
     [invitationInfo?.claimedReward, invitationInfo?.reward],
   );
 
