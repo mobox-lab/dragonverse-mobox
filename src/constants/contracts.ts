@@ -45,9 +45,9 @@ export const CONTRACT_ADDRESSES: ContractAddresses =
         batchBurn: '0x0786F335A0b0DF05D0224aF0c99B464b39078dF0',
         mDragonBall: '0x9Da60078e7B225820D7781D942E9f222c30Ed216',
         leaderboardRewards: '0x6169F7b1838a0D38F16b65D57Dae3977bCC33519',
-        claimMerl: '0xFd9Ff70045914a4A258339c8d0E1fBA95a248330',
+        claimMerl: '0x17957B4cB8285A95ebc21F72C60D64c3FAA9591F',
         tokenRewardDistribution: '0x1F514a6937eE9037A95A979eA9BedBB8b00bC8D7',
-        merl: '0x817321a6E8F52b893FF6f70972529859f82BCB38',
+        merl: '0x23c92c8f09a0fe5b5fa57c98d6ce58bbfdcfbaf4',
         veMobox: '0xa26fae848bc8effe7f45120b41a08c84004dbf38',
         testLeaderboardMDBLRewards: '0x81bdd98Bce37FB7C45a636bcE781DD17fBC46afE',
       };
