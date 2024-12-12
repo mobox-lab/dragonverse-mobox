@@ -267,13 +267,13 @@ export default function DrawerAssets() {
             <img src="/svg/shop.svg" className="mr-1 w-[2vw] xl:w-[1.5vw]" alt="" />
             <span>Dragonverse Market</span>
           </Button>
-          <div ref={myReferralRef}>
+          {/* <div ref={myReferralRef}>
             <MyReferral />
-          </div>
+          </div> */}
 
           <DrawerDepositWithdraw />
           <DrawerTradeLogs isOpen={isOpenTradeLogs} onOpenChange={setOpenTradeLogs} />
-          <GameReferralHistory />
+          {/* <GameReferralHistory /> */}
           <GameAssetsLog />
           <ShopDialog />
         </div>

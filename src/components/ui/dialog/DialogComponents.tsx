@@ -1,20 +1,19 @@
 'use client';
 
 import { ClientOnly } from '@/components/common/ClientOnly';
+import RewardHistoryDialog from '@/components/ui/dialog/RewardHistoryDialog';
 import StakeBuffDialog from '@/components/ui/dialog/stake/StakeBuffDialog';
 import BtcWalletConnectDialog from '@/components/ui/dialog/wallet-connect/BtcWalletConnectDialog';
+import ExistedAddressBindDialog from '@/components/ui/dialog/wallet-connect/ExistedAddressBindDialog';
 import MainWalletConnectDialog from '@/components/ui/dialog/wallet-connect/MainWalletConnectDialog';
+import UnbindWalletDialog from '@/components/ui/dialog/wallet-connect/UnbindWalletDialog';
+import BurnDragonBallDialog from './BurnDragonBallDialog';
 import LBPRewardDialog from './LBPRewardDialog';
 import RewardDetailDialog from './RewardDetailDialog';
-import StakeHistoryDialog from './stake/StakeHistoryDialog';
-import StakeAndRedeemDialog from './stake/StakeAndRedeemDialog';
-import ExistedAddressBindDialog from '@/components/ui/dialog/wallet-connect/ExistedAddressBindDialog';
-import UnbindWalletDialog from '@/components/ui/dialog/wallet-connect/UnbindWalletDialog';
-import WithdrawDialog from './WithdrawDialog';
-import BurnDragonBallDialog from './BurnDragonBallDialog';
 import FirstStakeGuideDialog from './stake/FirstStakeGuideDialog';
-import RewardHistoryDialog from '@/components/ui/dialog/RewardHistoryDialog';
-import InviteConfirmDialog from './InviteConfirmDialog';
+import StakeAndRedeemDialog from './stake/StakeAndRedeemDialog';
+import StakeHistoryDialog from './stake/StakeHistoryDialog';
+import WithdrawDialog from './WithdrawDialog';
 
 export default function DialogComponents() {
   return (
@@ -32,7 +31,7 @@ export default function DialogComponents() {
       <UnbindWalletDialog />
       <RewardDetailDialog />
       <RewardHistoryDialog />
-      <InviteConfirmDialog />
+      {/* <InviteConfirmDialog /> */}
     </ClientOnly>
   );
 }
