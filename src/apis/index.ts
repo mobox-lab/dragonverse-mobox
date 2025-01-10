@@ -47,6 +47,11 @@ import {
   VaultRewardToken,
   InviteHistoryItem,
   InvitationInfo,
+  FundPrice,
+  PointParams,
+  PointResult,
+  TotalSpendResult,
+  PointsRankRes,
 } from './types';
 import { GameAssetID } from '@/constants/gameAssets';
 
@@ -298,6 +303,36 @@ export const fetchFundRewardClaim = (tokenName: string) =>
 
 export const fetchDefenseRank = ({ page = 1, size = 20, round, address, gameId }: FetchGameRankParams) =>
   request.get<any, Response<PetRankRes>>('/pge-game/rank/defense/list', {
+    params: {
+      page,
+      size,
+      round,
+      address,
+      gameId,
+    },
+  });
+
+export const fetchUserFundPrice = () => {
+  return request.get<any, Response<FundPrice>>('/user-fund/price');
+};
+
+export const fetchTotalPoints = ({ round, gameId }: PointParams) =>
+  request.get<any, Response<PointResult>>('/pge-game/point/total', {
+    params: {
+      round,
+      gameId,
+    },
+  });
+
+export const fetchTotalSpend = ({ round, gameId }: PointParams) =>
+  request.get<any, Response<TotalSpendResult>>('/user-fund/round-spending', {
+    params: {
+      round,
+      gameId,
+    },
+  });
+export const fetchPointsRank = ({ page = 1, size = 20, round, address, gameId }: FetchGameRankParams) =>
+  request.get<any, Response<PointsRankRes>>('/pge-game/point/rank', {
     params: {
       page,
       size,

@@ -163,7 +163,7 @@ export default function DrawerDepositWithdraw() {
                 <div className="mt-[2.56vw] xl:mt-8">
                   <div className="flex h-[8vw] items-center justify-between bg-white/10 px-[1.28vw] xl:h-25 xl:px-4">
                     <div className="flex items-center">
-                      <img src="/svg/mdbl-merlin.svg" alt="mdbl" className="h-[3.2vw] xl:h-10" />
+                      <img src="/img/mdbl-merlin.png" alt="mdbl" className="h-[3.2vw] xl:h-10" />
                       <div className="ml-[0.64vw] xl:ml-2">
                         <div className="text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">$MDBL</div>
                         <div className="mt-[0.64vw] text-[0.96vw]/[0.96vw] xl:mt-2 xl:text-xs/3">Merlin Chain</div>
@@ -212,7 +212,7 @@ export default function DrawerDepositWithdraw() {
                   </div>
                   <div className="flex h-[8vw] items-center justify-between bg-white/10 px-[1.28vw] xl:h-25 xl:px-4">
                     <div className="flex items-center">
-                      <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="h-[3.2vw] xl:h-10" />
+                      <img src="/img/mdbl-in-game.png" alt="mdbl" className="h-[3.2vw] xl:h-10" />
                       <div className="ml-[0.64vw] xl:ml-2">
                         <div className="text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">$MDBL</div>
                         <div className="mt-[0.64vw] text-[0.96vw]/[0.96vw] xl:mt-2 xl:text-xs/3">Dragonverse Neo</div>
@@ -268,7 +268,7 @@ export default function DrawerDepositWithdraw() {
                 <div className="mt-[2.56vw] xl:mt-8">
                   <div className="flex h-[8vw] items-center justify-between bg-white/10 px-[1.28vw] xl:h-25 xl:px-4">
                     <div className="flex items-center">
-                      <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="h-[3.2vw] xl:h-10" />
+                      <img src="/img/mdbl-in-game.png" alt="mdbl" className="h-[3.2vw] xl:h-10" />
                       <div className="ml-[0.64vw] xl:ml-2">
                         <div className="text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">$MDBL</div>
                         <div className="mt-[0.64vw] text-[0.96vw]/[0.96vw] xl:mt-2 xl:text-xs/3">Dragonverse Neo</div>
@@ -315,7 +315,7 @@ export default function DrawerDepositWithdraw() {
                   </div>
                   <div className="flex h-[8vw] items-center justify-between bg-white/10 px-[1.28vw] xl:h-25 xl:px-4">
                     <div className="flex items-center">
-                      <img src="/svg/mdbl-merlin.svg" alt="mdbl" className="h-[3.2vw] xl:h-10" />
+                      <img src="/img/mdbl-merlin.png" alt="mdbl" className="h-[3.2vw] xl:h-10" />
                       <div className="ml-[0.64vw] xl:ml-2">
                         <div className="text-[1.28vw]/[1.6vw] font-semibold xl:text-base/5">$MDBL</div>
                         <div className="mt-[0.64vw] text-[0.96vw]/[0.96vw] xl:mt-2 xl:text-xs/3">Merlin Chain</div>

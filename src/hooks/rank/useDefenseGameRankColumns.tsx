@@ -152,7 +152,7 @@ export function useDefenseGameRankColumns() {
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
                 {formatNumber(parseEther(row.original.mdblReward.toString()), false)}
               </span>
-              <img src="/svg/mdbl-in-game.svg" className="h-[1.6vw] xl:h-5" />
+              <img src="/img/mdbl-in-game.png" className="h-[1.6vw] xl:h-5" />
             </div>
           );
         },

@@ -11,7 +11,7 @@ import ReactGA from 'react-ga4';
 import Buff from './_components/Buff';
 import GameRank from './_components/GameRank';
 import GameRankTab from './_components/GameRankTab';
-import SeasonCountDown from '@/app/halloffame/_components/SeasonCountDown';
+import SeasonCountDown from '@/app/halloffame-fomo/_components/SeasonCountDown';
 
 interface HallOfFameProps {}
 

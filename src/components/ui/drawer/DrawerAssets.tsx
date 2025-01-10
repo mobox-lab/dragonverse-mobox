@@ -39,15 +39,21 @@ import GameReferralHistory from './GameReferralHistory';
 const assets = [
   {
     id: GAME_ASSETS_ID.CaptureBall,
-    icon: '/svg/capture-ball.svg',
+    icon: '/img/capture-ball.png',
     name: 'Blue Snitch',
     describe: 'Capture DragonPal',
   },
   {
     id: GAME_ASSETS_ID.StaminaPotion,
-    icon: '/svg/senzu-bean.svg',
+    icon: '/img/senzu-bean.png',
     name: 'Senzu Potion',
     describe: 'Instant Stamina Recovery',
+  },
+  {
+    id: GAME_ASSETS_ID.SweepToken,
+    icon: '/img/sweep-token.png',
+    name: 'Sweep Token',
+    describe: 'Speed-sweep for Perfect Victory stages',
   },
 ];
 
@@ -171,7 +177,7 @@ export default function DrawerAssets() {
           <div className="mt-[1.92vw] xl:mt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="size-[3.2vw] xl:size-10" />
+                <img src="/img/mdbl-in-game.png" alt="mdbl" className="size-[3.2vw] xl:size-10" />
                 <div>
                   <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">$MDBL</p>
                   <p className="text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">Dragonverse</p>
@@ -242,7 +248,7 @@ export default function DrawerAssets() {
                   <img src={item.icon} alt="capture-ball" className="h-[3.2vw] xl:size-10" />
                   <div className="mx-2">
                     <p className="text-[1.28vw]/[1.6vw] font-medium xl:text-base/5">{item.name}</p>
-                    <p className="w-[13vw] text-[0.96vw]/[1.6vw] text-gray-300 xl:w-[160px] xl:text-xs/5">{item.describe}</p>
+                    <p className="text-nowrap text-[0.96vw]/[1.6vw] text-gray-300 xl:text-xs/5">{item.describe}</p>
                   </div>
                   {gameAsset?.assets?.[item.id]?.unclaim ? (
                     <Button
@@ -290,6 +296,7 @@ const getErrorMsg = (errorCode: string) => {
       return 'Failed to claim, an unknown error occurred.';
   }
 };
+
 function MyReferral() {
   const setGameReferralHistoryDrawer = useSetAtom(gameReferralHistoryDrawerAtom);
   const onOpenReferralHistory = useCallback(() => {
@@ -370,7 +377,7 @@ function MyReferral() {
             <div className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
               {shortenDigits(Number(formatEther(BigInt(invitationInfo?.claimedReward ?? 0))))}
             </div>
-            <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="size-[1.6vw] xl:size-5" />
+            <img src="/img/mdbl-in-game.png" alt="mdbl" className="size-[1.6vw] xl:size-5" />
           </div>
         </div>
         {invitationInfo?.referrer ? (

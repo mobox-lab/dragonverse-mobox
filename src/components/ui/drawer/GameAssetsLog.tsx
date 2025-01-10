@@ -16,15 +16,21 @@ const SIZE = 20;
 const tabs = [
   {
     id: GAME_ASSETS_ID.StaminaPotion,
-    icon: '/svg/senzu-bean.svg',
+    icon: '/img/senzu-bean.png',
     name: 'Senzu Potion',
     describe: 'Instant Stamina Recovery',
   },
   {
     id: GAME_ASSETS_ID.CaptureBall,
-    icon: '/svg/capture-ball.svg',
+    icon: '/img/capture-ball.png',
     name: 'Blue Snitch',
     describe: 'Capture DragonPal',
+  },
+  {
+    id: GAME_ASSETS_ID.SweepToken,
+    icon: '/img/sweep-token.png',
+    name: 'Sweep Token',
+    describe: 'Speed-sweep for Perfect Victory stages',
   },
 ];
 
