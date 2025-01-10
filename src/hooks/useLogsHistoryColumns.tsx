@@ -65,7 +65,7 @@ export const useLogsHistoryColumns = () => {
           return (
             <p className="flex w-[3.84vw] flex-grow-[5] items-center justify-end pr-[1.28vw] text-right text-[1.12vw]/[1.44vw] font-medium text-yellow xl:w-12 xl:pr-4 xl:text-sm/4.5">
               {formatNumber(BigInt(getValue()))}
-              <img src="/svg/mdbl-in-game.svg" alt="mdbl" className="ml-1 h-[1.5vw] xl:h-5" />
+              <img src="/img/mdbl-in-game.png" alt="mdbl" className="ml-1 h-[1.5vw] xl:h-5" />
             </p>
           );
         },

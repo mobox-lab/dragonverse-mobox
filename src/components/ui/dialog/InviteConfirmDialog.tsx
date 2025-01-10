@@ -82,7 +82,7 @@
 //           <div className="mt-[2.56vw] flex items-center text-[1.12vw]/[1.92vw] font-semibold xl:mt-8 xl:text-sm/6">
 //             Accepting the invitation to receive
 //             <div className="ml-[0.64vw] flex items-center gap-[0.32vw] text-yellow xl:ml-2 xl:gap-1">
-//               <img src="/svg/senzu-bean.svg" className="w-[1.76vw] xl:w-5.5" alt="" />
+//               <img src="/img/senzu-bean.png" className="w-[1.76vw] xl:w-5.5" alt="" />
 //               Senzu Bean x 2
 //             </div>
 //           </div>

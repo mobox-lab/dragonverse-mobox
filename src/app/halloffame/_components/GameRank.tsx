@@ -6,7 +6,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { GameRound, RankCurrentRound } from '@/apis/types';
 import { gameRankTypeAtom, rankAtom } from '@/atoms/rank';
 import { GameRankType } from '@/constants/enum';
-import { clsxm } from '@/utils';
+import { clsxm, openLink } from '@/utils';
 import { useFetchGameRoundList } from '@/hooks/rank/useFetchGameRoundList';
 import InfinityRumbleGameRank from './InfinityRumbleGameRank';
 import PetOdysseyGameRank from './PetOdysseyGameRank';
@@ -19,11 +19,16 @@ export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }
   const [currentRound, setCurrentRound] = useAtom(rankAtom);
 
   const roundChange = (round: GameRound) => {
-    setCurrentRound(round);
+    if (round.round > 8) {
+      openLink('/halloffame');
+    } else {
+      setCurrentRound(round);
+    }
   };
 
   useEffect(() => {
     if (roundList?.list && roundList?.list.length) {
+      // const roundMax = roundList?.list.find((round) => round.round === 8);
       setCurrentRound(roundList.list[roundList.list.length - 1]);
     }
   }, [roundList]);

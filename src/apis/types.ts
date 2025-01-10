@@ -777,3 +777,39 @@ export type InviteHistoryItem = {
   timestamp?: number;
   commission?: string;
 };
+
+export type FundPrice = {
+  wbtcToMdbl: number;
+  wbtcToUsd: number;
+  usdToMdbl: number;
+  time: number;
+};
+
+export type PointParams = {
+  round?: number;
+  gameId?: string;
+};
+
+export type PointResult = {
+  totalPoints: number;
+};
+
+export type TotalSpendResult = {
+  roundSpending: string;
+};
+
+export type PointsRankRes = {
+  list: PointsRankItem[];
+  myself?: PointsRankItem;
+};
+
+export type PointsRankItem = {
+  gparkUserAddress: string;
+  gparkUserName: string;
+  gparkUserAvatar: string;
+  petPoint: number;
+  defensePoint: number;
+  totalPoint: number;
+  rank: number;
+  updateTimestamp: number;
+};

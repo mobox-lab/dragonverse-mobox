@@ -1,4 +1,4 @@
-import { fetchGameAsset } from '@/apis';
+import { fetchGameAsset, fetchUserFundPrice } from '@/apis';
 import { accessTokenAtom } from '@/atoms';
 import { useAtomValue } from 'jotai/index';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ export function useFetchGameAsset(gameId?: string) {
     select({ code, data }) {
       if (code === 200) {
         return {
-          assets: data.list.reduce((data, item) => ({[item.resId]: item, ...data}), {}) as Record<string, DragonCaptureBall>,
+          assets: data.list.reduce((data, item) => ({ [item.resId]: item, ...data }), {}) as Record<string, DragonCaptureBall>,
           captureProbability: data.captureProbability,
           totalDragonPower: data.totalDragonPower,
         };
@@ -23,5 +23,14 @@ export function useFetchGameAsset(gameId?: string) {
     },
     staleTime: 0,
     enabled: !!accessToken,
+  });
+}
+
+export function useFetchUserFundPrice() {
+  return useQuery({
+    queryKey: ['use_fetch_user_fund_price'],
+    queryFn: () => fetchUserFundPrice(),
+    select: ({ code, data }) => (code === 200 ? data : undefined),
+    staleTime: 0,
   });
 }

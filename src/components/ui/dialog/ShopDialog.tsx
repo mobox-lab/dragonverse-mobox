@@ -15,22 +15,32 @@ import Button from '../button';
 import { dvGameIdAtom } from '@/atoms/rank';
 import Dialog from '.';
 import { useQueryBalance } from '@/hooks/user';
-import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
+import { useFetchGameAsset, useFetchUserFundPrice } from '@/hooks/stake/useFetchGameAsset';
 
 const commoditys = [
   {
     id: 3,
-    icon: '/svg/senzu-bean.svg',
+    icon: '/img/senzu-bean.png',
     name: 'Senzu Potion',
     describe: 'Instantly recover 200 Stamina',
     price: 1690,
+    usdPrice: 50,
   },
   {
     id: 1,
-    icon: '/svg/capture-ball.svg',
+    icon: '/img/capture-ball.png',
     name: 'Blue Snitch',
     describe: 'Capture DragonPal',
     price: 210,
+    usdPrice: 50,
+  },
+  {
+    id: 4,
+    icon: '/img/sweep-token.png',
+    name: 'Sweep Token',
+    describe: 'Speed-sweep for Perfect Victory stages',
+    price: 169,
+    usdPrice: 50,
   },
 ] as const;
 
@@ -45,6 +55,7 @@ export default function ShopDialog() {
   const [count, setCount] = useState(0);
   const [activeCommodity, setActiveCommodity] = useState<CommodityId | null>(null);
   const { refetch: refetchGameAsset } = useFetchGameAsset();
+  // const { data: fundPrice, refetch: refetchFundPrice } = useFetchUserFundPrice();
   const { mutateAsync: mutateBuy, isPending: isBuyPending } = useMutation({
     mutationFn(data: FetchBuyGameAsset) {
       return fetchBuyGameAsset(data);
@@ -126,6 +137,12 @@ export default function ShopDialog() {
     }
   }, [count, maxCount]);
 
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     refetchFundPrice().then();
+  //   }
+  // }, [isOpen, refetchFundPrice]);
+
   return (
     <Dialog
       open={isOpen}
@@ -136,7 +153,7 @@ export default function ShopDialog() {
       render={() => (
         <div className="px-5">
           <div className="text-center text-[1.6vw]/[1.92vw] font-medium xl:text-xl/6">DragonVerse Shop</div>
-          <ul className="mt-[2vw] grid grid-cols-2 gap-x-[1.5vw]">
+          <ul className="mt-[2vw] grid grid-cols-3 gap-x-[1.5vw]">
             {commoditys.map((item) => {
               const isActive = item.id === activeCommodity;
 
@@ -154,7 +171,7 @@ export default function ShopDialog() {
                     <span className="text-[0.9vw] font-semibold text-yellow">{item.price}</span>
                     <img src="/svg/mdbl-in-game.svg" className="ml-1 w-[1.2vw]" />
                   </div>
-                  <img src={item.icon} className="h-[3.5vw]" />
+                  <img src={item.icon} className="mx-auto h-[3.5vw] w-[3.5vw]" />
                   <div className="mt-1 text-center text-[0.9vw] font-medium">{item.name}</div>
                   <p className="flex flex-1 items-center justify-center text-center text-[0.7vw] leading-[1.2]">
                     {item.describe}
@@ -174,7 +191,7 @@ export default function ShopDialog() {
               <div className="flex items-center">
                 <span className="text-sm">Total:&nbsp;</span>
                 <span className="text-[1.8vw] font-medium text-yellow xl:text-[1.2vw]">{totalAmount.toLocaleString()}</span>
-                <img src="/svg/mdbl-in-game.svg" className="ml-1 w-[1.8vw] xl:w-[1.1vw]" />
+                <img src="/img/mdbl-in-game.png" className="ml-1 w-[1.8vw] xl:w-[1.1vw]" />
               </div>
               <div className="mt-1 flex items-center">
                 <span className="text-sm">Available:&nbsp;</span>

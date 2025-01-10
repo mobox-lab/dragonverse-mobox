@@ -67,7 +67,7 @@ export default function MyInventory() {
           <PatternWithoutLine className="stroke-yellow" />
           <div className="text-center text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:text-sm/6">Blue Snitch</div>
           <div className="mt-[0.96vw] flex items-center justify-center xl:mt-3">
-            <img src="/svg/capture-ball.svg" alt="capture ball" className="h-[2.24vw] xl:h-7" />
+            <img src="/img/capture-ball.png" alt="capture ball" className="h-[2.24vw] xl:h-7" />
             <div className="ml-[0.32vw] mt-[0.32vw] text-[1.92vw]/[1.92vw] font-semibold text-yellow xl:ml-1 xl:mt-1 xl:text-2xl/6">
               {captureBall?.unclaim || 0}
             </div>
