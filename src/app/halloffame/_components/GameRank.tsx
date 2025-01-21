@@ -19,11 +19,7 @@ export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }
   const [currentRound, setCurrentRound] = useAtom(rankAtom);
 
   const roundChange = (round: GameRound) => {
-    if (round.round > 8) {
-      openLink('/halloffame');
-    } else {
-      setCurrentRound(round);
-    }
+    setCurrentRound(round);
   };
 
   useEffect(() => {

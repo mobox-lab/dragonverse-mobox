@@ -762,6 +762,14 @@ export interface DefenseRankItem {
   emdblReward: number;
   mboxReward: number;
   merlReward: number;
+  basicScore?: number;
+  boostedScore?: number;
+  subDetail?: {
+    cards: number[];
+    talent: Record<string, number>;
+    dragonBlessList: string[];
+    nickName: string;
+  };
 }
 
 export type InvitationInfo = {
