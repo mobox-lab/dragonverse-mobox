@@ -71,7 +71,7 @@ export default function DefenseGameRank({ className, round }: { className?: stri
       className={clsxm('mt-[0.8vw] max-h-[35.68vw] overflow-x-auto xl:mt-2.5 xl:max-h-[446px]', className)}
       bodyClass="!pb-0"
       dataSource={items ?? []}
-      columns={(items ?? [])[0]?.subDetail ? pointsColumns : columns}
+      columns={(items ?? [])[0]?.subDetail || (items ?? [])[1]?.subDetail ? pointsColumns : columns}
       renderBottom={() => (
         <>
           {hasNextPage && (

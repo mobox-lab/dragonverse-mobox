@@ -260,28 +260,19 @@ export function useDefenseGamePointsRankColumns() {
         header: () => (
           <div className="flex-center w-17 flex-grow-[1] text-center font-semibold">
             Basic Score
-            {/* <Tooltip
+            <Tooltip
               title={
                 <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
                   <li>
-                    Endless Realm Best Score consists of two parts: the highest wave cleared and the completion rate of the
-                    highest wave.
-                  </li>
-                  <li>
-                    Completion rate = Total escape damage from monsters killed in this wave / Total escape damage from all
-                    monsters this wave.
-                  </li>
-                  <li>
-                    Rank is primarily determined by Endless Realm Best Score, and in the case of identical best scores, the
-                    player who reached that score first ranks higher.
+                    Basic Score is derived from the highest wave completed in Endless Realm. Ties are broken by completion time.
                   </li>
                 </ul>
               }
             >
               <span className="ml-1 cursor-pointer">
-                <InfoSvg className="size-[1.12vw] stroke-yellow xl:size-3.5" />
+                <InfoSvg className="size-[1.12vw] stroke-white xl:size-3.5" />
               </span>
-            </Tooltip> */}
+            </Tooltip>
           </div>
         ),
         cell: ({ row }) => {

@@ -476,6 +476,7 @@ export type RankCurrentRound = {
 
 export type BuffData = {
   dreamPetBuff: DreamPetBuff;
+  defenseBuff: DreamPetBuff;
   infinityBuff: InfinityBuff;
   dragonPalConfigList: DragonPalConfigList[];
 };
@@ -519,6 +520,7 @@ export type DragonPalConfigList = {
   unlockTime: number;
   dreamPetBuff: number;
   infinityRambleBuff: number;
+  defenseBuff: number;
   avatarUrl: string;
   name: string;
 };
