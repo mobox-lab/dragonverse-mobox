@@ -476,6 +476,7 @@ export type RankCurrentRound = {
 
 export type BuffData = {
   dreamPetBuff: DreamPetBuff;
+  defenseBuff: DreamPetBuff;
   infinityBuff: InfinityBuff;
   dragonPalConfigList: DragonPalConfigList[];
 };
@@ -519,6 +520,7 @@ export type DragonPalConfigList = {
   unlockTime: number;
   dreamPetBuff: number;
   infinityRambleBuff: number;
+  defenseBuff: number;
   avatarUrl: string;
   name: string;
 };
@@ -762,6 +764,14 @@ export interface DefenseRankItem {
   emdblReward: number;
   mboxReward: number;
   merlReward: number;
+  basicScore?: number;
+  boostedScore?: number;
+  subDetail?: {
+    cards: number[];
+    talent: Record<string, number>;
+    dragonBlessList: string[];
+    nickName: string;
+  };
 }
 
 export type InvitationInfo = {
