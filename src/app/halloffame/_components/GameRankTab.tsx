@@ -120,7 +120,7 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
                   {(roundInfo?.gameRoundInfo?.[top30Key]?.emdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
                       {roundInfo?.gameRoundInfo[top30Key].emdbl.toLocaleString()}
-                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$EMDBL</span>
+                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$eMDBL</span>
                     </p>
                   )}
                   {(roundInfo?.gameRoundInfo?.[top30Key as 'defenseTopReward']?.mbox || 0) === 0 ? null : (
@@ -160,7 +160,7 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
                    {(roundInfo?.gameRoundInfo?.[allKey]?.emdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
                       {roundInfo?.gameRoundInfo[allKey].emdbl.toLocaleString()}
-                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$EMDBL</span>
+                      <span className="text-[1.12vw]/[1.6vw] xl:text-sm/5">&nbsp;$eMDBL</span>
                     </p>
                   )}
                 </div>
