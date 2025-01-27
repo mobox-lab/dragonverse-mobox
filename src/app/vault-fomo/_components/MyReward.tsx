@@ -103,7 +103,7 @@ export default function MyReward() {
           <div className="relative flex flex-grow flex-col items-center">
             <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">eMDBL</div>
             <div className="flex-center mt-[0.96vw] xl:mt-3">
-              <img src="/svg/emdbl.svg" className="h-[2.24vw] xl:h-7" alt="emdbl" />
+              <img src="/img/emdbl.webp" className="h-[2.24vw] xl:h-7" alt="emdbl" />
               <div className="ml-[0.64vw] text-[2.4vw]/[3.52vw] font-medium text-yellow xl:ml-2 xl:text-3xl/11">
                 {formatNumber(activeEmdblBalance, false)}
               </div>

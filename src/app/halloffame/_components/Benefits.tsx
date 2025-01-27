@@ -59,7 +59,7 @@ export default function Benefits() {
         {activeEmdblBalance ? (
           <div className="flex items-center text-yellow">
             <span className="mr-2">Active eMDBL: {formatNumber(activeEmdblBalance, false)}</span>
-            <img src="/svg/emdbl.svg" className="h-[1.92vw] xl:h-6" alt="emdbl" />
+            <img src="/img/emdbl.webp" className="h-[1.92vw] xl:h-6" alt="emdbl" />
           </div>
         ) : null}
         {veMoboxBalance ? (

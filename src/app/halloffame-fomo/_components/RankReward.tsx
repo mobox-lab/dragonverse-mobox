@@ -31,7 +31,7 @@ export default function RankReward() {
         />
         <div className="text-[1.28vw]/[1.92vw] font-semibold xl:text-base/6">eMDBL</div>
         <div className="mt-[1.92vw] flex items-center justify-center xl:mt-6">
-          <img src="/svg/emdbl.svg" alt="emdbl" className="h-[2.24vw] xl:h-7" />
+          <img src="/img/emdbl.webp" alt="emdbl" className="h-[2.24vw] xl:h-7" />
           <div className="ml-[0.64vw] text-[1.92vw]/[2.4vw] font-semibold text-yellow xl:ml-2 xl:text-2xl/7.5">
             {formatNumber(allowClaimEmdbl, false)}
           </div>

@@ -45,7 +45,7 @@ export default function RewardHistoryDialog() {
             {isEmdbl ? (
               <>
                 {formatEther(BigInt(row.original.rewardAmount))}
-                <img src="/svg/emdbl.svg" alt="mdbl" className="h-[1.6vw] xl:h-5" />
+                <img src="/img/emdbl.webp" alt="mdbl" className="h-[1.6vw] xl:h-5" />
               </>
             ) : (
               <>

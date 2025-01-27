@@ -20,7 +20,7 @@ interface Props {
 const tokenInfo = {
   [VaultRewardToken.EMdbl]: {
     name: 'eMDBL',
-    icon: '/svg/emdbl.svg',
+    icon: '/img/emdbl.webp',
   },
   [VaultRewardToken.Merl]: {
     name: 'MERL',

@@ -19,7 +19,7 @@ export default function RewardDetailDialog() {
         <div className="flex flex-col">
           <div className="p-[2.88vw] pb-[3.2vw] text-center xl:p-6 xl:pb-10">
             <h1 className="flex items-center justify-center gap-[0.32vw] text-[1.6vw]/[2.4vw] font-semibold text-yellow xl:gap-1 xl:text-xl/7.5">
-              <img src="/svg/emdbl.svg" alt="emdbl" className="h-[2.4vw] w-[2.4vw] xl:h-7.5 xl:w-7.5" />
+              <img src="/img/emdbl.webp" alt="emdbl" className="h-[2.4vw] w-[2.4vw] xl:h-7.5 xl:w-7.5" />
               eMDBL Reward
             </h1>
 

@@ -200,7 +200,7 @@ export default function StakeAndRedeemDialog() {
                     </span>
                     <span className="text-[1.6vw]/[1.92vw] font-medium text-yellow xl:text-xl/6">&nbsp;eMDBL</span>
                   </div>
-                  <img src="/svg/emdbl.svg" alt="emdbl" className="ml-[0.48vw] w-[1.92vw] xl:ml-1.5 xl:w-6" />
+                  <img src="/img/emdbl.webp" alt="emdbl" className="ml-[0.48vw] w-[1.92vw] xl:ml-1.5 xl:w-6" />
                 </div>
               </div>
               {isMainConnected ? (
@@ -267,7 +267,7 @@ export default function StakeAndRedeemDialog() {
 
                 <div className="flex items-center justify-end gap-[0.64vw] xl:gap-2">
                   <div className="text-[1.28vw]/[1.6vw] font-medium text-gray-300 xl:text-base/5">eMDBL</div>
-                  <img src="/svg/emdbl.svg" alt="emdbl" className="w-[1.92vw] xl:w-6" />
+                  <img src="/img/emdbl.webp" alt="emdbl" className="w-[1.92vw] xl:w-6" />
                 </div>
               </div>
               <div className="mt-[0.8vw] flex items-center justify-end gap-[0.64vw] xl:mt-2.5 xl:gap-2">

@@ -98,7 +98,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="physical"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Physical: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Physical:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.talent?.['1047'] ?? 0}
                           </div>
@@ -109,14 +109,14 @@ export function useDefenseGamePointsRankColumns() {
                             alt="magical"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Magical: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Magical:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.talent?.['1048'] ?? 0}
                           </div>
                         </div>
                         <div className="flex items-center gap-[0.32vw] xl:gap-1">
                           <img src="/svg/dragon/dura.svg" alt="dura" className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5" />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Dura: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Dura:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.talent?.['1049'] ?? 0}
                           </div>
@@ -135,7 +135,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="light"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Physical: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Physical:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.dragonBlessList?.[0] ?? '0%'}
                           </div>
@@ -146,7 +146,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="dark"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Magical: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Magical:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.dragonBlessList?.[1] ?? '0%'}
                           </div>
@@ -157,7 +157,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="water"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Range: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Range:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.dragonBlessList?.[2] ?? '0%'}
                           </div>
@@ -168,7 +168,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="fire"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Decel+: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Decel+:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.dragonBlessList?.[3] ?? '0%'}
                           </div>
@@ -179,7 +179,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="wood"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Dura: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Dura:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.dragonBlessList?.[4] ?? '0%'}
                           </div>
@@ -190,7 +190,7 @@ export function useDefenseGamePointsRankColumns() {
                             alt="earth"
                             className="h-[1.44vw] w-[1.44vw] xl:h-4.5 xl:w-4.5"
                           />
-                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Atk speed: </div>
+                          <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">Atk speed:</div>
                           <div className="text-[0.96vw]/[1.44vw] font-medium xl:text-xs/4.5">
                             {row.original?.subDetail?.dragonBlessList?.[5] ?? '0%'}
                           </div>
@@ -320,12 +320,15 @@ export function useDefenseGamePointsRankColumns() {
         id: 'mdblReward',
         header: () => <p className="flex-center w-17 flex-grow-[1] text-center font-semibold text-yellow">Reward</p>,
         cell: ({ row }) => {
+          const { emdblReward, mdblReward } = row.original;
+          const mdbl = mdblReward || emdblReward || 0;
+
           return (
             <div className="flex-center w-17 flex-grow-[1] text-center font-semibold">
               <span className="mr-[0.32vw ml-[0.96vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                {formatNumber(parseEther(row.original.mdblReward.toString()), false)}
+                {formatNumber(parseEther(mdbl.toString()), false)}
               </span>
-              <img src="/img/mdbl-in-game.png" className="h-[1.6vw] xl:h-5" />
+              <img src={mdblReward ? '/img/mdbl-in-game.png' : '/img/emdbl.webp'} alt="" className="h-[1.6vw] xl:h-5" />
             </div>
           );
         },

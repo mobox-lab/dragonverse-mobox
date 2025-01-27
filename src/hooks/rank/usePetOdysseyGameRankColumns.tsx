@@ -214,7 +214,7 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
                   <span className="mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:mr-1 xl:text-sm/4">
                     {rank <= 0 ? '--' : formatNumber(parseEther(emdblReward ? emdblReward.toString() : '0'), false)}
                   </span>
-                  <img src="/svg/emdbl.svg" alt="emdbl" className="h-[1.6vw] xl:h-5" />
+                  <img src="/img/emdbl.webp" alt="emdbl" className="h-[1.6vw] xl:h-5" />
                 </p>
               </div>
             );
@@ -232,6 +232,7 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
         cell: ({ row }) => {
           const { merlReward, emdblReward, rank, mdblReward } = row.original;
           const reward = merlReward || emdblReward || 0;
+          const mdbl = mdblReward || emdblReward || 0;
 
           return (
             <p
@@ -249,9 +250,9 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
               ) : round! >= TDStartSeason ? (
                 <>
                   <span className="ml-[0.96vw] mr-[0.32vw] text-[1.12vw]/[1.28vw] font-semibold text-yellow xl:ml-3 xl:mr-1 xl:text-sm/4">
-                    {rank <= 0 ? '--' : formatNumber(parseEther(mdblReward ? mdblReward.toString() : '0'), false)}
+                    {rank <= 0 ? '--' : formatNumber(parseEther(mdbl.toString()), false)}
                   </span>
-                  <img src="/img/mdbl-in-game.png" alt="merl" className="h-[1.6vw] xl:h-5" />
+                  <img src={mdblReward ? '/img/mdbl-in-game.png' : '/img/emdbl.webp'} alt="merl" className="h-[1.6vw] xl:h-5" />
                 </>
               ) : (
                 <>

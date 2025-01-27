@@ -165,7 +165,7 @@ export const useInfinityRumbleGameRankColumns = (round?: number) => {
         header: () => <p className={clsxm('flex-center w-17 flex-grow-[3] pr-[1.28vw] font-semibold xl:pr-4')}>Reward</p>,
         cell: ({ row }) => {
           const icon =
-            round == 1 ? '/svg/emdbl.svg' : round! >= TDStartSeason ? '/img/mdbl-in-game.png' : '/img/merlin-chain.png';
+            round == 1 ? '/img/emdbl.webp' : round! >= TDStartSeason ? '/img/mdbl-in-game.png' : '/img/merlin-chain.png';
           const { merlReward, emdblReward, mdblReward, rank } = row.original;
           const reward = (round == 1 ? emdblReward : round! >= TDStartSeason ? mdblReward : merlReward) || 0;
 
