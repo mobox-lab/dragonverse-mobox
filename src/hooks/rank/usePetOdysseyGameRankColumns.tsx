@@ -140,7 +140,7 @@ export const usePetOdysseyGameRankColumns = (round?: number) => {
           return (
             <Tooltip
               title={
-                <div className="flex w-[26.96vw] items-center justify-center gap-[1.92vw] xl:w-[337px] xl:gap-6">
+                <div className="flex min-w-[26.96vw] items-center justify-center gap-[1.92vw] xl:min-w-[337px] xl:gap-6">
                   <div className="flex flex-col items-center">
                     <div className="text-[0.96vw]/[2.24vw] xl:text-xs/7">Total</div>
                     <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
