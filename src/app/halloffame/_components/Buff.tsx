@@ -253,6 +253,29 @@ const Buff: React.FunctionComponent<BuffProps> = (props) => {
                       title={
                         <div className="w-[33.92vw] xl:w-[424px]">
                           <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">
+                            Dark DragonPal Buff
+                          </div>
+                          <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">
+                            {(groupConfig['2'] || []).map((item) => {
+                              const eleBuff = data?.defenseBuff.dark?.list || [];
+                              const groupByAttr = groupBy(eleBuff, 'attributeType');
+                              return <DragonBuffItem info={item} key={item.id} groupByAttr={groupByAttr} type="defenseBuff" />;
+                            })}
+                          </div>
+                        </div>
+                      }
+                    >
+                      <div className="flex cursor-pointer flex-col items-center">
+                        <img src="/svg/dark-buff.svg" alt="mountain" className="size-7 xl:size-[36px]" />
+                        <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                          {new Decimal(data?.defenseBuff.dark?.total || 0).times(100).toNumber()}%
+                        </div>
+                      </div>
+                    </Tooltip>
+                    <Tooltip
+                      title={
+                        <div className="w-[33.92vw] xl:w-[424px]">
+                          <div className="text-center text-[1.12vw]/[1.6vw] font-semibold xl:text-sm/5">
                             Fire DragonPal Buff
                           </div>
                           <div className="mt-[1.28vw] flex items-center justify-between xl:mt-4">

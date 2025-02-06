@@ -487,6 +487,7 @@ export type DreamPetBuff = {
   fire: DragonBuff;
   wood: DragonBuff;
   ground: DragonBuff;
+  dark?: DragonBuff;
   totalBuff: number;
 };
 
@@ -766,6 +767,15 @@ export interface DefenseRankItem {
   merlReward: number;
   basicScore?: number;
   boostedScore?: number;
+  buff: {
+    light: number;
+    water: number;
+    fire: number;
+    wood: number;
+    ground: number;
+    totalBuff: number;
+    dark: number;
+  };
   subDetail?: {
     cards: number[];
     talent: Record<string, number>;

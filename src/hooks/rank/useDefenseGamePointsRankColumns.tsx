@@ -9,6 +9,7 @@ import utc from 'dayjs/plugin/utc';
 import { useMemo } from 'react';
 import { parseEther } from 'viem';
 import { useMainAccount } from '../wallet';
+import Decimal from 'decimal.js-light';
 
 dayjs.extend(utc);
 
@@ -309,10 +310,63 @@ export function useDefenseGamePointsRankColumns() {
           </div>
         ),
         cell: ({ row }) => {
+          const { buff } = row.original;
           return (
-            <div className="flex-center w-17 flex-grow-[1] text-center font-semibold text-yellow">
-              {row.original.boostedScore ?? 0}
-            </div>
+            <Tooltip
+              title={
+                <div className="flex min-w-[26.96vw] items-center justify-center gap-[1.92vw] xl:min-w-[337px] xl:gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="text-[0.96vw]/[2.24vw] xl:text-xs/7">Total</div>
+                    <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                      {new Decimal(buff?.totalBuff || 0).times(100).toNumber()}%
+                    </div>
+                  </div>
+                  <div className="h-[3.2vw] w-[1px] bg-yellow/50 xl:h-10"></div>
+                  <div className="flex items-center gap-[1.28vw] xl:gap-4">
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/svg/light-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                        {new Decimal(buff?.light || 0).times(100).toNumber()}%
+                      </div>
+                    </div>
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/svg/dark-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                        {new Decimal(buff?.dark || 0).times(100).toNumber()}%
+                      </div>
+                    </div>
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/svg/fire-buff.svg" alt="dark" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                        {new Decimal(buff?.fire || 0).times(100).toNumber()}%
+                      </div>
+                    </div>
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/svg/water-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                        {new Decimal(buff?.water || 0).times(100).toNumber()}%
+                      </div>
+                    </div>
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/svg/forest-buff.svg" alt="water" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                        {new Decimal(buff?.wood || 0).times(100).toNumber()}%
+                      </div>
+                    </div>
+                    <div className="flex cursor-pointer flex-col items-center">
+                      <img src="/svg/mountain-buff.svg" alt="mountain" className="h-[2.24vw] w-[2.24vw] xl:h-7 xl:w-7" />
+                      <div className="mt-[0.32vw] text-[1.12vw]/[1.92vw] font-semibold text-yellow xl:mt-1 xl:text-sm/6">
+                        {new Decimal(buff?.ground || 0).times(100).toNumber()}%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            >
+              <div className="flex-center w-17 flex-grow-[1] text-center font-semibold text-yellow">
+                {row.original.boostedScore ?? 0}
+              </div>
+            </Tooltip>
           );
         },
       }),
