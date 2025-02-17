@@ -109,7 +109,7 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
               </div> */}
 
               <div className="flex flex-col items-center gap-[0.64vw] xl:gap-2">
-                <p className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For Top30</p>
+                <p className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For Top10</p>
                 <div className="flex items-center justify-center gap-4">
                   {(roundInfo?.gameRoundInfo?.[top30Key]?.mdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
@@ -149,7 +149,7 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
                 ></div>
               )}
               <div className="flex flex-col items-center gap-[0.64vw] xl:gap-2">
-                <p className="whitespace-nowrap text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For all including Top30</p>
+                <p className="whitespace-nowrap text-[1.12vw]/[1.6vw] font-medium xl:text-sm/5">For all including Top10</p>
                 <div className="flex items-center justify-center gap-4">
                   {(roundInfo?.gameRoundInfo?.[allKey]?.mdbl || 0) === 0 ? null : (
                     <p className="text-[1.28vw]/[1.6vw] font-semibold text-yellow xl:text-base/5">
