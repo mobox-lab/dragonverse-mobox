@@ -168,11 +168,17 @@ export default function ShopDialog() {
                   onClick={() => onToggleCommodity(item.id)}
                 >
                   {isActive ? <TriangleLeftSvg className="absolute left-0 top-0" /> : null}
-                  <div className="absolute right-[0.5vw] top-[0.5vw] flex items-center">
-                    <span className="text-[0.9vw] font-semibold text-yellow">
-                      {Math.ceil(item.usdPrice * (fundPrice?.usdToMdbl ?? 0))}
-                    </span>
-                    <img src="/svg/mdbl-in-game.svg" className="ml-1 w-[1.2vw]" />
+                  <div className="absolute right-[0.5vw] top-[0.5vw]">
+                    <div className="flex items-center justify-end">
+                      <span className="text-[1.28vw]/[1.28vw] font-semibold text-yellow xl:text-base/4">{item.usdPrice}</span>
+                      <img src="/svg/usdc.svg" className="mx-[0.32vw] w-[1.28vw] xl:mx-1 xl:w-4" />
+                    </div>
+                    <div className="mt-[0.32vw] flex items-center justify-end xl:mt-1">
+                      <span className="text-[1.28vw]/[1.28vw] font-semibold text-yellow xl:text-base/4">
+                        ≈ {Math.ceil(item.usdPrice * (fundPrice?.usdToMdbl ?? 0))}
+                      </span>
+                      <img src="/svg/mdbl-in-game.svg" className="ml-[0.32vw] w-[1.6vw] xl:ml-1 xl:w-5" />
+                    </div>
                   </div>
                   <img src={item.icon} className="mx-auto h-[3.5vw] w-[3.5vw]" />
                   <div className="mt-1 text-center text-[0.9vw] font-medium">{item.name}</div>
