@@ -13,6 +13,8 @@ import {
   GAME_ICONS,
 } from '@/constants/gameAssets';
 import { useFetchBuffData } from './rank/useFetchBuffData';
+import { formatEther } from 'viem';
+import { shortenDigits } from '@/utils';
 
 const tradeHistoryHelper = createColumnHelper<GameAssetLogItem>();
 
@@ -32,7 +34,20 @@ export const useGameAssetLogColumns = (assetID: GameAssetID) => {
         cell: ({ getValue }) => {
           return (
             <p className="w-[7.68vw] flex-grow-[3] pl-[1.28vw] text-left align-middle text-[0.96vw]/[1.44vw] font-normal xl:w-24 xl:pl-4 xl:text-xs/4.5">
-              {dayjs(getValue()).format('YYYY-MM-DD HH:mm:ss')}
+              {dayjs(getValue()).format('YYYY-MM-DD HH:mm')}
+            </p>
+          );
+        },
+      }),
+      tradeHistoryHelper.accessor('fundAmount', {
+        header: () => <p className="w-[7.68vw] flex-grow-[3] pl-[1.28vw] text-left xl:w-24 xl:pl-4">Price</p>,
+        cell: ({ getValue }) => {
+          return (
+            <p className="flex w-[7.68vw] flex-grow-[3] items-center pl-[1.28vw] text-left align-middle text-[0.96vw]/[1.44vw] font-normal text-yellow xl:w-24 xl:pl-4 xl:text-xs/4.5">
+              {getValue() ? shortenDigits(Number(formatEther(BigInt(getValue() || '0'))), 2) : '--'}
+              {getValue() ? (
+                <img src="/img/mdbl-in-game.png" className="ml-[0.32vw] h-[0.96vw] xl:ml-1 xl:h-3" alt="mdbl" />
+              ) : null}
             </p>
           );
         },
@@ -57,14 +72,16 @@ export const useGameAssetLogColumns = (assetID: GameAssetID) => {
               const config = dragonPalConfig?.[id];
 
               return (
-                <p className="w-[10vw] flex items-center justify-center flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-35 xl:text-xs/4.5">
+                <p className="flex w-[10vw] flex-grow items-center justify-center text-center text-[0.96vw]/[1.44vw] font-normal xl:w-35 xl:text-xs/4.5">
                   {config ? (
                     <>
-                      <img src={config?.avatarUrl} className="size-[1.2vw] mr-[0.3vw]" />
-                      <span className='text-left'>{config.name ?? '-'}</span>
+                      <img src={config?.avatarUrl} className="mr-[0.3vw] size-[1.2vw]" />
+                      <span className="text-left">{config.name ?? '-'}</span>
                     </>
+                  ) : row?.original?.action === 10001 ? (
+                    <span className="text-red">Miss</span>
                   ) : (
-                    row?.original?.action === 10001 ? (<span className='text-red'>Miss</span>) : <span className='text-green'>Succeed</span>
+                    <span className="text-green">Succeed</span>
                   )}
                 </p>
               );
@@ -76,10 +93,8 @@ export const useGameAssetLogColumns = (assetID: GameAssetID) => {
               const value = getValue();
 
               return (
-                <p className="w-[6.7vw] flex items-center justify-center flex-grow text-center text-[0.96vw]/[1.44vw] font-normal xl:w-25 xl:text-xs/4.5">
-                  {
-                    GAME_ICONS[value] && <img src={GAME_ICONS[value]} className='w-[2vw] xl:w-5 mr-[0.5vw] xl:mr-2' />
-                  }
+                <p className="flex w-[6.7vw] flex-grow items-center justify-center text-center text-[0.96vw]/[1.44vw] font-normal xl:w-25 xl:text-xs/4.5">
+                  {GAME_ICONS[value] && <img src={GAME_ICONS[value]} className="mr-[0.5vw] w-[2vw] xl:mr-2 xl:w-5" />}
                   {row?.original?.action === 10001 && value ? ASSET_USE_GAME[value] : '-'}
                 </p>
               );
@@ -97,7 +112,7 @@ export const useGameAssetLogColumns = (assetID: GameAssetID) => {
                 isAdd ? 'text-green' : 'text-red',
               )}
             >
-              {isAdd ? '+' : (assetID == GAME_ASSETS_ID.CaptureBall ? '-' : '')}
+              {isAdd ? '+' : assetID == GAME_ASSETS_ID.CaptureBall ? '-' : ''}
               {getValue()}
               <img src={GAME_ASSET_ICONS[assetID]} className="ml-[0.3vw] h-[1.2vw]" />
             </p>

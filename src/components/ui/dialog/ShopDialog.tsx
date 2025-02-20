@@ -24,7 +24,7 @@ const commoditys = [
     name: 'Senzu Potion',
     describe: 'Instantly recover 200 Stamina',
     price: 1690,
-    usdPrice: 50,
+    usdPrice: 10,
   },
   {
     id: 1,
@@ -32,7 +32,7 @@ const commoditys = [
     name: 'Blue Snitch',
     describe: 'Capture DragonPal',
     price: 210,
-    usdPrice: 50,
+    usdPrice: 3,
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const commoditys = [
     name: 'Sweep Token',
     describe: 'Speed-sweep for Perfect Victory stages',
     price: 169,
-    usdPrice: 50,
+    usdPrice: 1,
   },
 ] as const;
 
@@ -55,7 +55,7 @@ export default function ShopDialog() {
   const [count, setCount] = useState(0);
   const [activeCommodity, setActiveCommodity] = useState<CommodityId | null>(null);
   const { refetch: refetchGameAsset } = useFetchGameAsset();
-  // const { data: fundPrice, refetch: refetchFundPrice } = useFetchUserFundPrice();
+  const { data: fundPrice, refetch: refetchFundPrice } = useFetchUserFundPrice();
   const { mutateAsync: mutateBuy, isPending: isBuyPending } = useMutation({
     mutationFn(data: FetchBuyGameAsset) {
       return fetchBuyGameAsset(data);
@@ -106,11 +106,12 @@ export default function ShopDialog() {
   const totalAmount = useMemo(() => {
     if (activeCommodity) {
       const commodity = commoditys.find((item) => item.id === activeCommodity)!;
-      return commodity.price * count;
+      // return commodity.price * count;
+      return Math.ceil(commodity.usdPrice * (fundPrice?.usdToMdbl ?? 0)) * count;
     }
 
     return 0;
-  }, [activeCommodity, count]);
+  }, [activeCommodity, count, fundPrice?.usdToMdbl]);
 
   const mdblBalance = useMemo(() => {
     if (balances.mdbl) {
@@ -137,11 +138,11 @@ export default function ShopDialog() {
     }
   }, [count, maxCount]);
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     refetchFundPrice().then();
-  //   }
-  // }, [isOpen, refetchFundPrice]);
+  useEffect(() => {
+    if (isOpen) {
+      refetchFundPrice().then();
+    }
+  }, [isOpen, refetchFundPrice]);
 
   return (
     <Dialog
@@ -167,9 +168,17 @@ export default function ShopDialog() {
                   onClick={() => onToggleCommodity(item.id)}
                 >
                   {isActive ? <TriangleLeftSvg className="absolute left-0 top-0" /> : null}
-                  <div className="absolute right-[0.5vw] top-[0.5vw] flex items-center">
-                    <span className="text-[0.9vw] font-semibold text-yellow">{item.price}</span>
-                    <img src="/svg/mdbl-in-game.svg" className="ml-1 w-[1.2vw]" />
+                  <div className="absolute right-[0.5vw] top-[0.5vw]">
+                    <div className="flex items-center justify-end">
+                      <span className="text-[1.28vw]/[1.28vw] font-semibold text-yellow xl:text-base/4">{item.usdPrice}</span>
+                      <img src="/svg/usdc.svg" className="mx-[0.32vw] w-[1.28vw] xl:mx-1 xl:w-4" />
+                    </div>
+                    <div className="mt-[0.32vw] flex items-center justify-end xl:mt-1">
+                      <span className="text-[1.28vw]/[1.28vw] font-semibold text-yellow xl:text-base/4">
+                        ≈ {Math.ceil(item.usdPrice * (fundPrice?.usdToMdbl ?? 0))}
+                      </span>
+                      <img src="/svg/mdbl-in-game.svg" className="ml-[0.32vw] w-[1.6vw] xl:ml-1 xl:w-5" />
+                    </div>
                   </div>
                   <img src={item.icon} className="mx-auto h-[3.5vw] w-[3.5vw]" />
                   <div className="mt-1 text-center text-[0.9vw] font-medium">{item.name}</div>

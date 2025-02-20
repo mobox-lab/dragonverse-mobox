@@ -734,6 +734,8 @@ export type GameAssetLogItem = {
   sourceId: number;
   dragonPalId: number;
   time: number;
+  fundAmount?: string;
+  tokenName?: string;
 };
 
 export interface RankReward {
