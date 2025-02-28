@@ -141,6 +141,9 @@ export default function ShopDialog() {
   useEffect(() => {
     if (isOpen) {
       refetchFundPrice().then();
+    } else {
+      setActiveCommodity(null);
+      setCount(0);
     }
   }, [isOpen, refetchFundPrice]);
 
