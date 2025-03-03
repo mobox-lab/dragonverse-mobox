@@ -29,7 +29,6 @@ import DrawerTradeLogs from './DrawerTradeLogs';
 import { parseEther } from 'ethers/utils';
 
 const MIN_WITHDRAW = 200;
-const MAX_WITHDRAW = 500000;
 const FEE = 100;
 
 export default function DrawerDepositWithdraw() {
@@ -111,16 +110,16 @@ export default function DrawerDepositWithdraw() {
     });
   }, [writeContract, switchMainChain, mdblValue, isMerlinChain]);
 
-  const isCanWithdraw = useMemo(() => +mdblGameValue >= MIN_WITHDRAW && +mdblGameValue <= MAX_WITHDRAW, [mdblGameValue]);
+  const isCanWithdraw = useMemo(() => +mdblGameValue >= MIN_WITHDRAW, [mdblGameValue]);
 
   const setMaxMdblGameValue = useCallback(() => {
     const value = Math.floor(+formatEther(BigInt(balances.mdbl)));
-    setMdblGameValue(Math.min(value, MAX_WITHDRAW).toString());
+    setMdblGameValue(value.toString());
   }, [balances]);
 
   const onWithdraw = useCallback(() => {
     if (isCanWithdraw) {
-      setWithdrawAmount(+mdblGameValue)
+      setWithdrawAmount(+mdblGameValue);
     }
   }, [isCanWithdraw, mdblGameValue, setWithdrawAmount]);
 
@@ -181,7 +180,7 @@ export default function DrawerDepositWithdraw() {
                         autoCorrect="off"
                         pattern="^[0-9]*[.,]?[0-9]*$"
                         minLength={1}
-                        maxLength={10}
+                        maxLength={20}
                         type="text"
                         inputMode="decimal"
                         spellCheck="false"
@@ -239,7 +238,7 @@ export default function DrawerDepositWithdraw() {
                     Deposit
                   </Button>
                   <p className="mt-[0.96vw] text-center text-[0.96vw]/[0.96vw] text-yellow xl:mt-3 xl:text-xs/3">OR</p>
-                  <div className="mt-[1.92vw] text-[1.28vw]/[1.92vw] text-center font-semibold xl:mt-6 xl:text-base/6">
+                  <div className="mt-[1.92vw] text-center text-[1.28vw]/[1.92vw] font-semibold xl:mt-6 xl:text-base/6">
                     Deposit via Transfer
                   </div>
                   <div className="mt-[0.96vw] h-[1px] w-full bg-white/25 xl:mt-3"></div>
@@ -275,7 +274,9 @@ export default function DrawerDepositWithdraw() {
                       </div>
                     </div>
                     <div className="flex flex-col items-end">
-                      <div className="text-[0.96vw]/[0.96vw] xl:text-xs/3">Input Amount ({MIN_WITHDRAW}-{MAX_WITHDRAW})</div>
+                      <div className="flex-center text-[0.96vw]/[0.96vw] xl:text-xs/3">
+                        Input Amount ({MIN_WITHDRAW}-<span className="text-[1.6vw]/[1.6vw] xl:text-xl/5">∞</span>)
+                      </div>
                       <input
                         className={
                           'my-[0.64vw] w-[15.2vw] bg-transparent text-right text-[1.6vw]/[1.6vw] font-semibold text-yellow xl:my-2 xl:w-[190px] xl:text-xl/5'
@@ -286,7 +287,7 @@ export default function DrawerDepositWithdraw() {
                         autoCorrect="off"
                         pattern="^[0-9]*[.,]?[0-9]*$"
                         minLength={1}
-                        maxLength={10}
+                        maxLength={20}
                         type="text"
                         inputMode="decimal"
                         spellCheck="false"
@@ -294,10 +295,7 @@ export default function DrawerDepositWithdraw() {
                       />
                       <div className="flex items-center text-[0.96vw]/[0.96vw] font-semibold text-yellow xl:text-sm/3">
                         <div>Balance: {formatNumber(BigInt(balances.mdbl ?? '0'), false)}</div>
-                        <div
-                          className="ml-[0.64vw] cursor-pointer text-blue xl:ml-2"
-                          onClick={setMaxMdblGameValue}
-                        >
+                        <div className="ml-[0.64vw] cursor-pointer text-blue xl:ml-2" onClick={setMaxMdblGameValue}>
                           MAX
                         </div>
                       </div>
@@ -331,7 +329,7 @@ export default function DrawerDepositWithdraw() {
                       </div>
                     </div>
                   </div>
-                  <p className='text-legendary text-right text-sm mt-3'>Fee: {FEE} $MDBL</p>
+                  <p className="mt-3 text-right text-sm text-legendary">Fee: {FEE} $MDBL</p>
                   <Button
                     type="yellow-dark"
                     disabled={!isCanWithdraw}
@@ -343,7 +341,7 @@ export default function DrawerDepositWithdraw() {
                 </div>
               )}
             </div>
-            <div className="justify-items-end">
+            <div className="align-center flex flex-col justify-center">
               <div
                 onClick={() => setOpenTradeLogs(true)}
                 className="cursor-pointer select-none text-center text-[1.12vw]/[1.6vw] font-semibold text-blue xl:text-sm/5"
