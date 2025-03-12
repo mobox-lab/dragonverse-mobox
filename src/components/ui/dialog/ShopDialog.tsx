@@ -24,7 +24,7 @@ const commoditys = [
     name: 'Senzu Potion',
     describe: 'Instantly recover 200 Stamina',
     price: 1690,
-    usdPrice: 10,
+    usdPrice: 5,
   },
   {
     id: 1,
@@ -32,7 +32,7 @@ const commoditys = [
     name: 'Blue Snitch',
     describe: 'Capture DragonPal',
     price: 210,
-    usdPrice: 3,
+    usdPrice: 1,
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const commoditys = [
     name: 'Sweep Token',
     describe: 'Speed-sweep for Perfect Victory stages',
     price: 169,
-    usdPrice: 1,
+    usdPrice: 0.1,
   },
 ] as const;
 

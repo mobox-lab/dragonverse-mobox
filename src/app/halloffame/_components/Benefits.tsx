@@ -11,6 +11,7 @@ import { useFetchGameAsset } from '@/hooks/stake/useFetchGameAsset';
 import { useFetchObtain } from '@/hooks/stake/useFetchObtain';
 import { formatNumber } from '@/utils';
 import { GAME_ASSETS_ID } from '@/constants/gameAssets';
+import InfoSvg from '@/../public/svg/info.svg?component';
 import Tooltip from '@/components/ui/tooltip';
 
 export default function Benefits() {
@@ -70,7 +71,22 @@ export default function Benefits() {
         ) : null}
         <div className="ml-5 flex items-center text-yellow">
           <span className="mr-2">MoDragon Power: {gameAsset?.totalDragonPower ?? 0}</span>
-          <img src="/svg/modragon-power.svg" alt="power" />
+          <img src="/svg/modragon-power.svg" alt="power" className="mr-2" />
+          <Tooltip
+            title={
+              <ul className="ml-[0.48vw] list-disc text-[0.96vw]/[1.6vw] font-medium xl:ml-1.5 xl:text-xs/5">
+                <li>
+                  {
+                    "MODragon in-game buffs are now locked at pre-season levels by snapshot, and won't change with mid-season MODragon purchases and transfer."
+                  }
+                </li>
+              </ul>
+            }
+          >
+            <span>
+              <InfoSvg className="size-[1.12vw] cursor-pointer stroke-yellow xl:size-3.5" />
+            </span>
+          </Tooltip>
         </div>
       </div>
 
