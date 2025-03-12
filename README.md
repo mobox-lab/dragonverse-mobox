@@ -1,4 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Dragonverse Mobox
+
+This is a website for the Dragonverse game, where users can connect their wallets to view their game resources and the leaderboards for each game.
+
+![dragonverse](pic/dragonverse.jpeg)
+
+## 🎮 Game Features
+
+- Web3 Integration with Wallet Connect support
+- PGE Download and Play
+- Stake and earn
+- Game Rank and Reward
+- LBP Airdrop
+- LitePaper
+
+## 🛠 Technology Stack
+
+- **React**: A JavaScript library for building user interfaces.
+- **Next.js**: A React framework for server-side rendering and static site generation.
+- **Tailwind CSS**: A utility-first CSS framework for styling.
+- **LESS**: A CSS pre-processor for additional styling capabilities.
+- **Axios**: A promise-based HTTP client for making requests.
+- **Framer Motion**: A library for animations.
+- **React Toastify**: A library for notifications.
+- **Recharts**: A charting library for React.
+- **Swiper**: A modern mobile touch slider.
+
+### Blockchain Integration
+
+- **Web3.js**: A library for interacting with the Ethereum blockchain.
+- **TronWeb**: A library for interacting with the TRON blockchain.
+- **Ethers.js**: A library for interacting with the Ethereum blockchain.
+- **Wagmi**: A collection of React hooks for Ethereum.
+- **SIWE**: Sign-In with Ethereum.
+- **Wallet Connect**: A protocol for connecting decentralized applications to mobile wallets.
+
+### State Management
+
+- **Jotai**: A primitive and flexible state management library for React.
+- **React Query**: A library for fetching, caching, and updating asynchronous data in React.
+
+### Utilities
+
+- **Day.js**: A lightweight JavaScript date library.
+- **Lodash**: A modern JavaScript utility library.
+- **LocalForage**: A library for offline storage.
+- **JWT Decode**: A library for decoding JSON Web Tokens (JWT).
+
+### Development Tools
+
+- **TypeScript**: A typed superset of JavaScript.
+- **ESLint**: A tool for identifying and reporting on patterns in JavaScript.
+- **Prettier**: An opinionated code formatter.
+- **Tailwind CSS**: A utility-first CSS framework.
+- **PostCSS**: A tool for transforming CSS with JavaScript plugins.
+- **SVGR**: A tool for transforming SVGs into React components.
+- **Pino Pretty**: A pretty printer for Pino log output.
+
+## Website Content
+
+### Download PGE
+
+![download](pic/download.jpeg)
+
+### Stake
+
+![stake](pic/stake.jpeg)
+
+### Rank
+
+![rank](pic/rank.jpeg)
+
+### LBP
+
+![rank](pic/lbp.jpeg)
 
 ## Getting Started
 
