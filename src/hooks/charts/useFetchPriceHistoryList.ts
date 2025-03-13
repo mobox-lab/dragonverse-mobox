@@ -19,3 +19,8 @@ export const useFetchPriceHistoryList = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(() => ({ data, isLoading }), [data?.length, isLoading]);
 };
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};
