@@ -201,3 +201,35 @@ export const refactor____optimize_bundle_size: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: docs: 📝 add performance optimization tips
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____add_performance_optimization_tips: 'docs: 📝 add performance optimization tips',
+    docs____add_performance_optimization_tips_description: 'Description for docs: 📝 add performance optimization tips'
+  },
+  zh: {
+    docs____add_performance_optimization_tips: 'docs: 📝 add performance optimization tips',
+    docs____add_performance_optimization_tips_description: 'docs: 📝 add performance optimization tips的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
