@@ -119,3 +119,35 @@ export const usechore____add_code_formatting = () => {
     handlechore____add_code_formatting
   };
 };
+
+// TypeScript internationalization: docs: 📝 add API documentation
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____add_API_documentation: 'docs: 📝 add API documentation',
+    docs____add_API_documentation_description: 'Description for docs: 📝 add API documentation'
+  },
+  zh: {
+    docs____add_API_documentation: 'docs: 📝 add API documentation',
+    docs____add_API_documentation_description: 'docs: 📝 add API documentation的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
