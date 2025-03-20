@@ -14,3 +14,10 @@ if (GOOGLE_ANALYTICS_ID) {
 } else {
   ReactGA.initialize('test', { testMode: true });
 }
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};
