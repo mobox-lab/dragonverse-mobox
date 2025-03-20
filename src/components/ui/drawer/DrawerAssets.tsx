@@ -392,3 +392,35 @@ function MyReferral() {
     </>
   );
 }
+
+// TypeScript internationalization: perf: ⚡ reduce memory footprint
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____reduce_memory_footprint: 'perf: ⚡ reduce memory footprint',
+    perf____reduce_memory_footprint_description: 'Description for perf: ⚡ reduce memory footprint'
+  },
+  zh: {
+    perf____reduce_memory_footprint: 'perf: ⚡ reduce memory footprint',
+    perf____reduce_memory_footprint_description: 'perf: ⚡ reduce memory footprint的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
