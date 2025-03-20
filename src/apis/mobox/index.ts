@@ -35,3 +35,7 @@ export const fetchMoFightRank = ({ page = 1, round = 1 }: { page?: number; round
     },
     baseURL: NFT_MOBOX_API_PREFIX,
   });
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};
