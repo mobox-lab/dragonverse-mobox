@@ -140,3 +140,35 @@ export const feat____add_multi_language_support__i18n_: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: docs: 📝 add contributing guidelines
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____add_contributing_guidelines: 'docs: 📝 add contributing guidelines',
+    docs____add_contributing_guidelines_description: 'Description for docs: 📝 add contributing guidelines'
+  },
+  zh: {
+    docs____add_contributing_guidelines: 'docs: 📝 add contributing guidelines',
+    docs____add_contributing_guidelines_description: 'docs: 📝 add contributing guidelines的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
