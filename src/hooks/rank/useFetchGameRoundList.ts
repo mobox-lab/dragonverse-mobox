@@ -46,3 +46,35 @@ describe('security____secure_payment_processing', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: perf: ⚡ reduce network requests
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____reduce_network_requests: 'perf: ⚡ reduce network requests',
+    perf____reduce_network_requests_description: 'Description for perf: ⚡ reduce network requests'
+  },
+  zh: {
+    perf____reduce_network_requests: 'perf: ⚡ reduce network requests',
+    perf____reduce_network_requests_description: 'perf: ⚡ reduce network requests的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
