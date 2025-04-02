@@ -478,3 +478,21 @@ export const style____add_responsive_breakpoints: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript error handling
+interface ErrorResponse {
+  message: string;
+  code: number;
+  details?: any;
+}
+
+export const bugFix = (): ErrorResponse | null => {
+  try {
+    return null;
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      code: 500
+    };
+  }
+};
