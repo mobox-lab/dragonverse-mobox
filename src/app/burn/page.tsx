@@ -212,3 +212,43 @@ const Burn: React.FunctionComponent<BurnProps> = (props) => {
 };
 
 export default Burn;
+
+// TypeScript React component methods for: fix: 🐛 correct social share link format
+interface fix____correct_social_share_link_formatProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface fix____correct_social_share_link_formatState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usefix____correct_social_share_link_format = () => {
+  const [state, setState] = useState<fix____correct_social_share_link_formatState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handlefix____correct_social_share_link_format = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/fix____correct_social_share_link_format');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handlefix____correct_social_share_link_format
+  };
+};
