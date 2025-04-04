@@ -247,3 +247,35 @@ describe('chore____add_code_formatting', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: perf: ⚡ improve caching strategy
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____improve_caching_strategy: 'perf: ⚡ improve caching strategy',
+    perf____improve_caching_strategy_description: 'Description for perf: ⚡ improve caching strategy'
+  },
+  zh: {
+    perf____improve_caching_strategy: 'perf: ⚡ improve caching strategy',
+    perf____improve_caching_strategy_description: 'perf: ⚡ improve caching strategy的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
