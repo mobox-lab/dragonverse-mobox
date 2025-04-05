@@ -43,3 +43,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: style: 💄 improve visual hierarchy
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    style____improve_visual_hierarchy: 'style: 💄 improve visual hierarchy',
+    style____improve_visual_hierarchy_description: 'Description for style: 💄 improve visual hierarchy'
+  },
+  zh: {
+    style____improve_visual_hierarchy: 'style: 💄 improve visual hierarchy',
+    style____improve_visual_hierarchy_description: 'style: 💄 improve visual hierarchy的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
