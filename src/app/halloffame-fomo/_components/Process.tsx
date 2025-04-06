@@ -87,3 +87,35 @@ export const performanceOptimization = (): PerformanceMetrics => {
     duration: endTime - startTime
   };
 };
+
+// TypeScript internationalization: security: 🔒 add XSS protection
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    security____add_XSS_protection: 'security: 🔒 add XSS protection',
+    security____add_XSS_protection_description: 'Description for security: 🔒 add XSS protection'
+  },
+  zh: {
+    security____add_XSS_protection: 'security: 🔒 add XSS protection',
+    security____add_XSS_protection_description: 'security: 🔒 add XSS protection的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
