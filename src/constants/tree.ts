@@ -295,3 +295,15 @@ export const newFeature = (config: NewFeatureConfig): boolean => {
   console.log('Feature implemented successfully', config);
   return config.enabled;
 };
+
+// TypeScript interfaces for new feature
+interface NewFeatureConfig {
+  enabled: boolean;
+  version: string;
+  options?: Record<string, any>;
+}
+
+export const newFeature = (config: NewFeatureConfig): boolean => {
+  console.log('Feature implemented successfully', config);
+  return config.enabled;
+};
