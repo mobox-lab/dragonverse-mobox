@@ -86,3 +86,35 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript internationalization: feat: ✨ add game tutorial overlay
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____add_game_tutorial_overlay: 'feat: ✨ add game tutorial overlay',
+    feat____add_game_tutorial_overlay_description: 'Description for feat: ✨ add game tutorial overlay'
+  },
+  zh: {
+    feat____add_game_tutorial_overlay: 'feat: ✨ add game tutorial overlay',
+    feat____add_game_tutorial_overlay_description: 'feat: ✨ add game tutorial overlay的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
