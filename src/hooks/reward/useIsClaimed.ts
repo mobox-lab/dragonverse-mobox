@@ -16,3 +16,9 @@ export function useIsClaimed(address?: Address) {
     query: { refetchInterval: 6_000, enabled: !!data.value?.[0] },
   });
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};
