@@ -17,3 +17,9 @@ export const clickableMotionProps = (type: AnimType = 'scale', props?: { scale?:
 export const codeUpdate = (): void => {
   console.log('Code updated successfully');
 };
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};
