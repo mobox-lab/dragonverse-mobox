@@ -85,3 +85,43 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript React component methods for: docs: 📝 update deployment instructions
+interface docs____update_deployment_instructionsProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface docs____update_deployment_instructionsState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usedocs____update_deployment_instructions = () => {
+  const [state, setState] = useState<docs____update_deployment_instructionsState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handledocs____update_deployment_instructions = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/docs____update_deployment_instructions');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handledocs____update_deployment_instructions
+  };
+};
