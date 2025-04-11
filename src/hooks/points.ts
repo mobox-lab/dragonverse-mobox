@@ -42,3 +42,35 @@ export const useFetchPointsRank = ({ round, gameId }: { round?: number; gameId: 
     [data, isLoading, hasNextPage, refetch, isFetchingNextPage, fetchNextPage],
   );
 };
+
+// TypeScript internationalization: perf: ⚡ optimize database connections
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____optimize_database_connections: 'perf: ⚡ optimize database connections',
+    perf____optimize_database_connections_description: 'Description for perf: ⚡ optimize database connections'
+  },
+  zh: {
+    perf____optimize_database_connections: 'perf: ⚡ optimize database connections',
+    perf____optimize_database_connections_description: 'perf: ⚡ optimize database connections的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
