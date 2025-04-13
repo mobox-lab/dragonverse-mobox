@@ -22,3 +22,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: perf: ⚡ optimize database queries
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____optimize_database_queries: 'perf: ⚡ optimize database queries',
+    perf____optimize_database_queries_description: 'Description for perf: ⚡ optimize database queries'
+  },
+  zh: {
+    perf____optimize_database_queries: 'perf: ⚡ optimize database queries',
+    perf____optimize_database_queries_description: 'perf: ⚡ optimize database queries的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
