@@ -206,3 +206,9 @@ export function useStakeContractRead() {
     };
   }, [reward?.rewardBalance, stakeData, inactiveEMDBL?.inactiveEmdblAmount, refetch, inactiveRefetch]);
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};
