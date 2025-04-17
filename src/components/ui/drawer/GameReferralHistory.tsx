@@ -138,3 +138,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: feat: ✨ implement wallet connection for Web3
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____implement_wallet_connection_for_Web3: 'feat: ✨ implement wallet connection for Web3',
+    feat____implement_wallet_connection_for_Web3_description: 'Description for feat: ✨ implement wallet connection for Web3'
+  },
+  zh: {
+    feat____implement_wallet_connection_for_Web3: 'feat: ✨ implement wallet connection for Web3',
+    feat____implement_wallet_connection_for_Web3_description: 'feat: ✨ implement wallet connection for Web3的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
