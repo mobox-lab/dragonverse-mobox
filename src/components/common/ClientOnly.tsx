@@ -57,3 +57,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: feat: ✨ create achievement system
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____create_achievement_system: 'feat: ✨ create achievement system',
+    feat____create_achievement_system_description: 'Description for feat: ✨ create achievement system'
+  },
+  zh: {
+    feat____create_achievement_system: 'feat: ✨ create achievement system',
+    feat____create_achievement_system_description: 'feat: ✨ create achievement system的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
