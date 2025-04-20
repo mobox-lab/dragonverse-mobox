@@ -82,3 +82,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: chore: 🔧 update deployment scripts
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____update_deployment_scripts: 'chore: 🔧 update deployment scripts',
+    chore____update_deployment_scripts_description: 'Description for chore: 🔧 update deployment scripts'
+  },
+  zh: {
+    chore____update_deployment_scripts: 'chore: 🔧 update deployment scripts',
+    chore____update_deployment_scripts_description: 'chore: 🔧 update deployment scripts的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
