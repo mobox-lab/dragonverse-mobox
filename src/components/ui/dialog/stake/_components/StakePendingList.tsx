@@ -110,3 +110,35 @@ export default function StakePendingList() {
     </>
   );
 }
+
+// TypeScript internationalization: feat: ✨ implement cross-platform sync
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____implement_cross_platform_sync: 'feat: ✨ implement cross-platform sync',
+    feat____implement_cross_platform_sync_description: 'Description for feat: ✨ implement cross-platform sync'
+  },
+  zh: {
+    feat____implement_cross_platform_sync: 'feat: ✨ implement cross-platform sync',
+    feat____implement_cross_platform_sync_description: 'feat: ✨ implement cross-platform sync的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
