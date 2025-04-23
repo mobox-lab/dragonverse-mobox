@@ -160,3 +160,35 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
     </div>
   );
 }
+
+// TypeScript internationalization: test: 🧪 add database migration tests
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    test____add_database_migration_tests: 'test: 🧪 add database migration tests',
+    test____add_database_migration_tests_description: 'Description for test: 🧪 add database migration tests'
+  },
+  zh: {
+    test____add_database_migration_tests: 'test: 🧪 add database migration tests',
+    test____add_database_migration_tests_description: 'test: 🧪 add database migration tests的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
