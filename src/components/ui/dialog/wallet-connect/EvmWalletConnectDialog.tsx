@@ -54,3 +54,35 @@ export default function EvmWalletConnectDialog() {
     />
   );
 }
+
+// TypeScript internationalization: style: 💄 add micro-interactions
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    style____add_micro_interactions: 'style: 💄 add micro-interactions',
+    style____add_micro_interactions_description: 'Description for style: 💄 add micro-interactions'
+  },
+  zh: {
+    style____add_micro_interactions: 'style: 💄 add micro-interactions',
+    style____add_micro_interactions_description: 'style: 💄 add micro-interactions的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
