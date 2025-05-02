@@ -118,3 +118,8 @@ export default function useLBPContractReads() {
     setMBTCAllowance({ value, floatValue });
   }, [setMBTCAllowance, tokenData]);
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

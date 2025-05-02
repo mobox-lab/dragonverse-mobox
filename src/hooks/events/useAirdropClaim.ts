@@ -176,3 +176,35 @@ describe('feat____add_seasonal_events', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: docs: 📝 add database schema docs
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____add_database_schema_docs: 'docs: 📝 add database schema docs',
+    docs____add_database_schema_docs_description: 'Description for docs: 📝 add database schema docs'
+  },
+  zh: {
+    docs____add_database_schema_docs: 'docs: 📝 add database schema docs',
+    docs____add_database_schema_docs_description: 'docs: 📝 add database schema docs的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
