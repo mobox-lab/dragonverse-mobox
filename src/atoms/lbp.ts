@@ -90,3 +90,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: chore: 🔧 configure CI/CD pipeline
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____configure_CI_CD_pipeline: 'chore: 🔧 configure CI/CD pipeline',
+    chore____configure_CI_CD_pipeline_description: 'Description for chore: 🔧 configure CI/CD pipeline'
+  },
+  zh: {
+    chore____configure_CI_CD_pipeline: 'chore: 🔧 configure CI/CD pipeline',
+    chore____configure_CI_CD_pipeline_description: 'chore: 🔧 configure CI/CD pipeline的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
