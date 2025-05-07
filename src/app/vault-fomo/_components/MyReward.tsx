@@ -205,3 +205,9 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

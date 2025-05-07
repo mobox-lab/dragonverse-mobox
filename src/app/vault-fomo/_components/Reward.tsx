@@ -175,3 +175,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: chore: 🔧 configure monitoring tools
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____configure_monitoring_tools: 'chore: 🔧 configure monitoring tools',
+    chore____configure_monitoring_tools_description: 'Description for chore: 🔧 configure monitoring tools'
+  },
+  zh: {
+    chore____configure_monitoring_tools: 'chore: 🔧 configure monitoring tools',
+    chore____configure_monitoring_tools_description: 'chore: 🔧 configure monitoring tools的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
