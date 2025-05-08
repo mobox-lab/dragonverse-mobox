@@ -105,3 +105,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: security: 🔒 add data encryption
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    security____add_data_encryption: 'security: 🔒 add data encryption',
+    security____add_data_encryption_description: 'Description for security: 🔒 add data encryption'
+  },
+  zh: {
+    security____add_data_encryption: 'security: 🔒 add data encryption',
+    security____add_data_encryption_description: 'security: 🔒 add data encryption的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

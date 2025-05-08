@@ -330,3 +330,10 @@ describe('security____add_XSS_protection', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};
