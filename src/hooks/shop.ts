@@ -119,3 +119,35 @@ describe('test____add_user_acceptance_tests', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: chore: 🔧 add error tracking setup
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____add_error_tracking_setup: 'chore: 🔧 add error tracking setup',
+    chore____add_error_tracking_setup_description: 'Description for chore: 🔧 add error tracking setup'
+  },
+  zh: {
+    chore____add_error_tracking_setup: 'chore: 🔧 add error tracking setup',
+    chore____add_error_tracking_setup_description: 'chore: 🔧 add error tracking setup的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
