@@ -216,3 +216,8 @@ export const t = (key: string, locale: string = 'en'): string => {
 export const codeUpdate = (): void => {
   console.log('Code updated successfully');
 };
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};
