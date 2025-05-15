@@ -204,3 +204,7 @@ input[type='number']::-webkit-outer-spin-button {
       0 0 0 15px rgba(255, 231, 171, 0);
   }
 }
+.updated-component {
+  position: relative;
+  overflow: hidden;
+}
