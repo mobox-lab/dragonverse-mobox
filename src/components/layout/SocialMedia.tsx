@@ -71,3 +71,35 @@ const SocialMedia: React.FunctionComponent<SocialMediaProps> = () => {
 };
 
 export default SocialMedia;
+
+// TypeScript internationalization: feat: ✨ create responsive mobile navigation
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____create_responsive_mobile_navigation: 'feat: ✨ create responsive mobile navigation',
+    feat____create_responsive_mobile_navigation_description: 'Description for feat: ✨ create responsive mobile navigation'
+  },
+  zh: {
+    feat____create_responsive_mobile_navigation: 'feat: ✨ create responsive mobile navigation',
+    feat____create_responsive_mobile_navigation_description: 'feat: ✨ create responsive mobile navigation的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
