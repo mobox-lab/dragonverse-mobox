@@ -51,3 +51,49 @@ export const fix____correct_language_switching_bug: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript wallet connection with proper types
+interface WalletAccount {
+  address: string;
+  balance: string;
+  chainId: number;
+}
+
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      on: (event: string, callback: (params: any) => void) => void;
+    };
+  }
+}
+
+export const connectWallet = async (): Promise<WalletAccount> => {
+  if (typeof window.ethereum !== 'undefined') {
+    try {
+      const accounts: string[] = await window.ethereum.request({
+        method: 'eth_requestAccounts'
+      });
+      
+      const balance = await window.ethereum.request({
+        method: 'eth_getBalance',
+        params: [accounts[0], 'latest']
+      });
+      
+      const chainId = await window.ethereum.request({
+        method: 'eth_chainId'
+      });
+      
+      return {
+        address: accounts[0],
+        balance,
+        chainId: parseInt(chainId, 16)
+      };
+    } catch (error) {
+      console.error('Wallet connection failed:', error);
+      throw error;
+    }
+  } else {
+    throw new Error('No wallet detected');
+  }
+};
