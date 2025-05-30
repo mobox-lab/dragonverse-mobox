@@ -368,3 +368,35 @@ export const fix____fix_TypeScript_decorator_syntax_errors: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: perf: ⚡ reduce bundle size
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____reduce_bundle_size: 'perf: ⚡ reduce bundle size',
+    perf____reduce_bundle_size_description: 'Description for perf: ⚡ reduce bundle size'
+  },
+  zh: {
+    perf____reduce_bundle_size: 'perf: ⚡ reduce bundle size',
+    perf____reduce_bundle_size_description: 'perf: ⚡ reduce bundle size的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
