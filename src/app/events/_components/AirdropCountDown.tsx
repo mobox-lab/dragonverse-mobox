@@ -88,3 +88,43 @@ export const usesecurity____add_vulnerability_scanning = () => {
     handlesecurity____add_vulnerability_scanning
   };
 };
+
+// TypeScript React component methods for: perf: ⚡ optimize asset compression
+interface perf____optimize_asset_compressionProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface perf____optimize_asset_compressionState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const useperf____optimize_asset_compression = () => {
+  const [state, setState] = useState<perf____optimize_asset_compressionState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handleperf____optimize_asset_compression = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/perf____optimize_asset_compression');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handleperf____optimize_asset_compression
+  };
+};
