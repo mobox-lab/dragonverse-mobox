@@ -382,3 +382,43 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript React component methods for: docs: 📝 update API endpoint reference
+interface docs____update_API_endpoint_referenceProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface docs____update_API_endpoint_referenceState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usedocs____update_API_endpoint_reference = () => {
+  const [state, setState] = useState<docs____update_API_endpoint_referenceState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handledocs____update_API_endpoint_reference = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/docs____update_API_endpoint_reference');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handledocs____update_API_endpoint_reference
+  };
+};
