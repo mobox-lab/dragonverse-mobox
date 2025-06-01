@@ -184,3 +184,9 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};
