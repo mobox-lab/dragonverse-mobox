@@ -264,3 +264,9 @@ export const docs____add_developer_onboarding_guide: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};
