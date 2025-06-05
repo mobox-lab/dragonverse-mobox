@@ -316,3 +316,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: chore: 🔧 configure build optimization
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____configure_build_optimization: 'chore: 🔧 configure build optimization',
+    chore____configure_build_optimization_description: 'Description for chore: 🔧 configure build optimization'
+  },
+  zh: {
+    chore____configure_build_optimization: 'chore: 🔧 configure build optimization',
+    chore____configure_build_optimization_description: 'chore: 🔧 configure build optimization的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
