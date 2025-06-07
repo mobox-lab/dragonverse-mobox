@@ -74,3 +74,31 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript utility function: docs: 📝 update wallet integration guide
+interface DataItem {
+  id: string;
+  value: any;
+  processed?: boolean;
+}
+
+interface UtilityFunctions {
+  format: (value: number | string) => string;
+  validate: (input: string) => boolean;
+  transform: <T extends DataItem>(data: T[]) => (T & { processed: boolean })[];
+}
+
+export const docs____update_wallet_integration_guide: UtilityFunctions = {
+  format: (value: number | string): string => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  validate: (input: string): boolean => {
+    return input && input.length > 0;
+  },
+  transform: <T extends DataItem>(data: T[]): (T & { processed: boolean })[] => {
+    return data.map(item => ({
+      ...item,
+      processed: true
+    }));
+  }
+};
