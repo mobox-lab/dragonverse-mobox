@@ -68,3 +68,8 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
 export const codeUpdate = (): void => {
   console.log('Code updated successfully');
 };
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};
