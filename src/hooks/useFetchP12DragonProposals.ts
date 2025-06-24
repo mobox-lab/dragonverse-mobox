@@ -30,3 +30,35 @@ export const useFetchP12DragonProposals = (sortField?: DragonProposalSortField) 
 export const codeUpdate = (): void => {
   console.log('Code updated successfully');
 };
+
+// TypeScript internationalization: chore: 🔧 update SSL certificates
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____update_SSL_certificates: 'chore: 🔧 update SSL certificates',
+    chore____update_SSL_certificates_description: 'Description for chore: 🔧 update SSL certificates'
+  },
+  zh: {
+    chore____update_SSL_certificates: 'chore: 🔧 update SSL certificates',
+    chore____update_SSL_certificates_description: 'chore: 🔧 update SSL certificates的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
