@@ -359,3 +359,35 @@ export const style____add_loading_animations: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: docs: 📝 add game rules documentation
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____add_game_rules_documentation: 'docs: 📝 add game rules documentation',
+    docs____add_game_rules_documentation_description: 'Description for docs: 📝 add game rules documentation'
+  },
+  zh: {
+    docs____add_game_rules_documentation: 'docs: 📝 add game rules documentation',
+    docs____add_game_rules_documentation_description: 'docs: 📝 add game rules documentation的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
