@@ -87,3 +87,21 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript error handling
+interface ErrorResponse {
+  message: string;
+  code: number;
+  details?: any;
+}
+
+export const bugFix = (): ErrorResponse | null => {
+  try {
+    return null;
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      code: 500
+    };
+  }
+};
