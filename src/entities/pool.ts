@@ -372,3 +372,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: test: 🧪 add integration tests for wallet
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    test____add_integration_tests_for_wallet: 'test: 🧪 add integration tests for wallet',
+    test____add_integration_tests_for_wallet_description: 'Description for test: 🧪 add integration tests for wallet'
+  },
+  zh: {
+    test____add_integration_tests_for_wallet: 'test: 🧪 add integration tests for wallet',
+    test____add_integration_tests_for_wallet_description: 'test: 🧪 add integration tests for wallet的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
