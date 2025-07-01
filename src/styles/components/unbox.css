@@ -46,3 +46,7 @@
   transform: translateZ(100px) scale(0.98);
   perspective: inherit;
 }
+.updated-component {
+  position: relative;
+  overflow: hidden;
+}

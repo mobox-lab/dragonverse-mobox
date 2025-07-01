@@ -73,3 +73,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: feat: ✨ add push notification system
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____add_push_notification_system: 'feat: ✨ add push notification system',
+    feat____add_push_notification_system_description: 'Description for feat: ✨ add push notification system'
+  },
+  zh: {
+    feat____add_push_notification_system: 'feat: ✨ add push notification system',
+    feat____add_push_notification_system_description: 'feat: ✨ add push notification system的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
