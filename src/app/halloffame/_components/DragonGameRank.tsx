@@ -116,3 +116,35 @@ describe('feat____implement_wallet_connection_for_Web3', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: style: 💄 add animation keyframes
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    style____add_animation_keyframes: 'style: 💄 add animation keyframes',
+    style____add_animation_keyframes_description: 'Description for style: 💄 add animation keyframes'
+  },
+  zh: {
+    style____add_animation_keyframes: 'style: 💄 add animation keyframes',
+    style____add_animation_keyframes_description: 'style: 💄 add animation keyframes的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
