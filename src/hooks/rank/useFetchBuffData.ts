@@ -8,3 +8,9 @@ export function useFetchBuffData(gameId?: string) {
     select: ({ code, data }) => (code === 200 ? data : undefined),
   });
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

@@ -249,3 +249,35 @@ export default function Assets() {
     </div>
   );
 }
+
+// TypeScript internationalization: test: 🧪 add load testing
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    test____add_load_testing: 'test: 🧪 add load testing',
+    test____add_load_testing_description: 'Description for test: 🧪 add load testing'
+  },
+  zh: {
+    test____add_load_testing: 'test: 🧪 add load testing',
+    test____add_load_testing_description: 'test: 🧪 add load testing的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

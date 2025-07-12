@@ -111,6 +111,7 @@ export default function StakePendingList() {
   );
 }
 
+<<<<<<< HEAD
 // TypeScript internationalization: feat: ✨ implement cross-platform sync
 interface LocaleMessages {
   [key: string]: string;
@@ -141,4 +142,34 @@ export const i18nConfig: I18nConfig = {
 
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+=======
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+>>>>>>> bugfix/mobile-layout
+};
+
+// TypeScript error handling
+interface ErrorResponse {
+  message: string;
+  code: number;
+  details?: any;
+}
+
+export const bugFix = (): ErrorResponse | null => {
+  try {
+    return null;
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      code: 500
+    };
+  }
+};
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
 };

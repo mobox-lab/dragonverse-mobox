@@ -66,3 +66,10 @@ export default function DragonGameRank({ className, round = 1 }: { className?: s
     </div>
   );
 }
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

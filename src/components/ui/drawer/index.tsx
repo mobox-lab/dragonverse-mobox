@@ -183,3 +183,35 @@ export const fix____fix_cross_browser_compatibility: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: test: 🧪 add API endpoint tests
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    test____add_API_endpoint_tests: 'test: 🧪 add API endpoint tests',
+    test____add_API_endpoint_tests_description: 'Description for test: 🧪 add API endpoint tests'
+  },
+  zh: {
+    test____add_API_endpoint_tests: 'test: 🧪 add API endpoint tests',
+    test____add_API_endpoint_tests_description: 'test: 🧪 add API endpoint tests的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

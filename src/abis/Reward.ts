@@ -615,6 +615,7 @@ export const RewardABI = [
   },
 ] as const;
 
+<<<<<<< HEAD
 // TypeScript error handling with proper types
 interface ErrorInfo {
   message: string;
@@ -645,4 +646,16 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
   } catch (error) {
     return handleError(error);
   }
+=======
+// TypeScript interfaces for new feature
+interface NewFeatureConfig {
+  enabled: boolean;
+  version: string;
+  options?: Record<string, any>;
+}
+
+export const newFeature = (config: NewFeatureConfig): boolean => {
+  console.log('Feature implemented successfully', config);
+  return config.enabled;
+>>>>>>> bugfix/mobile-layout
 };

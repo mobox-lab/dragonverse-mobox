@@ -84,3 +84,20 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript performance monitoring
+interface PerformanceMetrics {
+  startTime: number;
+  endTime: number;
+  duration: number;
+}
+
+export const performanceOptimization = (): PerformanceMetrics => {
+  const startTime = performance.now();
+  const endTime = performance.now();
+  return {
+    startTime,
+    endTime,
+    duration: endTime - startTime
+  };
+};

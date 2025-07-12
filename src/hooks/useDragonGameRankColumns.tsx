@@ -92,3 +92,35 @@ export const usestyle____add_micro_interactions = () => {
     handlestyle____add_micro_interactions
   };
 };
+
+// TypeScript internationalization: refactor: 🔧 optimize CSS organization
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    refactor____optimize_CSS_organization: 'refactor: 🔧 optimize CSS organization',
+    refactor____optimize_CSS_organization_description: 'Description for refactor: 🔧 optimize CSS organization'
+  },
+  zh: {
+    refactor____optimize_CSS_organization: 'refactor: 🔧 optimize CSS organization',
+    refactor____optimize_CSS_organization_description: 'refactor: 🔧 optimize CSS organization的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

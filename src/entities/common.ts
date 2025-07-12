@@ -60,3 +60,9 @@ export function getAmountOut(params: AmountOutParams): bigint {
     MathLib.WAD - powWadUp(MathLib.divWadUp(reserveIn, reserveIn + amountIn), MathLib.divWad(weightIn, weightOut)),
   );
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

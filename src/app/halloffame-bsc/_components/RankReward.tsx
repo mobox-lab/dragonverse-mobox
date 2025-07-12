@@ -131,3 +131,43 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript React component methods for: chore: 🔧 add security headers
+interface chore____add_security_headersProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface chore____add_security_headersState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usechore____add_security_headers = () => {
+  const [state, setState] = useState<chore____add_security_headersState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handlechore____add_security_headers = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/chore____add_security_headers');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handlechore____add_security_headers
+  };
+};

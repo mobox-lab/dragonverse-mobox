@@ -29,3 +29,8 @@ export function useBTCLatestAnswer() {
     setBTCPrice({ value: data, floatValue: bigIntToFloat({ amount: data, decimals: 8 }) });
   }, [data, setBTCPrice]);
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

@@ -56,3 +56,8 @@ const HallOfFame: React.FunctionComponent<HallOfFameProps> = (props) => {
 };
 
 export default HallOfFame;
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

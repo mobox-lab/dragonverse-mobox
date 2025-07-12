@@ -77,3 +77,35 @@ export default function Reward({ token, balance, total, loading, onClaim }: Prop
 export const codeUpdate = (): void => {
   console.log('Code updated successfully');
 };
+
+// TypeScript internationalization: chore: 🔧 add health check endpoints
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____add_health_check_endpoints: 'chore: 🔧 add health check endpoints',
+    chore____add_health_check_endpoints_description: 'Description for chore: 🔧 add health check endpoints'
+  },
+  zh: {
+    chore____add_health_check_endpoints: 'chore: 🔧 add health check endpoints',
+    chore____add_health_check_endpoints_description: 'chore: 🔧 add health check endpoints的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

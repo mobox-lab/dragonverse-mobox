@@ -115,3 +115,37 @@ export default function InfinityRumbleGameRank({ className, roundInfo }: { class
     </div>
   );
 }
+
+// TypeScript utility function: refactor: 🔧 improve code modularity
+interface DataItem {
+  id: string;
+  value: any;
+  processed?: boolean;
+}
+
+interface UtilityFunctions {
+  format: (value: number | string) => string;
+  validate: (input: string) => boolean;
+  transform: <T extends DataItem>(data: T[]) => (T & { processed: boolean })[];
+}
+
+export const refactor____improve_code_modularity: UtilityFunctions = {
+  format: (value: number | string): string => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  validate: (input: string): boolean => {
+    return input && input.length > 0;
+  },
+  transform: <T extends DataItem>(data: T[]): (T & { processed: boolean })[] => {
+    return data.map(item => ({
+      ...item,
+      processed: true
+    }));
+  }
+};
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

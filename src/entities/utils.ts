@@ -54,3 +54,35 @@ export class MathLib {
     return MathLib.expWad(lnXTimesY);
   }
 }
+
+// TypeScript internationalization: chore: 🔧 configure environment variables
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____configure_environment_variables: 'chore: 🔧 configure environment variables',
+    chore____configure_environment_variables_description: 'Description for chore: 🔧 configure environment variables'
+  },
+  zh: {
+    chore____configure_environment_variables: 'chore: 🔧 configure environment variables',
+    chore____configure_environment_variables_description: 'chore: 🔧 configure environment variables的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

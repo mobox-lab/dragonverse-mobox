@@ -223,3 +223,35 @@ export const fix____resolve_data_synchronization_bug: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: refactor: 🔧 improve type safety
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    refactor____improve_type_safety: 'refactor: 🔧 improve type safety',
+    refactor____improve_type_safety_description: 'Description for refactor: 🔧 improve type safety'
+  },
+  zh: {
+    refactor____improve_type_safety: 'refactor: 🔧 improve type safety',
+    refactor____improve_type_safety_description: 'refactor: 🔧 improve type safety的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

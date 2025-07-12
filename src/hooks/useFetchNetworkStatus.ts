@@ -8,3 +8,10 @@ export default function useFetchNetworkStatus() {
     select: ({ code, data }) => (code === 200 ? data : undefined),
   });
 }
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

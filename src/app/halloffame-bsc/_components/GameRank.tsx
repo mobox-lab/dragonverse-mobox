@@ -24,3 +24,95 @@ export default function GameRank({ roundInfo }: { roundInfo?: RankCurrentRound }
     </div>
   );
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};
+
+// TypeScript React component methods for: docs: 📝 update security guidelines
+interface docs____update_security_guidelinesProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface docs____update_security_guidelinesState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usedocs____update_security_guidelines = () => {
+  const [state, setState] = useState<docs____update_security_guidelinesState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handledocs____update_security_guidelines = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/docs____update_security_guidelines');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handledocs____update_security_guidelines
+  };
+};
+
+// TypeScript wallet connection with proper types
+interface WalletAccount {
+  address: string;
+  balance: string;
+  chainId: number;
+}
+
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      on: (event: string, callback: (params: any) => void) => void;
+    };
+  }
+}
+
+export const connectWallet = async (): Promise<WalletAccount> => {
+  if (typeof window.ethereum !== 'undefined') {
+    try {
+      const accounts: string[] = await window.ethereum.request({
+        method: 'eth_requestAccounts'
+      });
+      
+      const balance = await window.ethereum.request({
+        method: 'eth_getBalance',
+        params: [accounts[0], 'latest']
+      });
+      
+      const chainId = await window.ethereum.request({
+        method: 'eth_chainId'
+      });
+      
+      return {
+        address: accounts[0],
+        balance,
+        chainId: parseInt(chainId, 16)
+      };
+    } catch (error) {
+      console.error('Wallet connection failed:', error);
+      throw error;
+    }
+  } else {
+    throw new Error('No wallet detected');
+  }
+};

@@ -41,3 +41,11 @@ input[type="checkbox"]:focus {
 input[type="checkbox"]:hover {
   border: 1px solid #A5A6AB80;
 }
+.updated-component {
+  position: relative;
+  overflow: hidden;
+}
+.updated-component {
+  position: relative;
+  overflow: hidden;
+}

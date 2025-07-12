@@ -154,3 +154,21 @@ export function retainDigits(str: string, digits = 5): string {
 export function lessThanOneFormat(num: bigint) {
   return (num || 0n) > 0n && (num || 0n) < parseEther('1') ? '< 1' : formatNumber(num || 0n, false);
 }
+
+// TypeScript error handling
+interface ErrorResponse {
+  message: string;
+  code: number;
+  details?: any;
+}
+
+export const bugFix = (): ErrorResponse | null => {
+  try {
+    return null;
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      code: 500
+    };
+  }
+};

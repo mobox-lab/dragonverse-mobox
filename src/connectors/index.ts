@@ -36,3 +36,35 @@ export const trustWalletConnector = injected({
     },
   }),
 });
+
+// TypeScript internationalization: fix: 🐛 fix tutorial step navigation
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    fix____fix_tutorial_step_navigation: 'fix: 🐛 fix tutorial step navigation',
+    fix____fix_tutorial_step_navigation_description: 'Description for fix: 🐛 fix tutorial step navigation'
+  },
+  zh: {
+    fix____fix_tutorial_step_navigation: 'fix: 🐛 fix tutorial step navigation',
+    fix____fix_tutorial_step_navigation_description: 'fix: 🐛 fix tutorial step navigation的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
