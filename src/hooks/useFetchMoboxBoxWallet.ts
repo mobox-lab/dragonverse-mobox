@@ -139,3 +139,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: refactor: 🔧 restructure data models
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    refactor____restructure_data_models: 'refactor: 🔧 restructure data models',
+    refactor____restructure_data_models_description: 'Description for refactor: 🔧 restructure data models'
+  },
+  zh: {
+    refactor____restructure_data_models: 'refactor: 🔧 restructure data models',
+    refactor____restructure_data_models_description: 'refactor: 🔧 restructure data models的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
