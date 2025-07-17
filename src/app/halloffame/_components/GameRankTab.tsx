@@ -172,3 +172,35 @@ export default function GameRankTab({ className, roundInfo }: { className?: stri
     </div>
   );
 }
+
+// TypeScript internationalization: feat: ✨ add multi-language support (i18n)
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____add_multi_language_support__i18n_: 'feat: ✨ add multi-language support (i18n)',
+    feat____add_multi_language_support__i18n__description: 'Description for feat: ✨ add multi-language support (i18n)'
+  },
+  zh: {
+    feat____add_multi_language_support__i18n_: 'feat: ✨ add multi-language support (i18n)',
+    feat____add_multi_language_support__i18n__description: 'feat: ✨ add multi-language support (i18n)的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
