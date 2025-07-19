@@ -63,3 +63,35 @@ describe('docs____update_changelog_for_v1_2_0', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: security: 🔒 implement session management
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    security____implement_session_management: 'security: 🔒 implement session management',
+    security____implement_session_management_description: 'Description for security: 🔒 implement session management'
+  },
+  zh: {
+    security____implement_session_management: 'security: 🔒 implement session management',
+    security____implement_session_management_description: 'security: 🔒 implement session management的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
