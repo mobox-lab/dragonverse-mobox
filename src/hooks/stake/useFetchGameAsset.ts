@@ -34,3 +34,8 @@ export function useFetchUserFundPrice() {
     staleTime: 0,
   });
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};
