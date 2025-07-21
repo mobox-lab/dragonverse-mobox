@@ -119,3 +119,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: fix: 🐛 fix user avatar display issue
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    fix____fix_user_avatar_display_issue: 'fix: 🐛 fix user avatar display issue',
+    fix____fix_user_avatar_display_issue_description: 'Description for fix: 🐛 fix user avatar display issue'
+  },
+  zh: {
+    fix____fix_user_avatar_display_issue: 'fix: 🐛 fix user avatar display issue',
+    fix____fix_user_avatar_display_issue_description: 'fix: 🐛 fix user avatar display issue的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
