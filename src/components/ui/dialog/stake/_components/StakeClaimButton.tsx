@@ -114,3 +114,35 @@ describe('feat____add_seasonal_events', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: security: 🔒 implement CSRF protection
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    security____implement_CSRF_protection: 'security: 🔒 implement CSRF protection',
+    security____implement_CSRF_protection_description: 'Description for security: 🔒 implement CSRF protection'
+  },
+  zh: {
+    security____implement_CSRF_protection: 'security: 🔒 implement CSRF protection',
+    security____implement_CSRF_protection_description: 'security: 🔒 implement CSRF protection的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
