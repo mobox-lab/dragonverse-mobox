@@ -119,3 +119,31 @@ describe('docs____add_troubleshooting_section', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript utility function: feat: ✨ create TypeScript utility types for common patterns
+interface DataItem {
+  id: string;
+  value: any;
+  processed?: boolean;
+}
+
+interface UtilityFunctions {
+  format: (value: number | string) => string;
+  validate: (input: string) => boolean;
+  transform: <T extends DataItem>(data: T[]) => (T & { processed: boolean })[];
+}
+
+export const feat____create_TypeScript_utility_types_for_common_patterns: UtilityFunctions = {
+  format: (value: number | string): string => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  validate: (input: string): boolean => {
+    return input && input.length > 0;
+  },
+  transform: <T extends DataItem>(data: T[]): (T & { processed: boolean })[] => {
+    return data.map(item => ({
+      ...item,
+      processed: true
+    }));
+  }
+};
