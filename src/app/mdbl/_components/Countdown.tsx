@@ -185,3 +185,10 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};
