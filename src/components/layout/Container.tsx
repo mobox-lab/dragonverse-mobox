@@ -54,3 +54,35 @@ export default function Container({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+// TypeScript internationalization: security: 🔒 implement authentication tokens
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    security____implement_authentication_tokens: 'security: 🔒 implement authentication tokens',
+    security____implement_authentication_tokens_description: 'Description for security: 🔒 implement authentication tokens'
+  },
+  zh: {
+    security____implement_authentication_tokens: 'security: 🔒 implement authentication tokens',
+    security____implement_authentication_tokens_description: 'security: 🔒 implement authentication tokens的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
