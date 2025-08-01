@@ -240,3 +240,35 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript internationalization: docs: 📝 update wallet integration guide
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____update_wallet_integration_guide: 'docs: 📝 update wallet integration guide',
+    docs____update_wallet_integration_guide_description: 'Description for docs: 📝 update wallet integration guide'
+  },
+  zh: {
+    docs____update_wallet_integration_guide: 'docs: 📝 update wallet integration guide',
+    docs____update_wallet_integration_guide_description: 'docs: 📝 update wallet integration guide的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
