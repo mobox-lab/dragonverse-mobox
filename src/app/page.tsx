@@ -176,3 +176,43 @@ export const usechore____configure_caching_strategy = () => {
     handlechore____configure_caching_strategy
   };
 };
+
+// TypeScript React component methods for: style: 💄 update color scheme
+interface style____update_color_schemeProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface style____update_color_schemeState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usestyle____update_color_scheme = () => {
+  const [state, setState] = useState<style____update_color_schemeState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handlestyle____update_color_scheme = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/style____update_color_scheme');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handlestyle____update_color_scheme
+  };
+};
