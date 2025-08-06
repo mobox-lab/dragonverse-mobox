@@ -210,3 +210,31 @@ describe('docs____add_performance_optimization_tips', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript utility function: perf: ⚡ optimize asset compression
+interface DataItem {
+  id: string;
+  value: any;
+  processed?: boolean;
+}
+
+interface UtilityFunctions {
+  format: (value: number | string) => string;
+  validate: (input: string) => boolean;
+  transform: <T extends DataItem>(data: T[]) => (T & { processed: boolean })[];
+}
+
+export const perf____optimize_asset_compression: UtilityFunctions = {
+  format: (value: number | string): string => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  validate: (input: string): boolean => {
+    return input && input.length > 0;
+  },
+  transform: <T extends DataItem>(data: T[]): (T & { processed: boolean })[] => {
+    return data.map(item => ({
+      ...item,
+      processed: true
+    }));
+  }
+};
