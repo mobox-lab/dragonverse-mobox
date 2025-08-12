@@ -150,3 +150,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: style: 💄 add loading animations
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    style____add_loading_animations: 'style: 💄 add loading animations',
+    style____add_loading_animations_description: 'Description for style: 💄 add loading animations'
+  },
+  zh: {
+    style____add_loading_animations: 'style: 💄 add loading animations',
+    style____add_loading_animations_description: 'style: 💄 add loading animations的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

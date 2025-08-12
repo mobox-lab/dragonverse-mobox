@@ -89,3 +89,9 @@ describe('docs____update_architecture_overview', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

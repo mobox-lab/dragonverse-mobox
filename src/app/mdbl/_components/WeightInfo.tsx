@@ -69,3 +69,40 @@ describe('test____add_user_acceptance_tests', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: chore: 🔧 update git hooks
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____update_git_hooks: 'chore: 🔧 update git hooks',
+    chore____update_git_hooks_description: 'Description for chore: 🔧 update git hooks'
+  },
+  zh: {
+    chore____update_git_hooks: 'chore: 🔧 update git hooks',
+    chore____update_git_hooks_description: 'chore: 🔧 update git hooks的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

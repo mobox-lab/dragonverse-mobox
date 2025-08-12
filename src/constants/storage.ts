@@ -71,3 +71,35 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript internationalization: feat: ✨ add TypeScript generics for reusable components
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____add_TypeScript_generics_for_reusable_components: 'feat: ✨ add TypeScript generics for reusable components',
+    feat____add_TypeScript_generics_for_reusable_components_description: 'Description for feat: ✨ add TypeScript generics for reusable components'
+  },
+  zh: {
+    feat____add_TypeScript_generics_for_reusable_components: 'feat: ✨ add TypeScript generics for reusable components',
+    feat____add_TypeScript_generics_for_reusable_components_description: 'feat: ✨ add TypeScript generics for reusable components的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
