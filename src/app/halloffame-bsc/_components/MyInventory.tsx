@@ -353,3 +353,35 @@ export const chore____add_security_headers: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: security: 🔒 implement secure headers
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    security____implement_secure_headers: 'security: 🔒 implement secure headers',
+    security____implement_secure_headers_description: 'Description for security: 🔒 implement secure headers'
+  },
+  zh: {
+    security____implement_secure_headers: 'security: 🔒 implement secure headers',
+    security____implement_secure_headers_description: 'security: 🔒 implement secure headers的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
